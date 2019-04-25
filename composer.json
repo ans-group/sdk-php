@@ -1,0 +1,12 @@
+{
+  "name": "ukfast/client",
+  "description": "PHP Client for UKFast's API",
+  "license": "MIT",
+  "type": "library",
+  "support": {
+    "email": "support@ukfast.co.uk"
+  },
+  "require": {
+    "php": ">=5.6"
+  }
+}
