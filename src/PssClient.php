@@ -8,6 +8,7 @@ use UKFast\Exception\NotFoundException;
 use UKFast\Pss\Author;
 use UKFast\Pss\Reply;
 use UKFast\Pss\Request;
+use DateTime;
 
 class PssClient extends Client
 {
@@ -24,9 +25,9 @@ class PssClient extends Client
     public function getRequests($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest('requests', $page, $perPage, $filters);
-        $page->setItems($page->map(function ($item) {
+        $page->serializeWith(function ($item) {
             return $this->serializeRequest($item);
-        }));
+        });
 
         return $page;
     }
@@ -56,9 +57,9 @@ class PssClient extends Client
     public function getConversation($requestId, $page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest("requests/$requestId/conversation", $page, $perPage, $filters);
-        $page->setItems($page->map(function ($item) {
+        $page->serializeWith(function ($item) {
             return $this->serializeReply($item);
-        }));
+        });
 
         return $page;
     }
@@ -96,7 +97,7 @@ class PssClient extends Client
         
         $reply->author = new Author($item->author);
         $reply->description = $item->description;
-        $reply->createdAt = $item->created_at;
+        $reply->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
         
         return $reply;
     }

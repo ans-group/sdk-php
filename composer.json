@@ -1,14 +1,8 @@
 {
-    "name": "ukfast/ukfast-sdk-php",
+    "name": "ukfast/client",
     "description": "UKFast SDK for PHP",
     "type": "library",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "George Kelly",
-            "email": "george.kelly@ukfast.co.uk"
-        }
-    ],
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.5",
@@ -17,7 +11,11 @@
     },
     "autoload": {
         "psr-4": {
-            "UKFast\\": "src/",
+            "UKFast\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Tests\\": "tests/"
         }
     },

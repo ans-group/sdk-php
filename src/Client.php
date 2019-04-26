@@ -4,6 +4,7 @@ namespace UKFast;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Psr7\Request;
 use UKFast\Exception\ApiException;
 use UKFast\Exception\InvalidJsonException;
 use UKFast\Exception\NotFoundException;
@@ -96,12 +97,13 @@ class Client
      */
     public function paginatedRequest($endpoint, $page, $perPage, $filters = [])
     {
-        $url = new PaginationUrl($endpoint, $page, $perPage, $filters);
-        $response = $this->request('GET', $url->toString());
+        $url = (new PaginationUrl($endpoint, $page, $perPage, $filters))->toString();
+        $response = $this->request('GET', $url);
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Page($body->data, $body->meta);
+        return (new Page($body->data, $body->meta, new Request("GET", $url)))
+                  ->setClient($this);
     }
 
     /**
