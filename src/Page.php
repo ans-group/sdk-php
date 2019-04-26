@@ -58,7 +58,7 @@ class Page
     /**
      * Sets a mapping function to serialize each
      * item in a new page with
-     * 
+     *
      * @param \Closure $callback
      * @return \UKFast\Page
      */
@@ -72,7 +72,7 @@ class Page
     /**
      * Applies a callback to each item in the page
      * and returns the resulting array
-     * 
+     *
      * @param \Closure $callback
      * @return array
      */
@@ -161,7 +161,7 @@ class Page
 
     /**
      * Gets a page by number
-     * 
+     *
      * @param int $number
      * @return \UKFast\Page
      */
@@ -215,7 +215,7 @@ class Page
     /**
      * Creates a new page from a response and the URI used to create
      * the page
-     * 
+     *
      * @param Response $response
      * @param string|\Psr\Http\Message\UriInterface $uri
      * @return \UKFast\Page
@@ -240,7 +240,7 @@ class Page
 
     /**
      * Retrieves a key's value from pagination metadata
-     * 
+     *
      * @param string $key
      * @param $default
      * @return mixed
@@ -253,7 +253,7 @@ class Page
 
     /**
      * Gets a key's value from link metadata
-     * 
+     *
      * @param string $key
      * @return string|null
      */
