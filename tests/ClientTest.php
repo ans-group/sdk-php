@@ -44,6 +44,55 @@ class ClientTest extends TestCase
     /**
      * @test
      */
+    public function sends_user_agent_header()
+    {
+        $mock = new MockHandler([
+            new Response(200, []),
+        ]);
+        $container = [];
+        $history = Middleware::history($container);
+        $handler = HandlerStack::create($mock);
+        $handler->push($history);
+        $guzzle = new Guzzle(['handler' => $handler]);
+
+        $client = new Client($guzzle);
+        $client->request("GET", "/");
+        
+        $this->assertEquals(1, count($container));
+        $headers = $container[0]['request']->getHeaders();
+
+        $this->assertEquals(1, count($headers['User-Agent']));
+        $this->assertEquals('UKFast/1.0', $headers['User-Agent'][0]);
+    }
+
+    /**
+     * @test
+     */
+    public function sends_user_agent_header_with_auth()
+    {
+        $mock = new MockHandler([
+            new Response(200, []),
+        ]);
+        $container = [];
+        $history = Middleware::history($container);
+        $handler = HandlerStack::create($mock);
+        $handler->push($history);
+        $guzzle = new Guzzle(['handler' => $handler]);
+
+        $client = new Client($guzzle);
+        $client->auth('token');
+        $client->request("GET", "/");
+        
+        $this->assertEquals(1, count($container));
+        $headers = $container[0]['request']->getHeaders();
+
+        $this->assertEquals(1, count($headers['User-Agent']));
+        $this->assertEquals('UKFast/1.0', $headers['User-Agent'][0]);
+    }
+
+    /**
+     * @test
+     */
     public function merges_authentication_header_with_provided_headers()
     {
         $mock = new MockHandler([
