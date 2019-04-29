@@ -35,6 +35,9 @@ class Client
 
         return $this->httpClient = new HttpClient([
             'base_uri' => 'https://api.ukfast.io/' . $this->basePath,
+            'headers' => [
+                'User-Agent' => 'UKFast/1.0'
+            ]
         ]);
     }
 
@@ -65,21 +68,20 @@ class Client
      */
     public function request($method, $endpoint, $body = null, $headers = [])
     {
-        $authHeaders = [];
+        $defaultHeaders = ['User-Agent' => 'UKFast/1.0'];
         if ($this->token) {
-            $authHeaders['Authorization'] = $this->token;
+            $defaultHeaders['Authorization'] = $this->token;
+        }
+        
+        $params = [
+            'body' => $body,
+            'headers' => array_merge($headers, $defaultHeaders),
+        ];
+        if (in_array($method, ['POST', 'PATCH', 'DELETE'])) {
+            unset($params['body']);
         }
 
         try {
-            $params = [
-                'body' => $body,
-                'headers' => array_merge($headers, $authHeaders),
-            ];
-            
-            if (in_array($method, ['POST', 'PATCH', 'DELETE'])) {
-                unset($params['body']);
-            }
-
             $response = $this->httpClient->request($method, $endpoint, $params);
         } catch (ClientException $e) {
             if ($e->getResponse()->getStatusCode() == 404) {
