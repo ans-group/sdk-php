@@ -11,6 +11,8 @@ use UKFast\Exception\NotFoundException;
 
 class Client
 {
+    const VERSION = 1;
+
     /**
      * @var string
      */
@@ -36,7 +38,7 @@ class Client
         return $this->httpClient = new HttpClient([
             'base_uri' => 'https://api.ukfast.io/' . $this->basePath,
             'headers' => [
-                'User-Agent' => 'UKFast/1.0'
+                'User-Agent' => $this->getUserAgent()
             ]
         ]);
     }
@@ -68,7 +70,7 @@ class Client
      */
     public function request($method, $endpoint, $body = null, $headers = [])
     {
-        $defaultHeaders = ['User-Agent' => 'UKFast/1.0'];
+        $defaultHeaders = ['User-Agent' => $this->getUserAgent()];
         if ($this->token) {
             $defaultHeaders['Authorization'] = $this->token;
         }
@@ -213,5 +215,17 @@ class Client
         }
 
         return $decoded;
+    }
+
+    /**
+     * Return SDK User-Agent
+     * @return string
+     */
+    protected function getUserAgent()
+    {
+        return implode(' ', [
+            'ukfast-sdk-php/' . static::VERSION . '',
+            'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION
+        ]);
     }
 }

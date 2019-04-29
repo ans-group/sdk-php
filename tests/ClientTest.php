@@ -62,7 +62,12 @@ class ClientTest extends TestCase
         $headers = $container[0]['request']->getHeaders();
 
         $this->assertEquals(1, count($headers['User-Agent']));
-        $this->assertEquals('UKFast/1.0', $headers['User-Agent'][0]);
+
+        $expected = implode(' ', [
+            'ukfast-sdk-php/' . Client::VERSION . '',
+            'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION
+        ]);
+        $this->assertEquals($expected, $headers['User-Agent'][0]);
     }
 
     /**
@@ -87,7 +92,12 @@ class ClientTest extends TestCase
         $headers = $container[0]['request']->getHeaders();
 
         $this->assertEquals(1, count($headers['User-Agent']));
-        $this->assertEquals('UKFast/1.0', $headers['User-Agent'][0]);
+
+        $expected = implode(' ', [
+            'ukfast-sdk-php/' . Client::VERSION . '',
+            'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION
+        ]);
+        $this->assertEquals($expected, $headers['User-Agent'][0]);
     }
 
     /**
