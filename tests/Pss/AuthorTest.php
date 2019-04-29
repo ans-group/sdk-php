@@ -29,7 +29,9 @@ class AuthorTest extends TestCase
     public function can_determine_if_support()
     {
         $author = new Author((object) [
+            'id' => 1,
             'type' => 'Support',
+            'name' => 'Test User',
         ]);
 
         $this->assertTrue($author->isSupport());
@@ -41,7 +43,9 @@ class AuthorTest extends TestCase
     public function can_determine_if_client()
     {
         $author = new Author((object) [
+            'id' => 1,
             'type' => 'Client',
+            'name' => 'Test User',
         ]);
 
         $this->assertTrue($author->isClient());
@@ -53,7 +57,9 @@ class AuthorTest extends TestCase
     public function can_determine_if_automated()
     {
         $author = new Author((object) [
+            'id' => 1,
             'type' => 'Automated',
+            'name' => 'Test User',
         ]);
 
         $this->assertTrue($author->isAutomated());

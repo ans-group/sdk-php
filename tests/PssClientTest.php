@@ -21,6 +21,18 @@ class PssClientTest extends TestCase
                 'data' => [[
                     'id' => 1,
                     'subject' => 'First',
+                    'author' => [
+                        'id' => 10,
+                        'name' => 'Test Man',
+                        'type' => 'Client'
+                    ],
+                    'type' => 'Client',
+                    'secure' => true,
+                    'created_at' => '2000-01-01T00:00:00+00',
+                    'priority' => 'Normal',
+                    'archived' => true,
+                    'status' => 'Submitted',
+                    'request_sms' => false,
                 ]],
                 'meta' => [
                     'pagination' => [
@@ -109,6 +121,18 @@ class PssClientTest extends TestCase
                 'data' => [
                     'id' => 1,
                     'subject' => 'First',
+                    'author' => [
+                        'id' => 10,
+                        'name' => 'Test Man',
+                        'type' => 'Client'
+                    ],
+                    'type' => 'Client',
+                    'secure' => true,
+                    'created_at' => '2000-01-01T00:00:00+00',
+                    'priority' => 'Normal',
+                    'archived' => true,
+                    'status' => 'Submitted',
+                    'request_sms' => false,
                 ],
             ])),
         ]);
