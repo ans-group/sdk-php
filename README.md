@@ -56,7 +56,7 @@ please see [CONTRIBUTING](CONTRIBUTING.md) for details on how to get involved.
 License
 -------
 
-This SDK is released under the [MIT License][license]
+This SDK is released under the [MIT License](LICENSE)
 
 
 [1]: https://www.ukfast.co.uk/myukfast-signup.html??utm_source=github&utm_medium=link&utm_campaign=apio
