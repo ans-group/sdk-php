@@ -71,10 +71,16 @@ class Client
         }
 
         try {
-            $response = $this->httpClient->request($method, $endpoint, [
+            $params = [
                 'body' => $body,
                 'headers' => array_merge($headers, $authHeaders),
-            ]);
+            ];
+            
+            if (in_array($method, ['POST', 'PATCH', 'DELETE'])) {
+                unset($params['body']);
+            }
+
+            $response = $this->httpClient->request($method, $endpoint, $params);
         } catch (ClientException $e) {
             if ($e->getResponse()->getStatusCode() == 404) {
                 throw new NotFoundException($e->getResponse());
@@ -84,6 +90,88 @@ class Client
         }
 
         return $response;
+    }
+
+    /**
+     * Convenience method for GET requests
+     *
+     * @param string $method
+     * @param string $endpoint
+     * @param string $body
+     * @param array $headers
+     * @throws \UKFast\Exception\ApiException
+     * @throws \UKFast\Exception\NotFoundException
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function get($endpoint, $body = null, $headers = [])
+    {
+        return $this->request('GET', $endpoint, $body, $headers);
+    }
+
+    /**
+     *
+     * Convenience method for POST requests
+     *
+     * @param string $method
+     * @param string $endpoint
+     * @param string $body
+     * @param array $headers
+     * @throws \UKFast\Exception\ApiException
+     * @throws \UKFast\Exception\NotFoundException
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function post($endpoint, $body = null, $headers = [])
+    {
+        return $this->request('POST', $endpoint, $body, $headers);
+    }
+
+    /**
+     * Convenience method for PUT requests
+     *
+     * @param string $method
+     * @param string $endpoint
+     * @param string $body
+     * @param array $headers
+     * @throws \UKFast\Exception\ApiException
+     * @throws \UKFast\Exception\NotFoundException
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function put($endpoint, $body = null, $headers = [])
+    {
+        return $this->request('PUT', $endpoint, $body, $headers);
+    }
+
+    /**
+     * Convenience method for PATCH requests
+     *
+     * @param string $method
+     * @param string $endpoint
+     * @param string $body
+     * @param array $headers
+     * @throws \UKFast\Exception\ApiException
+     * @throws \UKFast\Exception\NotFoundException
+     * @return \Psr\Http\Message\ResponseInterface
+     *
+     */
+    public function patch($endpoint, $body = null, $headers = [])
+    {
+        return $this->request('PATCH', $body = null, $headers = []);
+    }
+
+    /**
+     * Convenience method for DELETE requests
+     *
+     * @param string $method
+     * @param string $endpoint
+     * @param string $body
+     * @param array $headers
+     * @throws \UKFast\Exception\ApiException
+     * @throws \UKFast\Exception\NotFoundException
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function delete($endpoint, $body = null, $headers = [])
+    {
+        return $this->request('DELETE', $body = null, $headers);
     }
 
     /**
