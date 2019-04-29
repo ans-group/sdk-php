@@ -6,10 +6,10 @@ use GuzzleHttp\Exception\ClientException;
 use UKFast\Exception\ApiException;
 use UKFast\Exception\NotFoundException;
 use UKFast\Page;
-use UKFast\Client;
+use UKFast\Client as BaseClient;
 use DateTime;
 
-class PssClient extends Client
+class Client extends BaseClient
 {
     protected $basePath = 'pss/v1/';
 

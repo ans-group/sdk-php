@@ -7,7 +7,6 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\Pss\PssClient;
 
 class PssClientTest extends TestCase
 {
@@ -53,7 +52,7 @@ class PssClientTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new PssClient($guzzle);
+        $client = new \UKFast\Pss\Client($guzzle);
         $page = $client->getRequests();
 
         $this->assertTrue($page instanceof \UKFast\Page);
@@ -99,7 +98,7 @@ class PssClientTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new PssClient($guzzle);
+        $client = new \UKFast\Pss\Client($guzzle);
         $page = $client->getConversation(1);
 
         $this->assertTrue($page instanceof \UKFast\Page);
@@ -139,7 +138,7 @@ class PssClientTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new PssClient($guzzle);
+        $client = new \UKFast\Pss\Client($guzzle);
         $request = $client->getRequest(1);
 
         $this->assertTrue($request instanceof \UKFast\Pss\Request);
