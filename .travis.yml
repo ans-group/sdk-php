@@ -1,0 +1,21 @@
+language: php
+php:
+  - '5.6'
+  - '7.1'
+  - '7.2'
+
+before-install:
+ - composer self-update
+ 
+install:
+ - composer install
+ 
+script:
+ - ./vendor/bin/phpunit
+ - ./vendor/bin/phpcs
+
+fast_finish: true
+ 
+notifications:
+ on_success: never
+ on_failure: always
