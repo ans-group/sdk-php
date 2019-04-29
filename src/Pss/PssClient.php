@@ -1,13 +1,12 @@
 <?php
 
-namespace UKFast;
+namespace UKFast\Pss;
 
 use GuzzleHttp\Exception\ClientException;
 use UKFast\Exception\ApiException;
 use UKFast\Exception\NotFoundException;
-use UKFast\Pss\Author;
-use UKFast\Pss\Reply;
-use UKFast\Pss\Request;
+use UKFast\Page;
+use UKFast\Client;
 use DateTime;
 
 class PssClient extends Client

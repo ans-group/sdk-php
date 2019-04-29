@@ -33,7 +33,7 @@ Each API has its own client class that extends from a base client class. All cli
 ```php
 <?php
 
-$client = (new \UKFast\PssClient)->auth('API KEY');
+$client = (new \UKFast\Pss\PssClient)->auth('API KEY');
 
 $page = $client->getRequests();
 
