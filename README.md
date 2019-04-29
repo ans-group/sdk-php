@@ -1,7 +1,10 @@
 UKFast API PHP client
 =====================
+[![Build Status](https://travis-ci.org/ukfast/sdk-php.svg?branch=master)](https://travis-ci.org/ukfast/sdk-php)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-# Currently in beta
+
+## Currently in beta
 
 SDK is still in development but will be fully released shortly. It's unlikely that the interface will change significantly, but it's possible that some breaking changes will be made.
 
