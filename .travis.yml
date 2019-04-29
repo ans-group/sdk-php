@@ -4,6 +4,10 @@ php:
   - '7.1'
   - '7.2'
 
+cache:
+ directories:
+   - $HOME/.composer/cache/files
+
 before-install:
  - composer self-update
  
