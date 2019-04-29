@@ -157,4 +157,109 @@ class ClientTest extends TestCase
 
         $this->expectException(ApiException::class);
     }
+
+    /**
+     * @test
+     */
+    public function get_sends_get_requests()
+    {
+        $mock = new MockHandler([
+            new Response(200, []),
+        ]);
+        $container = [];
+        $history = Middleware::history($container);
+        $handler = HandlerStack::create($mock);
+        $handler->push($history);
+        $guzzle = new Guzzle(['handler' => $handler]);
+        $client = new Client($guzzle);
+
+        $client->get("/");
+        
+        $this->assertEquals(1, count($container));
+        $this->assertEquals('GET', $container[0]['request']->getMethod());
+    }
+
+    /**
+     * @test
+     */
+    public function post_sends_post_requests()
+    {
+        $mock = new MockHandler([
+            new Response(200, []),
+        ]);
+        $container = [];
+        $history = Middleware::history($container);
+        $handler = HandlerStack::create($mock);
+        $handler->push($history);
+        $guzzle = new Guzzle(['handler' => $handler]);
+        $client = new Client($guzzle);
+        
+        $client->post("/");
+        
+        $this->assertEquals(1, count($container));
+        $this->assertEquals('POST', $container[0]['request']->getMethod());
+    }
+
+    /**
+     * @test
+     */
+    public function patch_sends_patch_requests()
+    {
+        $mock = new MockHandler([
+            new Response(200, []),
+        ]);
+        $container = [];
+        $history = Middleware::history($container);
+        $handler = HandlerStack::create($mock);
+        $handler->push($history);
+        $guzzle = new Guzzle(['handler' => $handler]);
+        $client = new Client($guzzle);
+        
+        $client->patch("/");
+        
+        $this->assertEquals(1, count($container));
+        $this->assertEquals('PATCH', $container[0]['request']->getMethod());
+    }
+
+    /**
+     * @test
+     */
+    public function put_sends_put_requests()
+    {
+        $mock = new MockHandler([
+            new Response(200, []),
+        ]);
+        $container = [];
+        $history = Middleware::history($container);
+        $handler = HandlerStack::create($mock);
+        $handler->push($history);
+        $guzzle = new Guzzle(['handler' => $handler]);
+        $client = new Client($guzzle);
+        
+        $client->put("/");
+        
+        $this->assertEquals(1, count($container));
+        $this->assertEquals('PUT', $container[0]['request']->getMethod());
+    }
+
+    /**
+     * @test
+     */
+    public function delete_sends_delete_requests()
+    {
+        $mock = new MockHandler([
+            new Response(200, []),
+        ]);
+        $container = [];
+        $history = Middleware::history($container);
+        $handler = HandlerStack::create($mock);
+        $handler->push($history);
+        $guzzle = new Guzzle(['handler' => $handler]);
+        $client = new Client($guzzle);
+        
+        $client->delete("/");
+        
+        $this->assertEquals(1, count($container));
+        $this->assertEquals('DELETE', $container[0]['request']->getMethod());
+    }
 }
