@@ -11,8 +11,8 @@ install:
  - composer install
  
 script:
- - phpunit
- - phpcs
+ - ./vendor/bin/phpunit
+ - ./vendor/bin/phpcs
 
 fast_finish: true
  
