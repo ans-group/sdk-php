@@ -177,25 +177,33 @@ class Page
     }
 
     /**
-     * @return \UKFast\Page
+     * @return \UKFast\Page|false
      */
     public function getNextPage()
     {
+        if (!$this->nextPageUrl()) {
+            return false;
+        }
+
         $response = $this->client->request("GET", $this->nextPageUrl());
         return $this->constructNewPage($response, $this->nextPageUrl());
     }
 
     /**
-     * @param \UKFast\Page
+     * @return \UKFast\Page|false
      */
     public function getPreviousPage()
     {
+        if (!$this->previousPageUrl()) {
+            return false;
+        }
+
         $response = $this->client->request("GET", $this->previousPageUrl());
         return $this->constructNewPage($response, $this->previousPageUrl());
     }
 
     /**
-     * @param \UKFast\Page
+     * @return \UKFast\Page
      */
     public function getFirstPage()
     {
@@ -204,7 +212,7 @@ class Page
     }
 
     /**
-     * @param \UKFast\Page
+     * @return \UKFast\Page
      */
     public function getLastPage()
     {

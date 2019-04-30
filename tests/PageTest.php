@@ -115,4 +115,54 @@ class PageTest extends TestCase
         $item = $nextPage->getItems()[0];
         $this->assertEquals('2 Test Two', $item);
     }
+
+    /**
+     * @test
+     */
+    public function next_page_returns_false_if_no_next_page()
+    {
+        $page = new Page([ (object) [
+            'id' => 1,
+        ]], (object) [
+            'pagination' => (object) [
+                'total' => 1,
+                'count' => 1,
+                'per_page' => 1,
+                'total_pages' => 1,
+                'links' => (object) [
+                    'next' => null,
+                    'previous' => null,
+                    'first' => 'http://example.com/first',
+                    'last' => 'http://example.com/last'
+                ]
+            ]
+        ], new Request('GET', 'http://example.com/endpoint?per_page=1'));
+
+        $this->assertFalse($page->getNextPage());
+    }
+
+    /**
+     * @test
+     */
+    public function previous_page_returns_false_if_no_next_page()
+    {
+        $page = new Page([ (object) [
+            'id' => 1,
+        ]], (object) [
+            'pagination' => (object) [
+                'total' => 1,
+                'count' => 1,
+                'per_page' => 1,
+                'total_pages' => 1,
+                'links' => (object) [
+                    'next' => null,
+                    'previous' => null,
+                    'first' => 'http://example.com/first',
+                    'last' => 'http://example.com/last'
+                ]
+            ]
+        ], new Request('GET', 'http://example.com/endpoint?per_page=1'));
+
+        $this->assertFalse($page->getPreviousPage());
+    }
 }
