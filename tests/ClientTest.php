@@ -53,7 +53,12 @@ class ClientTest extends TestCase
         $history = Middleware::history($container);
         $handler = HandlerStack::create($mock);
         $handler->push($history);
-        $guzzle = new Guzzle(['handler' => $handler]);
+        $guzzle = new Guzzle([
+            'handler' => $handler,
+            'headers' => [
+                'User-Agent' => 'Test/1.0'
+            ]
+        ]);
 
         $client = new Client($guzzle);
         $client->request("GET", "/");
@@ -63,11 +68,7 @@ class ClientTest extends TestCase
 
         $this->assertEquals(1, count($headers['User-Agent']));
 
-        $expected = implode(' ', [
-            'ukfast-sdk-php/' . Client::VERSION . '',
-            'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION
-        ]);
-        $this->assertEquals($expected, $headers['User-Agent'][0]);
+        $this->assertEquals('Test/1.0', $headers['User-Agent'][0]);
     }
 
     /**
@@ -82,7 +83,12 @@ class ClientTest extends TestCase
         $history = Middleware::history($container);
         $handler = HandlerStack::create($mock);
         $handler->push($history);
-        $guzzle = new Guzzle(['handler' => $handler]);
+        $guzzle = new Guzzle([
+            'handler' => $handler,
+            'headers' => [
+                'User-Agent' => 'Test/1.0'
+            ]
+        ]);
 
         $client = new Client($guzzle);
         $client->auth('token');
@@ -93,11 +99,7 @@ class ClientTest extends TestCase
 
         $this->assertEquals(1, count($headers['User-Agent']));
 
-        $expected = implode(' ', [
-            'ukfast-sdk-php/' . Client::VERSION . '',
-            'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION
-        ]);
-        $this->assertEquals($expected, $headers['User-Agent'][0]);
+        $this->assertEquals('Test/1.0', $headers['User-Agent'][0]);
     }
 
     /**
