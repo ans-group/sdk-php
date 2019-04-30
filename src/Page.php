@@ -177,7 +177,7 @@ class Page
     }
 
     /**
-     * @return \UKFast\Page
+     * @return \UKFast\Page|false
      */
     public function getNextPage()
     {
@@ -190,7 +190,7 @@ class Page
     }
 
     /**
-     * @param \UKFast\Page
+     * @return \UKFast\Page|false
      */
     public function getPreviousPage()
     {
@@ -203,7 +203,7 @@ class Page
     }
 
     /**
-     * @param \UKFast\Page
+     * @return \UKFast\Page
      */
     public function getFirstPage()
     {
@@ -212,7 +212,7 @@ class Page
     }
 
     /**
-     * @param \UKFast\Page
+     * @return \UKFast\Page
      */
     public function getLastPage()
     {
