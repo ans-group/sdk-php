@@ -253,10 +253,11 @@ class ClientTest extends TestCase
         $guzzle = new Guzzle(['handler' => $handler]);
         $client = new Client($guzzle);
         
-        $client->post("/");
+        $client->post("/", json_encode(['name' => 'bing']));
         
         $this->assertEquals(1, count($container));
         $this->assertEquals('POST', $container[0]['request']->getMethod());
+        $this->assertEquals('{"name":"bing"}', $container[0]['request']->getBody()->getContents());
     }
 
     /**
