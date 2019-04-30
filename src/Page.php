@@ -181,6 +181,10 @@ class Page
      */
     public function getNextPage()
     {
+        if (!$this->nextPageUrl()) {
+            return false;
+        }
+
         $response = $this->client->request("GET", $this->nextPageUrl());
         return $this->constructNewPage($response, $this->nextPageUrl());
     }
@@ -190,6 +194,10 @@ class Page
      */
     public function getPreviousPage()
     {
+        if (!$this->previousPageUrl()) {
+            return false;
+        }
+
         $response = $this->client->request("GET", $this->previousPageUrl());
         return $this->constructNewPage($response, $this->previousPageUrl());
     }
