@@ -70,7 +70,7 @@ class Client
      */
     public function request($method, $endpoint, $body = null, $headers = [])
     {
-        $defaultHeaders = ['User-Agent' => $this->getUserAgent()];
+        $defaultHeaders = $this->httpClient->getConfig()['headers'];
         if ($this->token) {
             $defaultHeaders['Authorization'] = $this->token;
         }
