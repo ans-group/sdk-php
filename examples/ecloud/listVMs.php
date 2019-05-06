@@ -11,7 +11,9 @@ $ecloud = (new \UKFast\eCloud\Client)->auth(
 );
 
 $page = $ecloud->getVirtualMachines();
-
 foreach ($page->getItems() as $virtualMachine) {
     echo "# {$virtualMachine->id} - {$virtualMachine->hostname}\n";
 }
+
+//$id = $argv[1];
+//print_r($ecloud->getVirtualMachine($id));
