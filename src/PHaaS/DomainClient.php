@@ -2,10 +2,12 @@
 
 namespace UKFast\PHaaS;
 
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use UKFast\Exception\ValidationException;
 use UKFast\Page;
 use UKFast\Client as BaseClient;
+use UKFast\PHaaS\Entities\Domain;
 
 class DomainClient extends BaseClient
 {
@@ -32,6 +34,7 @@ class DomainClient extends BaseClient
      * @param string $domain
      * @param string $verificationEmail
      * @return Domain
+     * @throws Exception
      */
     public function addDomain($domain, $verificationEmail)
     {
@@ -48,11 +51,12 @@ class DomainClient extends BaseClient
             "verification_email" => $verificationEmail
         ]);
 
+
         $response = $this->request("POST", 'v1/domains', $data, ['Content-Type' => 'application/json']);
 
         $domain = $this->decodeJson($response->getBody()->getContents());
 
-        return $this->serializeDomain($domain);
+        return $this->serializeDomain($domain->data);
     }
 
     /**
@@ -89,17 +93,6 @@ class DomainClient extends BaseClient
      */
     protected function serializeDomain($item)
     {
-        $domain = new Domain;
-
-        $domain->id = $item->id;
-        $domain->domain = $item->domain;
-        $domain->verificationEmail = $item->verification_email;
-        $domain->verificationSent = $item->verification_sent;
-        $domain->verificationDate = $item->verification_date;
-        $domain->status = $item->status;
-        $domain->createdAt = $item->created_at;
-        $domain->updatedAt = $item->updated_at;
-
-        return $domain;
+        return new Domain($item);
     }
 }
