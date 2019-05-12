@@ -34,27 +34,8 @@ class SiteClient extends Client
      */
     public function getById($id)
     {
-        $response = $this->request("GET", "v1/sites/$id");
+        $response = $this->get("v1/sites/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Site($body->data);
-    }
-
-    /**
-     * Gets a paginated response of a Solutions Sites
-     *
-     * @param $id
-     * @param int $page
-     * @param int $perPage
-     * @param array $filters
-     * @return Page
-     */
-    public function getBySolutionId($id, $page = 1, $perPage = 15, $filters = [])
-    {
-        $page = $this->paginatedRequest("v1/solutions/$id/sites", $page, $perPage, $filters);
-        $page->serializeWith(function ($item) {
-            return new Site($item);
-        });
-
-        return $page;
     }
 }

@@ -34,7 +34,7 @@ class FirewallClient extends Client
      */
     public function getById($id)
     {
-        $response = $this->request("GET", "v1/firewalls/$id");
+        $response = $this->get("v1/firewalls/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Firewall($body->data);
     }
@@ -47,7 +47,7 @@ class FirewallClient extends Client
      */
     public function getConfigById($id)
     {
-        $response = $this->request("GET", "v1/firewalls/$id/config");
+        $response = $this->get("v1/firewalls/$id/config");
         $body = $this->decodeJson($response->getBody()->getContents());
         return base64_decode($body->data->config);
     }
