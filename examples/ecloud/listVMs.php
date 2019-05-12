@@ -10,10 +10,10 @@ $ecloud = (new \UKFast\eCloud\Client)->auth(
     getenv('UKFAST_API_KEY')
 );
 
-$page = $ecloud->getVirtualMachines();
+$page = $ecloud->virtualMachines()->getAll();
+
 foreach ($page->getItems() as $virtualMachine) {
     echo "# {$virtualMachine->id} - {$virtualMachine->hostname}\n";
 }
 
-//$id = $argv[1];
-//print_r($ecloud->getVirtualMachine($id));
+// # 12345 - 192.0.2.1.srvlist.ukfast.net
