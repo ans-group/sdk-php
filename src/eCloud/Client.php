@@ -60,6 +60,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function templates()
+    {
+        return (new TemplateClient())->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function virtualMachines()
     {
         return (new VirtualMachineClient())->auth($this->token);
