@@ -4,7 +4,15 @@ namespace UKFast\eCloud;
 
 use UKFast\Client as BaseClient;
 use UKFast\Page;
-use stdClass;
+
+use UKFast\eCloud\Entities\Datastore;
+use UKFast\eCloud\Entities\Firewall;
+use UKFast\eCloud\Entities\Host;
+use UKFast\eCloud\Entities\Pod;
+use UKFast\eCloud\Entities\Site;
+use UKFast\eCloud\Entities\Solution;
+use UKFast\eCloud\Entities\Template;
+use UKFast\eCloud\Entities\VirtualMachine;
 
 class Client extends BaseClient
 {
@@ -23,7 +31,7 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest('v1/vms', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeVirtualMachine($item);
+            return new VirtualMachine($item);
         });
 
         return $page;
@@ -39,81 +47,8 @@ class Client extends BaseClient
     {
         $response = $this->request("GET", "v1/vms/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeVirtualMachine($body->data);
+        return new VirtualMachine($body->data);
     }
-
-    /**
-     * Converts a response stdClass into a VirtualMachine object
-     *
-     * @param stdClass
-     * @return VirtualMachine
-     */
-    protected function serializeVirtualMachine($item)
-    {
-        $virtualMachine = new VirtualMachine;
-
-        $virtualMachine->id = $item->id;
-        $virtualMachine->name = $item->name;
-
-        $virtualMachine->computerName = $item->computername;
-        $virtualMachine->hostname = $item->hostname;
-
-        $virtualMachine->cpu = $item->cpu;
-        $virtualMachine->ram = $item->ram;
-        $virtualMachine->hdd = $item->hdd;
-
-        if (isset($item->hdd_disks)) {
-            $virtualMachine->disks = array_map(function ($item) {
-                return $this->serializeHdd($item);
-            }, $item->hdd_disks);
-        }
-
-        $virtualMachine->ip_addresses = (object) [
-            'internal' => $item->ip_internal,
-            'external' => $item->ip_external,
-        ];
-
-        $virtualMachine->template = $item->template;
-        $virtualMachine->platform = $item->platform;
-
-        $virtualMachine->backup = $item->backup;
-        $virtualMachine->support = $item->support;
-
-        $virtualMachine->environment = $item->environment;
-        $virtualMachine->solutionId = $item->solution_id;
-
-        $virtualMachine->status = $item->status;
-
-        if (isset($item->power_status)) {
-            $virtualMachine->power = $item->power_status;
-        }
-
-        if (isset($item->power_status)) {
-            $virtualMachine->tools = $item->tools_status;
-        }
-
-        return $virtualMachine;
-    }
-
-    /**
-     * Converts a response stdClass into a Hdd object
-     *
-     * @param stdClass
-     * @return Hdd
-     */
-    protected function serializeHdd($item)
-    {
-        $hdd = new Hdd;
-        $hdd->name = $item->name;
-        $hdd->capacity = $item->capacity;
-
-        if (isset($item->uuid)) {
-            $hdd->uuid = $item->uuid;
-        }
-
-        return $hdd;
-    }
-
 
     /**
      * Gets a paginated response of all Solutions
@@ -127,7 +62,7 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest('v1/solutions', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeSolution($item);
+            return new Solution($item);
         });
 
         return $page;
@@ -143,26 +78,7 @@ class Client extends BaseClient
     {
         $response = $this->request("GET", "v1/solutions/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeSolution($body->data);
-    }
-
-    /**
-     * Converts a response stdClass into a Solution object
-     *
-     * @param stdClass
-     * @return Solution
-     */
-    protected function serializeSolution($item)
-    {
-        $solution = new Solution;
-
-        $solution->id = $item->id;
-        $solution->name = $item->name;
-
-        $solution->environment = $item->environment;
-        $solution->podId = $item->pod_id;
-
-        return $solution;
+        return new Solution($body->data);
     }
 
     /**
@@ -178,7 +94,7 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/solutions/$id/vms", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeVirtualMachine($item);
+            return new VirtualMachine($item);
         });
 
         return $page;
@@ -197,7 +113,7 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/solutions/$id/templates", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeTemplate($item);
+            return new Template($item);
         });
 
         return $page;
@@ -214,32 +130,7 @@ class Client extends BaseClient
     {
         $response = $this->request("GET", "v1/solutions/$id/templates/$name");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeTemplate($body->data);
-    }
-
-    /**
-     * Converts a response stdClass into a Template object
-     *
-     * @param stdClass
-     * @return Template
-     */
-    protected function serializeTemplate($item)
-    {
-        $template = new Template;
-        $template->name = $item->name;
-
-        $template->cpu = $item->cpu;
-        $template->ram = $item->ram;
-
-        $template->hdd = $item->hdd;
-        $template->disks = array_map(function ($item) {
-            return $this->serializeHdd($item);
-        }, $item->hdd_disks);
-        $template->encrypted = $item->encrypted;
-
-        $template->platform = $item->platform;
-
-        return $template;
+        return new Template($body->data);
     }
 
     /**
@@ -254,7 +145,7 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/hosts", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeHost($item);
+            return new Host($item);
         });
 
         return $page;
@@ -270,7 +161,7 @@ class Client extends BaseClient
     {
         $response = $this->request("GET", "v1/hosts/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeHost($body->data);
+        return new Host($body->data);
     }
 
     /**
@@ -286,31 +177,10 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/solutions/$id/hosts", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeHost($item);
+            return new Host($item);
         });
 
         return $page;
-    }
-
-    /**
-     * Converts a response stdClass into a Datastore object
-     *
-     * @param stdClass
-     * @return Host
-     */
-    protected function serializeHost($item)
-    {
-        $host = new Host;
-        $host->id = $item->id;
-        $host->name = $item->name;
-
-        $host->cpu = $item->cpu;
-        $host->ram = $item->ram;
-
-        $host->solutionId = $item->solution_id;
-        $host->podId = $item->pod_id;
-
-        return $host;
     }
 
     /**
@@ -325,7 +195,7 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/datastores", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeDatastore($item);
+            return new Datastore($item);
         });
 
         return $page;
@@ -341,7 +211,7 @@ class Client extends BaseClient
     {
         $response = $this->request("GET", "v1/datastores/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeDatastore($body->data);
+        return new Datastore($body->data);
     }
 
     /**
@@ -357,33 +227,10 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/solutions/$id/datastores", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeVirtualMachine($item);
+            return new Datastore($item);
         });
 
         return $page;
-    }
-
-    /**
-     * Converts a response stdClass into a Datastore object
-     *
-     * @param stdClass
-     * @return Datastore
-     */
-    protected function serializeDatastore($item)
-    {
-        $datastore = new Datastore;
-        $datastore->id = $item->id;
-        $datastore->name = $item->name;
-        $datastore->status = $item->status;
-
-        $datastore->capacity = $item->capacity;
-        $datastore->allocated = $item->allocated;
-        $datastore->available = $item->available;
-
-        $datastore->solutionId = $item->solution_id;
-        $datastore->siteId = $item->site_id;
-
-        return $datastore;
     }
 
     /**
@@ -398,7 +245,7 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/firewalls", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeFirewall($item);
+            return new Firewall($item);
         });
 
         return $page;
@@ -414,7 +261,7 @@ class Client extends BaseClient
     {
         $response = $this->request("GET", "v1/firewalls/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeFirewall($body->data);
+        return new Firewall($body->data);
     }
 
     /**
@@ -431,21 +278,6 @@ class Client extends BaseClient
     }
 
     /**
-     * Converts a response stdClass into a Firewall object
-     *
-     * @param stdClass
-     * @return Firewall
-     */
-    protected function serializeFirewall($item)
-    {
-        $firewall = new Firewall;
-        $firewall->id = $item->id;
-        $firewall->name = $item->name;
-
-        return $firewall;
-    }
-
-    /**
      * Gets a paginated response of Sites
      *
      * @param int $page
@@ -457,7 +289,7 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/sites", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeDatastore($item);
+            return new Site($item);
         });
 
         return $page;
@@ -473,7 +305,7 @@ class Client extends BaseClient
     {
         $response = $this->request("GET", "v1/sites/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeSite($body->data);
+        return new Site($body->data);
     }
 
     /**
@@ -489,28 +321,10 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/solutions/$id/sites", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeSite($item);
+            return new Site($item);
         });
 
         return $page;
-    }
-
-    /**
-     * Converts a response stdClass into a Site object
-     *
-     * @param stdClass
-     * @return Site
-     */
-    protected function serializeSite($item)
-    {
-        $site = new Site;
-        $site->id = $item->id;
-        $site->state = $item->state;
-
-        $site->solutionId = $item->solution_id;
-        $site->podId = $item->pod_id;
-
-        return $site;
     }
 
     /**
@@ -525,7 +339,7 @@ class Client extends BaseClient
     {
         $page = $this->paginatedRequest("v1/pods", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializePod($item);
+            return new Pod($item);
         });
 
         return $page;
@@ -541,27 +355,6 @@ class Client extends BaseClient
     {
         $response = $this->request("GET", "v1/pods/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializePod($body->data);
-    }
-
-    /**
-     * Converts a response stdClass into a Pod object
-     *
-     * @param stdClass
-     * @return Pod
-     */
-    protected function serializePod($item)
-    {
-        $pod = new Pod;
-        $pod->id = $item->id;
-        $pod->name = $item->name;
-
-        $pod->services = (object) [
-            'public' => $item->services->public,
-            'burst' => $item->services->burst,
-            'appliances' => $item->services->appliances,
-        ];
-
-        return $pod;
+        return new Pod($body->data);
     }
 }
