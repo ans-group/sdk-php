@@ -69,6 +69,18 @@ class Client extends BaseClient
         return $this->serializeWhois($body->data);
     }
 
+    /**
+     * Gets a domain's raw WHOIS response
+     *
+     * @param string $name
+     * @return Whois
+     */
+    public function getWhoisRaw($name)
+    {
+        $response = $this->request("GET", "/registrar/v1/whois/$name/raw");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $body->data;
+    }
 
     /**
      * Converts a response stdClass into a Domain object
