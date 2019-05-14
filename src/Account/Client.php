@@ -7,7 +7,7 @@ use UKFast\Page;
 
 class Client extends BaseClient
 {
-    protected $basePath = 'account';
+    protected $basePath = 'account/';
 
     /**
      * Gets account details
@@ -16,7 +16,7 @@ class Client extends BaseClient
      */
     public function getDetails()
     {
-        $response = $this->request("GET", "/account/v1/details");
+        $response = $this->request("GET", "v1/details");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->serializeDetails($body->data);
     }
@@ -31,7 +31,7 @@ class Client extends BaseClient
      */
     public function getContacts($page = 1, $perPage = 15, $filters = [])
     {
-        $page = $this->paginatedRequest('/account/v1/contacts', $page, $perPage, $filters);
+        $page = $this->paginatedRequest('v1/contacts', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeContact($item);
         });
@@ -47,7 +47,7 @@ class Client extends BaseClient
      */
     public function getContact($id)
     {
-        $response = $this->request("GET", "/account/v1/contacts/$id");
+        $response = $this->request("GET", "v1/contacts/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->serializeContact($body->data);
     }
@@ -59,7 +59,7 @@ class Client extends BaseClient
      */
     public function getCredits()
     {
-        $response = $this->request("GET", "/account/v1/credits");
+        $response = $this->request("GET", "v1/credits");
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return array_map(function ($item) {

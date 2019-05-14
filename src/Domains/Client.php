@@ -7,7 +7,7 @@ use UKFast\Page;
 
 class Client extends BaseClient
 {
-    protected $basePath = 'registrar';
+    protected $basePath = 'registrar/';
 
     /**
      * Gets a paginated response of all Domains
@@ -19,7 +19,7 @@ class Client extends BaseClient
      */
     public function getDomains($page = 1, $perPage = 15, $filters = [])
     {
-        $page = $this->paginatedRequest('/registrar/v1/domains', $page, $perPage, $filters);
+        $page = $this->paginatedRequest('v1/domains', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeDomain($item);
         });
@@ -35,7 +35,7 @@ class Client extends BaseClient
      */
     public function getDomain($name)
     {
-        $response = $this->request("GET", "/registrar/v1/domains/$name");
+        $response = $this->request("GET", "v1/domains/$name");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->serializeDomain($body->data);
     }
@@ -48,7 +48,7 @@ class Client extends BaseClient
      */
     public function getDomainNameservers($name)
     {
-        $response = $this->request("GET", "/registrar/v1/domains/$name/nameservers");
+        $response = $this->request("GET", "v1/domains/$name/nameservers");
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return array_map(function ($item) {
@@ -64,7 +64,7 @@ class Client extends BaseClient
      */
     public function getWhois($name)
     {
-        $response = $this->request("GET", "/registrar/v1/whois/$name");
+        $response = $this->request("GET", "v1/whois/$name");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->serializeWhois($body->data);
     }
@@ -77,7 +77,7 @@ class Client extends BaseClient
      */
     public function getWhoisRaw($name)
     {
-        $response = $this->request("GET", "/registrar/v1/whois/$name/raw");
+        $response = $this->request("GET", "v1/whois/$name/raw");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $body->data;
     }

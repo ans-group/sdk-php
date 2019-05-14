@@ -7,7 +7,7 @@ use UKFast\Page;
 
 class Client extends BaseClient
 {
-    protected $basePath = 'ssl';
+    protected $basePath = 'ssl/';
 
     /**
      * Gets a paginated response of all certificates
@@ -19,7 +19,7 @@ class Client extends BaseClient
      */
     public function getCertificates($page = 1, $perPage = 15, $filters = [])
     {
-        $page = $this->paginatedRequest('/ssl/v1/certificates', $page, $perPage, $filters);
+        $page = $this->paginatedRequest('v1/certificates', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeCertificate($item);
         });
@@ -35,7 +35,7 @@ class Client extends BaseClient
      */
     public function getCertificate($id)
     {
-        $response = $this->request("GET", "/ssl/v1/certificates/$id");
+        $response = $this->request("GET", "v1/certificates/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->serializeCertificate($body->data);
     }
@@ -48,7 +48,7 @@ class Client extends BaseClient
      */
     public function getCertificatePrivateKey($id)
     {
-        $response = $this->request("GET", "/ssl/v1/certificates/$id/private-key");
+        $response = $this->request("GET", "v1/certificates/$id/private-key");
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return $body->data->key;
@@ -63,7 +63,7 @@ class Client extends BaseClient
      */
     public function getCertificatePEM($id)
     {
-        $response = $this->request("GET", "/ssl/v1/certificates/$id/download");
+        $response = $this->request("GET", "v1/certificates/$id/download");
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return $this->serializeCertificatePEM($body->data);

@@ -11,7 +11,7 @@ use DateTime;
 
 class Client extends BaseClient
 {
-    protected $basePath = 'pss/v1/';
+    protected $basePath = 'pss/';
 
     /**
      * Gets a paginated response of all PSS requests
@@ -23,7 +23,7 @@ class Client extends BaseClient
      */
     public function getRequests($page = 1, $perPage = 15, $filters = [])
     {
-        $page = $this->paginatedRequest('requests', $page, $perPage, $filters);
+        $page = $this->paginatedRequest('v1/requests', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeRequest($item);
         });
@@ -39,7 +39,7 @@ class Client extends BaseClient
      */
     public function getRequest($id)
     {
-        $response = $this->request("GET", "requests/$id");
+        $response = $this->request("GET", "v1/requests/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->serializeRequest($body->data);
     }
@@ -55,7 +55,7 @@ class Client extends BaseClient
      */
     public function getConversation($requestId, $page = 1, $perPage = 15, $filters = [])
     {
-        $page = $this->paginatedRequest("requests/$requestId/conversation", $page, $perPage, $filters);
+        $page = $this->paginatedRequest("v1/requests/$requestId/conversation", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeReply($item);
         });
