@@ -11,8 +11,6 @@ assignees: ''
 
 A clear and concise description of what the bug is.
 
-Bug reports without an adequate description will not be reviewed until one is added.
-
 Link to any relevant issues.
 
 
