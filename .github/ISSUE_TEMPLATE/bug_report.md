@@ -1,27 +1,45 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Report a problem with the code that requires attention
 title: ''
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
 
-**Describe the bug**
+### What is the issue?
+
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+Bug reports without an adequate description will not be reviewed until one is added.
+
+Link to any relevant issues.
+
+
+### Steps To Reproduce
+
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behaviour**
+If applicable, add screenshots to help explain the problem.
+
+
+### Expected behaviour
+
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
 
-**Additional context**
+### Possible fixes
+
+If you can, link to the line of code that might be responsible for the problem, or any other thoughts on what it may be to aid triage
+
+
+### Additional context
+
 Add any other context about the problem here.
+
+please use code blocks (```) to format console output, logs, and code as it's very hard to read otherwise.
+
