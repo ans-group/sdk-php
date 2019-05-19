@@ -31,5 +31,4 @@ class WhoisClient extends Client
         $body = $this->decodeJson($response->getBody()->getContents());
         return $body->data;
     }
-
 }
