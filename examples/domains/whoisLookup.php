@@ -1,8 +1,8 @@
 <?php
 
-// example of running a WHOIS against a Domain
+// example of running a WHOIS search against a Domain/IP
 //
-// php examples/ssl/domainWhois.php ukfast.net
+// php examples/ssl/whoisLookup.php ukfast.net
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
@@ -10,9 +10,9 @@ $domains = (new \UKFast\Domains\Client)->auth(
     getenv('UKFAST_API_KEY')
 );
 
-$fqdn = $argv[1];
-$whois = $domains->getWhois($fqdn);
-print_r($whois);
+$target = $argv[1];
+$record = $domains->whois()->getRecord($target);
+print_r($record);
 
 /*
 UKFast\Domains\Whois Object
@@ -47,7 +47,7 @@ UKFast\Domains\Whois Object
             [name] => eNom, LLC
             [url] => http://www.enom.com
             [tag] =>
-            [icann_id] => 48
+            [ianaId] => 48
         )
 )
  */
