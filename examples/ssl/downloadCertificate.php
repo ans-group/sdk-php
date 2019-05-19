@@ -11,8 +11,7 @@ $ssl = (new \UKFast\SSL\Client)->auth(
 );
 
 $id = $argv[1];
-$pemCertificate = $ssl->getCertificatePEM($id);
-
+$pemCertificate = $ssl->certificates()->getCertificatePEM($id);
 print_r($pemCertificate->server);
 
 /*
