@@ -2,7 +2,7 @@
 
 // example of running a WHOIS search against a Domain/IP
 //
-// php examples/ssl/whoisLookup.php ukfast.net
+// php examples/domains/whoisLookup.php ukfast.net
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
