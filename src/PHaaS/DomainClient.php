@@ -14,23 +14,27 @@ class DomainClient extends BaseClient
     protected $basePath = 'phaas/';
 
     /**
+     * Get a paginated list of domains
+     *
      * @param int $page
      * @param int $perPage
      * @param array $filters
      * @return Page
      */
-    public function getDomains($page = 1, $perPage = 15, $filters = [])
+    public function getAll($page = 1, $perPage = 15, $filters = [])
     {
         $domains = $this->paginatedRequest('v1/domains', $page, $perPage, $filters);
 
         $domains->serializeWith(function ($item) {
-            return $this->serializeDomain($item);
+            return new Domain($item);
         });
 
         return $domains;
     }
 
     /**
+     * Add a single domain
+     *
      * @param string $domain
      * @param string $verificationEmail
      * @return Domain
@@ -54,12 +58,14 @@ class DomainClient extends BaseClient
 
         $response = $this->request("POST", 'v1/domains', $data, ['Content-Type' => 'application/json']);
 
-        $domain = $this->decodeJson($response->getBody()->getContents());
+        $body = $this->decodeJson($response->getBody()->getContents());
 
-        return $this->serializeDomain($domain->data);
+        return new Domain($body->data);
     }
 
     /**
+     * Resend validation email for a domain by domain id
+     *
      * @param string $domainId
      * @return Domain
      */
@@ -69,12 +75,16 @@ class DomainClient extends BaseClient
             throw new ValidationException("A domain id must be provided");
         }
 
-        $domain = $this->decodeJson($this->request("GET", "v1/domains/$domainId/resend-verification"));
+        $response = $this->request("GET", "v1/domains/$domainId/resend-verification");
 
-        return $this->serializeDomain($domain);
+        $body = $this->decodeJson($response);
+
+        return new Domain($body);
     }
 
     /**
+     * Validate the domain hash
+     *
      * @param string $hash
      * @return ResponseInterface
      */
@@ -85,14 +95,5 @@ class DomainClient extends BaseClient
         }
 
         return $this->request("GET", "v1/domains/verify/$hash");
-    }
-
-    /**
-     * @param $item
-     * @return Domain
-     */
-    protected function serializeDomain($item)
-    {
-        return new Domain($item);
     }
 }

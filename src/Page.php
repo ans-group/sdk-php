@@ -156,7 +156,7 @@ class Page
         $params = [];
         parse_str($query, $params);
 
-        return isset($params['page']) ? $params['page'] : 1;
+        return isset($params['page']) ? (int)$params['page'] : 1;
     }
 
     /**

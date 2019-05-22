@@ -2,7 +2,6 @@
 
 namespace UKFast\PHaaS\Entities;
 
-
 class Domain
 {
     public $id;
@@ -29,6 +28,4 @@ class Domain
         $this->createdAt = $item->created_at;
         $this->updatedAt = $item->updated_at;
     }
-
-
 }

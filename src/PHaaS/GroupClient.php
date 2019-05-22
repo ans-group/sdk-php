@@ -2,12 +2,9 @@
 
 namespace UKFast\PHaaS;
 
-use Exception;
-use Psr\Http\Message\ResponseInterface;
-use UKFast\Exception\ApiException;
-use UKFast\Exception\ValidationException;
 use UKFast\Page;
 use UKFast\Client as BaseClient;
+use UKFast\PHaaS\Entities\Group;
 
 class GroupClient extends BaseClient
 {
@@ -19,23 +16,15 @@ class GroupClient extends BaseClient
      * @param array $filters
      * @return Page
      */
-    public function getGroups($page = 1, $perPage = 15, $filters = [])
+    public function getAll($page = 1, $perPage = 15, $filters = [])
     {
         $groups = $this->paginatedRequest('v1/groups', $page, $perPage, $filters);
 
         $groups->serializeWith(function ($item) {
-            return $this->serializeGroup($item);
+            return new Group($item);
         });
 
         return $groups;
     }
 
-    /**
-     * @param $item
-     * @return Group
-     */
-    protected function serializeGroup($item)
-    {
-        return new Group($item);
-    }
 }

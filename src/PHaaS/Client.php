@@ -8,8 +8,16 @@ class Client extends BaseClient
 {
     protected $basePath = 'phaas/';
 
-    public function domains($authToken)
+    /**
+     * @return BaseClient
+     */
+    public function domains()
     {
-        return (new DomainClient())->auth($authToken);
+        return (new DomainClient())->auth($this->token);
+    }
+
+    public function users()
+    {
+        return (new UserClient())->auth($this->token);
     }
 }
