@@ -26,6 +26,4 @@ class User
         $this->createdAt = $item->created_at;
         $this->updatedAt = $item->updated_at;
     }
-
-
 }

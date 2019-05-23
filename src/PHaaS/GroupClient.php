@@ -26,5 +26,4 @@ class GroupClient extends BaseClient
 
         return $groups;
     }
-
 }

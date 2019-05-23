@@ -21,6 +21,4 @@ class Group
         $this->name = $item->name;
         $this->createdAt = $item->created_at;
     }
-
-
 }
