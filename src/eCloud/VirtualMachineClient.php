@@ -57,6 +57,53 @@ class VirtualMachineClient extends Client
 //    }
 
     /**
+     * Create a new virtual machine
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function create(array $data)
+    {
+        $response = $this->post("v1/vms", json_encode($data), [
+            'Content-Type'=>'application/json'
+        ]);
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $body->data;
+    }
+
+    /**
+     * Create a clone of an existing virtual machine
+     * @param $id
+     * @param array $data
+     * @return mixed
+     */
+    public function createClone($id, array $data = [])
+    {
+        $response = $this->post("v1/vms/$id/clone", json_encode($data), [
+            'Content-Type'=>'application/json'
+        ]);
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $body->data;
+    }
+
+    /**
+     * Clone virtual machine to template
+     * @param $id
+     * @param array $data
+     * @return bool
+     */
+    public function cloneToTemplate($id, array $data)
+    {
+        $response = $this->post("v1/vms/$id/clone-to-template", json_encode($data), [
+            'Content-Type'=>'application/json'
+        ]);
+
+        return $response->getStatusCode() == 202;
+    }
+
+    /**
      * Power On a Virtual Machine
      *
      * @param int $id
@@ -81,7 +128,7 @@ class VirtualMachineClient extends Client
     }
 
     /**
-     * Reset a Virtual Machine
+     * Power Reset a Virtual Machine
      *
      * @param int $id
      * @return bool
@@ -114,5 +161,17 @@ class VirtualMachineClient extends Client
     {
         $response = $this->put("v1/vms/$id/power-restart");
         return $response->getStatusCode() == 204;
+    }
+
+    /**
+     * Destroy a virtual machine
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function destroy($id)
+    {
+        $response = $this->delete("v1/vms/$id");
+        return $response->getStatusCode() == 202;
     }
 }
