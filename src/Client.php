@@ -160,7 +160,7 @@ class Client
      */
     public function patch($endpoint, $body = null, $headers = [])
     {
-        return $this->request('PATCH', $body = null, $headers = []);
+        return $this->request('PATCH', $endpoint, $body, $headers);
     }
 
     /**
@@ -176,7 +176,7 @@ class Client
      */
     public function delete($endpoint, $body = null, $headers = [])
     {
-        return $this->request('DELETE', $body = null, $headers);
+        return $this->request('DELETE', $endpoint, $body, $headers);
     }
 
     /**
