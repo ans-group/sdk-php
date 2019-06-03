@@ -26,7 +26,7 @@ class PageTest extends TestCase
             'pagination' => (object) [
                 'total' => 10,
                 'count' => 1,
-                'per_page' => 1,
+                'per_page' => 3,
                 'total_pages' => 10,
                 'links' => (object) [
                     'next' => 'http://example.com/next',
@@ -43,6 +43,7 @@ class PageTest extends TestCase
         $this->assertEquals('http://example.com/last', $page->lastPageUrl());
         $this->assertEquals(10, $page->totalItems());
         $this->assertEquals(10, $page->totalPages());
+        $this->assertEquals(3, $page->perPage());
         $this->assertEquals(1, $page->pageNumber());
     }
 
