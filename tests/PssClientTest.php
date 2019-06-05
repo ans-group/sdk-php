@@ -32,6 +32,7 @@ class PssClientTest extends TestCase
                     'archived' => true,
                     'status' => 'Submitted',
                     'request_sms' => false,
+                    'customer_reference' => 'Test Reference',
                 ]],
                 'meta' => [
                     'pagination' => [
@@ -61,6 +62,7 @@ class PssClientTest extends TestCase
         $this->assertTrue($request instanceof \UKFast\Pss\Request);
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
+        $this->assertEquals('Test Reference', $request->customerReference);
     }
 
     /**
@@ -132,6 +134,7 @@ class PssClientTest extends TestCase
                     'archived' => true,
                     'status' => 'Submitted',
                     'request_sms' => false,
+                    'customer_reference' => 'Test Reference',
                 ],
             ])),
         ]);
@@ -144,5 +147,6 @@ class PssClientTest extends TestCase
         $this->assertTrue($request instanceof \UKFast\Pss\Request);
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
+        $this->assertEquals('Test Reference', $request->customerReference);
     }
 }
