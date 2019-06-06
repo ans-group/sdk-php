@@ -51,4 +51,13 @@ class PaginationUrlTest extends TestCase
         $url = new PaginationUrl("/my-endpoint", 1, 10, ['id:in' => [1, 2, 3, 4]]);
         $this->assertEquals("/my-endpoint?page=1&per_page=10&id%3Ain=1%2C2%2C3%2C4", $url->toString());
     }
+
+    /**
+     * @test
+     */
+    public function allows_booleans_to_be_passed_as_filters()
+    {
+        $url = new PaginationUrl("/my-endpoint", 1, 10, ['archived' => true]);
+        $this->assertEquals("/my-endpoint?page=1&per_page=10&archived=true", $url->toString());
+    }
 }

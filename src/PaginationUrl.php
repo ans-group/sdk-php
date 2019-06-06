@@ -37,6 +37,9 @@ class PaginationUrl
             if (is_array($filter)) {
                 $filter = implode(",", $filter);
             }
+            if (is_bool($filter)) {
+                $filter = var_export($filter, true);
+            }
             $path .= "&".urlencode($prop)."=".urlencode($filter);
         }
 
