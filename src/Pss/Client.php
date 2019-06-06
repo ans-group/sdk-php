@@ -83,12 +83,16 @@ class Client extends BaseClient
         $request->archived = $item->archived;
         $request->status = $item->status;
         $request->requestSms = $item->request_sms;
+        $request->customerReference = $item->customer_reference;
 
         return $request;
     }
 
     /**
+     * Converts a response stdClass into a Reply object
      *
+     * @param $item
+     * @return \UKFast\Pss\Reply
      */
     protected function serializeReply($item)
     {
