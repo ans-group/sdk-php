@@ -16,7 +16,7 @@ class VirtualMachineClient extends Client
      * @param array $filters
      * @return Page
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest('v1/vms', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
@@ -24,6 +24,38 @@ class VirtualMachineClient extends Client
         });
 
         return $page;
+    }
+
+    /**
+     * Gets array of all Virtual Machines
+     *
+     * @param array $filters
+     * @return array
+     */
+    public function getAll($filters = [])
+    {
+        // get first page
+        $page = $this->getPage($currentPage = 1, $perPage = 100, $filters);
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $virtualMachines = $page->getItems();
+        if ($page->totalPages() == 1) {
+            return $virtualMachines;
+        }
+
+        // get any remaining pages
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->getPage($currentPage++, $perPage, $filters);
+
+            $virtualMachines = array_merge(
+                $virtualMachines,
+                $page->getItems()
+            );
+        }
+
+        return $virtualMachines;
     }
 
     /**
@@ -39,49 +71,114 @@ class VirtualMachineClient extends Client
         return new VirtualMachine($body->data);
     }
 
-//    /**
-//     * Gets a paginated response of a Solutions Virtual Machines
-//     *
-//     * @param int $id
-//     * @param int $page
-//     * @param int $perPage
-//     * @param array $filters
-//     * @return Page
-//     */
-//    public function getBySolutionId($id, $page = 1, $perPage = 15, $filters = [])
-//    {
-//        $filters = array_merge([
-//            'solution_id' => $id,
-//        ], $filters);
-//        return $this->getAll($page, $perPage, $filters);
-//    }
-
     /**
      * Create a new virtual machine
      *
-     * @param array $data
-     * @return mixed
+     * @param VirtualMachine $virtualMachine
+     * @return VirtualMachine
      */
-    public function create(array $data)
+    public function create(VirtualMachine $virtualMachine)
     {
+        $data = [
+            'environment' => $virtualMachine->environment,
+
+            'name' => $virtualMachine->name,
+            'computername' => $virtualMachine->computerName,
+        ];
+
+        if ($virtualMachine->environment != 'Public') {
+            $data['solution_id'] = $virtualMachine->solutionId;
+        }
+
+
+        // template
+        if (!empty($virtualMachine->template)) {
+            $data['template'] = $virtualMachine->template;
+        }
+
+
+        // set compute
+        $data = array_merge($data, [
+            'cpu' => $virtualMachine->cpu,
+            'ram' => $virtualMachine->ram,
+        ]);
+
+
+        // set storage
+        $data = array_merge($data, [
+            'hdd' => $virtualMachine->hdd,
+        ]);
+
+        if (!empty($virtualMachine->disks)) {
+            foreach ($virtualMachine->disks as $disk) {
+                $data['hdd_disks'][] = [
+                    'name' => $disk->name,
+                    'capacity' => $disk->capacity,
+                ];
+            }
+        }
+
+        if (!empty($virtualMachine->datastoreId)) {
+            $data['datastore_id'] = $virtualMachine->datastoreId;
+        }
+
+
+        // set network
+
+
         $response = $this->post("v1/vms", json_encode($data), [
-            'Content-Type'=>'application/json'
+            'Content-Type' => 'application/json'
         ]);
 
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $body->data;
+
+        $virtualMachine->id = $body->data->id;
+        $virtualMachine->status = $body->data->status;
+
+        $virtualMachine->credentials = $body->data->credentials;
+
+        return $virtualMachine;
+    }
+
+    /**
+     * Update an existing virtual machine
+     *
+     * @param VirtualMachine $virtualMachine
+     * @return bool
+     */
+    public function update(VirtualMachine $virtualMachine)
+    {
+        $data = [
+            'name' => $virtualMachine->name,
+
+            'cpu' => $virtualMachine->cpu,
+            'ram' => $virtualMachine->ram,
+            'hdd' => $virtualMachine->hdd,
+        ];
+
+        $response = $this->put("v1/vms/".$virtualMachine->id."", json_encode($data), [
+            'Content-Type' => 'application/json'
+        ]);
+
+        return $response->getStatusCode() == 202;
     }
 
     /**
      * Create a clone of an existing virtual machine
      * @param $id
-     * @param array $data
+     * @param null $name
      * @return mixed
      */
-    public function createClone($id, array $data = [])
+    public function createClone($id, $name = null)
     {
+        $data = [];
+
+        if (!is_null($name)) {
+            $data['name'] = $name;
+        }
+
         $response = $this->post("v1/vms/$id/clone", json_encode($data), [
-            'Content-Type'=>'application/json'
+            'Content-Type' => 'application/json'
         ]);
 
         $body = $this->decodeJson($response->getBody()->getContents());
@@ -91,13 +188,22 @@ class VirtualMachineClient extends Client
     /**
      * Clone virtual machine to template
      * @param $id
-     * @param array $data
+     * @param $name
+     * @param string $type
      * @return bool
      */
-    public function cloneToTemplate($id, array $data)
+    public function cloneToTemplate($id, $name, $type = null)
     {
+        $data = [
+            'template_name' => $name,
+        ];
+
+        if (!is_null($type)) {
+            $data['template_type'] = $type;
+        }
+
         $response = $this->post("v1/vms/$id/clone-to-template", json_encode($data), [
-            'Content-Type'=>'application/json'
+            'Content-Type' => 'application/json'
         ]);
 
         return $response->getStatusCode() == 202;
