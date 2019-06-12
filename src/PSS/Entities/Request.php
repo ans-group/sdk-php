@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\Pss;
+namespace UKFast\PSS\Entities;
 
 class Request
 {
