@@ -6,7 +6,9 @@ use UKFast\Exception\InvalidJsonException;
 
 class ApiException extends UKFastException
 {
+    protected $errors;
     protected $response;
+
 
     public function __construct($response)
     {
@@ -15,7 +17,15 @@ class ApiException extends UKFastException
         if ($err !== JSON_ERROR_NONE) {
             throw new InvalidJsonException($err);
         }
-        
+
+        if (isset($body->message)) {
+            $body->errors = [
+                (object) [
+                    'detail' => $body->message,
+                ],
+            ];
+        }
+
         $this->errors = $body->errors;
         $this->message = $body->errors[0]->detail;
         $this->response = $response;

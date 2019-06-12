@@ -10,9 +10,9 @@ $ecloud = (new \UKFast\eCloud\Client)->auth(
     getenv('UKFAST_API_KEY')
 );
 
-$page = $ecloud->virtualMachines()->getAll(2);
+$virtualMachines = $ecloud->virtualMachines()->getAll();
 
-foreach ($page->getItems() as $virtualMachine) {
+foreach ($virtualMachines as $virtualMachine) {
     echo "# {$virtualMachine->id} - {$virtualMachine->hostname}".
         "\t {$virtualMachine->status} \t {$virtualMachine->name}" .
         "\n";
