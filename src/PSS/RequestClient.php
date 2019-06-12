@@ -8,7 +8,6 @@ class RequestClient extends BaseClient
 {
     protected $basePath = 'pss/';
 
-    
     /**
      * Gets a paginated response of all PSS requests
      *

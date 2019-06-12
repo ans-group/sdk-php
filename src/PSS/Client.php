@@ -6,6 +6,8 @@ use UKFast\Client as BaseClient;
 
 class Client extends BaseClient
 {
+    protected $basePath = 'pss/';
+    
     /**
      * @return \UKFast\PSS\RequestClient
      */
