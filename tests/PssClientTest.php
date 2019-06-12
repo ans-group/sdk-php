@@ -53,13 +53,13 @@ class PssClientTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new \UKFast\Pss\Client($guzzle);
-        $page = $client->getRequests();
+        $client = new \UKFast\PSS\Client($guzzle);
+        $page = $client->requests()->getPage();
 
         $this->assertTrue($page instanceof \UKFast\Page);
         $request = $page->getItems()[0];
 
-        $this->assertTrue($request instanceof \UKFast\Pss\Request);
+        $this->assertTrue($request instanceof \UKFast\PSS\Entities\Request);
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
@@ -100,8 +100,8 @@ class PssClientTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new \UKFast\Pss\Client($guzzle);
-        $page = $client->getConversation(1);
+        $client = new \UKFast\PSS\Client($guzzle);
+        $page = $client->conversation()->getPage(1);
 
         $this->assertTrue($page instanceof \UKFast\Page);
 
@@ -141,10 +141,10 @@ class PssClientTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new \UKFast\Pss\Client($guzzle);
-        $request = $client->getRequest(1);
+        $client = new \UKFast\PSS\Client($guzzle);
+        $request = $client->requests()->getById(1);
 
-        $this->assertTrue($request instanceof \UKFast\Pss\Request);
+        $this->assertTrue($request instanceof \UKFast\PSS\Entities\Request);
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
