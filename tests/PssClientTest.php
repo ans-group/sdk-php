@@ -101,7 +101,7 @@ class PssClientTest extends TestCase
         $guzzle = new Client(['handler' => $handler]);
 
         $client = new \UKFast\PSS\Client($guzzle);
-        $page = $client->getConversation(1);
+        $page = $client->conversation()->getPage(1);
 
         $this->assertTrue($page instanceof \UKFast\Page);
 
