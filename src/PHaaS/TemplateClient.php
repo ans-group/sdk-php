@@ -17,6 +17,7 @@ class TemplateClient extends BaseClient
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {

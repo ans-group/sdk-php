@@ -19,6 +19,7 @@ class DomainClient extends BaseClient
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
@@ -38,6 +39,7 @@ class DomainClient extends BaseClient
      * @param string $verificationEmail
      * @return Domain
      * @throws Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function addDomain($domain, $verificationEmail)
     {
@@ -46,7 +48,7 @@ class DomainClient extends BaseClient
             "verification_email" => $verificationEmail
         ]);
 
-        $response = $this->request("POST", 'v1/domains', $data, ['Content-Type' => 'application/json']);
+        $response = $this->post('v1/domains', $data);
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
@@ -58,10 +60,11 @@ class DomainClient extends BaseClient
      *
      * @param string $domainId
      * @return Domain
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function resendValidationEmail($domainId)
     {
-        $response = $this->request("GET", "v1/domains/$domainId/resend-verification");
+        $response = $this->get("v1/domains/$domainId/resend-verification");
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
@@ -73,9 +76,10 @@ class DomainClient extends BaseClient
      *
      * @param string $hash
      * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function verifyDomainHash($hash)
     {
-        return $this->request("GET", "v1/domains/verify/$hash");
+        return $this->get( "v1/domains/verify/$hash");
     }
 }

@@ -16,6 +16,7 @@ class GroupClient extends BaseClient
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
@@ -34,6 +35,7 @@ class GroupClient extends BaseClient
      * @param $name
      * @param array $userIds
      * @return Group
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function createGroup($name, $userIds = [])
     {
@@ -42,8 +44,7 @@ class GroupClient extends BaseClient
             'user_ids' => $userIds
         ]);
 
-        $response = $this->request(
-            'POST',
+        $response = $this->post(
             'v1/groups',
             $payload
         );
@@ -58,6 +59,7 @@ class GroupClient extends BaseClient
      *
      * @param $id
      * @return Group
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($id)
     {
@@ -79,6 +81,7 @@ class GroupClient extends BaseClient
      * @param $name
      * @param $userIds
      * @return Group
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function updateGroup($id, $name, $userIds)
     {
@@ -88,8 +91,7 @@ class GroupClient extends BaseClient
             'user_ids' => $userIds
         ]);
 
-        $response = $this->request(
-            'PATCH',
+        $response = $this->patch(
             'v1/groups/' . $id,
             $payload
         );
@@ -104,10 +106,11 @@ class GroupClient extends BaseClient
      *
      * @param $id
      * @return \Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function removeGroup($id)
     {
-        $response = $this->request('DELETE', 'v1/groups/' . $id);
+        $response = $this->delete('v1/groups/' . $id);
 
         return $response;
     }
