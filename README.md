@@ -36,9 +36,9 @@ Each API has its own client class that extends from a base client class. All cli
 ```php
 <?php
 
-$client = (new \UKFast\Pss\Client)->auth('API KEY');
+$client = (new \UKFast\PSS\Client)->auth('API KEY');
 
-$page = $client->getRequests();
+$page = $client->requests->getPage();
 
 foreach ($page->getItems() as $request) {
     echo "#{$request->id} - {$request->subject}\n";

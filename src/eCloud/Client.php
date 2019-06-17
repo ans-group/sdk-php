@@ -3,92 +3,73 @@
 namespace UKFast\eCloud;
 
 use UKFast\Client as BaseClient;
-use UKFast\Page;
 
 class Client extends BaseClient
 {
-    protected $basePath = 'ecloud/v1/';
+    protected $basePath = 'ecloud/';
+
 
     /**
-     * Gets a paginated response of all Virtual Machines
-     *
-     * @param int $page
-     * @param int $perPage
-     * @param array $filters
-     * @return Page
+     * @return BaseClient
      */
-    public function getVirtualMachines($page = 1, $perPage = 15, $filters = [])
+    public function datastores()
     {
-        $page = $this->paginatedRequest('vms', $page, $perPage, $filters);
-        $page->serializeWith(function ($item) {
-            return $this->serializeVirtualMachine($item);
-        });
-
-        return $page;
+        return (new DatastoreClient($this->httpClient))->auth($this->token);
     }
 
     /**
-     * Gets an individual Virtual Machine
-     *
-     * @param int $id
-     * @return \UKFast\eCloud\VirtualMachine
+     * @return BaseClient
      */
-    public function getVirtualMachine($id)
+    public function firewalls()
     {
-        $response = $this->request("GET", "vms/$id");
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeVirtualMachine($body->data);
+        return (new FirewallClient($this->httpClient))->auth($this->token);
     }
 
+    /**
+     * @return BaseClient
+     */
+    public function hosts()
+    {
+        return (new HostClient($this->httpClient))->auth($this->token);
+    }
 
     /**
-     * Converts a response stdClass into a Request object
-     *
-     * @param \stdClass
-     * @return VirtualMachine
+     * @return BaseClient
      */
-    protected function serializeVirtualMachine($item)
+    public function pods()
     {
-        $virtualMachine = new VirtualMachine;
+        return (new PodClient($this->httpClient))->auth($this->token);
+    }
 
-        $virtualMachine->id = $item->id;
-        $virtualMachine->name = $item->name;
+    /**
+     * @return BaseClient
+     */
+    public function sites()
+    {
+        return (new SiteClient($this->httpClient))->auth($this->token);
+    }
 
-        $virtualMachine->computerName = $item->computername;
-        $virtualMachine->hostname = $item->hostname;
+    /**
+     * @return BaseClient
+     */
+    public function solutions()
+    {
+        return (new SolutionClient($this->httpClient))->auth($this->token);
+    }
 
-        $virtualMachine->cpu = $item->cpu;
-        $virtualMachine->ram = $item->ram;
-        $virtualMachine->hdd = $item->hdd;
+    /**
+     * @return BaseClient
+     */
+    public function templates()
+    {
+        return (new TemplateClient($this->httpClient))->auth($this->token);
+    }
 
-        if (isset($item->hdd_disks)) {
-            $virtualMachine->disks = $item->hdd_disks;
-        }
-
-        $virtualMachine->ip_addresses = (object) [
-            'internal' => $item->ip_internal,
-            'external' => $item->ip_external,
-        ];
-
-        $virtualMachine->template = $item->template;
-        $virtualMachine->platform = $item->platform;
-
-        $virtualMachine->backup = $item->backup;
-        $virtualMachine->support = $item->support;
-
-        $virtualMachine->environment = $item->environment;
-        $virtualMachine->solutionId = $item->solution_id;
-
-        $virtualMachine->status = $item->status;
-
-        if (isset($item->power_status)) {
-            $virtualMachine->power = $item->power_status;
-        }
-
-        if (isset($item->power_status)) {
-            $virtualMachine->tools = $item->tools_status;
-        }
-
-        return $virtualMachine;
+    /**
+     * @return BaseClient
+     */
+    public function virtualMachines()
+    {
+        return (new VirtualMachineClient($this->httpClient))->auth($this->token);
     }
 }

@@ -4,10 +4,13 @@ namespace UKFast;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\ResponseInterface;
 use UKFast\Exception\ApiException;
 use UKFast\Exception\InvalidJsonException;
 use UKFast\Exception\NotFoundException;
+use UKFast\Exception\ValidationException;
 
 class Client
 {
@@ -24,15 +27,19 @@ class Client
     protected $basePath = '';
 
     /**
-     * @var \GuzzleHttp\Client
+     * @var HttpClient
      */
     protected $httpClient;
 
+
+    /**
+     * Client constructor.
+     * @param HttpClient|null $client
+     */
     public function __construct(HttpClient $client = null)
     {
         if ($client) {
-            $this->httpClient = $client;
-            return;
+            return $this->httpClient = $client;
         }
 
         return $this->httpClient = new HttpClient([
@@ -47,7 +54,7 @@ class Client
      * Sets the API key to be used by the client
      *
      * @param string $token
-     * @return \UKFast\Client
+     * @return Client
      */
     public function auth($token)
     {
@@ -62,15 +69,12 @@ class Client
      * @param string $endpoint
      * @param string $body
      * @param array $headers
-     *
-     * @throws \UKFast\Exception\ApiException
-     * @throws \UKFast\Exception\NotFoundException
-     *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GuzzleException
+     * @return ResponseInterface
      */
     public function request($method, $endpoint, $body = null, $headers = [])
     {
-        $defaultHeaders = ['User-Agent' => $this->getUserAgent()];
+        $defaultHeaders = $this->httpClient->getConfig()['headers'];
         if ($this->token) {
             $defaultHeaders['Authorization'] = $this->token;
         }
@@ -87,8 +91,14 @@ class Client
         try {
             $response = $this->httpClient->request($method, $endpoint, $params);
         } catch (ClientException $e) {
-            if ($e->getResponse()->getStatusCode() == 404) {
+            $status = $e->getResponse()->getStatusCode();
+
+            if ($status == 404) {
                 throw new NotFoundException($e->getResponse());
+            }
+
+            if ($status == 400 || $status == 422) {
+                throw new ValidationException($e->getResponse());
             }
 
             throw new ApiException($e->getResponse());
@@ -100,13 +110,11 @@ class Client
     /**
      * Convenience method for GET requests
      *
-     * @param string $method
      * @param string $endpoint
      * @param string $body
      * @param array $headers
-     * @throws \UKFast\Exception\ApiException
-     * @throws \UKFast\Exception\NotFoundException
-     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GuzzleException
+     * @return ResponseInterface
      */
     public function get($endpoint, $body = null, $headers = [])
     {
@@ -114,69 +122,71 @@ class Client
     }
 
     /**
-     *
      * Convenience method for POST requests
      *
-     * @param string $method
      * @param string $endpoint
      * @param string $body
      * @param array $headers
-     * @throws \UKFast\Exception\ApiException
-     * @throws \UKFast\Exception\NotFoundException
-     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GuzzleException
+     * @return ResponseInterface
      */
     public function post($endpoint, $body = null, $headers = [])
     {
+        $headers = array_merge([
+            'Content-Type'=>'application/json'
+        ], $headers);
+
         return $this->request('POST', $endpoint, $body, $headers);
     }
 
     /**
      * Convenience method for PUT requests
      *
-     * @param string $method
      * @param string $endpoint
      * @param string $body
      * @param array $headers
-     * @throws \UKFast\Exception\ApiException
-     * @throws \UKFast\Exception\NotFoundException
-     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GuzzleException
+     * @return ResponseInterface
      */
     public function put($endpoint, $body = null, $headers = [])
     {
+        $headers = array_merge([
+            'Content-Type'=>'application/json'
+        ], $headers);
+
         return $this->request('PUT', $endpoint, $body, $headers);
     }
 
     /**
      * Convenience method for PATCH requests
      *
-     * @param string $method
      * @param string $endpoint
      * @param string $body
      * @param array $headers
-     * @throws \UKFast\Exception\ApiException
-     * @throws \UKFast\Exception\NotFoundException
-     * @return \Psr\Http\Message\ResponseInterface
-     *
+     * @throws GuzzleException
+     * @return ResponseInterface
      */
     public function patch($endpoint, $body = null, $headers = [])
     {
-        return $this->request('PATCH', $body = null, $headers = []);
+        $headers = array_merge([
+            'Content-Type'=>'application/json'
+        ], $headers);
+
+        return $this->request('PATCH', $endpoint, $body, $headers);
     }
 
     /**
      * Convenience method for DELETE requests
      *
-     * @param string $method
      * @param string $endpoint
      * @param string $body
      * @param array $headers
-     * @throws \UKFast\Exception\ApiException
-     * @throws \UKFast\Exception\NotFoundException
-     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GuzzleException
+     * @return ResponseInterface
      */
     public function delete($endpoint, $body = null, $headers = [])
     {
-        return $this->request('DELETE', $body = null, $headers);
+        return $this->request('DELETE', $endpoint, $body, $headers);
     }
 
     /**
@@ -186,6 +196,7 @@ class Client
      * @param int $page
      * @param int $perPage
      * @param array $filters
+     * @throws GuzzleException
      * @return Page
      */
     public function paginatedRequest($endpoint, $page, $perPage, $filters = [])
@@ -200,11 +211,10 @@ class Client
     }
 
     /**
-     * Convienience function for decoding json and checking
-     * errors
+     * Convenience function for decoding json and checking errors
      *
      * @param string $raw
-     * @throws \UKFast\Exception\InvalidJsonException
+     * @throws InvalidJsonException
      * @return mixed
      */
     protected function decodeJson($raw)

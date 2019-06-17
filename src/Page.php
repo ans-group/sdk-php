@@ -150,6 +150,14 @@ class Page
     /**
      * @return int
      */
+    public function perPage()
+    {
+        return $this->getPagination('per_page');
+    }
+
+    /**
+     * @return int
+     */
     public function pageNumber()
     {
         $query = $this->request->getUri()->getQuery();

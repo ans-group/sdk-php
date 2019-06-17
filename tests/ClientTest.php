@@ -11,6 +11,8 @@ use PHPUnit\Framework\TestCase;
 use UKFast\Client;
 use UKFast\Exception\ApiException;
 use UKFast\Exception\InvalidJsonException;
+use UKFast\Exception\NotFoundException;
+use UKFast\Exception\ValidationException;
 use UKFast\Page;
 
 class ClientTest extends TestCase
@@ -53,7 +55,12 @@ class ClientTest extends TestCase
         $history = Middleware::history($container);
         $handler = HandlerStack::create($mock);
         $handler->push($history);
-        $guzzle = new Guzzle(['handler' => $handler]);
+        $guzzle = new Guzzle([
+            'handler' => $handler,
+            'headers' => [
+                'User-Agent' => 'Test/1.0'
+            ]
+        ]);
 
         $client = new Client($guzzle);
         $client->request("GET", "/");
@@ -63,11 +70,7 @@ class ClientTest extends TestCase
 
         $this->assertEquals(1, count($headers['User-Agent']));
 
-        $expected = implode(' ', [
-            'ukfast-sdk-php/' . Client::VERSION . '',
-            'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION
-        ]);
-        $this->assertEquals($expected, $headers['User-Agent'][0]);
+        $this->assertEquals('Test/1.0', $headers['User-Agent'][0]);
     }
 
     /**
@@ -82,7 +85,12 @@ class ClientTest extends TestCase
         $history = Middleware::history($container);
         $handler = HandlerStack::create($mock);
         $handler->push($history);
-        $guzzle = new Guzzle(['handler' => $handler]);
+        $guzzle = new Guzzle([
+            'handler' => $handler,
+            'headers' => [
+                'User-Agent' => 'Test/1.0'
+            ]
+        ]);
 
         $client = new Client($guzzle);
         $client->auth('token');
@@ -93,11 +101,7 @@ class ClientTest extends TestCase
 
         $this->assertEquals(1, count($headers['User-Agent']));
 
-        $expected = implode(' ', [
-            'ukfast-sdk-php/' . Client::VERSION . '',
-            'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION
-        ]);
-        $this->assertEquals($expected, $headers['User-Agent'][0]);
+        $this->assertEquals('Test/1.0', $headers['User-Agent'][0]);
     }
 
     /**
@@ -184,6 +188,49 @@ class ClientTest extends TestCase
         $client = new Client($guzzle);
 
         $this->expectException(InvalidJsonException::class);
+        $client->paginatedRequest("/", 1, 10);
+    }
+
+    /**
+     * @test
+     */
+    public function throws_not_found_exception()
+    {
+        $mock = new MockHandler([
+            new Response(404, [], '{"errors": [{"detail": "Testing"}]}'),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Guzzle(['handler' => $handler]);
+
+        $client = new Client($guzzle);
+
+        $this->expectException(NotFoundException::class);
+        $client->paginatedRequest("/", 1, 10);
+    }
+
+    public function validationErrorStatuses()
+    {
+        return [
+            '400' => [400],
+            '422' => [422],
+        ];
+    }
+
+    /**
+     * @dataProvider validationErrorStatuses
+     * @test
+     */
+    public function throws_validation_exception($statusCode)
+    {
+        $mock = new MockHandler([
+            new Response($statusCode, [], '{"errors": [{"detail": "Testing"}]}'),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Guzzle(['handler' => $handler]);
+
+        $client = new Client($guzzle);
+
+        $this->expectException(ValidationException::class);
         $client->paginatedRequest("/", 1, 10);
     }
 
