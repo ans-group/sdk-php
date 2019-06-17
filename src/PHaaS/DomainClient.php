@@ -20,7 +20,7 @@ class DomainClient extends BaseClient
      * @param array $filters
      * @return Page
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $domains = $this->paginatedRequest('v1/domains', $page, $perPage, $filters);
 
@@ -63,9 +63,9 @@ class DomainClient extends BaseClient
     {
         $response = $this->request("GET", "v1/domains/$domainId/resend-verification");
 
-        $body = $this->decodeJson($response);
+        $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Domain($body);
+        return new Domain($body->data);
     }
 
     /**

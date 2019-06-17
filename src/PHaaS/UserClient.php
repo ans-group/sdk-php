@@ -19,7 +19,7 @@ class UserClient extends BaseClient
      * @param array $filters
      * @return Page
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest('v1/users', $page, $perPage, $filters);
 
