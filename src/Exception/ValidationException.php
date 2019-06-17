@@ -2,10 +2,6 @@
 
 namespace UKFast\Exception;
 
-class ValidationException extends UKFastException
+class ValidationException extends ApiException
 {
-    public function __construct($message)
-    {
-        parent::__construct($message);
-    }
 }
