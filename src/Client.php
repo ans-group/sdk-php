@@ -6,12 +6,11 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
-
 use Psr\Http\Message\ResponseInterface;
-
 use UKFast\Exception\ApiException;
 use UKFast\Exception\InvalidJsonException;
 use UKFast\Exception\NotFoundException;
+use UKFast\Exception\ValidationException;
 
 class Client
 {
@@ -92,8 +91,14 @@ class Client
         try {
             $response = $this->httpClient->request($method, $endpoint, $params);
         } catch (ClientException $e) {
-            if ($e->getResponse()->getStatusCode() == 404) {
+            $status = $e->getResponse()->getStatusCode();
+
+            if ($status == 404) {
                 throw new NotFoundException($e->getResponse());
+            }
+
+            if ($status == 400 || $status == 422) {
+                throw new ValidationException($e->getResponse());
             }
 
             throw new ApiException($e->getResponse());
