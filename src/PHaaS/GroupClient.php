@@ -45,8 +45,7 @@ class GroupClient extends BaseClient
         $response = $this->request(
             'POST',
             'v1/groups',
-            $payload,
-            ['Content-Type' => 'application/json']
+            $payload
         );
 
         $response = $this->decodeJson($response->getBody()->getContents());
@@ -92,8 +91,7 @@ class GroupClient extends BaseClient
         $response = $this->request(
             'PATCH',
             'v1/groups/' . $id,
-            $payload,
-            ['Content-Type' => 'application/json']
+            $payload
         );
 
         $response = $this->decodeJson($response->getBody()->getContents());

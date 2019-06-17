@@ -12,7 +12,7 @@ class Template
 
 
     /**
-     * Domain constructor.
+     * Template constructor.
      * @param $item
      */
     public function __construct($item)

@@ -45,8 +45,7 @@ class UserClient extends BaseClient
         $response = $this->request(
             'POST',
             'v1/users/bulk-upload',
-            $payload,
-            ['Content-Type' => 'application/json']
+            $payload
         );
 
         $users = $this->decodeJson($response->getBody()->getContents());
@@ -77,8 +76,7 @@ class UserClient extends BaseClient
         $response = $this->request(
             'POST',
             'v1/users',
-            $payload,
-            ['Content-Type' => 'application/json']
+            $payload
         );
 
         $response = $this->decodeJson($response->getBody()->getContents());
