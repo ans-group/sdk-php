@@ -5,6 +5,8 @@ namespace UKFast\PHaaS;
 use UKFast\Page;
 use UKFast\Client as BaseClient;
 use UKFast\PHaaS\Entities\Campaign;
+use UKFast\PHaaS\Entities\CampaignResults;
+use UKFast\PHaaS\Entities\CampaignUserResults;
 
 class CampaignClient extends BaseClient
 {
@@ -40,8 +42,7 @@ class CampaignClient extends BaseClient
         $response = $this->request(
             'POST',
             'v1/campaigns',
-            json_encode($campaign),
-            ['Content-Type' => 'application/json']
+            json_encode($campaign)
         );
 
         $campaign = $this->decodeJson($response->getBody()->getContents());
@@ -62,5 +63,40 @@ class CampaignClient extends BaseClient
         $campaign = $this->decodeJson($response->getBody()->getContents());
 
         return new Campaign($campaign->data);
+    }
+
+    /**
+     * Get campaign results overview by id
+     *
+     * @param string $id
+     * @return CampaignResults
+     */
+    public function getCampaignResultsOverview($id)
+    {
+        $response = $this->request('GET', 'v1/campaigns/results/overview/' . $id);
+
+        $campaign = $this->decodeJson($response->getBody()->getContents());
+
+        return new CampaignResults($campaign->data);
+    }
+
+    /**
+     * Get campaign results overview by id
+     *
+     * @param string $id
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return Page
+     */
+    public function getCampaignResultsUsers($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $results = $this->paginatedRequest('v1/campaigns/results/users/' . $id, $page, $perPage, $filters);
+
+        $results->serializeWith(function ($item) {
+            return new CampaignUserResults($item);
+        });
+
+        return $results;
     }
 }
