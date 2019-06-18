@@ -5,6 +5,7 @@ namespace UKFast;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 
 use Psr\Http\Message\ResponseInterface;
@@ -96,6 +97,8 @@ class Client
                 throw new NotFoundException($e->getResponse());
             }
 
+            throw new ApiException($e->getResponse());
+        } catch (ServerException $e) {
             throw new ApiException($e->getResponse());
         }
 

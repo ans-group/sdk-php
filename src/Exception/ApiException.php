@@ -2,11 +2,11 @@
 
 namespace UKFast\Exception;
 
-use UKFast\Exception\InvalidJsonException;
-
 class ApiException extends UKFastException
 {
     protected $response;
+
+    protected $errors;
 
     public function __construct($response)
     {
