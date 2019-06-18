@@ -16,8 +16,35 @@ class Client extends BaseClient
         return (new DomainClient())->auth($this->token);
     }
 
+    /**
+     * @return BaseClient
+     */
     public function users()
     {
         return (new UserClient())->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function groups()
+    {
+        return (new GroupClient())->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function templates()
+    {
+        return (new TemplateClient())->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function campaigns()
+    {
+        return (new CampaignClient())->auth($this->token);
     }
 }
