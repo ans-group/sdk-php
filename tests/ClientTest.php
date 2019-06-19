@@ -267,6 +267,35 @@ class ClientTest extends TestCase
     /**
      * @test
      */
+    public function wraps_server_exceptions_as_ukfast_exceptions()
+    {
+        $mock = new MockHandler([
+            new Response(500, [], json_encode([
+                'errors' => [[
+                    'title' => 'Testing errors',
+                    'detail' => 'Testing errors detail',
+                    'status' => 500,
+                ]]
+            ])),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Guzzle(['handler' => $handler]);
+        $client = new Client($guzzle);
+
+        try {
+            $client->request('GET', '/');
+        } catch (ApiException $e) {
+            $this->assertEquals(1, count($e->getErrors()));
+            $this->assertEquals('Testing errors detail', $e->getMessage());
+            return;
+        }
+
+        $this->expectException(ApiException::class);
+    }
+
+    /**
+     * @test
+     */
     public function get_sends_get_requests()
     {
         $mock = new MockHandler([
