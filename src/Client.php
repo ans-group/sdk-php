@@ -44,7 +44,7 @@ class Client
         }
 
         return $this->httpClient = new HttpClient([
-            'base_uri' => 'https://api.ukfast.io/',
+            'base_uri' => 'https://api.ukfast.io/' . $this->basePath,
             'headers' => [
                 'User-Agent' => $this->getUserAgent()
             ]
@@ -90,7 +90,7 @@ class Client
         }
 
         try {
-            $response = $this->httpClient->request($method, $this->basePath . $endpoint, $params);
+            $response = $this->httpClient->request($method, $endpoint, $params);
         } catch (ClientException $e) {
             $status = $e->getResponse()->getStatusCode();
 
