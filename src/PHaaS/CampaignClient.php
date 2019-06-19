@@ -76,7 +76,7 @@ class CampaignClient extends BaseClient
      */
     public function getCampaignResultsOverview($id)
     {
-        $response = $this->get( 'v1/campaigns/results/overview/' . $id);
+        $response = $this->get('v1/campaigns/results/overview/' . $id);
 
         $campaign = $this->decodeJson($response->getBody()->getContents());
 

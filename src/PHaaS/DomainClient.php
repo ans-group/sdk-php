@@ -80,6 +80,6 @@ class DomainClient extends BaseClient
      */
     public function verifyDomainHash($hash)
     {
-        return $this->get( "v1/domains/verify/$hash");
+        return $this->get("v1/domains/verify/$hash");
     }
 }
