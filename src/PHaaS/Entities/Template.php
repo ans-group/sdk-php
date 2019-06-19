@@ -19,6 +19,7 @@ class Template
     {
         $this->id = $item->id;
         $this->name = $item->name;
+        $this->description = $item->description;
         $this->createdAt = $item->created_at;
         $this->updatedAt = $item->updated_at;
     }
