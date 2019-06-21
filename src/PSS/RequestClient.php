@@ -2,6 +2,7 @@
 
 namespace UKFast\PSS;
 
+use DateTime;
 use UKFast\Client as BaseClient;
 
 class RequestClient extends BaseClient
@@ -56,7 +57,7 @@ class RequestClient extends BaseClient
         $request->type = $item->type;
         $request->secure = $item->secure;
         $request->subject = $item->subject;
-        $request->createdAt = $item->created_at;
+        $request->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
         $request->priority = $item->priority;
         $request->archived = $item->archived;
         $request->status = $item->status;
