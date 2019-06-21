@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
@@ -63,6 +64,7 @@ class PssClientTest extends TestCase
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
+        $this->assertInstanceOf(DateTime::class, $request->createdAt);
     }
 
     /**
@@ -110,6 +112,7 @@ class PssClientTest extends TestCase
         $this->assertEquals(1, $reply->author->id);
         $this->assertEquals('Jonny Test', $reply->author->name);
         $this->assertEquals('Test', $reply->description);
+        $this->assertInstanceOf(DateTime::class, $reply->createdAt);
         $this->assertEquals('2000-01-01 00:00:00', $reply->createdAt->format('Y-m-d H:i:s'));
     }
     /**
@@ -148,5 +151,6 @@ class PssClientTest extends TestCase
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
+        $this->assertInstanceOf(DateTime::class, $request->createdAt);
     }
 }
