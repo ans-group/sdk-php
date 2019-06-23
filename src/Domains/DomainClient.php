@@ -15,8 +15,9 @@ class DomainClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest('v1/domains', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
@@ -31,6 +32,7 @@ class DomainClient extends Client
      *
      * @param string $name
      * @return Domain
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getByName($name)
     {
@@ -44,6 +46,7 @@ class DomainClient extends Client
      *
      * @param string $name
      * @return Domain
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getNameserversByName($name)
     {
