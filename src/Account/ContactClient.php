@@ -2,8 +2,9 @@
 
 namespace UKFast\Account;
 
-use UKFast\Page;
 use UKFast\Account\Entities\Contact;
+use UKFast\Client;
+use UKFast\Page;
 
 class ContactClient extends Client
 {
