@@ -76,7 +76,7 @@ class CampaignClient extends BaseClient
      */
     public function getCampaignResultsOverview($id)
     {
-        $response = $this->get('v1/campaigns/results/overview/' . $id);
+        $response = $this->get("v1/campaigns/$id/results/overview");
 
         $campaign = $this->decodeJson($response->getBody()->getContents());
 
@@ -95,7 +95,7 @@ class CampaignClient extends BaseClient
      */
     public function getCampaignResultsUsers($id, $page = 1, $perPage = 15, $filters = [])
     {
-        $results = $this->paginatedRequest('v1/campaigns/results/users/' . $id, $page, $perPage, $filters);
+        $results = $this->paginatedRequest("v1/campaigns/$id/results/users/", $page, $perPage, $filters);
 
         $results->serializeWith(function ($item) {
             return new CampaignUserResults($item);
