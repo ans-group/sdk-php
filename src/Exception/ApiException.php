@@ -24,7 +24,9 @@ class ApiException extends UKFastException
         }
 
         $this->errors = $body->errors;
-        $this->message = is_array($body->errors) ? $body->errors[0]->detail : $body->errors;
+        if (isset($body->errors[0]->detail)) {
+            $this->message = is_array($body->errors) ? $body->errors[0]->detail : $body->errors;
+        }
         $this->response = $response;
     }
 
