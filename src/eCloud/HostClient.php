@@ -15,8 +15,9 @@ class HostClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest("v1/hosts", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
@@ -31,6 +32,7 @@ class HostClient extends Client
      *
      * @param int $id
      * @return Host
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($id)
     {

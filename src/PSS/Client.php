@@ -13,7 +13,7 @@ class Client extends BaseClient
      */
     public function requests()
     {
-        return (new RequestClient($this->httpClient));
+        return (new RequestClient($this->httpClient))->auth($this->token);
     }
 
     /**
@@ -21,6 +21,6 @@ class Client extends BaseClient
      */
     public function conversation()
     {
-        return (new ConversationClient($this->httpClient));
+        return (new ConversationClient($this->httpClient))->auth($this->token);
     }
 }

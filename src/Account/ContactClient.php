@@ -14,8 +14,9 @@ class ContactClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest('v1/contacts', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
@@ -30,6 +31,7 @@ class ContactClient extends Client
      *
      * @param string $id
      * @return Contact
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($id)
     {

@@ -11,6 +11,7 @@ class WhoisClient extends Client
      *
      * @param string $target
      * @return Whois
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getRecord($target)
     {
@@ -24,6 +25,7 @@ class WhoisClient extends Client
      *
      * @param string $fqdn
      * @return Whois
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getRawRecord($fqdn)
     {

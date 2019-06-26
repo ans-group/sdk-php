@@ -15,8 +15,9 @@ class FirewallClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest("v1/firewalls", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
@@ -31,6 +32,7 @@ class FirewallClient extends Client
      *
      * @param int $id
      * @return Firewall
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($id)
     {
@@ -44,6 +46,7 @@ class FirewallClient extends Client
      *
      * @param int $id
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getConfigById($id)
     {

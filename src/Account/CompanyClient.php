@@ -10,6 +10,7 @@ class CompanyClient extends Client
      * Gets company details
      *
      * @return Company
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getDetails()
     {

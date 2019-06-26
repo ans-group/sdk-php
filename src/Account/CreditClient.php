@@ -10,6 +10,7 @@ class CreditClient extends Client
      * Gets account credits
      *
      * @return Credit Array
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAll()
     {
