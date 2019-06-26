@@ -10,6 +10,7 @@ class Campaign
     public $endDateTime;
     public $emailTemplateId;
     public $status;
+    public $group;
     public $template;
     public $createdAt;
     public $updatedAt;
@@ -28,6 +29,7 @@ class Campaign
         $this->emailTemplateId = $item->email_template_id;
         $this->template = $item->template;
         $this->status = $item->status;
+        $this->group = $item->group;
         $this->createdAt = $item->created_at;
         $this->updatedAt = $item->updated_at;
     }
