@@ -3,9 +3,12 @@
 namespace UKFast\Account;
 
 use UKFast\Account\Entities\Company;
+use UKFast\Client;
 
 class CompanyClient extends Client
 {
+    protected $basePath = 'account/';
+
     /**
      * Gets company details
      *

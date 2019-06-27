@@ -2,12 +2,15 @@
 
 namespace UKFast\SSL;
 
+use UKFast\Client;
 use UKFast\Page;
 use UKFast\SSL\Entities\Certificate;
 use UKFast\SSL\Entities\CertificatePEM;
 
 class CertificateClient extends Client
 {
+    protected $basePath = 'ssl/';
+
     /**
      * Gets a paginated response of all certificates
      *

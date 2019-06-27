@@ -2,10 +2,13 @@
 
 namespace UKFast\Domains;
 
+use UKFast\Client;
 use UKFast\Domains\Entities\Whois;
 
 class WhoisClient extends Client
 {
+    protected $basePath = 'registrar/';
+
     /**
      * Gets a parsed WHOIS record
      *

@@ -14,7 +14,7 @@ class Client extends BaseClient
      */
     public function company()
     {
-        return (new CompanyClient())->auth($this->token);
+        return (new CompanyClient($this->httpClient))->auth($this->token);
     }
 
     /**
@@ -22,7 +22,7 @@ class Client extends BaseClient
      */
     public function contacts()
     {
-        return (new ContactClient())->auth($this->token);
+        return (new ContactClient($this->httpClient))->auth($this->token);
     }
 
     /**
@@ -30,6 +30,6 @@ class Client extends BaseClient
      */
     public function credits()
     {
-        return (new CreditClient())->auth($this->token);
+        return (new CreditClient($this->httpClient))->auth($this->token);
     }
 }

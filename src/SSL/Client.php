@@ -14,6 +14,6 @@ class Client extends BaseClient
      */
     public function certificates()
     {
-        return (new CertificateClient())->auth($this->token);
+        return (new CertificateClient($this->httpClient))->auth($this->token);
     }
 }

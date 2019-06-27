@@ -2,12 +2,15 @@
 
 namespace UKFast\Domains;
 
+use UKFast\Client;
 use UKFast\Page;
 use UKFast\Domains\Entities\Domain;
 use UKFast\Domains\Entities\Nameserver;
 
 class DomainClient extends Client
 {
+    protected $basePath = 'registrar/';
+
     /**
      * Gets a paginated response of all Domains
      *

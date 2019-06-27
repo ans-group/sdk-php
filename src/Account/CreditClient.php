@@ -2,10 +2,13 @@
 
 namespace UKFast\Account;
 
+use UKFast\Client;
 use UKFast\Account\Entities\Credit;
 
 class CreditClient extends Client
 {
+    protected $basePath = 'account/';
+
     /**
      * Gets account credits
      *
