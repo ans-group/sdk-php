@@ -9,6 +9,7 @@ class Contact
 
     public $firstName;
     public $lastName;
+    public $fullName;
 
 
     /**
@@ -26,5 +27,6 @@ class Contact
 
         $this->firstName = $item->first_name;
         $this->lastName = $item->last_name;
+        $this->fullName = $this->firstName . ' ' . $this->lastName;
     }
 }
