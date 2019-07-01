@@ -1,10 +1,13 @@
 <?php
 
-namespace UKFast\Exception;
+namespace UKFast\SDK\Exception;
+
+use UKFast\SDK\ApiError;
 
 class ApiException extends UKFastException
 {
-    protected $errors;
+    protected $errors = [];
+
     protected $response;
 
     public function __construct($response)
@@ -15,16 +18,14 @@ class ApiException extends UKFastException
             throw new InvalidJsonException($err);
         }
 
-        if (isset($body->message)) {
-            $body->errors = [
-                (object) [
-                    'detail' => $body->message,
-                ],
-            ];
+        if (isset($body->errors) && is_array($body->errors)) {
+            $this->errors = $this->getErrorsFromBody($body);
         }
 
-        $this->errors = $body->errors;
-        $this->message = is_array($body->errors) ? $body->errors[0]->detail : $body->errors;
+        if (!empty($this->errors)) {
+            $this->message = $this->errors[0]->detail;
+        }
+
         $this->response = $response;
     }
 
@@ -50,5 +51,19 @@ class ApiException extends UKFastException
     public function getResponse()
     {
         return $this->response;
+    }
+
+    private function getErrorsFromBody($body)
+    {
+        $errors = [];
+        foreach ($body->errors as $error) {
+            $serialized = ApiError::fromRaw($error);
+            if (!$serialized) {
+                continue;
+            }
+            $errors[] = $serialized;
+        }
+
+        return $errors;
     }
 }

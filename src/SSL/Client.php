@@ -1,8 +1,8 @@
 <?php
 
-namespace UKFast\SSL;
+namespace UKFast\SDK\SSL;
 
-use UKFast\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {
@@ -14,6 +14,6 @@ class Client extends BaseClient
      */
     public function certificates()
     {
-        return (new CertificateClient())->auth($this->token);
+        return (new CertificateClient($this->httpClient))->auth($this->token);
     }
 }

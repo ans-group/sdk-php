@@ -8,12 +8,12 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\Client;
-use UKFast\Exception\ApiException;
-use UKFast\Exception\InvalidJsonException;
-use UKFast\Exception\NotFoundException;
-use UKFast\Exception\ValidationException;
-use UKFast\Page;
+use UKFast\SDK\Client;
+use UKFast\SDK\Exception\ApiException;
+use UKFast\SDK\Exception\InvalidJsonException;
+use UKFast\SDK\Exception\NotFoundException;
+use UKFast\SDK\Exception\ValidationException;
+use UKFast\SDK\Page;
 
 class ClientTest extends TestCase
 {

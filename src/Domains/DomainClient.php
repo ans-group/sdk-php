@@ -1,13 +1,16 @@
 <?php
 
-namespace UKFast\Domains;
+namespace UKFast\SDK\Domains;
 
-use UKFast\Page;
-use UKFast\Domains\Entities\Domain;
-use UKFast\Domains\Entities\Nameserver;
+use UKFast\SDK\Client;
+use UKFast\SDK\Page;
+use UKFast\SDK\Domains\Entities\Domain;
+use UKFast\SDK\Domains\Entities\Nameserver;
 
 class DomainClient extends Client
 {
+    protected $basePath = 'registrar/';
+
     /**
      * Gets a paginated response of all Domains
      *
@@ -15,8 +18,9 @@ class DomainClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest('v1/domains', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
@@ -31,6 +35,7 @@ class DomainClient extends Client
      *
      * @param string $name
      * @return Domain
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getByName($name)
     {
@@ -44,6 +49,7 @@ class DomainClient extends Client
      *
      * @param string $name
      * @return Domain
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getNameserversByName($name)
     {

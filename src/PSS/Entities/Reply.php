@@ -1,11 +1,11 @@
 <?php
 
-namespace UKFast\PSS\Entities;
+namespace UKFast\SDK\PSS\Entities;
 
 class Reply
 {
     /**
-     * @var \UKFast\Pss\Author
+     * @var \UKFast\SDK\Pss\Author
      */
     public $author;
 

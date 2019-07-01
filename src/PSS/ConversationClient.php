@@ -1,8 +1,8 @@
 <?php
 
-namespace UKFast\PSS;
+namespace UKFast\SDK\PSS;
 
-use UKFast\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 use DateTime;
 
 class ConversationClient extends BaseClient
@@ -14,7 +14,7 @@ class ConversationClient extends BaseClient
      * @param int $page
      * @param int $perPage
      * @param array $filters
-     * @return \UKFast\Page
+     * @return \UKFast\SDK\Page
      */
     public function getPage($requestId, $page = 1, $perPage = 15, $filters = [])
     {
@@ -30,7 +30,7 @@ class ConversationClient extends BaseClient
      * Converts a response stdClass into a Reply object
      *
      * @param $item
-     * @return \UKFast\PSS\Entities\Reply
+     * @return \UKFast\SDK\PSS\Entities\Reply
      */
     protected function serializeReply($item)
     {

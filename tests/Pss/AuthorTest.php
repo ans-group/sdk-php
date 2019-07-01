@@ -3,7 +3,7 @@
 namespace Tests\Pss;
 
 use PHPUnit\Framework\TestCase;
-use UKFast\PSS\Entities\Author;
+use UKFast\SDK\PSS\Entities\Author;
 
 class AuthorTest extends TestCase
 {

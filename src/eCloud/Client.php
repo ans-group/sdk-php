@@ -1,8 +1,8 @@
 <?php
 
-namespace UKFast\eCloud;
+namespace UKFast\SDK\eCloud;
 
-use UKFast\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {

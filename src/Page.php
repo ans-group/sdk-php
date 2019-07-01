@@ -1,10 +1,10 @@
 <?php
 
-namespace UKFast;
+namespace UKFast\SDK;
 
 use GuzzleHttp\Psr7\Request;
-use UKFast\Client;
-use UKFast\Exception\InvalidJsonException;
+use UKFast\SDK\Client;
+use UKFast\SDK\Exception\InvalidJsonException;
 
 class Page
 {
@@ -47,7 +47,7 @@ class Page
      * Setter for page items
      *
      * @param array $items
-     * @return \UKFast\Page
+     * @return \UKFast\SDK\Page
      */
     public function setItems($items)
     {
@@ -60,7 +60,7 @@ class Page
      * item in a new page with
      *
      * @param \Closure $callback
-     * @return \UKFast\Page
+     * @return \UKFast\SDK\Page
      */
     public function serializeWith($callback)
     {
@@ -90,8 +90,8 @@ class Page
      * Sets client to use when making requests
      * to other pages
      *
-     * @param \UKFast\Client $client
-     * @return \UKFast\Page
+     * @param \UKFast\SDK\Client $client
+     * @return \UKFast\SDK\Page
      */
     public function setClient(Client $client)
     {
@@ -171,7 +171,7 @@ class Page
      * Gets a page by number
      *
      * @param int $number
-     * @return \UKFast\Page
+     * @return \UKFast\SDK\Page
      */
     public function getPage($number)
     {
@@ -185,7 +185,7 @@ class Page
     }
 
     /**
-     * @return \UKFast\Page|false
+     * @return \UKFast\SDK\Page|false
      */
     public function getNextPage()
     {
@@ -198,7 +198,7 @@ class Page
     }
 
     /**
-     * @return \UKFast\Page|false
+     * @return \UKFast\SDK\Page|false
      */
     public function getPreviousPage()
     {
@@ -211,7 +211,7 @@ class Page
     }
 
     /**
-     * @return \UKFast\Page
+     * @return \UKFast\SDK\Page
      */
     public function getFirstPage()
     {
@@ -220,7 +220,7 @@ class Page
     }
 
     /**
-     * @return \UKFast\Page
+     * @return \UKFast\SDK\Page
      */
     public function getLastPage()
     {
@@ -234,7 +234,7 @@ class Page
      *
      * @param Response $response
      * @param string|\Psr\Http\Message\UriInterface $uri
-     * @return \UKFast\Page
+     * @return \UKFast\SDK\Page
      */
     private function constructNewPage($response, $uri)
     {

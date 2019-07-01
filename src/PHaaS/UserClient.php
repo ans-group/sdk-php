@@ -1,11 +1,11 @@
 <?php
 
-namespace UKFast\PHaaS;
+namespace UKFast\SDK\PHaaS;
 
 use Psr\Http\Message\ResponseInterface;
-use UKFast\Page;
-use UKFast\Client as BaseClient;
-use UKFast\PHaaS\Entities\User;
+use UKFast\SDK\Page;
+use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\PHaaS\Entities\User;
 
 class UserClient extends BaseClient
 {
@@ -18,6 +18,7 @@ class UserClient extends BaseClient
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
@@ -35,6 +36,7 @@ class UserClient extends BaseClient
      *
      * @param array $users
      * @return array|ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function addUsers($users)
     {
@@ -42,8 +44,7 @@ class UserClient extends BaseClient
             'users' => $users
         ]);
 
-        $response = $this->request(
-            'POST',
+        $response = $this->post(
             'v1/users/bulk-upload',
             $payload
         );
@@ -68,13 +69,13 @@ class UserClient extends BaseClient
      *
      * @param $user
      * @return User
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function addUser($user)
     {
         $payload = json_encode($user);
 
-        $response = $this->request(
-            'POST',
+        $response = $this->post(
             'v1/users',
             $payload
         );
@@ -89,10 +90,11 @@ class UserClient extends BaseClient
      *
      * @param $id
      * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function removeUser($id)
     {
-        $response = $this->request('DELETE', 'v1/users/' . $id);
+        $response = $this->delete('v1/users/' . $id);
 
         return $response;
     }

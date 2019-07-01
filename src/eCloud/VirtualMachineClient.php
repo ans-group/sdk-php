@@ -1,10 +1,10 @@
 <?php
 
-namespace UKFast\eCloud;
+namespace UKFast\SDK\eCloud;
 
-use UKFast\Page;
+use UKFast\SDK\Page;
 
-use UKFast\eCloud\Entities\VirtualMachine;
+use UKFast\SDK\eCloud\Entities\VirtualMachine;
 
 class VirtualMachineClient extends Client
 {
@@ -15,6 +15,7 @@ class VirtualMachineClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
@@ -31,6 +32,7 @@ class VirtualMachineClient extends Client
      *
      * @param array $filters
      * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAll($filters = [])
     {
@@ -63,6 +65,7 @@ class VirtualMachineClient extends Client
      *
      * @param int $id
      * @return VirtualMachine
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($id)
     {
@@ -76,6 +79,7 @@ class VirtualMachineClient extends Client
      *
      * @param VirtualMachine $virtualMachine
      * @return VirtualMachine
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function create(VirtualMachine $virtualMachine)
     {
@@ -145,6 +149,7 @@ class VirtualMachineClient extends Client
      *
      * @param VirtualMachine $virtualMachine
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function update(VirtualMachine $virtualMachine)
     {
@@ -168,6 +173,7 @@ class VirtualMachineClient extends Client
      * @param $id
      * @param null $name
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function createClone($id, $name = null)
     {
@@ -187,10 +193,12 @@ class VirtualMachineClient extends Client
 
     /**
      * Clone virtual machine to template
+     *
      * @param $id
      * @param $name
      * @param string $type
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function cloneToTemplate($id, $name, $type = null)
     {
@@ -214,6 +222,7 @@ class VirtualMachineClient extends Client
      *
      * @param int $id
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function powerOn($id)
     {
@@ -226,6 +235,7 @@ class VirtualMachineClient extends Client
      *
      * @param int $id
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function powerOff($id)
     {
@@ -238,6 +248,7 @@ class VirtualMachineClient extends Client
      *
      * @param int $id
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function powerReset($id)
     {
@@ -246,10 +257,11 @@ class VirtualMachineClient extends Client
     }
 
     /**
-     * Guest Shutdown a Virtual Machine
+     * Shutdown the Virtual Machine Guest
      *
      * @param int $id
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function guestShutdown($id)
     {
@@ -258,10 +270,11 @@ class VirtualMachineClient extends Client
     }
 
     /**
-     * Guest Restart a Virtual Machine
+     * Restart a Virtual Machine Guest
      *
      * @param int $id
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function guestRestart($id)
     {
@@ -274,6 +287,7 @@ class VirtualMachineClient extends Client
      *
      * @param string $id
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function destroy($id)
     {

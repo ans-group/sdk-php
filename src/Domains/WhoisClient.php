@@ -1,16 +1,20 @@
 <?php
 
-namespace UKFast\Domains;
+namespace UKFast\SDK\Domains;
 
-use UKFast\Domains\Entities\Whois;
+use UKFast\SDK\Client;
+use UKFast\SDK\Domains\Entities\Whois;
 
 class WhoisClient extends Client
 {
+    protected $basePath = 'registrar/';
+
     /**
      * Gets a parsed WHOIS record
      *
      * @param string $target
      * @return Whois
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getRecord($target)
     {
@@ -24,6 +28,7 @@ class WhoisClient extends Client
      *
      * @param string $fqdn
      * @return Whois
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getRawRecord($fqdn)
     {
