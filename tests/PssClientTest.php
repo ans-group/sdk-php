@@ -79,6 +79,7 @@ class PssClientTest extends TestCase
      */
     public function gets_a_conversation()
     {
+//        $this->markTestSkipped();
         $mock = new MockHandler([
             new Response(200, [], json_encode([
                 'data' => [[
@@ -89,6 +90,7 @@ class PssClientTest extends TestCase
                     ],
                     'description' => 'Test',
                     'created_at' => '2000-01-01T00:00:00+00',
+                    'attachments' => [],
                 ]],
                 'meta' => [
                     'pagination' => [
