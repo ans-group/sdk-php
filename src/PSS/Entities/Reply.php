@@ -18,4 +18,9 @@ class Reply
      * @var \DateTime
      */
     public $createdAt;
+
+    /**
+     * @var array
+     */
+    public $attachments = [];
 }

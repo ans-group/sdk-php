@@ -8,6 +8,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use UKFast\PSS\Entities\Attachment;
 
 class PssClientTest extends TestCase
 {
@@ -121,6 +122,64 @@ class PssClientTest extends TestCase
         $this->assertInstanceOf(DateTime::class, $reply->createdAt);
         $this->assertEquals('2000-01-01 00:00:00', $reply->createdAt->format('Y-m-d H:i:s'));
     }
+
+    /**
+     * @test
+     */
+    public function gets_a_conversation_with_attachments()
+    {
+        $mock = new MockHandler([
+            new Response(200, [], json_encode([
+                'data' => [[
+                    'author' => [
+                        'id' => 1,
+                        'name' => 'Jonny Test',
+                        'type' => 'Client',
+                    ],
+                    'description' => 'Test',
+                    'created_at' => '2000-01-01T00:00:00+00',
+                    'attachments' => [
+                        [
+                            'name' => 'test-file.txt',
+                        ],
+                        [
+                            'name' => 'test-file2.txt',
+                        ],
+                    ]
+                ]],
+                'meta' => [
+                    'pagination' => [
+                        'total' => 2,
+                        'count' => 1,
+                        'per_page' => 1,
+                        'total_pages' => 2,
+                        'links' => [
+                            'next' => 'http://example.com/next',
+                            'previous' => 'http://example.com/previous',
+                            'first' => 'http://example.com/first',
+                            'last' => 'http://example.com/last',
+                        ]
+                    ]
+                ]
+            ])),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Client(['handler' => $handler]);
+
+        $client = new \UKFast\PSS\Client($guzzle);
+        $page = $client->conversation()->getPage(1);
+
+        $this->assertTrue($page instanceof \UKFast\Page);
+
+        $reply = $page->getItems()[0];
+
+        $this->assertCount(2, $reply->attachments);
+        $this->assertInstanceOf(Attachment::class, $reply->attachments[0]);
+        $this->assertInstanceOf(Attachment::class, $reply->attachments[1]);
+        $this->assertEquals('test-file.txt', $reply->attachments[0]->name);
+        $this->assertEquals('test-file2.txt', $reply->attachments[1]->name);
+    }
+
     /**
      * @test
      */
