@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast;
+namespace UKFast\SDK;
 
 class ApiError
 {

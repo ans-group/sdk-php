@@ -1,12 +1,12 @@
 <?php
 
-namespace UKFast\PHaaS;
+namespace UKFast\SDK\PHaaS;
 
 use Exception;
 use Psr\Http\Message\ResponseInterface;
-use UKFast\Page;
-use UKFast\Client as BaseClient;
-use UKFast\PHaaS\Entities\Domain;
+use UKFast\SDK\Page;
+use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\PHaaS\Entities\Domain;
 
 class DomainClient extends BaseClient
 {

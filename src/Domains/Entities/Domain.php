@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\Domains\Entities;
+namespace UKFast\SDK\Domains\Entities;
 
 class Domain
 {

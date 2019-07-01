@@ -1,11 +1,11 @@
 <?php
 
-namespace UKFast\PHaaS;
+namespace UKFast\SDK\PHaaS;
 
-use UKFast\Page;
-use UKFast\Client as BaseClient;
-use UKFast\PHaaS\Entities\Group;
-use UKFast\PHaaS\Entities\User;
+use UKFast\SDK\Page;
+use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\PHaaS\Entities\Group;
+use UKFast\SDK\PHaaS\Entities\User;
 
 class GroupClient extends BaseClient
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\PHaaS\Entities;
+namespace UKFast\SDK\PHaaS\Entities;
 
 class User
 {

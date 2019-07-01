@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\PSS\Entities;
+namespace UKFast\SDK\PSS\Entities;
 
 class Author
 {

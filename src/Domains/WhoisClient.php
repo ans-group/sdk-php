@@ -1,9 +1,9 @@
 <?php
 
-namespace UKFast\Domains;
+namespace UKFast\SDK\Domains;
 
-use UKFast\Client;
-use UKFast\Domains\Entities\Whois;
+use UKFast\SDK\Client;
+use UKFast\SDK\Domains\Entities\Whois;
 
 class WhoisClient extends Client
 {

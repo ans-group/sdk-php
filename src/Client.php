@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast;
+namespace UKFast\SDK;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
@@ -8,10 +8,10 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
-use UKFast\Exception\ApiException;
-use UKFast\Exception\InvalidJsonException;
-use UKFast\Exception\NotFoundException;
-use UKFast\Exception\ValidationException;
+use UKFast\SDK\Exception\ApiException;
+use UKFast\SDK\Exception\InvalidJsonException;
+use UKFast\SDK\Exception\NotFoundException;
+use UKFast\SDK\Exception\ValidationException;
 
 class Client
 {

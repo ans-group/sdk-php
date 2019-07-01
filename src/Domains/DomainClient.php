@@ -1,11 +1,11 @@
 <?php
 
-namespace UKFast\Domains;
+namespace UKFast\SDK\Domains;
 
-use UKFast\Client;
-use UKFast\Page;
-use UKFast\Domains\Entities\Domain;
-use UKFast\Domains\Entities\Nameserver;
+use UKFast\SDK\Client;
+use UKFast\SDK\Page;
+use UKFast\SDK\Domains\Entities\Domain;
+use UKFast\SDK\Domains\Entities\Nameserver;
 
 class DomainClient extends Client
 {

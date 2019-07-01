@@ -1,17 +1,17 @@
 <?php
 
-namespace UKFast\eCloud;
+namespace UKFast\SDK\eCloud;
 
-use UKFast\Page;
+use UKFast\SDK\Page;
 
-use UKFast\eCloud\Entities\Datastore;
-use UKFast\eCloud\Entities\Firewall;
-use UKFast\eCloud\Entities\Host;
-use UKFast\eCloud\Entities\Network;
-use UKFast\eCloud\Entities\Site;
-use UKFast\eCloud\Entities\Solution;
-use UKFast\eCloud\Entities\Template;
-use UKFast\eCloud\Entities\VirtualMachine;
+use UKFast\SDK\eCloud\Entities\Datastore;
+use UKFast\SDK\eCloud\Entities\Firewall;
+use UKFast\SDK\eCloud\Entities\Host;
+use UKFast\SDK\eCloud\Entities\Network;
+use UKFast\SDK\eCloud\Entities\Site;
+use UKFast\SDK\eCloud\Entities\Solution;
+use UKFast\SDK\eCloud\Entities\Template;
+use UKFast\SDK\eCloud\Entities\VirtualMachine;
 
 class SolutionClient extends Client
 {
