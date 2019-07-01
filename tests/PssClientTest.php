@@ -34,6 +34,11 @@ class PssClientTest extends TestCase
                     'status' => 'Submitted',
                     'request_sms' => false,
                     'customer_reference' => 'Test Reference',
+                    'product' => [
+                        'id' => 100,
+                        'type' => 'Domains',
+                    ],
+                    'last_replied_at' => '2019-07-01T10:11:52+00:00',
                 ]],
                 'meta' => [
                     'pagination' => [
@@ -65,6 +70,7 @@ class PssClientTest extends TestCase
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
         $this->assertInstanceOf(DateTime::class, $request->createdAt);
+        $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
     }
 
     /**
@@ -138,6 +144,11 @@ class PssClientTest extends TestCase
                     'status' => 'Submitted',
                     'request_sms' => false,
                     'customer_reference' => 'Test Reference',
+                    'product' => [
+                        'id' => 100,
+                        'type' => 'Domains',
+                    ],
+                    'last_replied_at' => '2019-07-01T10:11:52+00:00',
                 ],
             ])),
         ]);
@@ -152,5 +163,6 @@ class PssClientTest extends TestCase
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
         $this->assertInstanceOf(DateTime::class, $request->createdAt);
+        $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
     }
 }
