@@ -63,6 +63,8 @@ class RequestClient extends BaseClient
         $request->status = $item->status;
         $request->requestSms = $item->request_sms;
         $request->customerReference = $item->customer_reference;
+        $request->product = new Entities\Product($item->product);
+        $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
 
         return $request;
     }
