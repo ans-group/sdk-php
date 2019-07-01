@@ -3,7 +3,7 @@
 namespace Tests\Pss;
 
 use PHPUnit\Framework\TestCase;
-use UKFast\PSS\Entities\Attachment;
+use UKFast\SDK\PSS\Entities\Attachment;
 
 class AttachmentTest extends TestCase
 {

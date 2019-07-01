@@ -8,7 +8,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\PSS\Entities\Attachment;
+use UKFast\SDK\PSS\Entities\Attachment;
 
 class PssClientTest extends TestCase
 {
@@ -168,10 +168,10 @@ class PssClientTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new \UKFast\PSS\Client($guzzle);
+        $client = new \UKFast\SDK\PSS\Client($guzzle);
         $page = $client->conversation()->getPage(1);
 
-        $this->assertTrue($page instanceof \UKFast\Page);
+        $this->assertTrue($page instanceof \UKFast\SDK\Page);
 
         $reply = $page->getItems()[0];
 
