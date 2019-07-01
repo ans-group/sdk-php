@@ -1,15 +1,15 @@
 <?php
 
-namespace UKFast\PSS;
+namespace UKFast\SDK\PSS;
 
-use UKFast\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {
     protected $basePath = 'pss/';
     
     /**
-     * @return \UKFast\PSS\RequestClient
+     * @return \UKFast\SDK\PSS\RequestClient
      */
     public function requests()
     {
@@ -17,7 +17,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return \UKFast\PSS\ConversationClient
+     * @return \UKFast\SDK\PSS\ConversationClient
      */
     public function conversation()
     {

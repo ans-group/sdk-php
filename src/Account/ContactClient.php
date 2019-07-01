@@ -1,10 +1,10 @@
 <?php
 
-namespace UKFast\Account;
+namespace UKFast\SDK\Account;
 
-use UKFast\Account\Entities\Contact;
-use UKFast\Client;
-use UKFast\Page;
+use UKFast\SDK\Account\Entities\Contact;
+use UKFast\SDK\Client;
+use UKFast\SDK\Page;
 
 class ContactClient extends Client
 {

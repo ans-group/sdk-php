@@ -1,12 +1,12 @@
 <?php
 
-namespace UKFast\PHaaS;
+namespace UKFast\SDK\PHaaS;
 
-use UKFast\Page;
-use UKFast\Client as BaseClient;
-use UKFast\PHaaS\Entities\Campaign;
-use UKFast\PHaaS\Entities\CampaignResults;
-use UKFast\PHaaS\Entities\CampaignUserResults;
+use UKFast\SDK\Page;
+use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\PHaaS\Entities\Campaign;
+use UKFast\SDK\PHaaS\Entities\CampaignResults;
+use UKFast\SDK\PHaaS\Entities\CampaignUserResults;
 
 class CampaignClient extends BaseClient
 {

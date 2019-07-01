@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\Account\Entities;
+namespace UKFast\SDK\Account\Entities;
 
 class Contact
 {

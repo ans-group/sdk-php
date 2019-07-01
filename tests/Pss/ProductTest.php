@@ -3,7 +3,7 @@
 namespace Tests\Pss;
 
 use PHPUnit\Framework\TestCase;
-use UKFast\PSS\Entities\Product;
+use UKFast\SDK\PSS\Entities\Product;
 
 class ProductTest extends TestCase
 {

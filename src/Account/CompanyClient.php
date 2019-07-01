@@ -1,9 +1,9 @@
 <?php
 
-namespace UKFast\Account;
+namespace UKFast\SDK\Account;
 
-use UKFast\Account\Entities\Company;
-use UKFast\Client;
+use UKFast\SDK\Account\Entities\Company;
+use UKFast\SDK\Client;
 
 class CompanyClient extends Client
 {

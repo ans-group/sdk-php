@@ -1,8 +1,8 @@
 <?php
 
-namespace UKFast\Domains;
+namespace UKFast\SDK\Domains;
 
-use UKFast\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {

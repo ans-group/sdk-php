@@ -9,8 +9,8 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\Client;
-use UKFast\Page;
+use UKFast\SDK\Client;
+use UKFast\SDK\Page;
 
 class PageTest extends TestCase
 {

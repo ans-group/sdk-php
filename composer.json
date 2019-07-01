@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "UKFast\\": "src/"
+            "UKFast\\SDK\\": "src/"
         }
     },
     "autoload-dev": {

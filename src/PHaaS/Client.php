@@ -1,8 +1,8 @@
 <?php
 
-namespace UKFast\PHaaS;
+namespace UKFast\SDK\PHaaS;
 
-use UKFast\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {

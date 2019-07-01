@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\eCloud\Entities;
+namespace UKFast\SDK\eCloud\Entities;
 
 class Datastore
 {

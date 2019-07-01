@@ -1,8 +1,8 @@
 <?php
 
-namespace UKFast\Exception;
+namespace UKFast\SDK\Exception;
 
-use UKFast\ApiError;
+use UKFast\SDK\ApiError;
 
 class ApiException extends UKFastException
 {

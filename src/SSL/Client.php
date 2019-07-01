@@ -1,8 +1,8 @@
 <?php
 
-namespace UKFast\SSL;
+namespace UKFast\SDK\SSL;
 
-use UKFast\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {

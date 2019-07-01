@@ -1,11 +1,11 @@
 <?php
 
-namespace UKFast\SSL;
+namespace UKFast\SDK\SSL;
 
-use UKFast\Client;
-use UKFast\Page;
-use UKFast\SSL\Entities\Certificate;
-use UKFast\SSL\Entities\CertificatePEM;
+use UKFast\SDK\Client;
+use UKFast\SDK\Page;
+use UKFast\SDK\SSL\Entities\Certificate;
+use UKFast\SDK\SSL\Entities\CertificatePEM;
 
 class CertificateClient extends Client
 {

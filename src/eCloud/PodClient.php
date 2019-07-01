@@ -1,11 +1,11 @@
 <?php
 
-namespace UKFast\eCloud;
+namespace UKFast\SDK\eCloud;
 
-use UKFast\Page;
+use UKFast\SDK\Page;
 
-use UKFast\eCloud\Entities\Pod;
-use UKFast\eCloud\Entities\Template;
+use UKFast\SDK\eCloud\Entities\Pod;
+use UKFast\SDK\eCloud\Entities\Template;
 
 class PodClient extends Client
 {
