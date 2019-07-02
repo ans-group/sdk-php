@@ -1,9 +1,9 @@
 <?php
 
-namespace UKFast\PSS;
+namespace UKFast\SDK\PSS;
 
 use DateTime;
-use UKFast\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 
 class RequestClient extends BaseClient
 {
@@ -15,7 +15,7 @@ class RequestClient extends BaseClient
      * @param int $page
      * @param int $perPage
      * @param array $filters
-     * @return \UKFast\Page
+     * @return \UKFast\SDK\Page
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
@@ -31,7 +31,7 @@ class RequestClient extends BaseClient
      * Gets an individual request
      *
      * @param int $id
-     * @return \UKFast\PSS\Entities\Request
+     * @return \UKFast\SDK\PSS\Entities\Request
      */
     public function getById($id)
     {
@@ -46,7 +46,7 @@ class RequestClient extends BaseClient
      * Converts a response stdClass into a Request object
      *
      * @param \stdClass
-     * @return \UKFast\Pss\Request
+     * @return \UKFast\SDK\Pss\Request
      */
     protected function serializeRequest($item)
     {
@@ -63,6 +63,8 @@ class RequestClient extends BaseClient
         $request->status = $item->status;
         $request->requestSms = $item->request_sms;
         $request->customerReference = $item->customer_reference;
+        $request->product = new Entities\Product($item->product);
+        $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
 
         return $request;
     }

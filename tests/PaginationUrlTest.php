@@ -3,7 +3,7 @@
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use UKFast\PaginationUrl;
+use UKFast\SDK\PaginationUrl;
 
 class PaginationUrlTest extends TestCase
 {

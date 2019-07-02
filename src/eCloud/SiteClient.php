@@ -1,10 +1,10 @@
 <?php
 
-namespace UKFast\eCloud;
+namespace UKFast\SDK\eCloud;
 
-use UKFast\Page;
+use UKFast\SDK\Page;
 
-use UKFast\eCloud\Entities\Site;
+use UKFast\SDK\eCloud\Entities\Site;
 
 class SiteClient extends Client
 {

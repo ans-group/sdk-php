@@ -1,8 +1,8 @@
 <?php
 
-namespace UKFast\Domains;
+namespace UKFast\SDK\Domains;
 
-use UKFast\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {
@@ -14,7 +14,7 @@ class Client extends BaseClient
      */
     public function domains()
     {
-        return (new DomainClient())->auth($this->token);
+        return (new DomainClient($this->httpClient))->auth($this->token);
     }
 
     /**
@@ -22,6 +22,6 @@ class Client extends BaseClient
      */
     public function whois()
     {
-        return (new WhoisClient())->auth($this->token);
+        return (new WhoisClient($this->httpClient))->auth($this->token);
     }
 }

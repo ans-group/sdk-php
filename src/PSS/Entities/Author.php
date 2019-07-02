@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\PSS\Entities;
+namespace UKFast\SDK\PSS\Entities;
 
 class Author
 {
@@ -47,6 +47,6 @@ class Author
      */
     public function isAutomated()
     {
-        return $this->type === 'Automated';
+        return $this->type === 'Auto';
     }
 }

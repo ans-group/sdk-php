@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\PSS\Entities;
+namespace UKFast\SDK\PSS\Entities;
 
 class Request
 {
@@ -10,7 +10,7 @@ class Request
     public $id;
 
     /**
-     * @var \UKFast\Pss\Author
+     * @var \UKFast\SDK\Pss\Entities\Author
      */
     public $author;
 
@@ -58,4 +58,14 @@ class Request
      * @var string
      */
     public $customerReference;
+
+    /**
+     * @var \UKFast\SDK\Pss\Entities\Author
+     */
+    public $product;
+
+    /**
+     * @var \DateTime
+     */
+    public $lastRepliedAt;
 }

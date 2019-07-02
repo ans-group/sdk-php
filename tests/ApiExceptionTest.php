@@ -4,8 +4,8 @@ namespace Tests;
 
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\Exception\ApiException;
-use UKFast\Exception\InvalidJsonException;
+use UKFast\SDK\Exception\ApiException;
+use UKFast\SDK\Exception\InvalidJsonException;
 
 class ApiExceptionTest extends TestCase
 {

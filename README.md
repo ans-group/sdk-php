@@ -4,11 +4,7 @@ UKFast API PHP client
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 
-## Currently in beta
-
-SDK is still in development but will be fully released shortly. It's unlikely that the interface will change significantly, but it's possible that some breaking changes will be made.
-
-A PHP client library for connecting your application(s) to the UKFast APIs. 
+A PHP library for connecting your application(s) to the UKFast APIs. 
 
 To use this package, you will need a UKFast account. Sign up for free at [ukfast.co.uk][1], 
 and refer to the [Getting Started][2] section of our developer documentation for more information on consuming our APIs.
@@ -31,14 +27,16 @@ Usage
 
 Each API has its own client class that extends from a base client class. All clients have an `auth` method which takes an API token to be used when sending requests.
 
+Each client class has its own subclients, which can be accessed via methods on the base client.
+
 **Example**
 
 ```php
 <?php
 
-$client = (new \UKFast\PSS\Client)->auth('API KEY');
+$client = (new \UKFast\SDK\PSS\Client)->auth('API KEY');
 
-$page = $client->requests->getPage();
+$page = $client->requests()->getPage();
 
 foreach ($page->getItems() as $request) {
     echo "#{$request->id} - {$request->subject}\n";
@@ -49,7 +47,7 @@ foreach ($page->getItems() as $request) {
 Contributing
 ------------
 
-We welcome contributions that will benefit our users, 
+We welcome contributions that will benefit other users, 
 please see [CONTRIBUTING](CONTRIBUTING.md) for details on how to get involved.
 
 

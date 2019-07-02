@@ -34,6 +34,11 @@ class PssClientTest extends TestCase
                     'status' => 'Submitted',
                     'request_sms' => false,
                     'customer_reference' => 'Test Reference',
+                    'product' => [
+                        'id' => 100,
+                        'type' => 'Domains',
+                    ],
+                    'last_replied_at' => '2019-07-01T10:11:52+00:00',
                 ]],
                 'meta' => [
                     'pagination' => [
@@ -54,17 +59,18 @@ class PssClientTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new \UKFast\PSS\Client($guzzle);
+        $client = new \UKFast\SDK\PSS\Client($guzzle);
         $page = $client->requests()->getPage();
 
-        $this->assertTrue($page instanceof \UKFast\Page);
+        $this->assertTrue($page instanceof \UKFast\SDK\Page);
         $request = $page->getItems()[0];
 
-        $this->assertTrue($request instanceof \UKFast\PSS\Entities\Request);
+        $this->assertTrue($request instanceof \UKFast\SDK\PSS\Entities\Request);
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
         $this->assertInstanceOf(DateTime::class, $request->createdAt);
+        $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
     }
 
     /**
@@ -102,10 +108,10 @@ class PssClientTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new \UKFast\PSS\Client($guzzle);
+        $client = new \UKFast\SDK\PSS\Client($guzzle);
         $page = $client->conversation()->getPage(1);
 
-        $this->assertTrue($page instanceof \UKFast\Page);
+        $this->assertTrue($page instanceof \UKFast\SDK\Page);
 
         $reply = $page->getItems()[0];
 
@@ -138,19 +144,25 @@ class PssClientTest extends TestCase
                     'status' => 'Submitted',
                     'request_sms' => false,
                     'customer_reference' => 'Test Reference',
+                    'product' => [
+                        'id' => 100,
+                        'type' => 'Domains',
+                    ],
+                    'last_replied_at' => '2019-07-01T10:11:52+00:00',
                 ],
             ])),
         ]);
         $handler = HandlerStack::create($mock);
         $guzzle = new Client(['handler' => $handler]);
 
-        $client = new \UKFast\PSS\Client($guzzle);
+        $client = new \UKFast\SDK\PSS\Client($guzzle);
         $request = $client->requests()->getById(1);
 
-        $this->assertTrue($request instanceof \UKFast\PSS\Entities\Request);
+        $this->assertTrue($request instanceof \UKFast\SDK\PSS\Entities\Request);
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
         $this->assertInstanceOf(DateTime::class, $request->createdAt);
+        $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
     }
 }

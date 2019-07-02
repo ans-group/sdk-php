@@ -1,10 +1,10 @@
 <?php
 
-namespace UKFast\eCloud;
+namespace UKFast\SDK\eCloud;
 
-use UKFast\Page;
+use UKFast\SDK\Page;
 
-use UKFast\eCloud\Entities\Host;
+use UKFast\SDK\eCloud\Entities\Host;
 
 class HostClient extends Client
 {

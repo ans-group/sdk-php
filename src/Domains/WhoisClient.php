@@ -1,11 +1,14 @@
 <?php
 
-namespace UKFast\Domains;
+namespace UKFast\SDK\Domains;
 
-use UKFast\Domains\Entities\Whois;
+use UKFast\SDK\Client;
+use UKFast\SDK\Domains\Entities\Whois;
 
 class WhoisClient extends Client
 {
+    protected $basePath = 'registrar/';
+
     /**
      * Gets a parsed WHOIS record
      *

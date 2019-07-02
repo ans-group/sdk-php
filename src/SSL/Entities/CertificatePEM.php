@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\SSL\Entities;
+namespace UKFast\SDK\SSL\Entities;
 
 class CertificatePEM
 {
