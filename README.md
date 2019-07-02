@@ -3,7 +3,8 @@ UKFast API PHP client
 [![Build Status](https://travis-ci.org/ukfast/sdk-php.svg?branch=master)](https://travis-ci.org/ukfast/sdk-php)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A PHP client library for connecting your application(s) to the UKFast APIs. 
+
+A PHP library for connecting your application(s) to the UKFast APIs. 
 
 To use this package, you will need a UKFast account. Sign up for free at [ukfast.co.uk][1], 
 and refer to the [Getting Started][2] section of our developer documentation for more information on consuming our APIs.
@@ -46,7 +47,7 @@ foreach ($page->getItems() as $request) {
 Contributing
 ------------
 
-We welcome contributions that will benefit our users, 
+We welcome contributions that will benefit other users, 
 please see [CONTRIBUTING](CONTRIBUTING.md) for details on how to get involved.
 
 
