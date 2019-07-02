@@ -6,7 +6,7 @@
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
-$account = (new \UKFast\Account\Client)->auth(
+$account = (new \UKFast\SDK\Account\Client)->auth(
     getenv('UKFAST_API_KEY')
 );
 

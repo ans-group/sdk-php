@@ -47,6 +47,6 @@ class Author
      */
     public function isAutomated()
     {
-        return $this->type === 'Automated';
+        return $this->type === 'Auto';
     }
 }

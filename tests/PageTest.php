@@ -101,6 +101,9 @@ class PageTest extends TestCase
         ], new Request('GET', 'http://example.com/endpoint?per_page=1'));
         $page->setClient($client);
         $page->serializeWith(function ($item) {
+            if (!is_object($item)) {
+                return $item;
+            }
             return $item->id . ' ' . $item->name;
         });
 

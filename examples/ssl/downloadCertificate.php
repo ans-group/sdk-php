@@ -6,7 +6,7 @@
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
-$ssl = (new \UKFast\SSL\Client)->auth(
+$ssl = (new \UKFast\SDK\SSL\Client)->auth(
     getenv('UKFAST_API_KEY')
 );
 

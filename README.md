@@ -27,14 +27,16 @@ Usage
 
 Each API has its own client class that extends from a base client class. All clients have an `auth` method which takes an API token to be used when sending requests.
 
+Each client class has its own subclients, which can be accessed via methods on the base client.
+
 **Example**
 
 ```php
 <?php
 
-$client = (new \UKFast\PSS\Client)->auth('API KEY');
+$client = (new \UKFast\SDK\PSS\Client)->auth('API KEY');
 
-$page = $client->requests->getPage();
+$page = $client->requests()->getPage();
 
 foreach ($page->getItems() as $request) {
     echo "#{$request->id} - {$request->subject}\n";

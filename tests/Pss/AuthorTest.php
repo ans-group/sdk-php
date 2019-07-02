@@ -58,7 +58,7 @@ class AuthorTest extends TestCase
     {
         $author = new Author((object) [
             'id' => 1,
-            'type' => 'Automated',
+            'type' => 'Auto',
             'name' => 'Test User',
         ]);
 
