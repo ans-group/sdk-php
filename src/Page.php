@@ -255,7 +255,6 @@ class Page
 
         if ($this->serializer) {
             $next->serializeWith($this->serializer);
-            $next->setItems($next->map($this->serializer));
         }
 
         return $next;
