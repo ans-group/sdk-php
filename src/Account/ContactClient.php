@@ -8,7 +8,7 @@ use UKFast\SDK\Page;
 
 class ContactClient extends Client
 {
-    protected $basePath = 'accounts/';
+    protected $basePath = 'account/';
     
     /**
      * Gets a paginated response of all Contacts
