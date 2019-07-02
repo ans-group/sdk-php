@@ -6,7 +6,7 @@
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
-$account = (new \UKFast\Account\Client)->auth(
+$account = (new \UKFast\SDK\Account\Client)->auth(
     getenv('UKFAST_API_KEY')
 );
 
@@ -15,7 +15,7 @@ print_r($details);
 
 /*
 
-UKFast\Account\Entities\Company Object
+UKFast\SDK\Account\Entities\Company Object
 (
     [companyRegistrationNumber] => 038 45616
     [vatIdentificationNumber] => 741 1237 68

@@ -6,7 +6,7 @@
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
-$domains = (new \UKFast\Domains\Client)->auth(
+$domains = (new \UKFast\SDK\Domains\Client)->auth(
     getenv('UKFAST_API_KEY')
 );
 

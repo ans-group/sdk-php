@@ -6,7 +6,7 @@
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
-$ecloud = (new \UKFast\eCloud\Client)->auth(
+$ecloud = (new \UKFast\SDK\eCloud\Client)->auth(
     getenv('UKFAST_API_KEY')
 );
 
