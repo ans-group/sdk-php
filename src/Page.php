@@ -254,6 +254,7 @@ class Page
         $next->setClient($this->client);
 
         if ($this->serializer) {
+            $next->serializeWith($this->serializer);
             $next->setItems($next->map($this->serializer));
         }
 
