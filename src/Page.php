@@ -27,6 +27,11 @@ class Page
      * @var \Closure|null
      */
     protected $serializer;
+    
+    /**
+     * @var \UKFast\SDK\Client
+     */
+    protected $client;
 
     public function __construct($items, $meta, $request)
     {
