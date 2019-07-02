@@ -251,6 +251,7 @@ class Page
         }
 
         $next = new static($body->data, $body->meta, new Request("GET", $uri));
+        $next->setClient($this->client);
 
         if ($this->serializer) {
             $next->setItems($next->map($this->serializer));
