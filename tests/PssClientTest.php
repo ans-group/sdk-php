@@ -79,7 +79,6 @@ class PssClientTest extends TestCase
      */
     public function gets_a_conversation()
     {
-//        $this->markTestSkipped();
         $mock = new MockHandler([
             new Response(200, [], json_encode([
                 'data' => [[
