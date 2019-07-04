@@ -39,7 +39,11 @@ class ConversationClient extends BaseClient
         $reply->author = new Entities\Author($item->author);
         $reply->description = $item->description;
         $reply->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
-        
+
+        foreach ($item->attachments as $attachment) {
+            $reply->attachments[] = new Entities\Attachment($attachment);
+        }
+
         return $reply;
     }
 }
