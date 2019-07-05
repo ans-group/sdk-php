@@ -5,10 +5,10 @@ namespace UKFast\SDK\PSS;
 use UKFast\SDK\Client as BaseClient;
 use DateTime;
 
-class ConversationClient extends BaseClient
+class ReplyClient extends BaseClient
 {
     /**
-     * Gets a paginated response of all conversation replies to a ticket
+     * Gets a paginated response of all replies to a ticket
      *
      * @param int $requestId - ID of request replies belong to
      * @param int $page
@@ -18,7 +18,7 @@ class ConversationClient extends BaseClient
      */
     public function getPage($requestId, $page = 1, $perPage = 15, $filters = [])
     {
-        $page = $this->paginatedRequest("v1/requests/$requestId/conversation", $page, $perPage, $filters);
+        $page = $this->paginatedRequest("v1/requests/$requestId/replies", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeReply($item);
         });

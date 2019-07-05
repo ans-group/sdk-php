@@ -17,10 +17,10 @@ class Client extends BaseClient
     }
 
     /**
-     * @return \UKFast\SDK\PSS\ConversationClient
+     * @return \UKFast\SDK\PSS\ReplyClient
      */
-    public function conversation()
+    public function replies()
     {
-        return (new ConversationClient($this->httpClient))->auth($this->token);
+        return (new ReplyClient($this->httpClient))->auth($this->token);
     }
 }
