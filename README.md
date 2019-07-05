@@ -16,7 +16,7 @@ Installation
 The recommended way to install this package is through [composer](https://getcomposer.org).
 
 ```
-composer require ukfast/client
+composer require ukfast/sdk
 ```
 
 This package does currently support PHP 5.6+, but we recommend moving to 7.1+ as soon as possible. 
