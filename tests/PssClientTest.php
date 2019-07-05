@@ -77,7 +77,7 @@ class PssClientTest extends TestCase
     /**
      * @test
      */
-    public function gets_a_reply()
+    public function gets_replies()
     {
         $mock = new MockHandler([
             new Response(200, [], json_encode([
@@ -127,7 +127,7 @@ class PssClientTest extends TestCase
     /**
      * @test
      */
-    public function gets_a_reply_with_attachments()
+    public function gets_replies_with_attachments()
     {
         $mock = new MockHandler([
             new Response(200, [], json_encode([
