@@ -77,7 +77,7 @@ class PssClientTest extends TestCase
     /**
      * @test
      */
-    public function gets_a_conversation()
+    public function gets_replies()
     {
         $mock = new MockHandler([
             new Response(200, [], json_encode([
@@ -111,7 +111,7 @@ class PssClientTest extends TestCase
         $guzzle = new Client(['handler' => $handler]);
 
         $client = new \UKFast\SDK\PSS\Client($guzzle);
-        $page = $client->conversation()->getPage(1);
+        $page = $client->replies()->getPage(1);
 
         $this->assertTrue($page instanceof \UKFast\SDK\Page);
 
@@ -127,7 +127,7 @@ class PssClientTest extends TestCase
     /**
      * @test
      */
-    public function gets_a_conversation_with_attachments()
+    public function gets_replies_with_attachments()
     {
         $mock = new MockHandler([
             new Response(200, [], json_encode([
@@ -168,7 +168,7 @@ class PssClientTest extends TestCase
         $guzzle = new Client(['handler' => $handler]);
 
         $client = new \UKFast\SDK\PSS\Client($guzzle);
-        $page = $client->conversation()->getPage(1);
+        $page = $client->replies()->getPage(1);
 
         $this->assertTrue($page instanceof \UKFast\SDK\Page);
 
