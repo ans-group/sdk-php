@@ -1,5 +1,5 @@
 {
-    "name": "ukfast/client",
+    "name": "ukfast/sdk",
     "description": "UKFast SDK for PHP",
     "type": "library",
     "license": "MIT",
