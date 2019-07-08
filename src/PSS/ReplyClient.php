@@ -4,6 +4,7 @@ namespace UKFast\SDK\PSS;
 
 use UKFast\SDK\Client as BaseClient;
 use DateTime;
+use UKFast\SDK\SelfResponse;
 
 class ReplyClient extends BaseClient
 {
@@ -24,6 +25,27 @@ class ReplyClient extends BaseClient
         });
 
         return $page;
+    }
+
+    /**
+     * @param int $requestId
+     * @param \UKFast\SDK\PSS\Entities\Reply $reply
+     * @return SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function create($requestId, $reply)
+    {
+        $payload = json_encode([
+            'author' => [
+              'id' => $reply->author->id,
+            ],
+            'description' => $reply->description,
+        ]);
+
+        $response = $this->post("v1/requests/{$requestId}/replies", $payload);
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response));
     }
 
     /**

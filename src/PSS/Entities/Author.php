@@ -19,11 +19,13 @@ class Author
      */
     public $type;
 
-    public function __construct($item)
+    public function __construct($item = null)
     {
-        $this->id = $item->id;
-        $this->name = $item->name;
-        $this->type = $item->type;
+        if (!is_null($item)) {
+            $this->id = $item->id;
+            $this->name = $item->name;
+            $this->type = $item->type;
+        }
     }
 
     /**
