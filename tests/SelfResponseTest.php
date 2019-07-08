@@ -12,11 +12,11 @@ class SelfResponseTest extends TestCase
      */
     public function parses_data_and_meta()
     {
-        $response = [
-            'data' => [
+        $response = (object) [
+            'data' => (object) [
                 'id' => 23
             ],
-            'meta' => [
+            'meta' => (object) [
                 'location' => 'https://example.com/23'
             ],
         ];
