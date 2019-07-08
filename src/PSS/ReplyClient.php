@@ -45,7 +45,11 @@ class ReplyClient extends BaseClient
         $response = $this->post("v1/requests/{$requestId}/replies", $payload);
         $response = $this->decodeJson($response->getBody()->getContents());
 
-        return (new SelfResponse($response));
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return $this->serializeReply($response->data);
+            });
     }
 
     /**
