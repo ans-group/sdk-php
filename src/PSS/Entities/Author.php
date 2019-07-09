@@ -19,8 +19,12 @@ class Author
      */
     public $type;
 
-    public function __construct($item)
+    public function __construct($item = null)
     {
+        if (is_null($item)) {
+            return;
+        }
+
         $this->id = $item->id;
         $this->name = $item->name;
         $this->type = $item->type;

@@ -5,7 +5,7 @@ namespace UKFast\SDK\PSS\Entities;
 class Reply
 {
     /**
-     * @var \UKFast\SDK\Pss\Author
+     * @var \UKFast\SDK\Pss\Entities\Author
      */
     public $author;
 
