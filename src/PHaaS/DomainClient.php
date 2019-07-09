@@ -84,6 +84,6 @@ class DomainClient extends BaseClient
             'verification_hash' => $hash
         ];
 
-        return $this->post('v1/domains/verify', $payload);
+        return $this->post('v1/domains/verify', json_encode($payload));
     }
 }
