@@ -27,7 +27,7 @@ class Request
     /**
      * @var bool
      */
-    public $secure;
+    public $secure = true;
 
     /**
      * @var \Datetime
@@ -37,7 +37,7 @@ class Request
     /**
      * @var string
      */
-    public $priority;
+    public $priority = 'Normal';
 
     /**
      * @var bool
@@ -52,7 +52,7 @@ class Request
     /**
      * @var bool
      */
-    public $requestSms;
+    public $requestSms = false;
 
     /**
      * @var string
@@ -68,4 +68,9 @@ class Request
      * @var \DateTime
      */
     public $lastRepliedAt;
+
+    /**
+     * @var string
+     */
+    public $details;
 }

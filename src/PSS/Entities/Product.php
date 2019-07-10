@@ -18,8 +18,12 @@ class Product
      * Product constructor.
      * @param $item
      */
-    public function __construct($item)
+    public function __construct($item = null)
     {
+        if (is_null($item)) {
+            return;
+        }
+        
         $this->id = $item->id;
         $this->type = $item->type;
     }
