@@ -54,7 +54,7 @@ class ReplyClient extends BaseClient
 
     /**
      * Uploads an attachment to a reply
-     * 
+     *
      * @param int $replyId
      * @param string $name
      * @param string $content
@@ -72,7 +72,7 @@ class ReplyClient extends BaseClient
 
     /**
      * Downloads an attachment
-     * 
+     *
      * @return \GuzzleHttp\Psr7\Stream
      */
     public function download($replyId, $name)

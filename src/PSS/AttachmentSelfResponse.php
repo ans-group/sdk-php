@@ -18,7 +18,7 @@ class AttachmentSelfResponse extends SelfResponse
 
         $serializer = $this->serializer;
         if ($serializer) {
-            return $serializer($body);            
+            return $serializer($body);
         }
 
         return $body->getContents();
