@@ -32,4 +32,12 @@ class Client extends BaseClient
     {
         return (new CreditClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function products()
+    {
+        return (new ProductClient($this->httpClient))->auth($this->token);
+    }
 }
