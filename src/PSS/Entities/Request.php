@@ -73,4 +73,14 @@ class Request
      * @var string
      */
     public $details;
+
+    public function isCompleted()
+    {
+        return $this->status == "Completed";
+    }
+
+    public function isArchived()
+    {
+        return $this->archived;
+    }
 }

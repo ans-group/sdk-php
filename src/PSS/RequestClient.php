@@ -3,8 +3,8 @@
 namespace UKFast\SDK\PSS;
 
 use DateTime;
-use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\SelfResponse;
+use UKFast\SDK\Client as BaseClient;
 
 class RequestClient extends BaseClient
 {
@@ -81,7 +81,43 @@ class RequestClient extends BaseClient
             });
     }
 
+    /**
+     * @var int $ticketId
+     * @var \UKFast\SDK\PSS\Entities\Feedback $feedback
+     * @throws \UKFast\SDK\Exception\ApiException
+     * @return \UKFast\SDK\SelfResponse
+     */
+    public function leaveFeedback($ticketId, $feedback)
+    {
+        $response = $this->post("v1/requests/$ticketId/feedback", json_encode([
+            'speed_resolved' => $feedback->speedResolved,
+            'comment' => $feedback->comment,
+            'contact_id' => $feedback->contactId,
+            'quality' => $feedback->quality,
+            'score' => $feedback->score,
+            'nps_score' => $feedback->npsScore,
+            'thirdparty_consent' => $feedback->thirdPartyConsent,
+        ]));
 
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return $this->serializeFeedback($response->data);
+            });
+    }
+
+    /**
+     * @throws \UKFast\SDK\Exception\ApiException
+     * @return \UKFast\SDK\PSS\Entities\Feedback
+     */
+    public function getFeedback($id)
+    {
+        $response = $this->request("GET", "v1/requests/$id/feedback");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializeFeedback($body->data);
+    }
 
     /**
      * Converts a response stdClass into a Request object
@@ -111,5 +147,20 @@ class RequestClient extends BaseClient
         }
 
         return $request;
+    }
+
+    public function serializeFeedback($item)
+    {
+        $feedback = new Entities\Feedback;
+
+        $feedback->id = $item->id;
+        $feedback->comment = $item->comment;
+        $feedback->speedResolved = $item->speed_resolved;
+        $feedback->quality = $item->quality;
+        $feedback->score = $item->score;
+        $feedback->npsScore = $item->nps_score;
+        $feedback->thirdPartyConsent = $item->thirdparty_consent;
+
+        return $feedback;
     }
 }
