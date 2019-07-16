@@ -48,4 +48,3 @@ class Domain
         $this->lastTestRan = $item->last_job_date;
     }
 }
-
