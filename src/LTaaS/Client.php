@@ -6,7 +6,7 @@ use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {
-    protected $basePath = 'load-testing/';
+    protected $basePath = 'ltaas/';
 
     /**
      * @return BaseClient

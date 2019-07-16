@@ -49,7 +49,7 @@ class Author
     /**
      * @return bool
      */
-    public function isAutomated()
+    public function git isAutomated()
     {
         return $this->type === 'Auto';
     }
