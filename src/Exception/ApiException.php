@@ -12,6 +12,7 @@ class ApiException extends UKFastException
 
     public function __construct($response)
     {
+        $response->getBody()->rewind();
         $body = json_decode($response->getBody()->getContents());
         $err = json_last_error();
         if ($err !== JSON_ERROR_NONE) {

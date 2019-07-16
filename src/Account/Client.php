@@ -8,7 +8,6 @@ class Client extends BaseClient
 {
     protected $basePath = 'account/';
 
-
     /**
      * @return BaseClient
      */
