@@ -27,6 +27,15 @@ class DomainClient extends Client
         return $page;
     }
 
+    public function getDomain($domainId)
+    {
+        $response = $this->get('v1/domains/' . $domainId);
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Domain($body->data);
+    }
+
     /**
      * Send the request to the API to store a new domain
      * @param $name

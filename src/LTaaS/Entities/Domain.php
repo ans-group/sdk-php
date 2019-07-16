@@ -22,6 +22,15 @@ class Domain
     /**
      * @var integer
      */
+
+    /**
+     * @var string
+     */
+    public $verificationString;
+
+    /**
+     * @var integer
+     */
     public $successfulTests;
 
     /**
@@ -43,8 +52,9 @@ class Domain
         $this->id = $item->id;
         $this->name = $item->name;
         $this->status = $item->status;
-        $this->successfulTests = $item->successful_jobs_count;
-        $this->failedTests = $item->failed_jobs_count;
-        $this->lastTestRan = $item->last_job_date;
+        $this->verificationString = (isset($item->verify_hash)) ? $item->verify_hash : null;
+        $this->successfulTests = (isset($item->successful_jobs_count)) ? $item->successful_jobs_count : null;
+        $this->failedTests = (isset($item->failed_jobs_count)) ? $item->failed_jobs_count : null;
+        $this->lastTestRan = (isset($item->last_job_date)) ? $item->last_job_date : null;
     }
 }
