@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\LTaaS;
 
+use GuzzleHttp\Exception\GuzzleException;
 use UKFast\SDK\Page;
 use UKFast\SDK\LTaaS\Entities\Domain;
 
@@ -15,7 +16,7 @@ class DomainClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return int|Page
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
@@ -27,7 +28,12 @@ class DomainClient extends Client
         return $page;
     }
 
-    public function getDomain($domainId)
+    /**
+     * Retrieve a domain by ID
+     * @param $domainId
+     * @return Domain
+     */
+    public function getById($domainId)
     {
         $response = $this->get('v1/domains/' . $domainId);
 
@@ -38,53 +44,47 @@ class DomainClient extends Client
 
     /**
      * Send the request to the API to store a new domain
-     * @param $name
-     * @param $verificationMethod
+     * @param Domain $domain
      * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function store($name, $verificationMethod)
+    public function store(Domain $domain)
     {
         $data = [
-            'name' => $name,
-            'verification_method' => $verificationMethod
+            'name' => $domain->name
         ];
 
         $response = $this->post('v1/domains', json_encode($data));
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return $body;
+        return new Domain($body->data);
     }
 
     /**
      * Verifiy the domain
+     * @param $domainId
      * @param $verificationMethod
-     * @param $id
      * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function verify($verificationMethod, $id)
+    public function verify($domainId, $verificationMethod)
     {
         switch ($verificationMethod) {
             case 'DNS':
-                $response = $this->post('v1/domains/' . $id . '/verify-by-dns');
+                $response = $this->post('v1/domains/' . $domainId . '/verify-by-dns');
                 break;
             case 'File upload':
-                $response = $this->post('v1/domains/' . $id . '/verify-by-file');
+                $response = $this->post('v1/domains/' . $domainId . '/verify-by-file');
                 break;
         }
 
-        $body = $this->decodeJson($response->getBody()->getContents());
-
-        return $body;
+        return $response->getStatusCode() == 200;
     }
 
     /**
      * Soft delete a domain
      * @param $id
      * @return bool
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function destroy($id)
     {
