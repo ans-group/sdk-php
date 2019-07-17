@@ -35,7 +35,8 @@ class TestClient extends Client
      */
     public function destroy($id)
     {
-        $response = $this->delete('v1/test/' . $id);
+        $response = $this->delete('v1/tests/' . $id);
+
         return $response->getStatusCode() == 204;
     }
 }
