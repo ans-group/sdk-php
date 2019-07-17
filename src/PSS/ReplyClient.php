@@ -2,8 +2,9 @@
 
 namespace UKFast\SDK\PSS;
 
-use UKFast\SDK\Client as BaseClient;
 use DateTime;
+use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\PSS\Entities\Download;
 use UKFast\SDK\SelfResponse;
 
 class ReplyClient extends BaseClient
@@ -77,8 +78,9 @@ class ReplyClient extends BaseClient
      */
     public function download($replyId, $name)
     {
-        return $this->request('GET', "v1/replies/$replyId/attachments/$name")
-                    ->getBody();
+        return new Download(
+            $this->request('GET', "v1/replies/$replyId/attachments/$name")
+        );
     }
 
     /**
