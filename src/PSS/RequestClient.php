@@ -47,31 +47,23 @@ class RequestClient extends BaseClient
      */
     public function create($request)
     {
-        $payload = [
-            'subject' => $request->subject,
-            'details' => $request->details,
-            'priority' => $request->priority,
-            'secure' => $request->secure,
-            'author' => [
-                'id' => $request->author->id
-            ],
-            'request_sms' => $request->requestSms,
-        ];
+        $response = $this->post("v1/requests", $this->requestToJson($request));
+        $response = $this->decodeJson($response->getBody()->getContents());
 
-        if ($request->product) {
-            $payload['product'] = [
-                'type' => $request->product->type,
-                'id' => $request->product->id,
-            ];
-        }
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return $this->serializeRequest($response->data);
+            });
+    }
 
-        if ($request->customerReference) {
-            $payload['customer_reference'] = $request->customerReference;
-        }
-
-        $payload = json_encode($payload);
-
-        $response = $this->post("v1/requests", $payload);
+    /**
+     * @param int $id
+     * @param \UKFast\SDK\PSS\Entities\Request $request
+     */
+    public function update($id, $request)
+    {
+        $response = $this->patch("v1/requests/$id", $this->requestToJson($request));
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
@@ -162,5 +154,36 @@ class RequestClient extends BaseClient
         $feedback->thirdPartyConsent = $item->thirdparty_consent;
 
         return $feedback;
+    }
+
+    protected function requestToJson($request)
+    {
+        $payload = [
+            'subject' => $request->subject,
+            'details' => $request->details,
+            'priority' => $request->priority,
+            'secure' => $request->secure,
+            'author' => [
+                'id' => $request->author->id
+            ],
+            'request_sms' => $request->requestSms,
+        ];
+
+        if (isset($request->status)) {
+            $payload['status'] = $request->status;
+        }
+
+        if ($request->product) {
+            $payload['product'] = [
+                'type' => $request->product->type,
+                'id' => $request->product->id,
+            ];
+        }
+
+        if ($request->customerReference) {
+            $payload['customer_reference'] = $request->customerReference;
+        }
+
+        return json_encode($payload);
     }
 }
