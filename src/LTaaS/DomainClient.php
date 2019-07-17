@@ -54,7 +54,7 @@ class DomainClient extends Client
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return $body;
+        return new Domain($body->data);
     }
 
     /**
@@ -75,9 +75,7 @@ class DomainClient extends Client
                 break;
         }
 
-        $body = $this->decodeJson($response->getBody()->getContents());
-
-        return $body;
+        return $response->getStatusCode() == 200;
     }
 
     /**
