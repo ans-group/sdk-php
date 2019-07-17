@@ -5,9 +5,12 @@ namespace UKFast\SDK\SafeDNS\Entities;
 class Record
 {
     public $id;
+    public $zone;
+
     public $name;
     public $type;
     public $content;
+
     public $ttl;
     public $priority;
 
@@ -23,9 +26,12 @@ class Record
         }
 
         $this->id = $item->id;
+        $this->zone = $item->zone;
+
         $this->name = $item->name;
         $this->type = $item->type;
         $this->content = $item->content;
+
         $this->ttl = $item->ttl;
         $this->priority = $item->priority;
     }
