@@ -82,6 +82,7 @@ class PssClientTest extends TestCase
         $mock = new MockHandler([
             new Response(200, [], json_encode([
                 'data' => [[
+                    'id' => 1,
                     'author' => [
                         'id' => 1,
                         'name' => 'Jonny Test',
@@ -117,6 +118,7 @@ class PssClientTest extends TestCase
 
         $reply = $page->getItems()[0];
 
+        $this->assertEquals(1, $reply->id);
         $this->assertEquals(1, $reply->author->id);
         $this->assertEquals('Jonny Test', $reply->author->name);
         $this->assertEquals('Test', $reply->description);
@@ -132,6 +134,7 @@ class PssClientTest extends TestCase
         $mock = new MockHandler([
             new Response(200, [], json_encode([
                 'data' => [[
+                    'id' => 1,
                     'author' => [
                         'id' => 1,
                         'name' => 'Jonny Test',

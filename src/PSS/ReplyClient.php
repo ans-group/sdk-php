@@ -2,8 +2,9 @@
 
 namespace UKFast\SDK\PSS;
 
-use UKFast\SDK\Client as BaseClient;
 use DateTime;
+use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\PSS\Entities\Download;
 use UKFast\SDK\SelfResponse;
 
 class ReplyClient extends BaseClient
@@ -53,6 +54,36 @@ class ReplyClient extends BaseClient
     }
 
     /**
+     * Uploads an attachment to a reply
+     *
+     * @param int $replyId
+     * @param string $name
+     * @param string $content
+     */
+    public function upload($replyId, $name, $content)
+    {
+        $uri = "v1/replies/$replyId/attachments/$name";
+        $response = $this->request('POST', $uri, $content);
+
+        $json = $this->decodeJson($response->getBody()->getContents());
+
+        return (new AttachmentSelfResponse($json))
+            ->setClient($this);
+    }
+
+    /**
+     * Downloads an attachment
+     *
+     * @return \GuzzleHttp\Psr7\Stream
+     */
+    public function download($replyId, $name)
+    {
+        return new Download(
+            $this->request('GET', "v1/replies/$replyId/attachments/$name")
+        );
+    }
+
+    /**
      * Converts a response stdClass into a Reply object
      *
      * @param $item
@@ -62,6 +93,7 @@ class ReplyClient extends BaseClient
     {
         $reply = new Entities\Reply;
         
+        $reply->id = $item->id;
         $reply->author = new Entities\Author($item->author);
         $reply->description = $item->description;
         $reply->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
