@@ -11,6 +11,7 @@ class Contact
     public $lastName;
     public $fullName;
 
+    public $emailAddress;
 
     /**
      * Contact constructor.
@@ -28,5 +29,7 @@ class Contact
         $this->firstName = $item->first_name;
         $this->lastName = $item->last_name;
         $this->fullName = $this->firstName . ' ' . $this->lastName;
+
+        $this->emailAddress = $item->email_address;
     }
 }
