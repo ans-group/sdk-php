@@ -32,7 +32,8 @@ class Contact
     /**
      * @return string
      */
-    public function fullName() {
+    public function fullName()
+    {
         return $this->firstName . ' ' . $this->lastName;
     }
 }
