@@ -74,6 +74,11 @@ class Request
      */
     public $details;
 
+    /**
+     * @var array
+     */
+    public $cc = [];
+
     public function isCompleted()
     {
         return $this->status == "Completed";
