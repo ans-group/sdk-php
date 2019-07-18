@@ -9,8 +9,6 @@ class Contact
 
     public $firstName;
     public $lastName;
-    public $fullName;
-
     public $emailAddress;
 
     /**
@@ -28,8 +26,13 @@ class Contact
 
         $this->firstName = $item->first_name;
         $this->lastName = $item->last_name;
-        $this->fullName = $this->firstName . ' ' . $this->lastName;
-
         $this->emailAddress = $item->email_address;
+    }
+
+    /**
+     * @return string
+     */
+    public function fullName() {
+        return $this->firstName . ' ' . $this->lastName;
     }
 }
