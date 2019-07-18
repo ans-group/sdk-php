@@ -180,6 +180,10 @@ class RequestClient extends BaseClient
             ];
         }
 
+        if (!empty($request->cc)) {
+            $payload['cc'] = $request->cc;
+        }
+
         if ($request->customerReference) {
             $payload['customer_reference'] = $request->customerReference;
         }
