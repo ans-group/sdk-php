@@ -34,7 +34,7 @@ class DomainClient extends Client
      * @return mixed
      * @throws GuzzleException
      */
-    public function store(Domain $domain)
+    public function create(Domain $domain)
     {
         $data = [
             'name' => $domain->name
