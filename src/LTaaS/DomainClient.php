@@ -29,23 +29,10 @@ class DomainClient extends Client
     }
 
     /**
-     * Retrieve a domain by ID
-     * @param $domainId
-     * @return Domain
-     */
-    public function getById($domainId)
-    {
-        $response = $this->get('v1/domains/' . $domainId);
-
-        $body = $this->decodeJson($response->getBody()->getContents());
-
-        return new Domain($body->data);
-    }
-
-    /**
      * Send the request to the API to store a new domain
      * @param Domain $domain
      * @return mixed
+     * @throws GuzzleException
      */
     public function store(Domain $domain)
     {
@@ -61,10 +48,26 @@ class DomainClient extends Client
     }
 
     /**
+     * Retrieve a domain by ID
+     * @param $domainId
+     * @return Domain
+     * @throws GuzzleException
+     */
+    public function getById($domainId)
+    {
+        $response = $this->get('v1/domains/' . $domainId);
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Domain($body->data);
+    }
+
+    /**
      * Verifiy the domain
      * @param $domainId
      * @param $verificationMethod
      * @return mixed
+     * @throws GuzzleException
      */
     public function verify($domainId, $verificationMethod)
     {
