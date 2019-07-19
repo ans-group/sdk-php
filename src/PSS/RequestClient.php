@@ -134,6 +134,7 @@ class RequestClient extends BaseClient
         $request->customerReference = $item->customer_reference;
         $request->product = new Entities\Product($item->product);
         $request->lastRepliedAt = null;
+        $request->systemReference = $item->system_reference;
         if ($item->last_replied_at) {
             $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
         }

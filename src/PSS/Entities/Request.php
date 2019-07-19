@@ -72,6 +72,11 @@ class Request
     /**
      * @var string
      */
+    public $systemReference;
+
+    /**
+     * @var string
+     */
     public $details;
 
     /**

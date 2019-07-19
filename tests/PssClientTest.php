@@ -35,6 +35,7 @@ class PssClientTest extends TestCase
                     'status' => 'Submitted',
                     'request_sms' => false,
                     'customer_reference' => 'Test Reference',
+                    'system_reference' => 'test-system-reference-001',
                     'product' => [
                         'id' => 100,
                         'type' => 'Domains',
@@ -70,6 +71,7 @@ class PssClientTest extends TestCase
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
+        $this->assertEquals('test-system-reference-001', $request->systemReference);
         $this->assertInstanceOf(DateTime::class, $request->createdAt);
         $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
     }
@@ -207,6 +209,7 @@ class PssClientTest extends TestCase
                     'status' => 'Submitted',
                     'request_sms' => false,
                     'customer_reference' => 'Test Reference',
+                    'system_reference' => 'test-system-reference-001',
                     'product' => [
                         'id' => 100,
                         'type' => 'Domains',
@@ -225,6 +228,7 @@ class PssClientTest extends TestCase
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
+        $this->assertEquals('test-system-reference-001', $request->systemReference);
         $this->assertInstanceOf(DateTime::class, $request->createdAt);
         $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
     }
