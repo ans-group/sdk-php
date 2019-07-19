@@ -139,6 +139,10 @@ class RequestClient extends BaseClient
             $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
         }
 
+        if (!empty($item->cc)) {
+            $request->cc = $item->cc;
+        }
+
         return $request;
     }
 
