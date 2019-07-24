@@ -28,6 +28,28 @@ class JobClient extends Client
     }
 
     /**
+     * Send the request to the API to store a new job
+     * @param Job $job
+     * @return mixed
+     * @throws GuzzleException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function create(Job $job)
+    {
+        $data = [
+            'test_id' => $job->testId,
+            'scheduled_timestamp' => $job->scheduledTimestamp,
+            'run_now' => $job->runNow
+        ];
+
+        $response = $this->post('v1/jobs', json_encode($data));
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Job($body->data);
+    }
+
+    /**
      * Soft delete a job
      * @param $id
      * @return bool
