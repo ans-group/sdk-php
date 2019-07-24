@@ -73,4 +73,19 @@ class Request
      * @var string
      */
     public $details;
+
+    /**
+     * @var array
+     */
+    public $cc = [];
+
+    public function isCompleted()
+    {
+        return $this->status == "Completed";
+    }
+
+    public function isArchived()
+    {
+        return $this->archived;
+    }
 }

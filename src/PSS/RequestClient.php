@@ -3,8 +3,8 @@
 namespace UKFast\SDK\PSS;
 
 use DateTime;
-use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\SelfResponse;
+use UKFast\SDK\Client as BaseClient;
 
 class RequestClient extends BaseClient
 {
@@ -47,31 +47,7 @@ class RequestClient extends BaseClient
      */
     public function create($request)
     {
-        $payload = [
-            'subject' => $request->subject,
-            'details' => $request->details,
-            'priority' => $request->priority,
-            'secure' => $request->secure,
-            'author' => [
-                'id' => $request->author->id
-            ],
-            'request_sms' => $request->requestSms,
-        ];
-
-        if ($request->product) {
-            $payload['product'] = [
-                'type' => $request->product->type,
-                'id' => $request->product->id,
-            ];
-        }
-
-        if ($request->customerReference) {
-            $payload['customer_reference'] = $request->customerReference;
-        }
-
-        $payload = json_encode($payload);
-
-        $response = $this->post("v1/requests", $payload);
+        $response = $this->post("v1/requests", $this->requestToJson($request));
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
@@ -81,7 +57,59 @@ class RequestClient extends BaseClient
             });
     }
 
+    /**
+     * @param int $id
+     * @param \UKFast\SDK\PSS\Entities\Request $request
+     */
+    public function update($id, $request)
+    {
+        $response = $this->patch("v1/requests/$id", $this->requestToJson($request));
+        $response = $this->decodeJson($response->getBody()->getContents());
 
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return $this->serializeRequest($response->data);
+            });
+    }
+
+    /**
+     * @var int $ticketId
+     * @var \UKFast\SDK\PSS\Entities\Feedback $feedback
+     * @throws \UKFast\SDK\Exception\ApiException
+     * @return \UKFast\SDK\SelfResponse
+     */
+    public function leaveFeedback($ticketId, $feedback)
+    {
+        $response = $this->post("v1/requests/$ticketId/feedback", json_encode([
+            'speed_resolved' => $feedback->speedResolved,
+            'comment' => $feedback->comment,
+            'contact_id' => $feedback->contactId,
+            'quality' => $feedback->quality,
+            'score' => $feedback->score,
+            'nps_score' => $feedback->npsScore,
+            'thirdparty_consent' => $feedback->thirdPartyConsent,
+        ]));
+
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return $this->serializeFeedback($response->data);
+            });
+    }
+
+    /**
+     * @throws \UKFast\SDK\Exception\ApiException
+     * @return \UKFast\SDK\PSS\Entities\Feedback
+     */
+    public function getFeedback($id)
+    {
+        $response = $this->request("GET", "v1/requests/$id/feedback");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializeFeedback($body->data);
+    }
 
     /**
      * Converts a response stdClass into a Request object
@@ -111,5 +139,55 @@ class RequestClient extends BaseClient
         }
 
         return $request;
+    }
+
+    public function serializeFeedback($item)
+    {
+        $feedback = new Entities\Feedback;
+
+        $feedback->id = $item->id;
+        $feedback->comment = $item->comment;
+        $feedback->speedResolved = $item->speed_resolved;
+        $feedback->quality = $item->quality;
+        $feedback->score = $item->score;
+        $feedback->npsScore = $item->nps_score;
+        $feedback->thirdPartyConsent = $item->thirdparty_consent;
+
+        return $feedback;
+    }
+
+    protected function requestToJson($request)
+    {
+        $payload = [
+            'subject' => $request->subject,
+            'details' => $request->details,
+            'priority' => $request->priority,
+            'secure' => $request->secure,
+            'author' => [
+                'id' => $request->author->id
+            ],
+            'request_sms' => $request->requestSms,
+        ];
+
+        if (isset($request->status)) {
+            $payload['status'] = $request->status;
+        }
+
+        if ($request->product) {
+            $payload['product'] = [
+                'type' => $request->product->type,
+                'id' => $request->product->id,
+            ];
+        }
+
+        if (!empty($request->cc)) {
+            $payload['cc'] = $request->cc;
+        }
+
+        if ($request->customerReference) {
+            $payload['customer_reference'] = $request->customerReference;
+        }
+
+        return json_encode($payload);
     }
 }

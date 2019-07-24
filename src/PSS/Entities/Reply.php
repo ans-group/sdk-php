@@ -4,6 +4,8 @@ namespace UKFast\SDK\PSS\Entities;
 
 class Reply
 {
+    public $id;
+
     /**
      * @var \UKFast\SDK\Pss\Entities\Author
      */
