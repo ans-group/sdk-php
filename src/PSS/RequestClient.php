@@ -167,6 +167,7 @@ class RequestClient extends BaseClient
                 'id' => $request->author->id
             ],
             'request_sms' => $request->requestSms,
+            'archived' => $request->archived,
         ];
 
         if (isset($request->status)) {
