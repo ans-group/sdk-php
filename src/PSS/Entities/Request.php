@@ -84,6 +84,11 @@ class Request
      */
     public $cc = [];
 
+    /**
+     * @var integer
+     */
+    public $unreadReplies;
+
     public function isCompleted()
     {
         return $this->status == "Completed";
