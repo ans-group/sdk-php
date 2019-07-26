@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\LTaaS;
 
+use UKFast\SDK\LTaaS\Entities\JobSettings;
 use UKFast\SDK\Page;
 use UKFast\SDK\LTaaS\Entities\Job;
 
@@ -25,6 +26,21 @@ class JobClient extends Client
         });
 
         return $page;
+    }
+
+    /**
+     * Get the settings that are associated with a test
+     * @param $id
+     * @return JobSettings
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getSettings($id)
+    {
+        $response = $this->get('v1/jobs/' . $id .  '/settings');
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new JobSettings($body->data);
     }
 
     /**
