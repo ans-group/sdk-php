@@ -20,6 +20,7 @@ class JobClient extends Client
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest('v1/jobs', $page, $perPage, $filters);
+
         $page->serializeWith(function ($item) {
             return new Job($item);
         });
@@ -45,6 +46,7 @@ class JobClient extends Client
         $response = $this->post('v1/jobs', json_encode($data));
 
         $body = $this->decodeJson($response->getBody()->getContents());
+
 
         return new Job($body->data);
     }

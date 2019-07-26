@@ -90,10 +90,11 @@ class Job
         }
 
         $this->id = $item->id;
-        $this->testId = $item->test_id;
+        $this->testId = isset($item->test_id) ? $item->test_id : null;
         $this->scheduledTimestamp = $item->scheduled_timestamp;
         $this->runNow = (isset($item->run_now)) ? $item->run_now : null;
         $this->crdName = (isset($item->crd_name)) ? $item->crd_name : null;
+        $this->jobStartTimestamp = (isset($item->job_start_timestamp)) ? $item->job_start_timestamp : null;
         $this->jobEndTimestamp = (isset($item->job_end_timestamp)) ? $item->job_end_timestamp : null;
         $this->status = (isset($item->status)) ? $item->status : null;
 
