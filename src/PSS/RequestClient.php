@@ -101,6 +101,25 @@ class RequestClient extends BaseClient
     }
 
     /**
+     * @param $requestId
+     * @return SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function markAsRead($requestId)
+    {
+        $response = $this->patch("v1/requests/$requestId", json_encode([
+            'read' => true,
+        ]));
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return $this->serializeRequest($response->data);
+            });
+    }
+
+    /**
      * @throws \UKFast\SDK\Exception\ApiException
      * @return \UKFast\SDK\PSS\Entities\Feedback
      */
