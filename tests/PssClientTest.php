@@ -41,6 +41,7 @@ class PssClientTest extends TestCase
                         'type' => 'Domains',
                     ],
                     'last_replied_at' => '2019-07-01T10:11:52+00:00',
+                    'unread_replies' => 2
                 ]],
                 'meta' => [
                     'pagination' => [
@@ -72,6 +73,7 @@ class PssClientTest extends TestCase
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
         $this->assertEquals('test-system-reference-001', $request->systemReference);
+        $this->assertEquals(2, $request->unreadReplies);
         $this->assertInstanceOf(DateTime::class, $request->createdAt);
         $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
     }
@@ -216,6 +218,7 @@ class PssClientTest extends TestCase
                     ],
                     'cc' => [],
                     'last_replied_at' => '2019-07-01T10:11:52+00:00',
+                    'unread_replies' => 2
                 ],
             ])),
         ]);
