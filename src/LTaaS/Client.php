@@ -31,4 +31,20 @@ class Client extends BaseClient
     {
         return (new TestClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function scenarios()
+    {
+        return (new ScenarioClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function thresholds()
+    {
+        return (new ThresholdClient($this->httpClient))->auth($this->token);
+    }
 }

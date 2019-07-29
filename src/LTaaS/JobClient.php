@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\LTaaS;
 
+use UKFast\SDK\LTaaS\Entities\JobResults;
 use UKFast\SDK\LTaaS\Entities\JobSettings;
 use UKFast\SDK\Page;
 use UKFast\SDK\LTaaS\Entities\Job;
@@ -21,6 +22,7 @@ class JobClient extends Client
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest('v1/jobs', $page, $perPage, $filters);
+
         $page->serializeWith(function ($item) {
             return new Job($item);
         });
@@ -34,13 +36,51 @@ class JobClient extends Client
      * @return JobSettings
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getSettings($id)
+    public function settings($id)
     {
-        $response = $this->get('v1/jobs/' . $id .  '/settings');
+        $response = $this->get('v1/jobs/' . $id . '/settings');
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return new JobSettings($body->data);
+    }
+
+    /**
+     * Get the results that are associated with a test
+     * @param $id
+     * @return JobResults
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function results($id)
+    {
+        $response = $this->get('v1/jobs/' . $id . '/results');
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new JobResults($body->data);
+    }
+
+    /**
+     * Send the request to the API to store a new job
+     * @param Job $job
+     * @return mixed
+     * @throws GuzzleException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function create(Job $job)
+    {
+        $data = [
+            'test_id' => $job->testId,
+            'scheduled_timestamp' => $job->scheduledTimestamp,
+            'run_now' => $job->runNow
+        ];
+
+        $response = $this->post('v1/jobs', json_encode($data));
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+
+        return new Job($body->data);
     }
 
     /**

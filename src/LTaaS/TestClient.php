@@ -28,6 +28,37 @@ class TestClient extends Client
     }
 
     /**
+     * Send the request to the API to store a new test
+     * @param Test $test
+     * @return mixed
+     * @throws GuzzleException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function create(Test $test)
+    {
+        $data = [
+            'name' => $test->name,
+            'scenario_id' => $test->scenarioId,
+            'domain_id' => $test->domainId,
+            'path' => $test->path,
+            'number_of_users' => $test->numberUsers,
+            'duration' => $test->duration,
+            'recurring_type' => $test->recurringType,
+            'recurring_value' => $test->recurringValue,
+            'section_users' => $test->sectionUsers,
+            'section_time' => $test->sectionTime,
+            'next_run' => $test->nextRun,
+            'thresholds' => $test->thresholds
+        ];
+
+        $response = $this->post('v1/tests', json_encode($data));
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Test($body->data);
+    }
+
+    /**
      * Soft delete a test
      * @param $id
      * @return bool
