@@ -25,6 +25,11 @@ class Company
     public $isDemoAccount;
 
     /**
+     * @var string
+     */
+    public $name;
+
+    /**
      * Company constructor.
      * @param null $item
      */
@@ -39,5 +44,7 @@ class Company
 
         $this->primaryContactId = $item->primary_contact_id;
         $this->isDemoAccount = $item->is_demo_account;
+
+        $this->name = $item->name;
     }
 }
