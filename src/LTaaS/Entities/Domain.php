@@ -26,6 +26,11 @@ class Domain
     /**
      * @var string
      */
+    public $verificationMethod;
+
+    /**
+     * @var string
+     */
     public $verificationString;
 
     /**
@@ -52,6 +57,7 @@ class Domain
         $this->id = $item->id;
         $this->name = $item->name;
         $this->status = $item->status;
+        $this->verificationMethod = (isset($item->verification_method)) ? $item->verification_method : null;
         $this->verificationString = (isset($item->verify_hash)) ? $item->verify_hash : null;
         $this->successfulTests = (isset($item->successful_jobs_count)) ? $item->successful_jobs_count : null;
         $this->failedTests = (isset($item->failed_jobs_count)) ? $item->failed_jobs_count : null;

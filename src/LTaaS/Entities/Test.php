@@ -17,6 +17,11 @@ class Test
     /**
      * @var string
      */
+    public $protocol;
+
+    /**
+     * @var string
+     */
     public $path;
 
     /**
@@ -66,6 +71,7 @@ class Test
 
         $this->id = $item->id;
         $this->name = $item->name;
+        $this->protocol = $item->protocol;
         $this->path = $item->path;
         $this->numberUsers = $item->number_of_users;
         $this->duration = $item->duration;
