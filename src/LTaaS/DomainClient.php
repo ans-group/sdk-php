@@ -29,6 +29,38 @@ class DomainClient extends Client
     }
 
     /**
+     * Get all the domains
+     * @param array $filters
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getAll($filters = [])
+    {
+        // get first page
+        $page = $this->getPage($currentPage = 1, $perPage = 100, $filters);
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $domains = $page->getItems();
+        if ($page->totalPages() == 1) {
+            return $domains;
+        }
+
+        // get any remaining pages
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->getPage($currentPage++, $perPage, $filters);
+
+            $domains = array_merge(
+                $domains,
+                $page->getItems()
+            );
+        }
+
+        return $domains;
+    }
+
+    /**
      * Send the request to the API to store a new domain
      * @param Domain $domain
      * @return mixed
