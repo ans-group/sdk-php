@@ -72,12 +72,22 @@ class Request
     /**
      * @var string
      */
+    public $systemReference;
+
+    /**
+     * @var string
+     */
     public $details;
 
     /**
      * @var array
      */
     public $cc = [];
+
+    /**
+     * @var integer
+     */
+    public $unreadReplies;
 
     public function isCompleted()
     {

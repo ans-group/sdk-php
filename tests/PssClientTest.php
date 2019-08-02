@@ -35,11 +35,13 @@ class PssClientTest extends TestCase
                     'status' => 'Submitted',
                     'request_sms' => false,
                     'customer_reference' => 'Test Reference',
+                    'system_reference' => 'test-system-reference-001',
                     'product' => [
                         'id' => 100,
                         'type' => 'Domains',
                     ],
                     'last_replied_at' => '2019-07-01T10:11:52+00:00',
+                    'unread_replies' => 2
                 ]],
                 'meta' => [
                     'pagination' => [
@@ -70,6 +72,8 @@ class PssClientTest extends TestCase
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
+        $this->assertEquals('test-system-reference-001', $request->systemReference);
+        $this->assertEquals(2, $request->unreadReplies);
         $this->assertInstanceOf(DateTime::class, $request->createdAt);
         $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
     }
@@ -207,9 +211,61 @@ class PssClientTest extends TestCase
                     'status' => 'Submitted',
                     'request_sms' => false,
                     'customer_reference' => 'Test Reference',
+                    'system_reference' => 'test-system-reference-001',
                     'product' => [
                         'id' => 100,
                         'type' => 'Domains',
+                    ],
+                    'cc' => [],
+                    'last_replied_at' => '2019-07-01T10:11:52+00:00',
+                    'unread_replies' => 2
+                ],
+            ])),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Client(['handler' => $handler]);
+
+        $client = new \UKFast\SDK\PSS\Client($guzzle);
+        $request = $client->requests()->getById(1);
+
+        $this->assertTrue($request instanceof \UKFast\SDK\PSS\Entities\Request);
+        $this->assertEquals(1, $request->id);
+        $this->assertEquals('First', $request->subject);
+        $this->assertEquals('Test Reference', $request->customerReference);
+        $this->assertEquals('test-system-reference-001', $request->systemReference);
+        $this->assertInstanceOf(DateTime::class, $request->createdAt);
+        $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
+        $this->assertEquals([], $request->cc);
+    }
+
+    public function gets_one_request_with_cc()
+    {
+        $mock = new MockHandler([
+            new Response(200, [], json_encode([
+                'data' => [
+                    'id' => 1,
+                    'subject' => 'First',
+                    'author' => [
+                        'id' => 10,
+                        'name' => 'Test Man',
+                        'type' => 'Client'
+                    ],
+                    'type' => 'Client',
+                    'secure' => true,
+                    'created_at' => '2000-01-01T00:00:00+00',
+                    'priority' => 'Normal',
+                    'archived' => true,
+                    'status' => 'Submitted',
+                    'request_sms' => false,
+                    'customer_reference' => 'Test Reference',
+                    'system_reference' => 'test-system-reference-001',
+                    'product' => [
+                        'id' => 100,
+                        'type' => 'Domains',
+                    ],
+                    'cc' => [
+                        'example@example.com',
+                        'test@example.com',
                     ],
                     'last_replied_at' => '2019-07-01T10:11:52+00:00',
                 ],
@@ -225,7 +281,9 @@ class PssClientTest extends TestCase
         $this->assertEquals(1, $request->id);
         $this->assertEquals('First', $request->subject);
         $this->assertEquals('Test Reference', $request->customerReference);
+        $this->assertEquals('test-system-reference-001', $request->systemReference);
         $this->assertInstanceOf(DateTime::class, $request->createdAt);
         $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
+        $this->assertEquals(['example@example.com', 'test@example.com'], $request->cc);
     }
 }

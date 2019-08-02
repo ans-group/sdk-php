@@ -101,6 +101,25 @@ class RequestClient extends BaseClient
     }
 
     /**
+     * @param $requestId
+     * @return SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function markAsRead($requestId)
+    {
+        $response = $this->patch("v1/requests/$requestId", json_encode([
+            'read' => true,
+        ]));
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return $this->serializeRequest($response->data);
+            });
+    }
+
+    /**
      * @throws \UKFast\SDK\Exception\ApiException
      * @return \UKFast\SDK\PSS\Entities\Feedback
      */
@@ -134,8 +153,14 @@ class RequestClient extends BaseClient
         $request->customerReference = $item->customer_reference;
         $request->product = new Entities\Product($item->product);
         $request->lastRepliedAt = null;
+        $request->systemReference = $item->system_reference;
+        $request->unreadReplies = $item->unread_replies;
         if ($item->last_replied_at) {
             $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
+        }
+
+        if (!empty($item->cc)) {
+            $request->cc = $item->cc;
         }
 
         return $request;
@@ -167,6 +192,7 @@ class RequestClient extends BaseClient
                 'id' => $request->author->id
             ],
             'request_sms' => $request->requestSms,
+            'archived' => $request->archived,
         ];
 
         if (isset($request->status)) {

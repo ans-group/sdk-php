@@ -1,4 +1,4 @@
-UKFast API PHP client
+UKFast API PHP SDK
 =====================
 [![Build Status](https://travis-ci.org/ukfast/sdk-php.svg?branch=master)](https://travis-ci.org/ukfast/sdk-php)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -18,6 +18,8 @@ The recommended way to install this package is through [composer](https://getcom
 ```
 composer require ukfast/sdk
 ```
+
+Alternativly you can download one of our [tagged releases](https://github.com/ukfast/sdk-php/releases) for manual installation, we dont recommend cloning the master branch for use in production environments as we cannot guarentee its stability.
 
 This package does currently support PHP 5.6+, but we recommend moving to 7.1+ as soon as possible. 
 
@@ -43,12 +45,14 @@ foreach ($page->getItems() as $request) {
 }
 ```
 
+We have a [collection of examples](/examples/) of common functionality for each service to help you get started.
+
 
 Contributing
 ------------
 
 We welcome contributions that will benefit other users, 
-please see [CONTRIBUTING](CONTRIBUTING.md) for details on how to get involved.
+please see [CONTRIBUTING](CONTRIBUTING.md) for details on how you can get involved.
 
 
 License
