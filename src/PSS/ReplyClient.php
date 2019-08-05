@@ -84,6 +84,17 @@ class ReplyClient extends BaseClient
     }
 
     /**
+     * @param $replyId
+     * @param $name
+     * @return void
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function deleteAttachment($replyId, $name)
+    {
+        $this->delete("v1/replies/$replyId/attachments/$name");
+    }
+
+    /**
      * Converts a response stdClass into a Reply object
      *
      * @param $item
