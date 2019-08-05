@@ -91,7 +91,7 @@ class Request
 
     public function isCompleted()
     {
-        return $this->status == "Completed";
+        return in_array($this->status, ['Completed', 'Replied and Completed']);
     }
 
     public function isArchived()
