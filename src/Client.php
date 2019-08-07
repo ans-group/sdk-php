@@ -205,6 +205,7 @@ class Client
     public function paginatedRequest($endpoint, $page, $perPage, $filters = [])
     {
         $url = (new PaginationUrl($endpoint, $page, $perPage, $filters))->toString();
+
         $response = $this->request('GET', $url);
 
         $body = $this->decodeJson($response->getBody()->getContents());

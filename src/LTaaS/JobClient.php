@@ -2,6 +2,8 @@
 
 namespace UKFast\SDK\LTaaS;
 
+use UKFast\SDK\LTaaS\Entities\JobResults;
+use UKFast\SDK\LTaaS\Entities\JobSettings;
 use UKFast\SDK\Page;
 use UKFast\SDK\LTaaS\Entities\Job;
 use UKFast\SDK\SelfResponse;
@@ -30,6 +32,36 @@ class JobClient extends Client
     }
 
     /**
+     * Get the settings that are associated with a test
+     * @param $id
+     * @return JobSettings
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function settings($id)
+    {
+        $response = $this->get('v1/jobs/' . $id . '/settings');
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new JobSettings($body->data);
+    }
+
+    /**
+     * Get the results that are associated with a test
+     * @param $id
+     * @return JobResults
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function results($id)
+    {
+        $response = $this->get('v1/jobs/' . $id . '/results');
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new JobResults($body->data);
+    }
+
+    /**
      * Send the request to the API to store a new job
      * @param Job $job
      * @return mixed
@@ -54,6 +86,19 @@ class JobClient extends Client
             ->serializeWith(function ($body) {
                 return $this->serializeRequest($body->data);
             });
+    }
+
+    /**
+     * Stop a pending or running test
+     * @param $id
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function stop($id)
+    {
+        $response = $this->get('v1/jobs/' . $id . '/stop');
+
+        return $response->getStatusCode() == 200;
     }
 
     /**
