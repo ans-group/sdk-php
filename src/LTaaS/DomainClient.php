@@ -5,6 +5,7 @@ namespace UKFast\SDK\LTaaS;
 use GuzzleHttp\Exception\GuzzleException;
 use UKFast\SDK\Page;
 use UKFast\SDK\LTaaS\Entities\Domain;
+use UKFast\SDK\SelfResponse;
 
 class DomainClient extends Client
 {
@@ -69,7 +70,8 @@ class DomainClient extends Client
     public function create(Domain $domain)
     {
         $data = [
-            'name' => $domain->name
+            'name' => $domain->name,
+            'verification_method' => $domain->verificationMethod
         ];
 
         $response = $this->post('v1/domains', json_encode($data));

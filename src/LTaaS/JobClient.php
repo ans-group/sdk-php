@@ -4,6 +4,7 @@ namespace UKFast\SDK\LTaaS;
 
 use UKFast\SDK\Page;
 use UKFast\SDK\LTaaS\Entities\Job;
+use UKFast\SDK\SelfResponse;
 
 class JobClient extends Client
 {
@@ -47,8 +48,11 @@ class JobClient extends Client
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
-
-        return new Job($body->data);
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($body) {
+                return $this->serializeRequest($body->data);
+            });
     }
 
     /**

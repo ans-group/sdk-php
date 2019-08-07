@@ -15,6 +15,11 @@ class Scenario
     public $name;
 
     /**
+     * @var boolean
+     */
+    public $availableTrial;
+
+    /**
      * @var string
      */
     public $formula;
@@ -32,6 +37,7 @@ class Scenario
 
         $this->id = $item->id;
         $this->name = $item->name;
+        $this->availableTrial = $item->available_trial;
         $this->formula = $item->formula;
         $this->description = $item->description;
     }

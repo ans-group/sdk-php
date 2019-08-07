@@ -4,6 +4,7 @@ namespace UKFast\SDK\LTaaS;
 
 use UKFast\SDK\Page;
 use UKFast\SDK\LTaaS\Entities\Test;
+use UKFast\SDK\SelfResponse;
 
 class TestClient extends Client
 {
@@ -39,6 +40,7 @@ class TestClient extends Client
         $data = [
             'name' => $test->name,
             'scenario_id' => $test->scenarioId,
+            'protocol' => $test->protocol,
             'domain_id' => $test->domainId,
             'path' => $test->path,
             'number_of_users' => $test->numberUsers,
@@ -55,7 +57,11 @@ class TestClient extends Client
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Test($body->data);
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($body) {
+                return $this->serializeRequest($body->data);
+            });
     }
 
     /**
