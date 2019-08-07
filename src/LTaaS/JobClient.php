@@ -113,17 +113,4 @@ class JobClient extends Client
 
         return $response->getStatusCode() == 204;
     }
-
-    /**
-     * Send the request to stop a pending or running test
-     * @param $id
-     * @return bool
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function stop($id)
-    {
-        $response = $this->get('v1/jobs/' . $id . '/stop');
-
-        return $response->getStatusCode() == 200;
-    }
 }
