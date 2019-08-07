@@ -40,6 +40,7 @@ class JobClient extends Client
     {
         $data = [
             'test_id' => $job->testId,
+            'domain_id' => $job->domainId,
             'scheduled_timestamp' => $job->scheduledTimestamp,
             'run_now' => $job->runNow
         ];
@@ -66,5 +67,18 @@ class JobClient extends Client
         $response = $this->delete('v1/jobs/' . $id);
 
         return $response->getStatusCode() == 204;
+    }
+
+    /**
+     * Send the request to stop a pending or running test
+     * @param $id
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function stop($id)
+    {
+        $response = $this->get('v1/jobs/' . $id . '/stop');
+
+        return $response->getStatusCode() == 200;
     }
 }
