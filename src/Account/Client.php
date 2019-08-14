@@ -31,4 +31,20 @@ class Client extends BaseClient
     {
         return (new CreditClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function invoices()
+    {
+        return (new InvoiceClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function invoiceQueries()
+    {
+        return (new InvoiceQueryClient($this->httpClient))->auth($this->token);
+    }
 }
