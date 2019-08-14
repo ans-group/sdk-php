@@ -8,6 +8,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use UKFast\SDK\SelfResponse;
 use UKFast\SDK\Account\Entities\InvoiceQuery;
 
 class InvoiceQueryTest extends TestCase
@@ -52,5 +53,25 @@ class InvoiceQueryTest extends TestCase
         $this->assertEquals("4500", $invoiceQuery->whatWasReceived);
         $this->assertEquals("Resolve the difference", $invoiceQuery->proposedSolution);
         $this->assertEquals([2514571, 2456789, 1245678], $invoiceQuery->invoiceIds);
+    }
+
+    /**
+     * @test
+     */
+    public function check_self_response_parses_query_response()
+    {
+        $response = (object) [
+            'data' => (object) [
+                'id' => 123
+            ],
+            'meta' => (object) [
+                'location' => 'https://api.ukfast.io/v1/invoices/query/123'
+            ],
+        ];
+
+        $selfResponse = new SelfResponse($response);
+
+        $this->assertEquals(123, $selfResponse->getId());
+        $this->assertEquals('https://api.ukfast.io/v1/invoices/query/123', $selfResponse->getLocation());
     }
 }
