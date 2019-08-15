@@ -54,7 +54,7 @@ class InvoiceQueryTest extends TestCase
         $this->assertEquals("4500", $invoiceQuery->whatWasReceived);
         $this->assertEquals("Resolve the difference", $invoiceQuery->proposedSolution);
         $this->assertEquals([2514571, 2456789, 1245678], $invoiceQuery->invoiceIds);
-        $this->assertEquals("email", $invoiceQuery->contact_method);
+        $this->assertEquals("email", $invoiceQuery->contactMethod);
     }
 
     /**
