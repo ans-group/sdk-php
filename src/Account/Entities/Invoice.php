@@ -28,7 +28,7 @@ class Invoice
 
     /**
      * Invoice constructor.
-     * 
+     *
      * @param null $item
      */
     public function __construct($item = null)

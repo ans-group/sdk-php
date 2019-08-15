@@ -46,7 +46,7 @@ class InvoiceQuery
 
     /**
      * InvoiceQuery constructor.
-     * 
+     *
      * @param null $item
      */
     public function __construct($item = null)
