@@ -40,6 +40,11 @@ class InvoiceQuery
     public $invoice_ids;
 
     /**
+     * @var string
+     */
+    public $contact_method;
+
+    /**
      * InvoiceQuery constructor.
      * 
      * @param null $item
@@ -57,5 +62,6 @@ class InvoiceQuery
         $this->whatWasReceived = $item->what_was_received;
         $this->proposedSolution = $item->proposed_solution;
         $this->invoiceIds = $item->invoice_ids;
+        $this->contactMethod = $item->contact_method;
     }
 }
