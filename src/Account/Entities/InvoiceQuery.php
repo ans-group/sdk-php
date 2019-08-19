@@ -12,7 +12,7 @@ class InvoiceQuery
     /**
      * @var int
      */
-    public $contact_id;
+    public $contactId;
 
     /**
      * @var int
@@ -22,27 +22,27 @@ class InvoiceQuery
     /**
      * @var string
      */
-    public $what_was_expected;
+    public $whatWasExpected;
 
     /**
      * @var string
      */
-    public $what_was_received;
+    public $whatWasReceived;
 
     /**
      * @var string
      */
-    public $proposed_solution;
+    public $proposedSolution;
 
     /**
      * @var array
      */
-    public $invoice_ids;
+    public $invoiceIds;
 
     /**
      * @var string
      */
-    public $contact_method;
+    public $contactMethod;
 
     /**
      * InvoiceQuery constructor.
