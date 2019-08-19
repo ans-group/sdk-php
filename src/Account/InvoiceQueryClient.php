@@ -49,16 +49,7 @@ class InvoiceQueryClient extends BaseClient
      */
     protected function serializeInvoiceQuery($item)
     {
-        $invoiceQuery = new Entities\InvoiceQuery;
-
-        $invoiceQuery->id = $item->id;
-        $invoiceQuery->contactId = $item->contact_id;
-        $invoiceQuery->amount = $item->amount;
-        $invoiceQuery->whatWasExpected = $item->what_was_expected;
-        $invoiceQuery->whatWasReceived = $item->what_was_received;
-        $invoiceQuery->proposedSolution = $item->proposed_solution;
-        $invoiceQuery->invoiceIds = $item->invoice_ids;
-        $invoiceQuery->contactMethod = $item->contact_method;
+        $invoiceQuery = new Entities\InvoiceQuery($item);
 
         return $invoiceQuery;
     }
