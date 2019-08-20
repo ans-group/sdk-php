@@ -6,6 +6,7 @@ use UKFast\SDK\LTaaS\Entities\JobResults;
 use UKFast\SDK\LTaaS\Entities\JobSettings;
 use UKFast\SDK\Page;
 use UKFast\SDK\LTaaS\Entities\Job;
+use UKFast\SDK\SelfResponse;
 
 class JobClient extends Client
 {
@@ -80,7 +81,7 @@ class JobClient extends Client
         $body = $this->decodeJson($response->getBody()->getContents());
 
 
-        return new Job($body->data);
+        return $body->data;
     }
 
     /**
