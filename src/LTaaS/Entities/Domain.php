@@ -55,8 +55,8 @@ class Domain
         }
 
         $this->id = $item->id;
-        $this->name = $item->name;
-        $this->status = $item->status;
+        $this->name = (isset($item->name)) ? $item->name : null;
+        $this->status = (isset($item->status)) ? $item->status : null;
         $this->verificationMethod = (isset($item->verification_method)) ? $item->verification_method : null;
         $this->verificationString = (isset($item->verify_hash)) ? $item->verify_hash : null;
         $this->successfulTests = (isset($item->successful_jobs_count)) ? $item->successful_jobs_count : null;

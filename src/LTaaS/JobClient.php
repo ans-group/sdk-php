@@ -72,6 +72,7 @@ class JobClient extends Client
     {
         $data = [
             'test_id' => $job->testId,
+            'domain_id' => $job->domainId,
             'scheduled_timestamp' => $job->scheduledTimestamp,
             'run_now' => $job->runNow
         ];
@@ -81,7 +82,11 @@ class JobClient extends Client
         $body = $this->decodeJson($response->getBody()->getContents());
 
 
-        return $body->data;
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($body) {
+                return $this->serializeRequest($body->data);
+            });
     }
 
     /**
