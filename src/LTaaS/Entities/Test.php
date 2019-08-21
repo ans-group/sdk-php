@@ -90,6 +90,11 @@ class Test
     public $thresholds;
 
     /**
+     * @var array
+     */
+    public $authorisation;
+
+    /**
      * Test constructor.
      * @param null $item
      */
@@ -115,6 +120,7 @@ class Test
         $this->sectionUsers = (isset($item->sectionUsers)) ? $item->sectionUsers : null;
         $this->sectionTime = (isset($item->sectionTime)) ? $item->sectionTime : null;
         $this->thresholds = (isset($item->thresholds)) ? $item->thresholds : null;
+        $this->authorisation = (isset($item->authorisation)) ? $item->authorisation : null;
 
         if (isset($item->domain)) {
             $this->domainId = $item->domain->id;

@@ -2,8 +2,10 @@
 
 namespace UKFast\SDK\LTaaS;
 
+use UKFast\SDK\LTaaS\Entities\TestAuthorisation;
 use UKFast\SDK\Page;
 use UKFast\SDK\LTaaS\Entities\Test;
+use UKFast\SDK\SelfResponse;
 
 class TestClient extends Client
 {
@@ -30,16 +32,17 @@ class TestClient extends Client
     /**
      * Send the request to the API to store a new test
      * @param Test $test
+     * @param TestAuthorisation $authorisation
      * @return mixed
-     * @throws GuzzleException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function create(Test $test)
+    public function create(Test $test, TestAuthorisation $authorisation)
     {
         $data = [
             'name' => $test->name,
             'scenario_id' => $test->scenarioId,
             'domain_id' => $test->domainId,
+            'protocol' => $test->protocol,
             'path' => $test->path,
             'number_of_users' => $test->numberUsers,
             'duration' => $test->duration,
@@ -48,14 +51,24 @@ class TestClient extends Client
             'section_users' => $test->sectionUsers,
             'section_time' => $test->sectionTime,
             'next_run' => $test->nextRun,
-            'thresholds' => $test->thresholds
+            'thresholds' => $test->thresholds,
+            'authorisation' => [
+                'agreement_version' => $authorisation->agreementVersion,
+                'name' => $authorisation->name,
+                'position' => $authorisation->position,
+                'company' => $authorisation->company
+            ]
         ];
 
         $response = $this->post('v1/tests', json_encode($data));
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Test($body->data);
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($body) {
+                return $this->serializeRequest($body->data);
+            });
     }
 
     /**

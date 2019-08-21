@@ -15,6 +15,11 @@ class Job
     public $testId;
 
     /**
+     * @var string
+     */
+    public $domainId;
+
+    /**
      * string
      */
     public $crdName;
@@ -91,6 +96,7 @@ class Job
 
         $this->id = $item->id;
         $this->testId = isset($item->test_id) ? $item->test_id : null;
+        $this->domainId = isset($item->domain_id) ? $item->domain_id : null;
         $this->scheduledTimestamp = $item->scheduled_timestamp;
         $this->runNow = (isset($item->run_now)) ? $item->run_now : null;
         $this->crdName = (isset($item->crd_name)) ? $item->crd_name : null;
