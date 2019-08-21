@@ -17,7 +17,7 @@ class TestAuthorisation
     /**
      * @var string
      */
-    public $agreementId;
+    public $agreementVersion;
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class TestAuthorisation
 
         $this->id = $item->id;
         $this->testId = (isset($item->test_id)) ? $item->test_id : null;
-        $this->agreementId = $item->agreement_id;
+        $this->agreementVersion = $item->agreement_version;
         $this->name = $item->name;
         $this->position = $item->position;
         $this->company = (isset($item->position)) ? $item->position : null;

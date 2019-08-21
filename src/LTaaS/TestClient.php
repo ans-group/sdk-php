@@ -53,7 +53,7 @@ class TestClient extends Client
             'next_run' => $test->nextRun,
             'thresholds' => $test->thresholds,
             'authorisation' => [
-                'agreement_id' => $authorisation->agreementId,
+                'agreement_version' => $authorisation->agreementVersion,
                 'name' => $authorisation->name,
                 'position' => $authorisation->position,
                 'company' => $authorisation->company

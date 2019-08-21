@@ -7,7 +7,7 @@ class Agreement
     /**
      * @var string
      */
-    public $id;
+    public $version;
 
     /**
      * @var string
@@ -30,7 +30,7 @@ class Agreement
             return;
         }
 
-        $this->id = $item->id;
+        $this->version = $item->version;
         $this->agreement = $item->agreement;
         $this->createdAt = $item->created_at;
         $this->updatedAt = $item->updated_at;
