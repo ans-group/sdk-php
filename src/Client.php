@@ -85,7 +85,7 @@ class Client
             'headers' => array_merge($headers, $defaultHeaders),
         ];
 
-        if (in_array(empty($body) && $method, ['POST', 'PATCH', 'DELETE'])) {
+        if (empty($body) && in_array($method, ['POST', 'PATCH', 'DELETE'])) {
             unset($params['body']);
         }
 
