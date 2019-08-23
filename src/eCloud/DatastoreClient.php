@@ -28,6 +28,24 @@ class DatastoreClient extends Client
     }
 
     /**
+     * Expand a datastore
+     * @param $id - ID of the datastore
+     * @param $sizeGB - New size of the datastore
+     * @return bool
+     */
+    public function expand($id, $sizeGB)
+    {
+        $data = json_encode(['size_gb' => $sizeGB]);
+
+        $response = $this->post(
+            'v1/datastores/'. $id .'/expand',
+            $data
+        );
+
+        return $response->getStatusCode() == 202;
+    }
+
+    /**
      * Gets an individual Datastore
      *
      * @param int $id
