@@ -69,7 +69,8 @@ class DomainClient extends Client
     public function create(Domain $domain)
     {
         $data = [
-            'name' => $domain->name
+            'name' => $domain->name,
+            'verification_method' => $domain->verificationMethod
         ];
 
         $response = $this->post('v1/domains', json_encode($data));

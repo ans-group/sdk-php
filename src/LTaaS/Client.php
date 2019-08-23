@@ -47,4 +47,9 @@ class Client extends BaseClient
     {
         return (new ThresholdClient($this->httpClient))->auth($this->token);
     }
+
+    public function agreements()
+    {
+        return (new AgreementClient($this->httpClient))->auth($this->token);
+    }
 }
