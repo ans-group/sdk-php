@@ -25,6 +25,16 @@ class Job
     public $crdName;
 
     /**
+     * @var boolean
+     */
+    public $configSubmitted;
+
+    /**
+     * @var boolean
+     */
+    public $crdSubmitted;
+
+    /**
      * @var string
      */
     public $scheduledTimestamp;
@@ -52,37 +62,17 @@ class Job
     /**
      * @var string
      */
-    public $path;
-
-    /**
-     * @var integer
-     */
-    public $numberUsers;
+    public $failType;
 
     /**
      * @var string
      */
-    public $duration;
+    public $created_at;
 
     /**
      * @var string
      */
-    public $scenarioName;
-
-    /**
-     * @var string
-     */
-    public $domainName;
-
-    /**
-     * @var string
-     */
-    public $testName;
-
-    /**
-     * @var array
-     */
-    public $thresholds;
+    public $updated_at;
 
     /**
      * Test constructor.
@@ -95,26 +85,18 @@ class Job
         }
 
         $this->id = $item->id;
-        $this->testId = isset($item->test_id) ? $item->test_id : null;
-        $this->domainId = isset($item->domain_id) ? $item->domain_id : null;
+        $this->testId = $item->test_id;
+        $this->domainId = $item->domain_id;
+        $this->crdName = $item->crd_name;
+        $this->configSubmitted = $item->config_submitted_successfully;
+        $this->crdSubmitted = $item->crd_submitted_successfully;
         $this->scheduledTimestamp = $item->scheduled_timestamp;
         $this->runNow = (isset($item->run_now)) ? $item->run_now : null;
-        $this->crdName = (isset($item->crd_name)) ? $item->crd_name : null;
-        $this->jobStartTimestamp = (isset($item->job_start_timestamp)) ? $item->job_start_timestamp : null;
-        $this->jobEndTimestamp = (isset($item->job_end_timestamp)) ? $item->job_end_timestamp : null;
-        $this->status = (isset($item->status)) ? $item->status : null;
-
-        if (isset($item->test)) {
-            $this->path = $item->test->path;
-            $this->scenarioName = $item->test->scenario_name;
-            $this->numberUsers = $item->test->number_of_users;
-            $this->duration = $item->test->duration;
-            $this->testName = $item->test->name;
-            $this->domainName = $item->test->domain->name;
-        }
-
-        if (isset($item->thresholds)) {
-            $this->thresholds = $item->thresholds;
-        }
+        $this->jobStartTimestamp = $item->job_start_timestamp;
+        $this->jobEndTimestamp = $item->job_end_timestamp;
+        $this->status = $item->status;
+        $this->failType = $item->fail_type;
+        $this->createdAt = $item->created_at;
+        $this->updatedAt = $item->updated_at;
     }
 }
