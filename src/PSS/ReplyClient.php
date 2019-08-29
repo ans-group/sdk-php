@@ -29,6 +29,19 @@ class ReplyClient extends BaseClient
     }
 
     /**
+     * Gets an individual reply
+     *
+     * @param int $id
+     * @return \UKFast\SDK\PSS\Entities\Reply
+     */
+    public function getById($id)
+    {
+        $response = $this->request("GET", "v1/replies/$id");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializeReply($body->data);
+    }
+
+    /**
      * @param int $requestId
      * @param \UKFast\SDK\PSS\Entities\Reply $reply
      * @return SelfResponse
