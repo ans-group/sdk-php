@@ -32,6 +32,35 @@ class JobClient extends Client
     }
 
     /**
+     * Get all the jobs
+     */
+    public function getAll($filters = [])
+    {
+        // get first page
+        $page = $this->getPage($currentPage = 1, $perPage = 100, $filters);
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $jobs = $page->getItems();
+        if ($page->totalPages() == 1) {
+            return $jobs;
+        }
+
+        // get any remaining pages
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->getPage($currentPage++, $perPage, $filters);
+
+            $jobs = array_merge(
+                $jobs,
+                $page->getItems()
+            );
+        }
+
+        return $jobs;
+    }
+
+    /**
      * Get the settings that are associated with a test
      * @param $id
      * @return JobSettings

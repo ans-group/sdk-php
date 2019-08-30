@@ -30,6 +30,35 @@ class TestClient extends Client
     }
 
     /**
+     * Get all the tests
+     */
+    public function getAll($filters = [])
+    {
+        // get first page
+        $page = $this->getPage($currentPage = 1, $perPage = 100, $filters);
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $tests = $page->getItems();
+        if ($page->totalPages() == 1) {
+            return $tests;
+        }
+
+        // get any remaining pages
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->getPage($currentPage++, $perPage, $filters);
+
+            $tests = array_merge(
+                $tests,
+                $page->getItems()
+            );
+        }
+
+        return $tests;
+    }
+
+    /**
      * Send the request to the API to store a new test
      * @param Test $test
      * @param TestAuthorisation $authorisation
@@ -48,10 +77,10 @@ class TestClient extends Client
             'duration' => $test->duration,
             'recurring_type' => $test->recurringType,
             'recurring_value' => $test->recurringValue,
-            'section_users' => $test->sectionUsers,
-            'section_time' => $test->sectionTime,
+            'section_users' => (isset($test->sectionUsers)) ? $test->sectionUsers : null,
+            'section_time' => (isset($test->sectionTime)) ? $test->sectionTime : null,
             'next_run' => $test->nextRun,
-            'thresholds' => $test->thresholds,
+            'thresholds' => (isset($test->thresholds)) ? $test->thresholds : null,
             'authorisation' => [
                 'agreement_version' => $authorisation->agreementVersion,
                 'name' => $authorisation->name,
