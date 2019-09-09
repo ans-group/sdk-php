@@ -2,8 +2,6 @@
 
 namespace UKFast\SDK\eCloud;
 
-
-
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 
@@ -107,6 +105,7 @@ class DatastoreClient extends Client implements ClientEntityInterface
                 'available' => $data->available,
                 'solutionId' => $data->solution_id,
                 'siteId' => $data->site_id
-        ]);
+            ]
+        );
     }
 }
