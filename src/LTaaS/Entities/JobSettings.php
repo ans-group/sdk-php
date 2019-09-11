@@ -32,6 +32,11 @@ class JobSettings
     /**
      * @var string
      */
+    public $protocol;
+
+    /**
+     * @var string
+     */
     public $domain;
 
     /**
@@ -50,6 +55,7 @@ class JobSettings
         $this->duration = $item->duration;
         $this->numberOfUsers = $item->max_users;
         $this->name = $item->name;
+        $this->protocol = $item->protocol;
         $this->domain = $item->domain;
         $this->path = $item->path;
     }
