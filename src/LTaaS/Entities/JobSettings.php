@@ -45,6 +45,11 @@ class JobSettings
     public $path;
 
     /**
+     * @var string
+     */
+    public $status;
+
+    /**
      * Job constructor.
      * @param null $item
      */
@@ -58,5 +63,6 @@ class JobSettings
         $this->protocol = $item->protocol;
         $this->domain = $item->domain;
         $this->path = $item->path;
+        $this->status = $item->status;
     }
 }
