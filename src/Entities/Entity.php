@@ -4,6 +4,10 @@ namespace UKFast\SDK\Entities;
 
 abstract class Entity
 {
+    /**
+     * Entity hydration blacklist.
+     * @var array
+     */
     protected $guarded = [];
 
     /**
