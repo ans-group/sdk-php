@@ -4,7 +4,6 @@ namespace UKFast\SDK\LTaaS;
 
 use GuzzleHttp\Exception\GuzzleException;
 use UKFast\SDK\LTaaS\Entities\Agreement;
-use UKFast\SDK\Page;
 
 class AgreementClient extends Client
 {
@@ -12,12 +11,13 @@ class AgreementClient extends Client
 
     /**
      * Get the latest authorisation agreement
+     * @param $type
      * @return Agreement
      * @throws GuzzleException
      */
-    public function latest()
+    public function latestByType($type)
     {
-        $response = $this->get('v1/agreements/latest');
+        $response = $this->get('v1/agreements/latest/' . $type);
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
