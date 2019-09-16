@@ -99,7 +99,7 @@ class DatastoreClient extends Client implements ClientEntityInterface
                 'id' => $data->id,
                 'name' => $data->name,
                 'status' => $data->status,
-                'capacity' => $data->status,
+                'capacity' => $data->capacity,
                 'allocated' => $data->allocated,
                 'available' => $data->available,
                 'solutionId' => $data->solution_id,
