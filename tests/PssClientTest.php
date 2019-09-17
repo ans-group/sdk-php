@@ -286,4 +286,37 @@ class PssClientTest extends TestCase
         $this->assertInstanceOf(DateTime::class, $request->lastRepliedAt);
         $this->assertEquals(['example@example.com', 'test@example.com'], $request->cc);
     }
+
+    /**
+     * @test
+     */
+    public function gets_one_reply()
+    {
+        $mock = new MockHandler([
+            new Response(200, [], json_encode([
+                'data' => [
+                    'id' => "C485939",
+                    'author' => [
+                        'id' => 10,
+                        'name' => 'Test Man',
+                        'type' => 'Client'
+                    ],
+                    'description' => 'test',
+                    'attachments' => [],
+                    'created_at' => '2000-01-01T00:00:00+00',
+                ],
+                'meta' => ''
+            ])),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Client(['handler' => $handler]);
+
+        $client = new \UKFast\SDK\PSS\Client($guzzle);
+        $reply = $client->replies()->getById('C485939');
+
+        $this->assertTrue($reply instanceof \UKFast\SDK\PSS\Entities\Reply);
+        $this->assertEquals('C485939', $reply->id);
+        $this->assertEquals('test', $reply->description);
+        $this->assertInstanceOf(DateTime::class, $reply->createdAt);
+    }
 }

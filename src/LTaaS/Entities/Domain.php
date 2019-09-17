@@ -17,15 +17,6 @@ class Domain
     /**
      * @var string
      */
-    public $status;
-
-    /**
-     * @var integer
-     */
-
-    /**
-     * @var string
-     */
     public $verificationMethod;
 
     /**
@@ -34,19 +25,20 @@ class Domain
     public $verificationString;
 
     /**
-     * @var integer
+     * @var string
      */
-    public $successfulTests;
-
-    /**
-     * @var integer
-     */
-    public $failedTests;
+    public $status;
 
     /**
      * @var string
      */
-    public $lastTestRan;
+    public $createdAt;
+
+    /**
+     * @var string
+     */
+    public $updatedAt;
+
 
     public function __construct($item = null)
     {
@@ -56,11 +48,10 @@ class Domain
 
         $this->id = $item->id;
         $this->name = (isset($item->name)) ? $item->name : null;
-        $this->status = (isset($item->status)) ? $item->status : null;
         $this->verificationMethod = (isset($item->verification_method)) ? $item->verification_method : null;
-        $this->verificationString = (isset($item->verify_hash)) ? $item->verify_hash : null;
-        $this->successfulTests = (isset($item->successful_jobs_count)) ? $item->successful_jobs_count : null;
-        $this->failedTests = (isset($item->failed_jobs_count)) ? $item->failed_jobs_count : null;
-        $this->lastTestRan = (isset($item->last_job_date)) ? $item->last_job_date : null;
+        $this->verificationString = $item->verify_hash;
+        $this->status = (isset($item->status)) ? $item->status : null;
+        $this->createdAt = (isset($item->created_at)) ? $item->created_at : null;
+        $this->createdAt = (isset($item->updated_at)) ? $item->updated_at : null;
     }
 }
