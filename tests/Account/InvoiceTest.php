@@ -99,8 +99,8 @@ class InvoiceTest extends TestCase
         $this->assertEquals($id, $invoice->id);
         $this->assertInstanceOf(DateTime::class, $invoice->date);
         $this->assertEquals(true, $invoice->paid);
-        $this->assertEquals(15.6, $request->net);
-        $this->assertEquals(3.12, $request->vat);
-        $this->assertEquals(18.72, $request->gross);
+        $this->assertEquals(15.6, $invoice->net);
+        $this->assertEquals(3.12, $invoice->vat);
+        $this->assertEquals(18.72, $invoice->gross);
     }
 }
