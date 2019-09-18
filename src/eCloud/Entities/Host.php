@@ -2,35 +2,37 @@
 
 namespace UKFast\SDK\eCloud\Entities;
 
-class Host
+use UKFast\SDK\Entities\Entity;
+
+class Host extends Entity
 {
+    /**
+     * @var integer Host Identifier
+     */
     public $id;
-    public $name;
-
-    public $cpu;
-    public $ram;
-
-    public $solutionId;
-    public $podId;
-
 
     /**
-     * Host constructor.
-     * @param null $item
+     * @var string Host name
      */
-    public function __construct($item = null)
-    {
-        if (empty($item)) {
-            return;
-        }
+    public $name;
 
-        $this->id = $item->id;
-        $this->name = $item->name;
+    /**
+     * @var object CPU specification
+     */
+    public $cpu;
 
-        $this->cpu = $item->cpu;
-        $this->ram = $item->ram;
+    /**
+     * @var object RAM specification
+     */
+    public $ram;
 
-        $this->solutionId = $item->solution_id;
-        $this->podId = $item->pod_id;
-    }
+    /**
+     * @var integer Solution ID
+     */
+    public $solutionId;
+
+    /**
+     * @var integer Pod ID
+     */
+    public $podId;
 }
