@@ -67,7 +67,7 @@ class InvoiceQueryTest extends TestCase
                 'id' => 123
             ],
             'meta' => (object) [
-                'location' => 'https://api.ukfast.io/v1/invoices/query/123'
+                'location' => 'https://api.ukfast.io/account/v1/invoices/query/123'
             ],
         ];
 
