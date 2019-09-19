@@ -21,7 +21,7 @@ class NoteClient extends Client implements ClientEntityInterface
      */
     public function getByZoneName($zoneName, $page = 1, $perPage = 20, $filters = [])
     {
-        $page = $this->paginatedRequest('v1/zones/'.$zoneName.'/notes', $page, $perPage, $filters);
+        $page = $this->paginatedRequest('v1/zones/' . rawurlencode($zoneName) . '/notes', $page, $perPage, $filters);
         $page->serializeWith(function ($item) use ($zoneName) {
             $item->zone = $zoneName;
 
@@ -41,7 +41,7 @@ class NoteClient extends Client implements ClientEntityInterface
      */
     public function getByZoneNameAndId($zoneName, $id)
     {
-        $response = $this->request("GET", 'v1/zones/' . $zoneName . '/records/' . $id);
+        $response = $this->request("GET", 'v1/zones/' . rawurlencode($zoneName) . '/records/' . rawurlencode($id));
         $body     = $this->decodeJson($response->getBody()->getContents());
 
         // The zone isn't currently returned by the API
