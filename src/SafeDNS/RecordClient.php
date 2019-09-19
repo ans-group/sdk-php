@@ -103,10 +103,6 @@ class RecordClient extends Client
             'Content-Type' => 'application/json'
         ]);
 
-        if ($response->getStatusCode() != 201) {
-            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
-        }
-
         $body = $this->decodeJson($response->getBody()->getContents());
 
         $record->id = $body->data->id;
