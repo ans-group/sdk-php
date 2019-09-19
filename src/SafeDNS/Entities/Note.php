@@ -28,11 +28,11 @@ class Note extends Entity
     public $contactId;
 
     /**
-     * The note taken
+     * The content of the note taken
      *
      * @var string
      */
-    public $note;
+    public $content;
 
     /**
      * @var \DateTime
