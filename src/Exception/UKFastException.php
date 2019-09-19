@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\Exception;
+namespace UKFast\SDK\Exception;
 
 use RuntimeException;
 

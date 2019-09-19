@@ -1,8 +1,10 @@
 <?php
 
-namespace UKFast\eCloud\Entities;
+namespace UKFast\SDK\eCloud\Entities;
 
-class Datastore
+use UKFast\SDK\Entities\Entity;
+
+class Datastore extends Entity
 {
     public $id;
     public $name;
@@ -14,26 +16,4 @@ class Datastore
 
     public $solutionId;
     public $siteId;
-
-    /**
-     * Datastore constructor.
-     * @param null $item
-     */
-    public function __construct($item = null)
-    {
-        if (empty($item)) {
-            return;
-        }
-
-        $this->id = $item->id;
-        $this->name = $item->name;
-        $this->status = $item->status;
-
-        $this->capacity = $item->capacity;
-        $this->allocated = $item->allocated;
-        $this->available = $item->available;
-
-        $this->solutionId = $item->solution_id;
-        $this->siteId = $item->site_id;
-    }
 }

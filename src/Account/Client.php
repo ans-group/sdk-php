@@ -1,121 +1,50 @@
 <?php
 
-namespace UKFast\Account;
+namespace UKFast\SDK\Account;
 
-use UKFast\Client as BaseClient;
-use UKFast\Page;
+use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {
     protected $basePath = 'account/';
 
     /**
-     * Gets account details
-     *
-     * @return Details
+     * @return BaseClient
      */
-    public function getDetails()
+    public function company()
     {
-        $response = $this->request("GET", "v1/details");
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeDetails($body->data);
+        return (new CompanyClient($this->httpClient))->auth($this->token);
     }
 
     /**
-     * Gets a paginated response of all Contacts
-     *
-     * @param int $page
-     * @param int $perPage
-     * @param array $filters
-     * @return Page
+     * @return BaseClient
      */
-    public function getContacts($page = 1, $perPage = 15, $filters = [])
+    public function contacts()
     {
-        $page = $this->paginatedRequest('v1/contacts', $page, $perPage, $filters);
-        $page->serializeWith(function ($item) {
-            return $this->serializeContact($item);
-        });
-
-        return $page;
+        return (new ContactClient($this->httpClient))->auth($this->token);
     }
 
     /**
-     * Gets an individual contact
-     *
-     * @param string $id
-     * @return Contact
+     * @return BaseClient
      */
-    public function getContact($id)
+    public function credits()
     {
-        $response = $this->request("GET", "v1/contacts/$id");
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeContact($body->data);
+        return (new CreditClient($this->httpClient))->auth($this->token);
     }
 
     /**
-     * Gets account credits
-     *
-     * @return Details
+     * @return BaseClient
      */
-    public function getCredits()
+    public function invoices()
     {
-        $response = $this->request("GET", "v1/credits");
-        $body = $this->decodeJson($response->getBody()->getContents());
-
-        return array_map(function ($item) {
-            return $this->serializeCredit($item);
-        }, $body->data);
-    }
-
-
-    /**
-     * Converts a response stdClass into an account Details object
-     *
-     * @param \stdClass $item
-     * @return Details
-     */
-    protected function serializeDetails($item)
-    {
-        $details = new Details;
-        $details->companyRegistrationNumber = $item->company_registration_number;
-        $details->vatIdentificationNumber = $item->vat_identification_number;
-
-        $details->primaryContactId = $item->primary_contact_id;
-
-        return $details;
+        return (new InvoiceClient($this->httpClient))->auth($this->token);
     }
 
     /**
-     * Converts a response stdClass into a Contact object
-     *
-     * @param \stdClass $item
-     * @return Contact
+     * @return BaseClient
      */
-    protected function serializeContact($item)
+    public function invoiceQueries()
     {
-        $contact = new Contact;
-        $contact->id = $item->id;
-        $contact->type = $item->type;
-
-        $contact->firstName = $item->first_name;
-        $contact->lastName = $item->last_name;
-
-        return $contact;
-    }
-
-    /**
-     * Converts a response stdClass into an account Credit object
-     *
-     * @param \stdClass $item
-     * @return Credit
-     */
-    protected function serializeCredit($item)
-    {
-        $credit = new Credit;
-        $credit->type = $item->type;
-        $credit->total = $item->total;
-        $credit->remaining = $item->remaining;
-
-        return $credit;
+        return (new InvoiceQueryClient($this->httpClient))->auth($this->token);
     }
 }

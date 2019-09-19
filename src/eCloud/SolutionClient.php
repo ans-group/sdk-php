@@ -1,17 +1,17 @@
 <?php
 
-namespace UKFast\eCloud;
+namespace UKFast\SDK\eCloud;
 
-use UKFast\Page;
+use UKFast\SDK\Page;
 
-use UKFast\eCloud\Entities\Datastore;
-use UKFast\eCloud\Entities\Firewall;
-use UKFast\eCloud\Entities\Host;
-use UKFast\eCloud\Entities\Network;
-use UKFast\eCloud\Entities\Site;
-use UKFast\eCloud\Entities\Solution;
-use UKFast\eCloud\Entities\Template;
-use UKFast\eCloud\Entities\VirtualMachine;
+use UKFast\SDK\eCloud\Entities\Datastore;
+use UKFast\SDK\eCloud\Entities\Firewall;
+use UKFast\SDK\eCloud\Entities\Host;
+use UKFast\SDK\eCloud\Entities\Network;
+use UKFast\SDK\eCloud\Entities\Site;
+use UKFast\SDK\eCloud\Entities\Solution;
+use UKFast\SDK\eCloud\Entities\Template;
+use UKFast\SDK\eCloud\Entities\VirtualMachine;
 
 class SolutionClient extends Client
 {
@@ -22,8 +22,9 @@ class SolutionClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest('v1/solutions', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
@@ -38,6 +39,7 @@ class SolutionClient extends Client
      *
      * @param int $id
      * @return Solution
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($id)
     {
@@ -54,6 +56,7 @@ class SolutionClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getVirtualMachines($id, $page = 1, $perPage = 15, $filters = [])
     {
@@ -73,6 +76,7 @@ class SolutionClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getTemplates($id, $page = 1, $perPage = 15, $filters = [])
     {
@@ -90,6 +94,7 @@ class SolutionClient extends Client
      * @param int $id
      * @param $name
      * @return Template
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getTemplateByName($id, $name)
     {
@@ -106,6 +111,7 @@ class SolutionClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getHosts($id, $page = 1, $perPage = 15, $filters = [])
     {
@@ -126,6 +132,7 @@ class SolutionClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getDatastores($id, $page = 1, $perPage = 15, $filters = [])
     {
@@ -145,6 +152,7 @@ class SolutionClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getSites($id, $page = 1, $perPage = 15, $filters = [])
     {
@@ -164,6 +172,7 @@ class SolutionClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getNetworks($id, $page = 1, $perPage = 15, $filters = [])
     {
@@ -183,6 +192,7 @@ class SolutionClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getFirewalls($id, $page = 1, $perPage = 15, $filters = [])
     {

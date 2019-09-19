@@ -6,13 +6,12 @@
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
-$ssl = (new \UKFast\SSL\Client)->auth(
+$ssl = (new \UKFast\SDK\SSL\Client)->auth(
     getenv('UKFAST_API_KEY')
 );
 
 $id = $argv[1];
-$pemCertificate = $ssl->getCertificatePEM($id);
-
+$pemCertificate = $ssl->certificates()->getCertificatePEM($id);
 print_r($pemCertificate->server);
 
 /*

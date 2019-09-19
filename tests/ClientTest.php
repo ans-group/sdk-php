@@ -8,10 +8,12 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\Client;
-use UKFast\Exception\ApiException;
-use UKFast\Exception\InvalidJsonException;
-use UKFast\Page;
+use UKFast\SDK\Client;
+use UKFast\SDK\Exception\ApiException;
+use UKFast\SDK\Exception\InvalidJsonException;
+use UKFast\SDK\Exception\NotFoundException;
+use UKFast\SDK\Exception\ValidationException;
+use UKFast\SDK\Page;
 
 class ClientTest extends TestCase
 {
@@ -192,6 +194,49 @@ class ClientTest extends TestCase
     /**
      * @test
      */
+    public function throws_not_found_exception()
+    {
+        $mock = new MockHandler([
+            new Response(404, [], '{"errors": [{"detail": "Testing"}]}'),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Guzzle(['handler' => $handler]);
+
+        $client = new Client($guzzle);
+
+        $this->expectException(NotFoundException::class);
+        $client->paginatedRequest("/", 1, 10);
+    }
+
+    public function validationErrorStatuses()
+    {
+        return [
+            '400' => [400],
+            '422' => [422],
+        ];
+    }
+
+    /**
+     * @dataProvider validationErrorStatuses
+     * @test
+     */
+    public function throws_validation_exception($statusCode)
+    {
+        $mock = new MockHandler([
+            new Response($statusCode, [], '{"errors": [{"detail": "Testing"}]}'),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Guzzle(['handler' => $handler]);
+
+        $client = new Client($guzzle);
+
+        $this->expectException(ValidationException::class);
+        $client->paginatedRequest("/", 1, 10);
+    }
+
+    /**
+     * @test
+     */
     public function wraps_client_exceptions_as_ukfast_exceptions()
     {
         $mock = new MockHandler([
@@ -201,6 +246,35 @@ class ClientTest extends TestCase
                     'detail' => 'Testing errors detail',
                     'status' => 400,
                     'source' => 'test'
+                ]]
+            ])),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Guzzle(['handler' => $handler]);
+        $client = new Client($guzzle);
+
+        try {
+            $client->request('GET', '/');
+        } catch (ApiException $e) {
+            $this->assertEquals(1, count($e->getErrors()));
+            $this->assertEquals('Testing errors detail', $e->getMessage());
+            return;
+        }
+
+        $this->expectException(ApiException::class);
+    }
+
+    /**
+     * @test
+     */
+    public function wraps_server_exceptions_as_ukfast_exceptions()
+    {
+        $mock = new MockHandler([
+            new Response(500, [], json_encode([
+                'errors' => [[
+                    'title' => 'Testing errors',
+                    'detail' => 'Testing errors detail',
+                    'status' => 500,
                 ]]
             ])),
         ]);

@@ -1,11 +1,11 @@
 <?php
 
-namespace UKFast\eCloud;
+namespace UKFast\SDK\eCloud;
 
-use UKFast\Page;
+use UKFast\SDK\Page;
 
-use UKFast\eCloud\Entities\Pod;
-use UKFast\eCloud\Entities\Template;
+use UKFast\SDK\eCloud\Entities\Pod;
+use UKFast\SDK\eCloud\Entities\Template;
 
 class PodClient extends Client
 {
@@ -16,8 +16,9 @@ class PodClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest("v1/pods", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
@@ -32,6 +33,7 @@ class PodClient extends Client
      *
      * @param int $id
      * @return Pod
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($id)
     {
@@ -48,6 +50,7 @@ class PodClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getTemplates($id, $page = 1, $perPage = 15, $filters = [])
     {
@@ -65,6 +68,7 @@ class PodClient extends Client
      * @param int $id
      * @param $name
      * @return Template
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getTemplateByName($id, $name)
     {

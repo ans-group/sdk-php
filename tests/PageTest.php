@@ -9,8 +9,8 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\Client;
-use UKFast\Page;
+use UKFast\SDK\Client;
+use UKFast\SDK\Page;
 
 class PageTest extends TestCase
 {
@@ -26,7 +26,7 @@ class PageTest extends TestCase
             'pagination' => (object) [
                 'total' => 10,
                 'count' => 1,
-                'per_page' => 1,
+                'per_page' => 3,
                 'total_pages' => 10,
                 'links' => (object) [
                     'next' => 'http://example.com/next',
@@ -43,6 +43,7 @@ class PageTest extends TestCase
         $this->assertEquals('http://example.com/last', $page->lastPageUrl());
         $this->assertEquals(10, $page->totalItems());
         $this->assertEquals(10, $page->totalPages());
+        $this->assertEquals(3, $page->perPage());
         $this->assertEquals(1, $page->pageNumber());
     }
 
@@ -100,6 +101,9 @@ class PageTest extends TestCase
         ], new Request('GET', 'http://example.com/endpoint?per_page=1'));
         $page->setClient($client);
         $page->serializeWith(function ($item) {
+            if (!is_object($item)) {
+                return $item;
+            }
             return $item->id . ' ' . $item->name;
         });
 

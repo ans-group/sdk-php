@@ -1,10 +1,10 @@
 <?php
 
-namespace UKFast\eCloud;
+namespace UKFast\SDK\eCloud;
 
-use UKFast\Page;
+use UKFast\SDK\Page;
 
-use UKFast\eCloud\Entities\Site;
+use UKFast\SDK\eCloud\Entities\Site;
 
 class SiteClient extends Client
 {
@@ -15,8 +15,9 @@ class SiteClient extends Client
      * @param int $perPage
      * @param array $filters
      * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAll($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest("v1/sites", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
@@ -31,6 +32,7 @@ class SiteClient extends Client
      *
      * @param int $id
      * @return Site
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($id)
     {

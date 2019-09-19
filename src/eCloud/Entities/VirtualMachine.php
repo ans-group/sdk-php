@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\eCloud\Entities;
+namespace UKFast\SDK\eCloud\Entities;
 
 class VirtualMachine
 {
@@ -13,10 +13,12 @@ class VirtualMachine
 
     public $cpu;
     public $ram;
+
     public $hdd;
     public $disks;
+    public $datastoreId;
 
-    public $ip_addresses;
+    public $ipAddresses;
 
     public $template;
     public $platform;
@@ -30,6 +32,7 @@ class VirtualMachine
     public $power;
     public $tools;
 
+    public $credentials;
 
     /**
      * VirtualMachine constructor.
@@ -41,24 +44,28 @@ class VirtualMachine
             return;
         }
 
+        $this->environment = $item->environment;
+        $this->solutionId = $item->solution_id;
 
         $this->id = $item->id;
         $this->name = $item->name;
+        $this->status = $item->status;
 
         $this->computerName = $item->computername;
         $this->hostname = $item->hostname;
 
         $this->cpu = $item->cpu;
         $this->ram = $item->ram;
-        $this->hdd = $item->hdd;
 
+        $this->hdd = $item->hdd;
         if (isset($item->hdd_disks)) {
             $this->disks = array_map(function ($item) {
                 return new Hdd($item);
             }, $item->hdd_disks);
         }
 
-        $this->ip_addresses = (object) [
+
+        $this->ipAddresses = (object) [
             'internal' => $item->ip_internal,
             'external' => $item->ip_external,
         ];
@@ -69,10 +76,6 @@ class VirtualMachine
         $this->backup = $item->backup;
         $this->support = $item->support;
 
-        $this->environment = $item->environment;
-        $this->solutionId = $item->solution_id;
-
-        $this->status = $item->status;
 
         if (isset($item->power_status)) {
             $this->power = $item->power_status;

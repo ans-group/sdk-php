@@ -3,7 +3,7 @@
 namespace Tests\Pss;
 
 use PHPUnit\Framework\TestCase;
-use UKFast\Pss\Author;
+use UKFast\SDK\PSS\Entities\Author;
 
 class AuthorTest extends TestCase
 {
@@ -58,7 +58,7 @@ class AuthorTest extends TestCase
     {
         $author = new Author((object) [
             'id' => 1,
-            'type' => 'Automated',
+            'type' => 'Auto',
             'name' => 'Test User',
         ]);
 
