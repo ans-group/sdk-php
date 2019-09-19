@@ -29,7 +29,7 @@ class IopsClient extends Client implements ClientEntityInterface
     /**
      * Gets an individual Iops entity
      *
-     * @param int $id
+     * @param string $id UUID for required IOPS record
      * @return Iops
      */
     public function getById($id)
@@ -42,7 +42,7 @@ class IopsClient extends Client implements ClientEntityInterface
 
     /**
      * Load an instance of Iops from API data
-     * @param $data
+     * @param $data API response data
      * @return Iops
      */
     public function loadEntity($data)
