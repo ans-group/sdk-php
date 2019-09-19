@@ -28,10 +28,11 @@ class InvoiceQueryClient extends BaseClient
     /**
      * @param $invoiceQuery
      * @return SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function create($invoiceQuery)
     {
-        $response = $this->post("v1/invoices/query", $this->invoiceQueryToJson($invoiceQuery));
+        $response = $this->post("v1/invoice-queries", $this->invoiceQueryToJson($invoiceQuery));
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
@@ -49,16 +50,7 @@ class InvoiceQueryClient extends BaseClient
      */
     protected function serializeInvoiceQuery($item)
     {
-        $invoiceQuery = new Entities\InvoiceQuery;
-
-        $invoiceQuery->id = $item->id;
-        $invoiceQuery->contactId = $item->contact_id;
-        $invoiceQuery->amount = $item->amount;
-        $invoiceQuery->whatWasExpected = $item->what_was_expected;
-        $invoiceQuery->whatWasReceived = $item->what_was_received;
-        $invoiceQuery->proposedSolution = $item->proposed_solution;
-        $invoiceQuery->invoiceIds = $item->invoice_ids;
-        $invoiceQuery->contactMethod = $item->contact_method;
+        $invoiceQuery = new Entities\InvoiceQuery($item);
 
         return $invoiceQuery;
     }
