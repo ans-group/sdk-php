@@ -78,7 +78,7 @@ class RecordClient extends Client
         $response = $this->request("GET", "v1/zones/$zoneName/records/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        // zone isnt currently returned by the api
+        // Zone isn't currently returned by the api
         $body->data->zone = $zoneName;
 
         return new Record($body->data);
