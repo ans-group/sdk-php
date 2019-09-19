@@ -3,11 +3,12 @@
 namespace UKFast\SDK\SafeDNS;
 
 use UKFast\SDK\Client;
+use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Exception\UKFastException;
 use UKFast\SDK\Page;
 use UKFast\SDK\SafeDNS\Entities\Zone;
 
-class ZoneClient extends Client
+class ZoneClient extends Client implements ClientEntityInterface
 {
     protected $basePath = 'safedns/';
 
@@ -24,44 +25,10 @@ class ZoneClient extends Client
     {
         $page = $this->paginatedRequest('v1/zones', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Zone($item);
+            return $this->loadEntity($item);
         });
 
         return $page;
-    }
-
-
-    /**
-     * Gets array containing all Zones
-     *
-     * @param array $filters
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getAll($filters = [])
-    {
-        // get first page
-        $page = $this->getPage($currentPage = 1, $perPage = 50, $filters);
-        if ($page->totalItems() == 0) {
-            return [];
-        }
-
-        $items = $page->getItems();
-        if ($page->totalPages() == 1) {
-            return $items;
-        }
-
-        // get any remaining pages
-        while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->getPage($currentPage++, $perPage, $filters);
-
-            $items = array_merge(
-                $items,
-                $page->getItems()
-            );
-        }
-
-        return $items;
     }
 
     /**
@@ -75,7 +42,8 @@ class ZoneClient extends Client
     {
         $response = $this->request("GET", "v1/zones/$name");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return new Zone($body->data);
+
+        return $this->loadEntity($body->data);
     }
 
     /**
@@ -136,6 +104,20 @@ class ZoneClient extends Client
     public function deleteByName($name)
     {
         $response = $this->delete("v1/zones/$name");
+
         return $response->getStatusCode() == 204;
+    }
+
+    /**
+     * Load entity from API data
+     * @param $data
+     * @return mixed
+     */
+    public function loadEntity($data)
+    {
+        return new Zone([
+            'name'        => $data->name,
+            'description' => $data->description,
+        ]);
     }
 }
