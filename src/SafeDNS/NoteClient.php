@@ -51,6 +51,31 @@ class NoteClient extends Client implements ClientEntityInterface
     }
 
     /**
+     * Create a note
+     *
+     * @param Note $note
+     * @return Note
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function create(Note $note)
+    {
+        $response = $this->post(
+            'v1/zones/' . rawurlencode($note->zone) . "/notes",
+            json_encode([
+                'user_id' => $note->contactId,
+                'note'    => $note->content,
+                'ip'      => $note->ipAddress,
+            ]),
+            ['Content-Type' => 'application/json']
+        );
+
+        $body     = $this->decodeJson($response->getBody()->getContents());
+        $note->id = $body->data->id;
+
+        return $note;
+    }
+
+    /**
      * Load entity from API data
      *
      * @param  $data
