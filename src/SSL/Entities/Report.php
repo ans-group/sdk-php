@@ -2,8 +2,15 @@
 
 namespace UKFast\SDK\SSL\Entities;
 
-class CheckedCertificate
+use UKFast\SDK\Entities\Entity;
+
+class Report extends Entity
 {
+    /**
+     * @var string
+     */
+    public $name;
+
     /**
      * @var string
      */
@@ -28,6 +35,21 @@ class CheckedCertificate
      * @var string
      */
     public $domainCovered;
+
+    /**
+     * @var string
+     */
+    public $certExpiresInLessThan30Days;
+
+    /**
+     * @var string
+     */
+    public $certExpired;
+
+    /**
+     * @var string
+     */
+    public $secureSha;
 
     /**
      * @var string
@@ -80,9 +102,9 @@ class CheckedCertificate
     public $wildcard;
 
     /**
-     * @var string
+     * @var array
      */
-    public $heartbleedVulnerable;
+    public $vulnerabilities = [];
 
     /**
      * @var string
@@ -93,6 +115,11 @@ class CheckedCertificate
      * @var array
      */
     public $sslVersions = [];
+
+    /**
+     * @var array
+     */
+    public $chain = [];
 
     /**
      * @var string
