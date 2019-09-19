@@ -3,13 +3,13 @@
 namespace UKFast\SDK\SafeDNS;
 
 use UKFast\SDK\Client;
+use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 use UKFast\SDK\SafeDNS\Entities\Record;
 
-class RecordClient extends Client
+class RecordClient extends Client implements ClientEntityInterface
 {
     protected $basePath = 'safedns/';
-
 
     /**
      * Get records by zone name
@@ -25,7 +25,7 @@ class RecordClient extends Client
         $page = $this->paginatedRequest('v1/zones/'.$zoneName.'/records', $page, $perPage, $filters);
         $page->serializeWith(function ($item) use ($zoneName) {
             $item->zone = $zoneName;
-            return new Record($item);
+            return $this->loadEntity($item);
         });
 
         return $page;
@@ -81,7 +81,7 @@ class RecordClient extends Client
         // zone isnt currently returned by the api
         $body->data->zone = $zoneName;
 
-        return new Record($body->data);
+        return $this->loadEntity($body->data);
     }
 
     /**
@@ -145,6 +145,24 @@ class RecordClient extends Client
     public function destroy(Record $record)
     {
         $response = $this->delete("v1/zones/".$record->zone."/records/".$record->id."");
+
         return $response->getStatusCode() == 204;
+    }
+
+    /**
+     * Load entity from API data
+     * @param $data
+     * @return Record
+     */
+    public function loadEntity($data)
+    {
+        return new Record([
+            'id'      => $data->id,
+            'zone'    => $data->zone,
+            'name'    => $data->name,
+            'type'    => $data->type,
+            'content' => $data->content,
+            'ttl'     => $data->ttl,
+        ]);
     }
 }
