@@ -111,7 +111,7 @@ class ZoneClient extends Client implements ClientEntityInterface
     /**
      * Load entity from API data
      * @param $data
-     * @return mixed
+     * @return Zone
      */
     public function loadEntity($data)
     {
