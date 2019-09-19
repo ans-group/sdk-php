@@ -12,9 +12,11 @@ class DatastoreClient extends Client implements ClientEntityInterface
     /**
      * Create a datastore
      * @param Datastore $datastore
-     * @return bool
+     * @param null $sanId The SAN to target for solutions with multiple SAN's
+     * @param null $iopsTier IOPS tier for the datastore
+     * @return Datastore
      */
-    public function create(Datastore $datastore)
+    public function create(Datastore $datastore, $sanId = null, $iopsTier = null)
     {
         $data = json_encode(
             [
@@ -28,12 +30,19 @@ class DatastoreClient extends Client implements ClientEntityInterface
             $data['site_id'] = $datastore->siteId;
         }
 
-        $response = $this->post(
-            'v1/datastores',
-            $data
-        );
+        if (!empty($sanId)) {
+            $data['san_id'] = $sanId;
+        }
 
-        return $response->getStatusCode() == 202;
+        if (!empty($iopsTier)) {
+            $data['iops_tier'] = $iopsTier;
+        }
+
+        $response = $this->post('v1/datastores', $data);
+        $response = $this->decodeJson($response->getBody()->getContents());
+        $datastore->id = $response->data->id;
+
+        return $datastore;
     }
 
     /**

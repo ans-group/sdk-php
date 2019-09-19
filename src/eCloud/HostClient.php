@@ -7,7 +7,6 @@ use UKFast\SDK\Page;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\eCloud\Entities\Host;
 
-
 class HostClient extends Client implements ClientEntityInterface
 {
     /**
