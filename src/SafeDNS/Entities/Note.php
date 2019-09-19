@@ -15,6 +15,7 @@ class Note extends Entity
 
     /**
      * The name of the zone the note belongs to
+     *
      * @var string
      */
     public $zone;
