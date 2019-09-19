@@ -14,6 +14,12 @@ class Note extends Entity
     public $id;
 
     /**
+     * The name of the zone the note belongs to
+     * @var string
+     */
+    public $zone;
+
+    /**
      * The ID of the contact who has created the note
      *
      * @link https://api.ukfast.io/account/v1/contacts
