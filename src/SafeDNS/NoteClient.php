@@ -11,6 +11,7 @@ class NoteClient extends Client implements ClientEntityInterface
 {
     /**
      * Get records by zone name
+     *
      * @param string $zoneName
      * @param int    $page
      * @param int    $perPage
@@ -31,7 +32,27 @@ class NoteClient extends Client implements ClientEntityInterface
     }
 
     /**
+     * Gets a specific zone note by ID
+     *
+     * @param string $zoneName
+     * @param string $id
+     * @return Note
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getByZoneNameAndId($zoneName, $id)
+    {
+        $response = $this->request("GET", 'v1/zones/' . $zoneName . '/records/' . $id);
+        $body     = $this->decodeJson($response->getBody()->getContents());
+
+        // The zone isn't currently returned by the API
+        $body->data->zone = $zoneName;
+
+        return $this->loadEntity($body->data);
+    }
+
+    /**
      * Load entity from API data
+     *
      * @param  $data
      * @return Note
      */
