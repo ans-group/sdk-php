@@ -74,6 +74,56 @@ abstract class Entity
     }
 
     /**
+     * Fills in all the properties for an entity based off
+     * the provided raw response. Can pass an optional
+     * third argument to map API names to entity names
+     * e.g. ['not_nice_api_name' => 'niceEntityName']
+     * 
+     * @param object $raw
+     * @param array $map
+     * @return void
+     */
+    public function hydrate(object $raw, $map = [])
+    {
+        foreach ($map as $rawName => $entityName) {
+            if (isset($raw->{$rawName})) {
+                $raw->{$entityName} = $raw->{$rawName};
+                unset($raw->{$rawName});
+            }
+        }
+
+        foreach ($raw as $prop => $value) {
+            if (!$this->has($prop)) {
+                $this->set($prop, $value);
+            }
+        }
+    }
+
+    /**
+     * Returns an array representation of the the entity.
+     * Can pass a map of property names to array names
+     * e.g. ['createdAt' => 'created_at']
+     * 
+     * @param array $map
+     * @return array
+     */
+    public function toArray($map = [])
+    {
+        $arr = $this->all();
+        foreach ($this->readOnly as $readOnly) {
+            unset($arr[$readOnly]);
+        }
+
+        foreach ($arr as $name => $value) {
+            if ($value instanceof Entity) {
+                unset($arr[$name]);
+            }
+        }
+
+        return $arr;
+     }
+
+    /**
      * Magic getter method. Proxies property access to
      * internal array of attributes
      * 

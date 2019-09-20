@@ -2,8 +2,15 @@
 
 namespace UKFast\SDK\PSS\Entities;
 
+use GuzzleHttp\Psr7\Response;
+
 class Download
 {
+    /**
+     * @var \GuzzleHttp\Psr7\Response
+     */
+    protected $response;
+
     /**
      * Attachment constructor.
      * @param \GuzzleHttp\Psr7\Response $response

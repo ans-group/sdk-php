@@ -25,6 +25,10 @@ use UKFast\SDK\Entities\Entity;
  */
 class Request extends Entity
 {
+    protected $readOnly = [
+        'id', 'createdAt', 'unreadReplies'
+    ];
+
     public function isCompleted()
     {
         return in_array($this->status, ['Completed', 'Replied and Completed']);

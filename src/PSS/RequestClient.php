@@ -143,9 +143,9 @@ class RequestClient extends BaseClient
             'product' => new Entities\Product,
         ]);
 
-        $this->hydrate($request->author, $item->author);
-        $this->hydrate($request->product, $item->product);
-        $this->hydrate($request, $item , [
+        $request->author->hydrate($item->author);
+        $request->product->hydrate($item->product);
+        $request->hydrate($item , [
             'created_at' => 'createdAt',
             'request_sms' => 'requestSms',
             'customer_reference' => 'customerReference',
@@ -164,11 +164,16 @@ class RequestClient extends BaseClient
         return $request;
     }
 
+    /**
+     * Converts a raw response to a feedback object
+     * @param object $raw
+     * @return \UKFast\SDK\PSS\Entities\Feedback
+     */
     public function serializeFeedback($raw)
     {
         $feedback = new Entities\Feedback;
 
-        $this->hydrate($feedback, $raw, [
+        $feedback->hydrate($raw, [
             'speed_resolved' => 'speedResolved',
             'nps_score' => 'npsScore',
             'thirdparty_consent' => 'thirdPartyConsent',
@@ -177,37 +182,25 @@ class RequestClient extends BaseClient
         return $feedback;
     }
 
+    /**
+     * Converts a request to a json string
+     * 
+     * @param \UKFast\SDK\PSS\Entities\Request
+     * @return string
+     */
     protected function requestToJson($request)
     {
-        $payload = [
-            'subject' => $request->subject,
-            'details' => $request->details,
-            'priority' => $request->priority,
-            'secure' => $request->secure,
-            'author' => [
-                'id' => $request->author->id
-            ],
-            'request_sms' => $request->requestSms,
-            'archived' => $request->archived,
-        ];
+        $payload = $request->toArray([
+            'requestSms' => 'request_sms',
+            'customerReference' => 'customer_reference'
+        ]);
 
-        if (isset($request->status)) {
-            $payload['status'] = $request->status;
+        if ($request->has('author')) {
+            $payload['author'] = $request->author->toArray();
         }
 
-        if ($request->product) {
-            $payload['product'] = [
-                'type' => $request->product->type,
-                'id' => $request->product->id,
-            ];
-        }
-
-        if (!empty($request->cc)) {
-            $payload['cc'] = $request->cc;
-        }
-
-        if ($request->customerReference) {
-            $payload['customer_reference'] = $request->customerReference;
+        if ($request->has('product')) {
+            $payload['product'] = $request->product->toArray();
         }
 
         return json_encode($payload);
