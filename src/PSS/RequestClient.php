@@ -138,23 +138,21 @@ class RequestClient extends BaseClient
      */
     protected function serializeRequest($item)
     {
-        $request = new Entities\Request;
+        $request = new Entities\Request([
+            'author' => new Entities\Author,
+            'product' => new Entities\Product,
+        ]);
 
-        $request->id = $item->id;
-        $request->author = new Entities\Author($item->author);
-        $request->type = $item->type;
-        $request->secure = $item->secure;
-        $request->subject = $item->subject;
-        $request->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
-        $request->priority = $item->priority;
-        $request->archived = $item->archived;
-        $request->status = $item->status;
-        $request->requestSms = $item->request_sms;
-        $request->customerReference = $item->customer_reference;
-        $request->product = new Entities\Product($item->product);
-        $request->lastRepliedAt = null;
-        $request->systemReference = $item->system_reference;
-        $request->unreadReplies = $item->unread_replies;
+        $this->hydrate($request->author, $item->author);
+        $this->hydrate($request->product, $item->product);
+        $this->hydrate($request, $item , [
+            'created_at' => 'createdAt',
+            'request_sms' => 'requestSms',
+            'customer_reference' => 'customerReference',
+            'system_reference' => 'systemReference',
+            'unread_replies' => 'unreadReplies',
+        ]);
+
         if ($item->last_replied_at) {
             $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
         }
@@ -166,17 +164,15 @@ class RequestClient extends BaseClient
         return $request;
     }
 
-    public function serializeFeedback($item)
+    public function serializeFeedback($raw)
     {
         $feedback = new Entities\Feedback;
 
-        $feedback->id = $item->id;
-        $feedback->comment = $item->comment;
-        $feedback->speedResolved = $item->speed_resolved;
-        $feedback->quality = $item->quality;
-        $feedback->score = $item->score;
-        $feedback->npsScore = $item->nps_score;
-        $feedback->thirdPartyConsent = $item->thirdparty_consent;
+        $this->hydrate($feedback, $raw, [
+            'speed_resolved' => 'speedResolved',
+            'nps_score' => 'npsScore',
+            'thirdparty_consent' => 'thirdPartyConsent',
+        ]);
 
         return $feedback;
     }

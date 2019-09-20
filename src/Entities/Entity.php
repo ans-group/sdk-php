@@ -5,30 +5,97 @@ namespace UKFast\SDK\Entities;
 abstract class Entity
 {
     /**
-     * Entity hydration blacklist.
      * @var array
      */
-    protected $guarded = [];
+    protected $attributes = [];
 
     /**
-     * Datastore constructor.
-     * @param array $properties
+     * @param array $attributes
      */
-    public function __construct(array $properties = [])
+    public function __construct($attributes = [])
     {
-        $this->fill($properties);
+        $this->attributes = $attributes;
     }
 
     /**
-     * Fill the object properties (except for guarded)
-     * @param array $properties
+     * Gets an attribute, if the attribute hasn't been
+     * set yet, return null
+     * 
+     * @param string $attr
+     * @param mixed $default
+     * @return mixed
      */
-    public function fill(array $properties)
+    public function get($attr, $default = null)
     {
-        foreach (array_diff_key($properties, array_flip($this->guarded)) as $property => $value) {
-            if (property_exists($this, $property)) {
-                $this->$property = $value;
-            }
+        if (isset($this->attributes[$attr])) {
+            return $this->attributes[$attr];
         }
+
+        return $default;
+    }
+
+
+    /**
+     * Sets an attribute
+     * 
+     * @param string $attr
+     * @param mixed $value
+     * @return void
+     */
+    public function set($attr, $value)
+    {
+        $this->attributes[$attr] = $value;
+    }
+
+    /**
+     * @return array
+     */
+    public function all()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * Hydrates an entity
+     * 
+     * @param array $attributes
+     * @return void
+     */
+    public function fill($attributes)
+    {
+        foreach ($attributes as $name => $value) {
+            $this->attributes[$name] = $value;
+        }
+    }
+
+    public function has($attribute)
+    {
+        return isset($this->attributes[$attribute]);
+    }
+
+    /**
+     * Magic getter method. Proxies property access to
+     * internal array of attributes
+     * 
+     * @param string $attr
+     * @return mixed
+     */
+    public function __get($attr)
+    {
+        return $this->get($attr);
+    }
+
+    /**
+     * 
+     * Magic getter method. Proxies property access to
+     * internal array of attributes
+     * 
+     * @param string $attr
+     * @param mixed $value
+     * @return void
+     */
+    public function __set($attr, $value)
+    {
+        $this->set($attr, $value);
     }
 }
