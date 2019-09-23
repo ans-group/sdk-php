@@ -29,8 +29,8 @@ abstract class Entity
 
     /**
      * Gets an attribute, if the attribute hasn't been
-     * set yet, return null
-     * 
+     * set yet, return $default
+     *
      * @param string $attr
      * @param mixed $default
      * @return mixed
@@ -47,7 +47,7 @@ abstract class Entity
 
     /**
      * Sets an attribute
-     * 
+     *
      * @param string $attr
      * @param mixed $value
      * @return void
@@ -67,7 +67,7 @@ abstract class Entity
 
     /**
      * Hydrates an entity
-     * 
+     *
      * @param array $attributes
      * @return void
      */
@@ -93,7 +93,7 @@ abstract class Entity
      * Returns an array representation of the the entity.
      * Can pass a map of property names to array names
      * e.g. ['createdAt' => 'created_at']
-     * 
+     *
      * @param array $map
      * @return array
      */
@@ -118,12 +118,12 @@ abstract class Entity
         }
 
         return $arr;
-     }
+    }
 
     /**
      * Magic getter method. Proxies property access to
      * internal array of attributes
-     * 
+     *
      * @param string $attr
      * @return mixed
      */
@@ -133,10 +133,10 @@ abstract class Entity
     }
 
     /**
-     * 
+     *
      * Magic getter method. Proxies property access to
      * internal array of attributes
-     * 
+     *
      * @param string $attr
      * @param mixed $value
      * @return void

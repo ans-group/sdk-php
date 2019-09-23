@@ -196,7 +196,7 @@ class RequestClient extends BaseClient
 
     /**
      * Converts a request to a json string
-     * 
+     *
      * @param \UKFast\SDK\PSS\Entities\Request
      * @return string
      */
