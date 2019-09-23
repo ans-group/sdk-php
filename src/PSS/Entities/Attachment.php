@@ -2,7 +2,7 @@
 
 namespace UKFast\SDK\PSS\Entities;
 
-use UKFast\SDK\Entities\Entity;
+use UKFast\SDK\Entity;
 
 /**
  * @property string $name

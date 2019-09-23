@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\SDK\Entities;
+namespace UKFast\SDK;
 
 abstract class Entity
 {
@@ -20,6 +20,10 @@ abstract class Entity
      */
     public function __construct($attributes = [])
     {
+        if (is_object($attributes)) {
+            $attributes = (array) $attributes;
+        }
+        
         $this->attributes = $attributes;
     }
 
@@ -74,6 +78,12 @@ abstract class Entity
         }
     }
 
+    /**
+     * Returns true if the attribute is present on the
+     * entity
+     * @param string $attribute
+     * @return bool
+     */
     public function has($attribute)
     {
         return isset($this->attributes[$attribute]);

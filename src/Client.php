@@ -8,7 +8,6 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
-use UKFast\SDK\Entities\Entity;
 use UKFast\SDK\Exception\ApiException;
 use UKFast\SDK\Exception\InvalidJsonException;
 use UKFast\SDK\Exception\NotFoundException;

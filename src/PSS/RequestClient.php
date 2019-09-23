@@ -149,8 +149,10 @@ class RequestClient extends BaseClient
                 'id' => $item->product->id,
                 'type' => $item->product->type,
             ]),
+            'type' => $item->type,
+            'subject' => $item->subject,
             'secure' => $item->secure,
-            'createdAt' => $item->created_at,
+            'createdAt' => DateTime::createFromFormat(DateTime::ISO8601, $item->created_at),
             'priority' => $item->priority,
             'archived' => $item->archived,
             'status' => $item->status,
@@ -165,7 +167,7 @@ class RequestClient extends BaseClient
             $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
         }
 
-        if (!empty($item->cc)) {
+        if (isset($item->cc)) {
             $request->cc = $item->cc;
         }
 
