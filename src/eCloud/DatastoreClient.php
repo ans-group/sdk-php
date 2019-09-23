@@ -17,25 +17,23 @@ class DatastoreClient extends Client implements ClientEntityInterface
      */
     public function create(Datastore $datastore, $iopsTier = null)
     {
-        $data = json_encode(
-            [
+        $data = [
                 'name' => $datastore->name,
                 'solution_id' => $datastore->solutionId,
                 'capacity' => $datastore->capacity
-            ]
-        );
+        ];
 
         if (!empty($datastore->siteId)) {
             $data['site_id'] = $datastore->siteId;
         }
 
         if (!empty($iopsTier)) {
-            $data['iops_tier'] = $datastore->siteId;
+            $data['iops_tier'] = $iopsTier;
         }
 
         $response = $this->post(
             'v1/datastores',
-            $data
+            json_encode($data)
         );
 
         return $response->getStatusCode() == 202;
