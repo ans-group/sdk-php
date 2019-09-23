@@ -12,9 +12,10 @@ class DatastoreClient extends Client implements ClientEntityInterface
     /**
      * Create a datastore
      * @param Datastore $datastore
+     * @param null|string $iopsTier UUID of a n IOPS tier to apply to the datastore
      * @return bool
      */
-    public function create(Datastore $datastore)
+    public function create(Datastore $datastore, $iopsTier = null)
     {
         $data = json_encode(
             [
@@ -26,6 +27,10 @@ class DatastoreClient extends Client implements ClientEntityInterface
 
         if (!empty($datastore->siteId)) {
             $data['site_id'] = $datastore->siteId;
+        }
+
+        if (!empty($iopsTier)) {
+            $data['iops_tier'] = $datastore->siteId;
         }
 
         $response = $this->post(
