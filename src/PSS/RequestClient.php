@@ -139,18 +139,26 @@ class RequestClient extends BaseClient
     protected function serializeRequest($item)
     {
         $request = new Entities\Request([
-            'author' => new Entities\Author,
-            'product' => new Entities\Product,
-        ]);
-
-        $request->author->hydrate($item->author);
-        $request->product->hydrate($item->product);
-        $request->hydrate($item , [
-            'created_at' => 'createdAt',
-            'request_sms' => 'requestSms',
-            'customer_reference' => 'customerReference',
-            'system_reference' => 'systemReference',
-            'unread_replies' => 'unreadReplies',
+            'id' => $item->id,
+            'author' => new Entities\Author([
+                'id' => $item->author->id,
+                'name' => $item->author->name,
+                'type' => $item->author->type,
+            ]),
+            'product' => new Entities\Product([
+                'id' => $item->product->id,
+                'type' => $item->product->type,
+            ]),
+            'secure' => $item->secure,
+            'createdAt' => $item->created_at,
+            'priority' => $item->priority,
+            'archived' => $item->archived,
+            'status' => $item->status,
+            'requestSms' => $item->request_sms,
+            'customerReference' => $item->customer_reference,
+            'lastRepliedAt' => null,
+            'systemReference' => $item->system_reference,
+            'unreadReplies' => $item->unread_replies,
         ]);
 
         if ($item->last_replied_at) {
@@ -171,12 +179,14 @@ class RequestClient extends BaseClient
      */
     public function serializeFeedback($raw)
     {
-        $feedback = new Entities\Feedback;
-
-        $feedback->hydrate($raw, [
-            'speed_resolved' => 'speedResolved',
-            'nps_score' => 'npsScore',
-            'thirdparty_consent' => 'thirdPartyConsent',
+        $feedback = new Entities\Feedback([
+            'id' => $raw->id,
+            'comment' => $raw->comment,
+            'speedResolved' => $raw->speed_resolved,
+            'quality' => $raw->quality,
+            'score' => $raw->score,
+            'npsScore' => $raw->npsScore,
+            'thirdPartyConsent' => $raw->thirdparty_consent,
         ]);
 
         return $feedback;
