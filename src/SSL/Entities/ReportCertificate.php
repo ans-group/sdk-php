@@ -35,4 +35,9 @@ class ReportCertificate extends Entity
      * @var string
      */
     public $signatureAlgorithm;
+
+    /**
+     * @var bool
+     */
+    public $certificateLinked;
 }

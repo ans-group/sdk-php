@@ -37,17 +37,17 @@ class Report extends Entity
     public $domainCovered;
 
     /**
-     * @var string
+     * @var bool
      */
-    public $certExpiresInLessThan30Days;
+    public $expiring;
 
     /**
-     * @var string
+     * @var bool
      */
-    public $certExpired;
+    public $expired;
 
     /**
-     * @var string
+     * @var bool
      */
     public $secureSha;
 
@@ -122,12 +122,12 @@ class Report extends Entity
     public $chain = [];
 
     /**
-     * @var string
+     * @var bool
      */
-    public $status;
+    public $chainPassed;
 
     /**
-     * @var string
+     * @var array
      */
-    public $error;
+    public $findings;
 }

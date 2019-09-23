@@ -2,14 +2,14 @@
 
 namespace UKFast\SDK\SSL;
 
-use UKFast\Admin\Traits\Admin;
 use UKFast\SDK\Client;
 use UKFast\SDK\Entities\ClientEntityInterface;
+use UKFast\SDK\SSL\Entities\Report;
+use UKFast\SDK\SSL\Entities\ReportCertificate;
 
 class ReportClient extends Client implements ClientEntityInterface
 {
-    use Admin;
-    
+
     protected $basePath = 'ssl/';
 
     /**
@@ -33,7 +33,7 @@ class ReportClient extends Client implements ClientEntityInterface
      */
     public function getByDomainNameAndIp($domain, $ip)
     {
-        $response = $this->get("v1/report/" . rawurlencode($domain) . "/" . rawurlencode($ip));
+        $response = $this->get("v1/reports/" . rawurlencode($domain) . "/" . rawurlencode($ip));
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->loadEntity($body->data);
     }
@@ -47,14 +47,15 @@ class ReportClient extends Client implements ClientEntityInterface
     {
         $chain = [];
         if (count($data->chain) > 0) {
-            foreach ($data->chain as $index => $certification) {
-                $chain[] = new Entities\ReportCertificate([
-                    "name" => $data->chain->{$index}->name,
-                    "validFrom" => $data->chain->{$index}->valid_from,
-                    "validTo" => $data->chain->{$index}->valid_to,
-                    "issuer" => $data->chain->{$index}->issuer,
-                    "serialNumber" => $data->chain->{$index}->serial_number,
-                    "signatureAlgorithm" => $data->chain->{$index}->signature_algorithm
+            foreach ($data->chain->certificates as $index => $certification) {
+                $chain['certificates'][] = new Entities\ReportCertificate([
+                    "name" => $data->chain->certificates[$index]->name,
+                    "validFrom" => $data->chain->certificates[$index]->valid_from,
+                    "validTo" => $data->chain->certificates[$index]->valid_to,
+                    "issuer" => $data->chain->certificates[$index]->issuer,
+                    "serialNumber" => $data->chain->certificates[$index]->serial_number,
+                    "signatureAlgorithm" => $data->chain->certificates[$index]->signature_algorithm,
+                    "certificateLinked" => $data->chain->certificates[$index]->certificate_linked
                 ]);
             }
         }
@@ -70,8 +71,8 @@ class ReportClient extends Client implements ClientEntityInterface
             "domainsSecured" => $data->certificate->domains_secured,
             "multiDomain" => $data->certificate->multi_domain,
             "wildcard" => $data->certificate->wildcard,
-            "certExpiresInLessThan30Days" => $data->certificate->cert_expires_in_less_than_thirty_days,
-            "certExpired" => $data->certificate->cert_expired,
+            "expiring" => $data->certificate->expiring,
+            "expired" => $data->certificate->expired,
             "secureSha" => $data->certificate->secure_sha,
             "ip" => $data->server->ip,
             "hostname" => $data->server->hostname,
@@ -86,10 +87,10 @@ class ReportClient extends Client implements ClientEntityInterface
                 "poodle" => $data->vulnerabilities->poodle
             ],
             "chain" => $chain,
-            "status" => $data->validation->status,
-            "error" => (isset($data->validation->error)) ? $data->validation->error : null,
+            "chainPassed" => $data->chain_passed,
+            "findings" => $data->findings,
         ]);
-        
+
         return $request;
     }
 }
