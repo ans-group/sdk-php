@@ -12,7 +12,7 @@ class DatastoreClient extends Client implements ClientEntityInterface
     /**
      * Create a datastore
      * @param Datastore $datastore
-     * @param null|string $iopsTier UUID of a n IOPS tier to apply to the datastore
+     * @param null|string $iopsTier UUID of an IOPS tier to apply to the datastore
      * @return bool
      */
     public function create(Datastore $datastore, $iopsTier = null)
