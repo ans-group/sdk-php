@@ -16,9 +16,7 @@ class ReportClient extends Client implements ClientEntityInterface
 
     /**
      * @param $domain
-     * @param $ip
-     * @return Entities\CheckedCertificate
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return mixed|Report
      */
     public function getByDomainName($domain)
     {
@@ -30,8 +28,7 @@ class ReportClient extends Client implements ClientEntityInterface
     /**
      * @param $domain
      * @param $ip
-     * @return Entities\CheckedCertificate
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return mixed|Report
      */
     public function getByDomainNameAndIp($domain, $ip)
     {
@@ -43,7 +40,7 @@ class ReportClient extends Client implements ClientEntityInterface
 
     /**
      * @param $data
-     * @return mixed|Entities\CheckedCertificate
+     * @return mixed|Report
      */
     public function loadEntity($data)
     {
@@ -82,7 +79,7 @@ class ReportClient extends Client implements ClientEntityInterface
             "currentTime" => $data->server->current_time,
             "serverTime" => $data->server->server_time,
             "serverSoftware" => $data->server->software,
-            "opensslVersion" >=$data->server->openssl_version,
+            "opensslVersion" => $data->server->openssl_version,
             "sslVersions" => $data->server->ssl_versions,
             "vulnerabilities" => [
                 "heartbleed" => $data->vulnerabilities->heartbleed,
