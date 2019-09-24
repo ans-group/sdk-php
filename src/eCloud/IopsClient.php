@@ -51,7 +51,7 @@ class IopsClient extends Client implements ClientEntityInterface
             [
                 'id' => $data->id,
                 'name' => $data->name,
-                'limit' => $data->slimit,
+                'limit' => $data->limit,
             ]
         );
     }
