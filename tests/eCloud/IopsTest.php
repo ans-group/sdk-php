@@ -77,13 +77,13 @@ class IopsTest extends TestCase
         $handler = HandlerStack::create($mock);
         $guzzle = new Guzzle(['handler' => $handler]);
 
-        $id = 1;
+        $id = '22891f55-cd6b-11e9-89fb-005056a64a16';
 
         $client = new \UKFast\SDK\eCloud\Client($guzzle);
         $iopsRecord = $client->iops()->getById($id);
 
         $this->assertTrue($iopsRecord instanceof \UKFast\SDK\eCloud\Entities\Iops);
-        $this->assertEquals('22891f55-cd6b-11e9-89fb-005056a64a16', $iopsRecord->id);
+        $this->assertEquals($id, $iopsRecord->id);
         $this->assertEquals('Gold', $iopsRecord->name);
         $this->assertEquals(1500, $iopsRecord->limit);
     }
