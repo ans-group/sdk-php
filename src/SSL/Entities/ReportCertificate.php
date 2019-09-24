@@ -39,5 +39,5 @@ class ReportCertificate extends Entity
     /**
      * @var bool
      */
-    public $certificateLinked;
+    public $chainIntact;
 }

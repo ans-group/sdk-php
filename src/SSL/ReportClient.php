@@ -6,9 +6,11 @@ use UKFast\SDK\Client;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\SSL\Entities\Report;
 use UKFast\SDK\SSL\Entities\ReportCertificate;
+use UKFast\Admin\Traits\Admin;
 
 class ReportClient extends Client implements ClientEntityInterface
 {
+    use Admin;
 
     protected $basePath = 'ssl/';
 
@@ -55,7 +57,7 @@ class ReportClient extends Client implements ClientEntityInterface
                     "issuer" => $data->chain->certificates[$index]->issuer,
                     "serialNumber" => $data->chain->certificates[$index]->serial_number,
                     "signatureAlgorithm" => $data->chain->certificates[$index]->signature_algorithm,
-                    "certificateLinked" => $data->chain->certificates[$index]->certificate_linked
+                    "chainIntact" => $data->chain->certificates[$index]->certificate_linked
                 ]);
             }
         }
@@ -67,7 +69,7 @@ class ReportClient extends Client implements ClientEntityInterface
             "issuer" => $data->certificate->issuer,
             "serialNumber" => $data->certificate->serial_number,
             "signatureAlgorithm" => $data->certificate->signature_algorithm,
-            "domainCovered" => $data->certificate->domain_covered,
+            "coversDomain" => $data->certificate->domain_covered,
             "domainsSecured" => $data->certificate->domains_secured,
             "multiDomain" => $data->certificate->multi_domain,
             "wildcard" => $data->certificate->wildcard,
@@ -87,7 +89,7 @@ class ReportClient extends Client implements ClientEntityInterface
                 "poodle" => $data->vulnerabilities->poodle
             ],
             "chain" => $chain,
-            "chainPassed" => $data->chain_passed,
+            "chainIntact" => $data->chain_passed,
             "findings" => $data->findings,
         ]);
 

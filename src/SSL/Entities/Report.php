@@ -32,9 +32,9 @@ class Report extends Entity
     public $signatureAlgorithm;
 
     /**
-     * @var string
+     * @var bool
      */
-    public $domainCovered;
+    public $coversDomain;
 
     /**
      * @var bool
@@ -124,7 +124,7 @@ class Report extends Entity
     /**
      * @var bool
      */
-    public $chainPassed;
+    public $chainIntact;
 
     /**
      * @var array
