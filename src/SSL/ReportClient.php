@@ -54,7 +54,7 @@ class ReportClient extends Client implements ClientEntityInterface
                     "issuer" => $data->chain->certificates[$index]->issuer,
                     "serialNumber" => $data->chain->certificates[$index]->serial_number,
                     "signatureAlgorithm" => $data->chain->certificates[$index]->signature_algorithm,
-                    "chainIntact" => $data->chain->certificates[$index]->certificate_linked
+                    "chainIntact" => $data->chain->certificates[$index]->chain_intact
                 ]);
             }
         }
@@ -86,7 +86,7 @@ class ReportClient extends Client implements ClientEntityInterface
                 "poodle" => $data->vulnerabilities->poodle
             ],
             "chain" => $chain,
-            "chainIntact" => $data->chain_passed,
+            "chainIntact" => $data->chain_intact,
             "findings" => $data->findings,
         ]);
 
