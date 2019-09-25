@@ -66,7 +66,7 @@ class ReportClient extends Client implements ClientEntityInterface
             "issuer" => $data->certificate->issuer,
             "serialNumber" => $data->certificate->serial_number,
             "signatureAlgorithm" => $data->certificate->signature_algorithm,
-            "coversDomain" => $data->certificate->domain_covered,
+            "coversDomain" => $data->certificate->covers_domain,
             "domainsSecured" => $data->certificate->domains_secured,
             "multiDomain" => $data->certificate->multi_domain,
             "wildcard" => $data->certificate->wildcard,
