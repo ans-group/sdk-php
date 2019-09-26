@@ -58,8 +58,5 @@ class SolutionTest extends TestCase
         $this->assertEquals('Single Site Solution', $solution->name);
         $this->assertEquals('Hybrid', $solution->environment);
         $this->assertEquals(5, $solution->podId);
-
     }
-
-
 }
