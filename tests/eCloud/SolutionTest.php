@@ -20,15 +20,15 @@ class SolutionTest extends TestCase
                 'data' => [
                     [
                         'id' => 1,
-                        'name' => 'Single Site Solution',
+                        'name' => 'Solution 1',
                         'environment' => 'Hybrid',
-                        'pod_id' => 5,
+                        'pod_id' => 1,
                     ],
                     [
-                        'id' => 17106,
-                        'name' => 'Pod 0 - LIVE Solution - DO NOT ALTER!',
+                        'id' => 2,
+                        'name' => 'Solution 2',
                         'environment' => 'Hybrid',
-                        'pod_id' => 20,
+                        'pod_id' => 2,
                     ]
                 ],
                 "meta" => [
@@ -55,8 +55,8 @@ class SolutionTest extends TestCase
 
         $this->assertTrue($solution instanceof \UKFast\SDK\eCloud\Entities\Solution);
         $this->assertEquals(1, $solution->id);
-        $this->assertEquals('Single Site Solution', $solution->name);
+        $this->assertEquals('Solution 1', $solution->name);
         $this->assertEquals('Hybrid', $solution->environment);
-        $this->assertEquals(5, $solution->podId);
+        $this->assertEquals(1, $solution->podId);
     }
 }
