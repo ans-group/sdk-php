@@ -171,7 +171,18 @@ class SolutionClient extends Client
     {
         $page = $this->paginatedRequest("v1/solutions/$id/datastores", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Datastore($item);
+            return new Datastore(
+                [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'status' => $item->status,
+                    'capacity' => $item->capacity,
+                    'allocated' => $item->allocated,
+                    'available' => $item->available,
+                    'solutionId' => $item->solution_id,
+                    'siteId' => $item->site_id
+                ]
+            );
         });
 
         return $page;
