@@ -257,7 +257,7 @@ class ClientTest extends TestCase
             $client->request('GET', '/');
         } catch (ApiException $e) {
             $this->assertEquals(1, count($e->getErrors()));
-            $this->assertEquals('Testing errors detail', $e->getMessage());
+            $this->assertEquals('Testing errors', $e->getMessage());
             return;
         }
 
@@ -273,7 +273,7 @@ class ClientTest extends TestCase
             new Response(500, [], json_encode([
                 'errors' => [[
                     'title' => 'Testing errors',
-                    'detail' => 'Testing errors detail',
+                    'detail' => 'Testing errors',
                     'status' => 500,
                 ]]
             ])),
@@ -286,7 +286,7 @@ class ClientTest extends TestCase
             $client->request('GET', '/');
         } catch (ApiException $e) {
             $this->assertEquals(1, count($e->getErrors()));
-            $this->assertEquals('Testing errors detail', $e->getMessage());
+            $this->assertEquals('Testing errors', $e->getMessage());
             return;
         }
 

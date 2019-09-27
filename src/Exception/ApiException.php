@@ -24,7 +24,7 @@ class ApiException extends UKFastException
         }
 
         if (!empty($this->errors)) {
-            $this->message = $this->errors[0]->detail;
+            $this->message = $this->errors[0]->title;
         }
 
         $this->response = $response;
