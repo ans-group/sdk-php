@@ -49,39 +49,6 @@ class SolutionClient extends Client
     }
 
     /**
-     * Gets array containing all Solutions
-     *
-     * @param array $filters
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getAll($filters = [])
-    {
-        // get first page
-        $page = $this->getPage($currentPage = 1, $perPage = 50, $filters);
-        if ($page->totalItems() == 0) {
-            return [];
-        }
-
-        $items = $page->getItems();
-        if ($page->totalPages() == 1) {
-            return $items;
-        }
-
-        // get any remaining pages
-        while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->getPage($currentPage++, $perPage, $filters);
-
-            $items = array_merge(
-                $items,
-                $page->getItems()
-            );
-        }
-
-        return $items;
-    }
-
-    /**
      * Gets a paginated response of a Solutions Virtual Machines
      *
      * @param $id
