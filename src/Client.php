@@ -226,7 +226,7 @@ class Client
         $decoded = json_decode($raw);
         $err = json_last_error();
         if ($err !== JSON_ERROR_NONE) {
-            throw new InvalidJsonException($err);
+            throw new InvalidJsonException($raw);
         }
 
         return $decoded;
