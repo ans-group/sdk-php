@@ -133,8 +133,8 @@ class RequestClient extends BaseClient
     /**
      * Converts a response stdClass into a Request object
      *
-     * @param \stdClass
-     * @return \UKFast\SDK\Pss\Request
+     * @param object $item
+     * @return \UKFast\SDK\Pss\Entities\Request
      */
     protected function serializeRequest($item)
     {
