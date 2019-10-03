@@ -106,7 +106,7 @@ abstract class Entity
 
         foreach ($arr as $name => $value) {
             if ($value instanceof Entity) {
-                unset($arr[$name]);
+                $arr[$name] = $arr[$name]->toArray();
             }
         }
 
