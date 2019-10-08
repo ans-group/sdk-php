@@ -26,11 +26,13 @@ class PaginationUrl
         if (substr($path, -1) === "/") {
             $path = substr($path, 0, strlen($path) - 1);
         }
-        if (strpos($path, "?") === false) {
-            $path .= "?";
+
+        $startQuery = "?";
+        if (strpos($path, "?") !== false) {
+            $startQuery = "&";
         }
 
-        $path .= "page=".urlencode($this->page);
+        $path .= "{$startQuery}page=".urlencode($this->page);
         $path .= "&per_page=".urlencode($this->perPage);
 
         foreach ($this->filters as $prop => $filter) {
