@@ -28,10 +28,11 @@ class InvoiceQueryClient extends BaseClient
     /**
      * @param $invoiceQuery
      * @return SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function create($invoiceQuery)
     {
-        $response = $this->post("v1/invoices/query", $this->invoiceQueryToJson($invoiceQuery));
+        $response = $this->post("v1/invoice-queries", $this->invoiceQueryToJson($invoiceQuery));
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
