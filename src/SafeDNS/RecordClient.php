@@ -78,7 +78,7 @@ class RecordClient extends Client implements ClientEntityInterface
         $response = $this->request("GET", "v1/zones/$zoneName/records/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        // zone isnt currently returned by the api
+        // Zone isn't currently returned by the API
         $body->data->zone = $zoneName;
 
         return $this->loadEntity($body->data);
@@ -102,10 +102,6 @@ class RecordClient extends Client implements ClientEntityInterface
         $response = $this->post("v1/zones/".$record->zone."/records", json_encode($data), [
             'Content-Type' => 'application/json'
         ]);
-
-        if ($response->getStatusCode() != 201) {
-            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
-        }
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
