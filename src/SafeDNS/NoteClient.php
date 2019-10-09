@@ -64,7 +64,6 @@ class NoteClient extends Client implements ClientEntityInterface
             json_encode([
                 'user_id' => $note->contactId,
                 'note'    => $note->content,
-                'ip'      => $note->ipAddress,
             ]),
             ['Content-Type' => 'application/json']
         );
