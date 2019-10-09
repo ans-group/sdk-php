@@ -13,6 +13,7 @@ class Client extends BaseClient
      */
     public function company()
     {
+//        TODO: Remove
         return (new CompanyClient($this->httpClient))->auth($this->token);
     }
 
