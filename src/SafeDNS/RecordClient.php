@@ -32,40 +32,6 @@ class RecordClient extends Client implements ClientEntityInterface
     }
 
     /**
-     * Gets array containing all records for a zone
-     *
-     * @param $zoneName
-     * @param array $filters
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getAllByZoneName($zoneName, $filters = [])
-    {
-        // get first page
-        $page = $this->getByZoneName($zoneName, $currentPage = 1, $perPage = 50, $filters);
-        if ($page->totalItems() == 0) {
-            return [];
-        }
-
-        $items = $page->getItems();
-        if ($page->totalPages() == 1) {
-            return $items;
-        }
-
-        // get any remaining pages
-        while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->getRecordsByName($zoneName, $currentPage++, $perPage, $filters);
-
-            $items = array_merge(
-                $items,
-                $page->getItems()
-            );
-        }
-
-        return $items;
-    }
-
-    /**
      * Gets a specific zone record by ID
      *
      * @param $zoneName
