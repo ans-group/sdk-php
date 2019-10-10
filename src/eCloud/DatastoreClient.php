@@ -2,12 +2,46 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 
 use UKFast\SDK\eCloud\Entities\Datastore;
 
-class DatastoreClient extends Client
+class DatastoreClient extends Client implements ClientEntityInterface
 {
+    /**
+     * Create a datastore
+     * @param Datastore $datastore
+     * @return Datastore
+     */
+    public function create(Datastore $datastore)
+    {
+        $data = json_encode(
+            [
+                'name' => $datastore->name,
+                'solution_id' => $datastore->solutionId,
+                'capacity' => $datastore->capacity
+            ]
+        );
+
+        if (!empty($datastore->siteId)) {
+            $data['site_id'] = $datastore->siteId;
+        }
+
+        $response = $this->post(
+            'v1/datastores',
+            $data
+        );
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        $datastore->status = 'Queued';
+
+        $datastore->id = $body->data->id;
+
+        return $datastore;
+    }
+
     /**
      * Gets a paginated response of Datastores
      *
@@ -21,10 +55,27 @@ class DatastoreClient extends Client
     {
         $page = $this->paginatedRequest("v1/datastores", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Datastore($item);
+            return $this->loadEntity($item);
         });
 
         return $page;
+    }
+
+    /**
+     * Expand a datastore
+     * @param Datastore $datastore - A Datastore entity with capacity set to the required new size.
+     * @return bool
+     */
+    public function expand(Datastore $datastore)
+    {
+        $data = json_encode(['size_gb' => $datastore->capacity]);
+
+        $response = $this->post(
+            'v1/datastores/'. $datastore->id .'/expand',
+            $data
+        );
+
+        return $response->getStatusCode() == 202;
     }
 
     /**
@@ -38,6 +89,28 @@ class DatastoreClient extends Client
     {
         $response = $this->get("v1/datastores/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return new Datastore($body->data);
+        return $this->loadEntity($body->data);
+    }
+
+
+    /**
+     * Load an instance of Datastore from API data
+     * @param $data
+     * @return Datastore
+     */
+    public function loadEntity($data)
+    {
+        return new Datastore(
+            [
+                'id' => $data->id,
+                'name' => $data->name,
+                'status' => $data->status,
+                'capacity' => $data->capacity,
+                'allocated' => $data->allocated,
+                'available' => $data->available,
+                'solutionId' => $data->solution_id,
+                'siteId' => $data->site_id
+            ]
+        );
     }
 }

@@ -12,10 +12,12 @@ class ApiException extends UKFastException
 
     public function __construct($response)
     {
-        $body = json_decode($response->getBody()->getContents());
+        $response->getBody()->rewind();
+        $raw = $response->getBody()->getContents();
+        $body = json_decode($raw);
         $err = json_last_error();
         if ($err !== JSON_ERROR_NONE) {
-            throw new InvalidJsonException($err);
+            throw new InvalidJsonException($raw);
         }
 
         if (isset($body->errors) && is_array($body->errors)) {
@@ -23,7 +25,12 @@ class ApiException extends UKFastException
         }
 
         if (!empty($this->errors)) {
-            $this->message = $this->errors[0]->detail;
+            $message = $this->errors[0]->detail;
+            if (empty($message)) {
+                $message = $this->errors[0]->title;
+            }
+
+            $this->message = $message;
         }
 
         $this->response = $response;

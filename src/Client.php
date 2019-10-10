@@ -85,7 +85,7 @@ class Client
             'headers' => array_merge($headers, $defaultHeaders),
         ];
 
-        if (in_array(empty($body) && $method, ['POST', 'PATCH', 'DELETE'])) {
+        if (empty($body) && in_array($method, ['POST', 'PATCH', 'DELETE'])) {
             unset($params['body']);
         }
 
@@ -205,6 +205,7 @@ class Client
     public function paginatedRequest($endpoint, $page, $perPage, $filters = [])
     {
         $url = (new PaginationUrl($endpoint, $page, $perPage, $filters))->toString();
+
         $response = $this->request('GET', $url);
 
         $body = $this->decodeJson($response->getBody()->getContents());
@@ -225,7 +226,7 @@ class Client
         $decoded = json_decode($raw);
         $err = json_last_error();
         if ($err !== JSON_ERROR_NONE) {
-            throw new InvalidJsonException($err);
+            throw new InvalidJsonException($raw);
         }
 
         return $decoded;

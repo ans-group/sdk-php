@@ -4,11 +4,30 @@ namespace UKFast\SDK\Account\Entities;
 
 class Company
 {
+    /**
+     * @var string
+     */
     public $companyRegistrationNumber;
+
+    /**
+     * @var string
+     */
     public $vatIdentificationNumber;
 
+    /**
+     * @var int
+     */
     public $primaryContactId;
 
+    /**
+     * @var boolean
+     */
+    public $isDemoAccount;
+
+    /**
+     * @var string
+     */
+    public $name;
 
     /**
      * Company constructor.
@@ -24,5 +43,8 @@ class Company
         $this->vatIdentificationNumber = $item->vat_identification_number;
 
         $this->primaryContactId = $item->primary_contact_id;
+        $this->isDemoAccount = $item->is_demo_account;
+
+        $this->name = $item->name;
     }
 }

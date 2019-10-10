@@ -8,7 +8,6 @@ class Client extends BaseClient
 {
     protected $basePath = 'account/';
 
-
     /**
      * @return BaseClient
      */
@@ -31,5 +30,21 @@ class Client extends BaseClient
     public function credits()
     {
         return (new CreditClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function invoices()
+    {
+        return (new InvoiceClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function invoiceQueries()
+    {
+        return (new InvoiceQueryClient($this->httpClient))->auth($this->token);
     }
 }

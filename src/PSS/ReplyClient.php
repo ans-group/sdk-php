@@ -2,8 +2,9 @@
 
 namespace UKFast\SDK\PSS;
 
-use UKFast\SDK\Client as BaseClient;
 use DateTime;
+use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\PSS\Entities\Download;
 use UKFast\SDK\SelfResponse;
 
 class ReplyClient extends BaseClient
@@ -25,6 +26,19 @@ class ReplyClient extends BaseClient
         });
 
         return $page;
+    }
+
+    /**
+     * Gets an individual reply
+     *
+     * @param int $id
+     * @return \UKFast\SDK\PSS\Entities\Reply
+     */
+    public function getById($id)
+    {
+        $response = $this->request("GET", "v1/replies/$id");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializeReply($body->data);
     }
 
     /**
@@ -77,8 +91,20 @@ class ReplyClient extends BaseClient
      */
     public function download($replyId, $name)
     {
-        return $this->request('GET', "v1/replies/$replyId/attachments/$name")
-                    ->getBody();
+        return new Download(
+            $this->request('GET', "v1/replies/$replyId/attachments/$name")
+        );
+    }
+
+    /**
+     * @param $replyId
+     * @param $name
+     * @return void
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function deleteAttachment($replyId, $name)
+    {
+        $this->delete("v1/replies/$replyId/attachments/$name");
     }
 
     /**
@@ -95,6 +121,7 @@ class ReplyClient extends BaseClient
         $reply->author = new Entities\Author($item->author);
         $reply->description = $item->description;
         $reply->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
+        $reply->read = $item->read;
 
         foreach ($item->attachments as $attachment) {
             $reply->attachments[] = new Entities\Attachment($attachment);
