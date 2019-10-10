@@ -3,11 +3,11 @@
 namespace UKFast\SDK\Account;
 
 use UKFast\SDK\Account\Entities\Contact;
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Page;
 use UKFast\SDK\SelfResponse;
 
-class ContactClient extends Client
+class ContactClient extends BaseClient
 {
     protected $basePath = 'account/';
     
