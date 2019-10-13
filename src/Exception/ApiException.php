@@ -17,7 +17,7 @@ class ApiException extends UKFastException
         $body = json_decode($raw);
         $err = json_last_error();
         if ($err !== JSON_ERROR_NONE) {
-            throw new InvalidJsonException($raw);
+            throw new InvalidJsonException(json_last_error_msg() . ': ' . $raw);
         }
 
         if (isset($body->errors) && is_array($body->errors)) {
