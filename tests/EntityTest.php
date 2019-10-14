@@ -51,23 +51,6 @@ class EntityTest extends TestCase
     /**
      * @test
      */
-    public function read_only_properties_are_not_surfaced_in_to_array()
-    {
-        $contact = new Contact([
-            'id' => 1,
-            'firstName' => 'John',
-            'createdDate' => '2010-01-01',
-        ]);
-
-        $this->assertEquals([
-            'id' => 1,
-            'firstName' => 'John'
-        ], $contact->toArray());
-    }
-
-    /**
-     * @test
-     */
     public function can_map_properties_with_to_array()
     {
         $contact = new Contact([
@@ -78,7 +61,8 @@ class EntityTest extends TestCase
 
         $this->assertEquals([
             'id' => 1,
-            'first_name' => 'John'
+            'first_name' => 'John',
+            'created_date' => '2010-01-01',
         ], $contact->toArray([
             'firstName' => 'first_name',
             'createdDate' => 'created_date'
