@@ -149,7 +149,7 @@ abstract class Entity
      * Allows an entity to work with isset() or empty()
      * Checks that the attribute has been set and that
      * the value is not null
-     * 
+     *
      * @return bool
      */
     public function __isset($key)
