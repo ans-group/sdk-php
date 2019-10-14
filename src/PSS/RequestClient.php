@@ -133,86 +133,85 @@ class RequestClient extends BaseClient
     /**
      * Converts a response stdClass into a Request object
      *
-     * @param object $item
-     * @return \UKFast\SDK\Pss\Entities\Request
+     * @param \stdClass
+     * @return \UKFast\SDK\Pss\Request
      */
     protected function serializeRequest($item)
     {
-        $request = new Entities\Request([
-            'id' => $item->id,
-            'author' => new Entities\Author([
-                'id' => $item->author->id,
-                'name' => $item->author->name,
-                'type' => $item->author->type,
-            ]),
-            'product' => new Entities\Product([
-                'id' => $item->product->id,
-                'type' => $item->product->type,
-            ]),
-            'type' => $item->type,
-            'subject' => $item->subject,
-            'secure' => $item->secure,
-            'createdAt' => DateTime::createFromFormat(DateTime::ISO8601, $item->created_at),
-            'priority' => $item->priority,
-            'archived' => $item->archived,
-            'status' => $item->status,
-            'requestSms' => $item->request_sms,
-            'customerReference' => $item->customer_reference,
-            'lastRepliedAt' => null,
-            'systemReference' => $item->system_reference,
-            'unreadReplies' => $item->unread_replies,
-        ]);
+        $request = new Entities\Request;
 
+        $request->id = $item->id;
+        $request->author = new Entities\Author($item->author);
+        $request->type = $item->type;
+        $request->secure = $item->secure;
+        $request->subject = $item->subject;
+        $request->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
+        $request->priority = $item->priority;
+        $request->archived = $item->archived;
+        $request->status = $item->status;
+        $request->requestSms = $item->request_sms;
+        $request->customerReference = $item->customer_reference;
+        $request->product = new Entities\Product($item->product);
+        $request->lastRepliedAt = null;
+        $request->systemReference = $item->system_reference;
+        $request->unreadReplies = $item->unread_replies;
         if ($item->last_replied_at) {
             $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
         }
 
-        if (isset($item->cc)) {
+        if (!empty($item->cc)) {
             $request->cc = $item->cc;
         }
 
         return $request;
     }
 
-    /**
-     * Converts a raw response to a feedback object
-     * @param object $raw
-     * @return \UKFast\SDK\PSS\Entities\Feedback
-     */
-    public function serializeFeedback($raw)
+    public function serializeFeedback($item)
     {
-        $feedback = new Entities\Feedback([
-            'id' => $raw->id,
-            'comment' => $raw->comment,
-            'speedResolved' => $raw->speed_resolved,
-            'quality' => $raw->quality,
-            'score' => $raw->score,
-            'npsScore' => $raw->nps_score,
-            'thirdPartyConsent' => $raw->thirdparty_consent,
-        ]);
+        $feedback = new Entities\Feedback;
+
+        $feedback->id = $item->id;
+        $feedback->comment = $item->comment;
+        $feedback->speedResolved = $item->speed_resolved;
+        $feedback->quality = $item->quality;
+        $feedback->score = $item->score;
+        $feedback->npsScore = $item->nps_score;
+        $feedback->thirdPartyConsent = $item->thirdparty_consent;
 
         return $feedback;
     }
 
-    /**
-     * Converts a request to a json string
-     *
-     * @param \UKFast\SDK\PSS\Entities\Request
-     * @return string
-     */
     protected function requestToJson($request)
     {
-        $payload = $request->toArray([
-            'requestSms' => 'request_sms',
-            'customerReference' => 'customer_reference'
-        ]);
+        $payload = [
+            'subject' => $request->subject,
+            'details' => $request->details,
+            'priority' => $request->priority,
+            'secure' => $request->secure,
+            'author' => [
+                'id' => $request->author->id
+            ],
+            'request_sms' => $request->requestSms,
+            'archived' => $request->archived,
+        ];
 
-        if ($request->has('author')) {
-            $payload['author'] = $request->author->toArray();
+        if (isset($request->status)) {
+            $payload['status'] = $request->status;
         }
 
-        if ($request->has('product')) {
-            $payload['product'] = $request->product->toArray();
+        if ($request->product) {
+            $payload['product'] = [
+                'type' => $request->product->type,
+                'id' => $request->product->id,
+            ];
+        }
+
+        if (!empty($request->cc)) {
+            $payload['cc'] = $request->cc;
+        }
+
+        if ($request->customerReference) {
+            $payload['customer_reference'] = $request->customerReference;
         }
 
         return json_encode($payload);

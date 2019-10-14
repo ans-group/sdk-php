@@ -2,15 +2,34 @@
 
 namespace UKFast\SDK\PSS\Entities;
 
-use UKFast\SDK\Entity;
-
-/**
- * @property int $id
- * @property string $name
- * @property string $type
- */
-class Author extends Entity
+class Author
 {
+    /**
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $name;
+
+    /**
+     * @var string
+     */
+    public $type;
+
+    public function __construct($item = null)
+    {
+        if (is_null($item)) {
+            return;
+        }
+
+        $this->id = $item->id;
+        $this->name = $item->name;
+        $this->type = $item->type;
+    }
+
     /**
      * @return bool
      */

@@ -2,12 +2,29 @@
 
 namespace UKFast\SDK\PSS\Entities;
 
-use UKFast\SDK\Entity;
-
-/**
- * @property int $id
- * @property string $type
- */
-class Product extends Entity
+class Product
 {
+    /**
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $type;
+
+    /**
+     * Product constructor.
+     * @param $item
+     */
+    public function __construct($item = null)
+    {
+        if (is_null($item)) {
+            return;
+        }
+        
+        $this->id = $item->id;
+        $this->type = $item->type;
+    }
 }
