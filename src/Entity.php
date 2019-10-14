@@ -10,12 +10,6 @@ abstract class Entity
     protected $attributes = [];
 
     /**
-     * An array of read only attributes
-     * @var array
-     */
-    protected $readOnly = [];
-
-    /**
      * @param array $attributes
      */
     public function __construct($attributes = [])
@@ -100,9 +94,6 @@ abstract class Entity
     public function toArray($map = [])
     {
         $arr = $this->all();
-        foreach ($this->readOnly as $readOnly) {
-            unset($arr[$readOnly]);
-        }
 
         foreach ($arr as $name => $value) {
             if ($value instanceof Entity) {
