@@ -8,6 +8,7 @@ namespace UKFast\SDK\PSS\Entities;
  * @property string $description
  * @property \DateTime $createdAt
  * @property array $attachments
+ * @property bool $read
  */
 class Reply
 {

@@ -37,7 +37,7 @@ abstract class Entity
      */
     public function get($attr, $default = null)
     {
-        if (isset($this->attributes[$attr])) {
+        if ($this->has($attr)) {
             return $this->attributes[$attr];
         }
 
@@ -133,8 +133,7 @@ abstract class Entity
     }
 
     /**
-     *
-     * Magic getter method. Proxies property access to
+     * Magic setter method. Proxies property access to
      * internal array of attributes
      *
      * @param string $attr
@@ -144,5 +143,17 @@ abstract class Entity
     public function __set($attr, $value)
     {
         $this->set($attr, $value);
+    }
+
+    /**
+     * Allows an entity to work with isset() or empty()
+     * Checks that the attribute has been set and that
+     * the value is not null
+     * 
+     * @return bool
+     */
+    public function __isset($key)
+    {
+        return !is_null($this->get($key));
     }
 }

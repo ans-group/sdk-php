@@ -60,4 +60,13 @@ class PaginationUrlTest extends TestCase
         $url = new PaginationUrl("/my-endpoint", 1, 10, ['archived' => true]);
         $this->assertEquals("/my-endpoint?page=1&per_page=10&archived=true", $url->toString());
     }
+
+    /**
+     * @test
+     */
+    public function starts_query_with_ampersand_if_a_query_string_is_already_present()
+    {
+        $url = new PaginationUrl("/my-endpoint?some-query-string=present", 1, 10);
+        $this->assertEquals("/my-endpoint?some-query-string=present&page=1&per_page=10", $url->toString());
+    }
 }

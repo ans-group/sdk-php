@@ -187,7 +187,7 @@ class RequestClient extends BaseClient
             'speedResolved' => $raw->speed_resolved,
             'quality' => $raw->quality,
             'score' => $raw->score,
-            'npsScore' => $raw->npsScore,
+            'npsScore' => $raw->nps_score,
             'thirdPartyConsent' => $raw->thirdparty_consent,
         ]);
 
