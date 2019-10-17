@@ -155,6 +155,7 @@ class RequestClient extends BaseClient
         $request->lastRepliedAt = null;
         $request->systemReference = $item->system_reference;
         $request->unreadReplies = $item->unread_replies;
+        $request->contactMethod = $item->contact_method;
         if ($item->last_replied_at) {
             $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
         }
@@ -207,6 +208,10 @@ class RequestClient extends BaseClient
 
         if (!empty($request->cc)) {
             $payload['cc'] = $request->cc;
+        }
+
+        if (!empty($request->contactMethod)) {
+            $payload['contact_method'] = $request->contactMethod;
         }
 
         if ($request->customerReference) {
