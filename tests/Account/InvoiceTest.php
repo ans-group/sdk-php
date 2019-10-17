@@ -24,13 +24,17 @@ class InvoiceTest extends TestCase
                         'id' => 1,
                         "date" => "2019-08-13",
                         "paid" => true,
-                        "amount" => 100.10,
+                        "net" => 15.6,
+                        "vat" => 3.12,
+                        "gross" => 18.72
                     ],
                     [
                         "id" => 54110,
                         "date" => "2006-10-26",
                         "paid" => true,
-                        "amount" => 52.89,
+                        "net" => 15.6,
+                        "vat" => 3.12,
+                        "gross" => 18.72
                     ]
                 ],
                 "meta" => [
@@ -59,7 +63,9 @@ class InvoiceTest extends TestCase
         $this->assertEquals(1, $request->id);
         $this->assertInstanceOf(DateTime::class, $request->date);
         $this->assertEquals(true, $request->paid);
-        $this->assertEquals(100.10, $request->paid);
+        $this->assertEquals(15.6, $request->net);
+        $this->assertEquals(3.12, $request->vat);
+        $this->assertEquals(18.72, $request->gross);
     }
 
     /**
@@ -73,7 +79,9 @@ class InvoiceTest extends TestCase
                     'id' => 1,
                     "date" => "2019-08-14",
                     "paid" => true,
-                    "amount" => 150.10,
+                    "net" => 15.6,
+                    "vat" => 3.12,
+                    "gross" => 18.72
                 ],
                 "meta" => []
             ])),
@@ -91,6 +99,8 @@ class InvoiceTest extends TestCase
         $this->assertEquals($id, $invoice->id);
         $this->assertInstanceOf(DateTime::class, $invoice->date);
         $this->assertEquals(true, $invoice->paid);
-        $this->assertEquals(100.10, $invoice->paid);
+        $this->assertEquals(15.6, $invoice->net);
+        $this->assertEquals(3.12, $invoice->vat);
+        $this->assertEquals(18.72, $invoice->gross);
     }
 }

@@ -25,4 +25,9 @@ class Reply
      * @var array
      */
     public $attachments = [];
+
+    /**
+     * @var bool
+     */
+    public $read;
 }

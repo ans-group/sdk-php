@@ -41,6 +41,7 @@ class DatastoreClient extends Client implements ClientEntityInterface
         $response = $this->post('v1/datastores', $data);
         $response = $this->decodeJson($response->getBody()->getContents());
         $datastore->id = $response->data->id;
+        $datastore->status = 'Queued';
 
         return $datastore;
     }

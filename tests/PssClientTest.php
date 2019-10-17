@@ -95,6 +95,7 @@ class PssClientTest extends TestCase
                     'description' => 'Test',
                     'created_at' => '2000-01-01T00:00:00+00',
                     'attachments' => [],
+                    'read' => false,
                 ]],
                 'meta' => [
                     'pagination' => [
@@ -125,6 +126,7 @@ class PssClientTest extends TestCase
         $this->assertEquals(1, $reply->id);
         $this->assertEquals(1, $reply->author->id);
         $this->assertEquals('Jonny Test', $reply->author->name);
+        $this->assertFalse($reply->read);
         $this->assertEquals('Test', $reply->description);
         $this->assertInstanceOf(DateTime::class, $reply->createdAt);
         $this->assertEquals('2000-01-01 00:00:00', $reply->createdAt->format('Y-m-d H:i:s'));
@@ -153,7 +155,8 @@ class PssClientTest extends TestCase
                         [
                             'name' => 'test-file2.txt',
                         ],
-                    ]
+                    ],
+                    'read' => true,
                 ]],
                 'meta' => [
                     'pagination' => [
@@ -304,6 +307,7 @@ class PssClientTest extends TestCase
                     'description' => 'test',
                     'attachments' => [],
                     'created_at' => '2000-01-01T00:00:00+00',
+                    'read' => true,
                 ],
                 'meta' => ''
             ])),
@@ -318,5 +322,6 @@ class PssClientTest extends TestCase
         $this->assertEquals('C485939', $reply->id);
         $this->assertEquals('test', $reply->description);
         $this->assertInstanceOf(DateTime::class, $reply->createdAt);
+        $this->assertTrue($reply->read);
     }
 }
