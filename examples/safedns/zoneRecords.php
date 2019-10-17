@@ -13,7 +13,7 @@ $safedns = (new \UKFast\SDK\SafeDNS\Client)->auth(
 $zoneName = $argv[1];
 $zone = $safedns->zones()->getByName($zoneName);
 
-foreach ($safedns->records()->getAllByZoneName($zone->name) as $record) {
+foreach ($safedns->records()->getByZoneName($zone->name) as $record) {
     echo "# {$record->id} {$record->name} {$record->type} {$record->content} \n";
 }
 

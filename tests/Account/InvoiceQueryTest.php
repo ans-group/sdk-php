@@ -67,13 +67,13 @@ class InvoiceQueryTest extends TestCase
                 'id' => 123
             ],
             'meta' => (object) [
-                'location' => 'https://api.ukfast.io/v1/invoices/query/123'
+                'location' => 'https://api.ukfast.io/account/v1/invoices/query/123'
             ],
         ];
 
         $selfResponse = new SelfResponse($response);
 
         $this->assertEquals(123, $selfResponse->getId());
-        $this->assertEquals('https://api.ukfast.io/v1/invoices/query/123', $selfResponse->getLocation());
+        $this->assertEquals('https://api.ukfast.io/account/v1/invoices/query/123', $selfResponse->getLocation());
     }
 }

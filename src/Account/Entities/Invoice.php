@@ -24,7 +24,17 @@ class Invoice
     /**
      * @var float
      */
-    public $amount;
+    public $net;
+
+    /**
+     * @var float
+     */
+    public $vat;
+
+    /**
+     * @var float
+     */
+    public $gross;
 
     /**
      * Invoice constructor.
@@ -40,6 +50,8 @@ class Invoice
         $this->id = $item->id;
         $this->date = DateTime::createFromFormat('Y-m-d', $item->date);
         $this->paid = $item->paid;
-        $this->amount = $item->amount;
+        $this->net = $item->net;
+        $this->vat = $item->vat;
+        $this->gross = $item->gross;
     }
 }
