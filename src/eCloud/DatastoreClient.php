@@ -12,7 +12,7 @@ class DatastoreClient extends Client implements ClientEntityInterface
     /**
      * Create a datastore
      * @param Datastore $datastore
-     * @return bool
+     * @return Datastore
      */
     public function create(Datastore $datastore)
     {
@@ -33,7 +33,13 @@ class DatastoreClient extends Client implements ClientEntityInterface
             $data
         );
 
-        return $response->getStatusCode() == 202;
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        $datastore->status = 'Queued';
+
+        $datastore->id = $body->data->id;
+
+        return $datastore;
     }
 
     /**
