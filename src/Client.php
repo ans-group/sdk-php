@@ -189,6 +189,9 @@ class Client
      */
     public function delete($endpoint, $body = null, $headers = [])
     {
+        $headers = array_merge([
+            'Content-Type'=>'application/json'
+        ], $headers);
         return $this->request('DELETE', $endpoint, $body, $headers);
     }
 
