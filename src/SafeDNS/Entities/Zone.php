@@ -2,7 +2,7 @@
 
 namespace UKFast\SDK\SafeDNS\Entities;
 
-use UKFast\SDK\Entities\Entity;
+use UKFast\SDK\Entity;
 
 class Zone extends Entity
 {
