@@ -2,7 +2,7 @@
 
 namespace UKFast\SDK\SSL\Entities;
 
-use UKFast\SDK\Entities\Entity;
+use UKFast\SDK\Entity;
 
 class ReportCertificate extends Entity
 {
