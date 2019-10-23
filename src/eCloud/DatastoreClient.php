@@ -10,43 +10,6 @@ use UKFast\SDK\eCloud\Entities\Datastore;
 class DatastoreClient extends Client implements ClientEntityInterface
 {
     /**
-     * Create a datastore
-     * @param Datastore $datastore
-     * @param null $sanId The SAN to target for solutions with multiple SAN's
-     * @param null $iopsTier IOPS tier for the datastore
-     * @return Datastore
-     */
-    public function create(Datastore $datastore, $sanId = null, $iopsTier = null)
-    {
-        $data = json_encode(
-            [
-                'name' => $datastore->name,
-                'solution_id' => $datastore->solutionId,
-                'capacity' => $datastore->capacity
-            ]
-        );
-
-        if (!empty($datastore->siteId)) {
-            $data['site_id'] = $datastore->siteId;
-        }
-
-        if (!empty($sanId)) {
-            $data['san_id'] = $sanId;
-        }
-
-        if (!empty($iopsTier)) {
-            $data['iops_tier'] = $iopsTier;
-        }
-
-        $response = $this->post('v1/datastores', $data);
-        $response = $this->decodeJson($response->getBody()->getContents());
-        $datastore->id = $response->data->id;
-        $datastore->status = 'Queued';
-
-        return $datastore;
-    }
-
-    /**
      * Gets a paginated response of Datastores
      *
      * @param int $page
