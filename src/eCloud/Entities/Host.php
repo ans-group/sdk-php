@@ -2,37 +2,16 @@
 
 namespace UKFast\SDK\eCloud\Entities;
 
-use UKFast\SDK\Entities\Entity;
+use UKFast\SDK\Entity;
 
+/**
+ * @property int $id Host Identifier
+ * @property string $name Host name
+ * @property object $cpu CPU specification
+ * @property object $ram RAM specification
+ * @property int $solutionId Solution ID
+ * @property int $podId Pod ID
+ */
 class Host extends Entity
 {
-    /**
-     * @var integer Host Identifier
-     */
-    public $id;
-
-    /**
-     * @var string Host name
-     */
-    public $name;
-
-    /**
-     * @var object CPU specification
-     */
-    public $cpu;
-
-    /**
-     * @var object RAM specification
-     */
-    public $ram;
-
-    /**
-     * @var integer Solution ID
-     */
-    public $solutionId;
-
-    /**
-     * @var integer Pod ID
-     */
-    public $podId;
 }
