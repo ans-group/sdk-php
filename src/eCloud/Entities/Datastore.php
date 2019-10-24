@@ -2,18 +2,20 @@
 
 namespace UKFast\SDK\eCloud\Entities;
 
-use UKFast\SDK\Entities\Entity;
+use UKFast\SDK\Entity;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $status
+ *
+ * @property int $capacity
+ * @property int $allocated
+ * @property int $available
+ *
+ * @property int $solutionId
+ * @property int $siteId
+ */
 class Datastore extends Entity
 {
-    public $id;
-    public $name;
-    public $status;
-
-    public $capacity;
-    public $allocated;
-    public $available;
-
-    public $solutionId;
-    public $siteId;
 }

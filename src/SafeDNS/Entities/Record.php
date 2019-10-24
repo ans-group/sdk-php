@@ -2,37 +2,55 @@
 
 namespace UKFast\SDK\SafeDNS\Entities;
 
-class Record
+use UKFast\SDK\Entity;
+
+class Record extends Entity
 {
+    /**
+     * The ID of the record
+     *
+     * @var int
+     */
     public $id;
-    public $zone;
-
-    public $name;
-    public $type;
-    public $content;
-
-    public $ttl;
-    public $priority;
-
 
     /**
-     * Record constructor.
-     * @param null $item
+     * The name of the zone the record belongs to
+     *
+     * @var string
      */
-    public function __construct($item = null)
-    {
-        if (empty($item)) {
-            return;
-        }
+    public $zone;
 
-        $this->id = $item->id;
-        $this->zone = $item->zone;
+    /**
+     * The domain name the record describes
+     *
+     * @var string
+     */
+    public $name;
 
-        $this->name = $item->name;
-        $this->type = $item->type;
-        $this->content = $item->content;
+    /**
+     * The type of DNS record
+     *
+     * @var string
+     */
+    public $type;
 
-        $this->ttl = $item->ttl;
-        $this->priority = $item->priority;
-    }
+    /**
+     * The content of the DNS record
+     *
+     * @var string
+     */
+    public $content;
+
+    /**
+     * The TTL (time to load) of the record
+     *
+     * @var int
+     */
+    public $ttl;
+
+    /**
+     * The priority of the record
+     * @var string
+     */
+    public $priority;
 }
