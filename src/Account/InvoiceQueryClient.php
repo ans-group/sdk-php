@@ -12,6 +12,25 @@ class InvoiceQueryClient extends BaseClient
     protected $basePath = 'account/';
 
     /**
+     * Gets a paginated response of all invoice queries
+     *
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getPage($page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest('v1/invoice-queries', $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return new InvoiceQuery($item);
+        });
+
+        return $page;
+    }
+
+    /**
      * Gets an individual invoice query
      *
      * @param string $id
@@ -65,6 +84,9 @@ class InvoiceQueryClient extends BaseClient
             'proposed_solution' => $invoiceQuery->proposedSolution,
             'invoice_ids' => $invoiceQuery->invoiceIds,
             'contact_method' => $invoiceQuery->contactMethod,
+            'resolution' => $invoiceQuery->resolution,
+            'resolution_date' => $invoiceQuery->resolutionDate,
+            'status' => $invoiceQuery->status
         ];
 
         return json_encode($payload);
