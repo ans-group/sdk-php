@@ -83,10 +83,7 @@ class InvoiceQueryClient extends BaseClient
             'what_was_received' => $invoiceQuery->whatWasReceived,
             'proposed_solution' => $invoiceQuery->proposedSolution,
             'invoice_ids' => $invoiceQuery->invoiceIds,
-            'contact_method' => $invoiceQuery->contactMethod,
-            'resolution' => $invoiceQuery->resolution,
-            'resolution_date' => $invoiceQuery->resolutionDate,
-            'status' => $invoiceQuery->status
+            'contact_method' => $invoiceQuery->contactMethod
         ];
 
         return json_encode($payload);
