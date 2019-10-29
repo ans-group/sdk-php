@@ -19,6 +19,7 @@ class DomainClient extends Client
      * @param array $filters
      * @return \UKFast\SDK\Page
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \UKFast\SDK\Exception\InvalidJsonException
      */
     public function getPage($page = 1, $perPage = 20, $filters = [])
     {
