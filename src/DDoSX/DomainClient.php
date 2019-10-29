@@ -30,6 +30,21 @@ class DomainClient extends Client
         return $page;
     }
 
+    /**
+     * Gets an individual domain
+     *
+     * @param string $domainName
+     * @return \UKFast\SDK\DDoSX\Entities\Domain
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \UKFast\SDK\Exception\InvalidJsonException
+     */
+    public function getByName($domainName)
+    {
+        $response = $this->request("GET", 'v1/domains/' . $domainName);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return $this->serializeDomain($body->data);
+    }
 
     /**
      * Converts a response stdClass into a Domain object
