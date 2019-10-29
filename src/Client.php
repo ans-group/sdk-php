@@ -55,7 +55,7 @@ class Client
      * Sets the API key to be used by the client
      *
      * @param string $token
-     * @return Client
+     * @return $this
      */
     public function auth($token)
     {
