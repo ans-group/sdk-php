@@ -89,6 +89,11 @@ class Request
      */
     public $unreadReplies;
 
+    /**
+     * @var string
+     */
+    public $contactMethod;
+
     public function isCompleted()
     {
         return in_array($this->status, ['Completed', 'Replied and Completed']);

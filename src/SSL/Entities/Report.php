@@ -2,132 +2,36 @@
 
 namespace UKFast\SDK\SSL\Entities;
 
-use UKFast\SDK\Entities\Entity;
+use UKFast\SDK\Entity;
 
+/**
+ * @property string                                       $name
+ * @property \DateTime                                    $validFrom
+ * @property \DateTime                                    $validTo
+ * @property string                                       $issuer
+ * @property string                                       $signatureAlgorithm
+ * @property bool                                         $coversDomain
+ * @property bool                                         $expiring
+ * @property bool                                         $expired
+ * @property bool                                         $secureSha
+ * @property string                                       $ip
+ * @property string                                       $hostname
+ * @property string                                       $port
+ * @property \DateTime                                    $currentTime
+ * @property \DateTime                                    $serverTime
+ * @property string                                       $serverSoftware
+ * @property array                                        $domainsSecured
+ * @property string                                       $serialNumber
+ * @property bool                                         $multiDomain
+ * @property bool                                         $wildcard
+ * @property array                                        $vulnerabilities
+ * @property string                                       $opensslVersion
+ * @property array                                        $sslVersions
+ * @property \UKFast\SDK\SSl\Entities\ReportCertificate[] $chain
+ * @property bool                                         $chainIntact
+ * @property array                                        $findings
+ */
 class Report extends Entity
 {
-    /**
-     * @var string
-     */
-    public $name;
-
-    /**
-     * @var string
-     */
-    public $validFrom;
-
-    /**
-     * @var string
-     */
-    public $validTo;
-
-    /**
-     * @var string
-     */
-    public $issuer;
-
-    /**
-     * @var string
-     */
-    public $signatureAlgorithm;
-
-    /**
-     * @var bool
-     */
-    public $coversDomain;
-
-    /**
-     * @var bool
-     */
-    public $expiring;
-
-    /**
-     * @var bool
-     */
-    public $expired;
-
-    /**
-     * @var bool
-     */
-    public $secureSha;
-
-    /**
-     * @var string
-     */
-    public $ip;
-
-    /**
-     * @var string
-     */
-    public $hostname;
-
-    /**
-     * @var string
-     */
-    public $port;
-
-    /**
-     * @var string
-     */
-    public $currentTime;
-
-    /**
-     * @var string
-     */
-    public $serverTime;
-
-    /**
-     * @var string
-     */
-    public $serverSoftware;
-
-    /**
-     * @var string
-     */
-    public $domainsSecured;
-
-    /**
-     * @var string
-     */
-    public $serialNumber;
-
-    /**
-     * @var string
-     */
-    public $multiDomain;
-
-    /**
-     * @var string
-     */
-    public $wildcard;
-
-    /**
-     * @var array
-     */
-    public $vulnerabilities = [];
-
-    /**
-     * @var string
-     */
-    public $opensslVersion;
-
-    /**
-     * @var array
-     */
-    public $sslVersions = [];
-
-    /**
-     * @var array
-     */
-    public $chain = [];
-
-    /**
-     * @var bool
-     */
-    public $chainIntact;
-
-    /**
-     * @var array
-     */
-    public $findings;
+    //
 }

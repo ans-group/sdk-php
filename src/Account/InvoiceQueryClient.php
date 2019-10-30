@@ -20,7 +20,7 @@ class InvoiceQueryClient extends BaseClient
      */
     public function getById($id)
     {
-        $response = $this->request("GET", "v1/invoices/query/$id");
+        $response = $this->request("GET", "v1/invoice-queries/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return new InvoiceQuery($body->data);
     }
