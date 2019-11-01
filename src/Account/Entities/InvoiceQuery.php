@@ -2,6 +2,8 @@
 
 namespace UKFast\SDK\Account\Entities;
 
+use DateTime;
+
 class InvoiceQuery
 {
     /**
@@ -45,6 +47,21 @@ class InvoiceQuery
     public $contactMethod;
 
     /**
+     * @var string
+     */
+    public $resolution;
+
+    /**
+     * @var \DateTime
+     */
+    public $resolutionDate;
+
+    /**
+     * @var string
+     */
+    public $status;
+
+    /**
      * InvoiceQuery constructor.
      *
      * @param null $item
@@ -55,6 +72,10 @@ class InvoiceQuery
             return;
         }
 
+        $resolutionDate = ($item->resolution_date != null)
+            ? DateTime::createFromFormat(DateTime::ISO8601, $item->resolution_date)
+            : null;
+
         $this->id = $item->id;
         $this->contactId = $item->contact_id;
         $this->amount = $item->amount;
@@ -63,5 +84,8 @@ class InvoiceQuery
         $this->proposedSolution = $item->proposed_solution;
         $this->invoiceIds = $item->invoice_ids;
         $this->contactMethod = $item->contact_method;
+        $this->resolution = $item->resolution;
+        $this->resolutionDate = $resolutionDate;
+        $this->status = $item->status;
     }
 }
