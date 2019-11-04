@@ -10,6 +10,11 @@ class ApiException extends UKFastException
 
     protected $response;
 
+    /**
+     * @var string
+     */
+    protected $requestId = null;
+
     public function __construct($response)
     {
         $response->getBody()->rewind();
@@ -30,6 +35,10 @@ class ApiException extends UKFastException
             }
 
             $this->message = $message;
+        }
+
+        if (!empty($response->getHeader('Request-ID')[0])) {
+            $this->requestId = $response->getHeader('Request-ID')[0];
         }
 
         $this->response = $response;
@@ -57,6 +66,11 @@ class ApiException extends UKFastException
     public function getResponse()
     {
         return $this->response;
+    }
+
+    public function getRequestId()
+    {
+        return $this->requestId;
     }
 
     private function getErrorsFromBody($body)
