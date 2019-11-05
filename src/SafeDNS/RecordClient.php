@@ -3,13 +3,13 @@
 namespace UKFast\SDK\SafeDNS;
 
 use UKFast\SDK\Client;
+use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 use UKFast\SDK\SafeDNS\Entities\Record;
 
-class RecordClient extends Client
+class RecordClient extends Client implements ClientEntityInterface
 {
     protected $basePath = 'safedns/';
-
 
     /**
      * Get records by zone name
@@ -25,44 +25,10 @@ class RecordClient extends Client
         $page = $this->paginatedRequest('v1/zones/'.$zoneName.'/records', $page, $perPage, $filters);
         $page->serializeWith(function ($item) use ($zoneName) {
             $item->zone = $zoneName;
-            return new Record($item);
+            return $this->loadEntity($item);
         });
 
         return $page;
-    }
-
-    /**
-     * Gets array containing all records for a zone
-     *
-     * @param $zoneName
-     * @param array $filters
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getAllByZoneName($zoneName, $filters = [])
-    {
-        // get first page
-        $page = $this->getByZoneName($zoneName, $currentPage = 1, $perPage = 50, $filters);
-        if ($page->totalItems() == 0) {
-            return [];
-        }
-
-        $items = $page->getItems();
-        if ($page->totalPages() == 1) {
-            return $items;
-        }
-
-        // get any remaining pages
-        while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->getRecordsByName($zoneName, $currentPage++, $perPage, $filters);
-
-            $items = array_merge(
-                $items,
-                $page->getItems()
-            );
-        }
-
-        return $items;
     }
 
     /**
@@ -78,10 +44,10 @@ class RecordClient extends Client
         $response = $this->request("GET", "v1/zones/$zoneName/records/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        // zone isnt currently returned by the api
+        // Zone isn't currently returned by the API
         $body->data->zone = $zoneName;
 
-        return new Record($body->data);
+        return $this->loadEntity($body->data);
     }
 
     /**
@@ -102,10 +68,6 @@ class RecordClient extends Client
         $response = $this->post("v1/zones/".$record->zone."/records", json_encode($data), [
             'Content-Type' => 'application/json'
         ]);
-
-        if ($response->getStatusCode() != 201) {
-            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
-        }
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
@@ -145,6 +107,24 @@ class RecordClient extends Client
     public function destroy(Record $record)
     {
         $response = $this->delete("v1/zones/".$record->zone."/records/".$record->id."");
+
         return $response->getStatusCode() == 204;
+    }
+
+    /**
+     * Load entity from API data
+     * @param $data
+     * @return Record
+     */
+    public function loadEntity($data)
+    {
+        return new Record([
+            'id'      => $data->id,
+            'zone'    => $data->zone,
+            'name'    => $data->name,
+            'type'    => $data->type,
+            'content' => $data->content,
+            'ttl'     => $data->ttl,
+        ]);
     }
 }

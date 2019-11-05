@@ -2,13 +2,32 @@
 
 namespace UKFast\SDK\PSS\Entities;
 
-/**
- * @property int $id
- * @property \UKFast\SDK\PSS\Entities\Author $author
- * @property string $description
- * @property \DateTime $createdAt
- * @property array $attachments
- */
 class Reply
 {
+    public $id;
+
+    /**
+     * @var \UKFast\SDK\Pss\Entities\Author
+     */
+    public $author;
+
+    /**
+     * @var string
+     */
+    public $description;
+
+    /**
+     * @var \DateTime
+     */
+    public $createdAt;
+
+    /**
+     * @var array
+     */
+    public $attachments = [];
+
+    /**
+     * @var bool
+     */
+    public $read;
 }

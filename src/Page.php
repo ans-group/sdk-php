@@ -177,6 +177,8 @@ class Page
      *
      * @param int $number
      * @return \UKFast\SDK\Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \UKFast\SDK\Exception\InvalidJsonException
      */
     public function getPage($number)
     {
@@ -240,6 +242,7 @@ class Page
      * @param Response $response
      * @param string|\Psr\Http\Message\UriInterface $uri
      * @return \UKFast\SDK\Page
+     * @throws \UKFast\SDK\Exception\InvalidJsonException
      */
     private function constructNewPage($response, $uri)
     {
@@ -248,7 +251,7 @@ class Page
 
         $err = json_last_error();
         if ($err !== JSON_ERROR_NONE) {
-            throw new InvalidJsonException($raw);
+            throw new InvalidJsonException(json_last_error_msg() . ': ' . $raw);
         }
 
         $next = new static($body->data, $body->meta, new Request("GET", $uri));
