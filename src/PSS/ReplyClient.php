@@ -75,6 +75,7 @@ class ReplyClient extends BaseClient
      */
     public function upload($replyId, $name, $content)
     {
+        $name = urlencode($name);
         $uri = "v1/replies/$replyId/attachments/$name";
         $response = $this->request('POST', $uri, $content);
 
@@ -121,6 +122,7 @@ class ReplyClient extends BaseClient
         $reply->author = new Entities\Author($item->author);
         $reply->description = $item->description;
         $reply->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
+        $reply->read = $item->read;
 
         foreach ($item->attachments as $attachment) {
             $reply->attachments[] = new Entities\Attachment($attachment);

@@ -17,7 +17,7 @@ class ApiException extends UKFastException
         $body = json_decode($raw);
         $err = json_last_error();
         if ($err !== JSON_ERROR_NONE) {
-            throw new InvalidJsonException($raw);
+            throw new InvalidJsonException(json_last_error_msg() . ': ' . $raw);
         }
 
         if (isset($body->errors) && is_array($body->errors)) {
@@ -31,6 +31,10 @@ class ApiException extends UKFastException
             }
 
             $this->message = $message;
+        }
+
+        if (!empty($response->getHeader('Request-ID')[0])) {
+            $this->requestId = $response->getHeader('Request-ID')[0];
         }
 
         $this->response = $response;
@@ -58,6 +62,15 @@ class ApiException extends UKFastException
     public function getResponse()
     {
         return $this->response;
+    }
+
+    public function getRequestId()
+    {
+        if (!empty($this->response->getHeader('Request-ID'))) {
+            return $this->response->getHeader('Request-ID')[0];
+        }
+
+        return null;
     }
 
     private function getErrorsFromBody($body)

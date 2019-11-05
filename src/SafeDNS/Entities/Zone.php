@@ -2,23 +2,13 @@
 
 namespace UKFast\SDK\SafeDNS\Entities;
 
-class Zone
+use UKFast\SDK\Entity;
+
+/**
+ * @property string $name
+ * @property string $description
+ */
+class Zone extends Entity
 {
-    public $name;
-    public $description;
-
-
-    /**
-     * Zone constructor.
-     * @param null $item
-     */
-    public function __construct($item = null)
-    {
-        if (empty($item)) {
-            return;
-        }
-
-        $this->name = $item->name;
-        $this->description = $item->description;
-    }
+    //
 }
