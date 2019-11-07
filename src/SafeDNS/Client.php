@@ -24,4 +24,14 @@ class Client extends BaseClient
     {
         return (new RecordClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * Shortcut to get a NoteClient
+     *
+     * @return BaseClient
+     */
+    public function notes()
+    {
+        return (new NoteClient($this->httpClient))->auth($this->token);
+    }
 }
