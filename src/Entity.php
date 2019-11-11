@@ -21,10 +21,8 @@ abstract class Entity
         if (is_object($attributes)) {
             $attributes = (array) $attributes;
         }
-        
-        foreach ($attributes as $name => $value) {
-            $this->set($name, $value);
-        }
+
+        $this->fill($attributes);
     }
 
     /**
