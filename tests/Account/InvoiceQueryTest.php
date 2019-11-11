@@ -35,7 +35,8 @@ class InvoiceQueryTest extends TestCase
                     "contact_method" => "email",
                     "resolution" => "This issue was resolved.",
                     "resolution_date" => '2019-10-25T00:00:00+01:00',
-                    "status" => "Submitted"
+                    "status" => "Submitted",
+                    "date" => "2019-11-07T10:56:54+00:00"
                 ],
                 "meta" => []
             ])),
@@ -61,6 +62,7 @@ class InvoiceQueryTest extends TestCase
         $this->assertEquals("This issue was resolved.", $invoiceQuery->resolution);
         $this->assertInstanceOf(DateTime::class, $invoiceQuery->resolutionDate);
         $this->assertEquals("Submitted", $invoiceQuery->status);
+        $this->assertEquals("2019-11-07T10:56:54+00:00", $invoiceQuery->date);
     }
 
     /**
