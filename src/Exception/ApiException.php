@@ -33,6 +33,10 @@ class ApiException extends UKFastException
             $this->message = $message;
         }
 
+        if (!empty($response->getHeader('Request-ID')[0])) {
+            $this->requestId = $response->getHeader('Request-ID')[0];
+        }
+
         $this->response = $response;
     }
 
@@ -58,6 +62,15 @@ class ApiException extends UKFastException
     public function getResponse()
     {
         return $this->response;
+    }
+
+    public function getRequestId()
+    {
+        if (!empty($this->response->getHeader('Request-ID'))) {
+            return $this->response->getHeader('Request-ID')[0];
+        }
+
+        return null;
     }
 
     private function getErrorsFromBody($body)
