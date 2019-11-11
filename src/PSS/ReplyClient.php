@@ -88,10 +88,11 @@ class ReplyClient extends BaseClient
     /**
      * Downloads an attachment
      *
-     * @return \GuzzleHttp\Psr7\Stream
+     * @return \UKFast\SDK\PSS\Entities\Download
      */
     public function download($replyId, $name)
     {
+        $name = urlencode($name);
         return new Download(
             $this->request('GET', "v1/replies/$replyId/attachments/$name")
         );
@@ -105,6 +106,7 @@ class ReplyClient extends BaseClient
      */
     public function deleteAttachment($replyId, $name)
     {
+        $name = urlencode($name);
         $this->delete("v1/replies/$replyId/attachments/$name");
     }
 
