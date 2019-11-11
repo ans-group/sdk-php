@@ -14,7 +14,10 @@ class ApiExceptionTest extends TestCase
      */
     public function constructs_from_standard_api_error()
     {
-        $response = new Response(500, [], json_encode([
+        $headers = [
+            'Request-ID' => 'test-request-id',
+        ];
+        $response = new Response(500, $headers, json_encode([
             'errors' => [
                 [
                     'detail' => 'Test'
@@ -26,6 +29,7 @@ class ApiExceptionTest extends TestCase
 
         $this->assertEquals(1, count($exception->getErrors()));
         $this->assertEquals('Test', $exception->getErrors()[0]->detail);
+        $this->assertEquals('test-request-id', $exception->getRequestId());
     }
 
     /**
@@ -53,5 +57,23 @@ class ApiExceptionTest extends TestCase
 
         $this->expectException(InvalidJsonException::class);
         $exception = new ApiException($response);
+    }
+
+    /**
+     * @test
+     */
+    public function request_id_is_set_to_null_if_none_is_returned()
+    {
+        $response = new Response(500, [], json_encode([
+            'errors' => [
+                [
+                    'detail' => 'Test'
+                ]
+            ]
+        ]));
+
+        $exception = new ApiException($response);
+
+        $this->assertNull($exception->getRequestId());
     }
 }
