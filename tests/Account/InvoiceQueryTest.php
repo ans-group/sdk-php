@@ -62,7 +62,7 @@ class InvoiceQueryTest extends TestCase
         $this->assertEquals("This issue was resolved.", $invoiceQuery->resolution);
         $this->assertInstanceOf(DateTime::class, $invoiceQuery->resolutionDate);
         $this->assertEquals("Submitted", $invoiceQuery->status);
-        $this->assertEquals("2019-11-07T10:56:54+00:00", $invoiceQuery->date);
+        $this->assertInstanceOf(DateTime::class, $invoiceQuery->date);
     }
 
     /**
