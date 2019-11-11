@@ -262,8 +262,9 @@ class Client
                 $filter = ":$filter";
             }
 
+            $apiName = $apiName.$filter;
             if (isset($map[$apiName])) {
-                $newItem[$map[$apiName].$filter] = $value;
+                $newItem[$map[$apiName]] = $value;
                 continue;
             }
 
