@@ -42,6 +42,25 @@ class ReplyClient extends BaseClient
     }
 
     /**
+     * Gets a paginated response of all replies to a ticket
+     *
+     * @param int $requestId - ID of request replies belong to
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return \UKFast\SDK\Page
+     */
+    public function getPageWithoutRequest($page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest("v1/replies", $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return $this->serializeReply($item);
+        });
+
+        return $page;
+    }
+
+    /**
      * @param int $requestId
      * @param \UKFast\SDK\PSS\Entities\Reply $reply
      * @return SelfResponse
@@ -118,6 +137,7 @@ class ReplyClient extends BaseClient
         $reply = new Entities\Reply;
         
         $reply->id = $item->id;
+        $reply->requestId = $item->request_id;
         $reply->author = new Entities\Author($item->author);
         $reply->description = $item->description;
         $reply->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
