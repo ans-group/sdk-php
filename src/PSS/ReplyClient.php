@@ -75,7 +75,6 @@ class ReplyClient extends BaseClient
      */
     public function upload($replyId, $name, $content)
     {
-        $name = urlencode($name);
         $uri = "v1/replies/$replyId/attachments/$name";
         $response = $this->request('POST', $uri, $content);
 
@@ -92,7 +91,6 @@ class ReplyClient extends BaseClient
      */
     public function download($replyId, $name)
     {
-        $name = urlencode($name);
         return new Download(
             $this->request('GET', "v1/replies/$replyId/attachments/$name")
         );
@@ -106,7 +104,6 @@ class ReplyClient extends BaseClient
      */
     public function deleteAttachment($replyId, $name)
     {
-        $name = urlencode($name);
         $this->delete("v1/replies/$replyId/attachments/$name");
     }
 
