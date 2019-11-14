@@ -94,7 +94,6 @@ class ReplyClient extends BaseClient
      */
     public function upload($replyId, $name, $content)
     {
-        $name = urlencode($name);
         $uri = "v1/replies/$replyId/attachments/$name";
         $response = $this->request('POST', $uri, $content);
 
@@ -107,7 +106,7 @@ class ReplyClient extends BaseClient
     /**
      * Downloads an attachment
      *
-     * @return \GuzzleHttp\Psr7\Stream
+     * @return \UKFast\SDK\PSS\Entities\Download
      */
     public function download($replyId, $name)
     {
