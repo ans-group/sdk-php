@@ -9,6 +9,8 @@ use UKFast\SDK\SelfResponse;
 
 class ReplyClient extends BaseClient
 {
+    protected $basePath = 'pss/';
+
     /**
      * Gets a paginated response of all replies to a ticket
      *
