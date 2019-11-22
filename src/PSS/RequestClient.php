@@ -151,8 +151,8 @@ class RequestClient extends BaseClient
     protected function serializeRequest($item)
     {
         $request = new Entities\Request($this->apiToFriendly($item, $this->requestMap));
-        $request->author = new Entities\Author($item);
-        $request->product = new Entities\Product($item);
+        $request->author = new Entities\Author($item->author);
+        $request->product = new Entities\Product($item->product);
 
         return $request;
     }
