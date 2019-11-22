@@ -243,4 +243,44 @@ class Client
             'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION
         ]);
     }
+
+    /**
+     * @param array|Entity $item
+     * @param array $map
+     * @return array
+     */
+    public function apiToFriendly($item, $map)
+    {
+        $newItem = [];
+        if ($item instanceof Entity) {
+            $item = $item->toArray();
+        }
+        foreach ($item as $apiName => $value) {
+            $filter = "";
+            if (strpos($apiName, ':') !== false) {
+                list($apiName, $filter) = explode(":", $apiName);
+                $filter = ":$filter";
+            }
+
+            $apiName = $apiName.$filter;
+            if (isset($map[$apiName])) {
+                $newItem[$map[$apiName]] = $value;
+                continue;
+            }
+
+            $newItem[$apiName] = $value;
+        }
+
+        return $newItem;
+    }
+
+    /**
+     * @param array|Entity $item
+     * @param array $map
+     * @return array
+     */
+    public function friendlyToApi($item, $map)
+    {
+        return $this->apiToFriendly($item, array_flip($map));
+    }
 }

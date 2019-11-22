@@ -10,6 +10,16 @@ class RequestClient extends BaseClient
 {
     protected $basePath = 'pss/';
 
+    protected $requestMap = [
+        'created_at' => 'createdAt',
+        'request_sms' => 'requestSms',
+        'customer_reference' => 'customerReference',
+        'last_replied_at' => 'lastRepliedAt',
+        'system_reference' => 'systemReference',
+        'unread_replies' => 'unreadReplies',
+        'contact_method' => 'contactMethod',
+    ];
+
     /**
      * Gets a paginated response of all PSS requests
      *
@@ -20,6 +30,8 @@ class RequestClient extends BaseClient
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
+        $filters = $this->friendlyToApi($filters, $this->requestMap);
+
         $page = $this->paginatedRequest('v1/requests', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeRequest($item);
@@ -138,31 +150,9 @@ class RequestClient extends BaseClient
      */
     protected function serializeRequest($item)
     {
-        $request = new Entities\Request;
-
-        $request->id = $item->id;
-        $request->author = new Entities\Author($item->author);
-        $request->type = $item->type;
-        $request->secure = $item->secure;
-        $request->subject = $item->subject;
-        $request->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
-        $request->priority = $item->priority;
-        $request->archived = $item->archived;
-        $request->status = $item->status;
-        $request->requestSms = $item->request_sms;
-        $request->customerReference = $item->customer_reference;
-        $request->product = new Entities\Product($item->product);
-        $request->lastRepliedAt = null;
-        $request->systemReference = $item->system_reference;
-        $request->unreadReplies = $item->unread_replies;
-        $request->contactMethod = $item->contact_method;
-        if ($item->last_replied_at) {
-            $request->lastRepliedAt = DateTime::createFromFormat(DateTime::ISO8601, $item->last_replied_at);
-        }
-
-        if (!empty($item->cc)) {
-            $request->cc = $item->cc;
-        }
+        $request = new Entities\Request($this->apiToFriendly($item, $this->requestMap));
+        $request->author = new Entities\Author($item);
+        $request->product = new Entities\Product($item);
 
         return $request;
     }
@@ -184,41 +174,16 @@ class RequestClient extends BaseClient
 
     protected function requestToJson($request)
     {
-        $payload = [
-            'subject' => $request->subject,
-            'details' => $request->details,
-            'priority' => $request->priority,
-            'secure' => $request->secure,
-            'author' => [
-                'id' => $request->author->id
-            ],
-            'request_sms' => $request->requestSms,
-            'archived' => $request->archived,
-        ];
+        $json = $this->friendlyToApi($request, $this->requestMap);
 
-        if (isset($request->status)) {
-            $payload['status'] = $request->status;
+        if ($request->author) {
+            $json['author'] = $request->author->toArray();
         }
 
         if ($request->product) {
-            $payload['product'] = [
-                'type' => $request->product->type,
-                'id' => $request->product->id,
-            ];
+            $json['product'] = $request->product->toArray();
         }
-
-        if (!empty($request->cc)) {
-            $payload['cc'] = $request->cc;
-        }
-
-        if (!empty($request->contactMethod)) {
-            $payload['contact_method'] = $request->contactMethod;
-        }
-
-        if ($request->customerReference) {
-            $payload['customer_reference'] = $request->customerReference;
-        }
-
-        return json_encode($payload);
+        
+        return json_encode($json);
     }
 }

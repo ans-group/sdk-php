@@ -5,7 +5,7 @@ namespace UKFast\SDK\eCloud\Entities;
 use UKFast\SDK\Entity;
 
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property int $limit
  */
