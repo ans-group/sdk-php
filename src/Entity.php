@@ -18,6 +18,10 @@ abstract class Entity
      */
     public function __construct($attributes = [])
     {
+        if (is_null($attributes)) {
+            $attributes = [];
+        }
+        
         if (is_object($attributes)) {
             $attributes = (array) $attributes;
         }
