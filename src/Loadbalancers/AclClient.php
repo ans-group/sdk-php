@@ -4,9 +4,15 @@ namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Account\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Acl;
+use UKFast\SDK\SelfResponse;
 
 class AclClient extends BaseClient
 {
+    const MAP = [
+        'frontend_id' => 'frontendId',
+        'backend_id' => 'backendId',
+    ];
+
     protected $basePath = 'loadbalancers/';
 
     /**
@@ -28,10 +34,10 @@ class AclClient extends BaseClient
     }
 
     /**
-     * Gets an individual request
+     * Gets an individual ACL
      *
      * @param int $id
-     * @return \UKFast\SDK\PSS\Entities\Request
+     * @return \UKFast\SDK\Loadbalancers\Entities\Acl
      */
     public function getById($id)
     {
@@ -40,12 +46,32 @@ class AclClient extends BaseClient
         return $this->serializeAcl($body->data);
     }
 
+    /**
+     * @param \UKFast\SDK\Loadbalancers\Entities\Acl
+     * @return \UKFast\SDK\SelfResponse
+     */
+    public function create($acl)
+    {
+        $json = json_encode($this->friendlyToApi($acl, self::MAP));
+        $response = $this->post("v2/acls", $json);
+        $response = $this->decodeJson($response->getBody()->getContents());
+        
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return $this->serializeAcl($response->data);
+            });
+    }
+
+    /**
+     * @param object $raw
+     * @return \UKFast\SDK\Loadbalancers\Entities\Acl
+     */
     protected function serializeAcl($raw)
     {
-        return new Acl([
-            'id' => $raw->id,
-            'frontendId' => $raw->frontend_id,
-            'backendId' => $raw->backend_id,
-        ]);
+        return new Acl($this->apiToFriendly($raw, [
+            'frontend_id' => 'frontendId',
+            'backend_id' => 'backendId',
+        ]));
     }
 }

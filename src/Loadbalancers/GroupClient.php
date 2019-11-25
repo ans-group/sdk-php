@@ -6,7 +6,7 @@ use UKFast\SDK\Client;
 use UKFast\SDK\Loadbalancers\Entities\Group;
 use UKFast\SDK\SelfResponse;
 
-class GroupsClient extends Client
+class GroupClient extends Client
 {
     /**
      * Gets a paginated response of all ACLs
@@ -39,6 +39,11 @@ class GroupsClient extends Client
         return $this->serializeGroup($body->data);
     }
 
+    /**
+     * Creates a group
+     * @param \UKFast\SDK\Loadbalancers\Entities\Group $group
+     * @return \UKFast\SDK\SelfResponse
+     */
     public function create($group)
     {
         $response = $this->post("v2/groups", json_encode($group->toArray()));
