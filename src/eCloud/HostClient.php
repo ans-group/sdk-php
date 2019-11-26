@@ -9,6 +9,10 @@ use UKFast\SDK\eCloud\Entities\Host;
 
 class HostClient extends Client implements ClientEntityInterface
 {
+    const MAP = [
+        'solution_id' => 'solutionId',
+    ];
+    
     /**
      * Gets a paginated response of Hosts
      *
@@ -20,6 +24,7 @@ class HostClient extends Client implements ClientEntityInterface
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
+        $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest("v1/hosts", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->loadEntity($item);

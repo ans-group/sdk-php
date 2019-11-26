@@ -25,6 +25,7 @@ class AclClient extends BaseClient
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
+        $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest('v2/acls', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeAcl($item);

@@ -8,8 +8,10 @@ use UKFast\SDK\SelfResponse;
 
 class GroupClient extends Client
 {
+    const MAP = [];
+
     /**
-     * Gets a paginated response of all ACLs
+     * Gets a paginated response of all Groups
      *
      * @param int $page
      * @param int $perPage
@@ -18,6 +20,7 @@ class GroupClient extends Client
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
+        $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest('v2/groups', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeGroup($item);
@@ -27,7 +30,7 @@ class GroupClient extends Client
     }
 
     /**
-     * Gets an individual request
+     * Gets an individual group
      *
      * @param int $id
      * @return \UKFast\SDK\Loadbalancers\Entities\Vip
@@ -46,7 +49,8 @@ class GroupClient extends Client
      */
     public function create($group)
     {
-        $response = $this->post("v2/groups", json_encode($group->toArray()));
+        $json = json_encode($this->friendlyToApi($group, self::MAP));
+        $response = $this->post("v2/groups", $json);
         $response = $this->decodeJson($response->getBody()->getContents());
         
         return (new SelfResponse($response))
@@ -57,13 +61,10 @@ class GroupClient extends Client
     }
 
     /**
-     * @return \UKFast\SDK\Loadbalancers\Entities\Vip
+     * @return \UKFast\SDK\Loadbalancers\Entities\Group
      */
     public function serializeGroup($raw)
     {
-        return new Group([
-            'id' => $raw->id,
-            'name' => $raw->name,
-        ]);
+        return new Group($this->apiToFriendly($raw, self::MAP));
     }
 }
