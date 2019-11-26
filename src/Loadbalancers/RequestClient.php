@@ -7,6 +7,11 @@ use UKFast\SDK\Loadbalancers\Entities\Request;
 
 class RequestClient extends Client
 {
+    const MAP = [
+        'haproxy_cfg' => 'haProxyConfig',
+        'config_id' => 'configId',
+    ];
+
     /**
      * Gets a paginated response of all requests
      *
@@ -17,6 +22,7 @@ class RequestClient extends Client
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
+        $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest('v2/requests', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeRequest($item);
@@ -44,10 +50,9 @@ class RequestClient extends Client
      */
     public function create($request)
     {
-        $response = $this->post('v2/requests', json_encode($request->toArray([
-            'haProxyConfig' => 'haproxy_cfg',
-            'configId' => 'config_id',
-        ])));
+        $response = $this->post('v2/requests', json_encode($this->friendlyToApi(
+            $request, self::MAP
+        )));
 
         $response  = $this->decodeJson($response->getBody()->getContents());
         return (new SelfResponse($response))
@@ -63,9 +68,6 @@ class RequestClient extends Client
      */
     protected function serializeRequest($raw)
     {
-        return new Request([
-            'id' => $raw->id,
-            'haProxyConfig' => $raw->haproxy_cfg,
-        ]);
+        return new Request($this->apiToFriendly($raw, self::MAP));
     }
 }

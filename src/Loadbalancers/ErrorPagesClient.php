@@ -8,6 +8,10 @@ use UKFast\SDK\SelfResponse;
 
 class ErrorPagesClient extends Client
 {
+    const MAP = [
+        'status_code' => 'statusCode',
+    ];
+
     /**
      * Gets a paginated response of all error pages
      *
@@ -18,6 +22,7 @@ class ErrorPagesClient extends Client
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
+        $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest('v2/error-pages', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeErrorPage($item);
@@ -45,9 +50,9 @@ class ErrorPagesClient extends Client
      */ 
     public function create($errorPage)
     {
-        $response = $this->post('v2/error-pages', json_encode($errorPage->toArray([
-            'statusCode' => 'status_code',
-        ])));
+        $response = $this->post('v2/error-pages', json_encode($this->friendlyToApi(
+            $errorPage, self::MAP
+        )));
 
         $response  = $this->decodeJson($response->getBody()->getContents());
         return (new SelfResponse($response))
@@ -63,10 +68,6 @@ class ErrorPagesClient extends Client
      */
     protected function serializeErrorPage($raw)
     {
-        return new ErrorPage([
-            'id' => $raw->id,
-            'statusCode' => $raw->status_code,
-            'content' => $raw->content,
-        ]);
+        return new ErrorPage($this->friendlyToApi($raw, self::MAP));
     }
 }

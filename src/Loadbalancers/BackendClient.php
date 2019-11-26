@@ -9,6 +9,12 @@ use UKFast\SDK\SelfResponse;
 
 class BackendClient extends Client
 {
+    const MAP = [
+        'cookie_opts' => 'cookieOpts',
+        'timeouts_connect' => 'timeoutConnect',
+        'timeouts_server' => 'timeoutServer',
+    ];
+
     /**
      * Gets a paginated response of all backends
      *
@@ -19,6 +25,7 @@ class BackendClient extends Client
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
+        $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest('v2/backends', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeBackend($item);
@@ -46,11 +53,9 @@ class BackendClient extends Client
      */ 
     public function create($backend)
     {
-        $response = $this->post('v2/backends', json_encode($backend->toArray([
-            'cookieOpts' => 'cookie_opts',
-            'timeoutConnect' => 'timeouts_connect',
-            'timeoutServer' => 'timeouts_server',
-        ])));
+        $response = $this->post('v2/backends', json_encode($this->friendlyToApi(
+            $backend, self::MAP
+        )));
 
         $response  = $this->decodeJson($response->getBody()->getContents());
         return (new SelfResponse($response))
@@ -66,17 +71,6 @@ class BackendClient extends Client
      */
     protected function serializeBackend($raw)
     {
-        return new Backend([
-            'id' => $raw->id,
-            'name' => $raw->name,
-            'balance' => $raw->balance,
-            'mode' => $raw->mode,
-            'close' => $raw->close,
-            'sticky' => $raw->sticky,
-            'cookieOpts' => $raw->cookie_opts,
-            'timeoutConnect' => $raw->timeouts_connect,
-            'source' => $raw->source,
-            'timeoutServer' => $raw->timeouts_server,
-        ]);
+        return new Backend($this->apiToFriendly($raw, self::MAP));
     }
 }
