@@ -2,22 +2,13 @@
 
 namespace UKFast\SDK\eCloud\Entities;
 
-use UKFast\SDK\Entities\Entity;
+use UKFast\SDK\Entity;
 
+/**
+ * @property string $id
+ * @property string $name
+ * @property int $limit
+ */
 class Iops extends Entity
 {
-    /**
-     * @var string IOPS tier UUID
-     */
-    public $id;
-
-    /**
-     * @var string IOPS tier name
-     */
-    public $name;
-
-    /**
-     * @var int IOPS limit to apply to a datastore
-     */
-    public $limit;
 }
