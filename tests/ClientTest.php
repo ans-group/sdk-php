@@ -425,4 +425,42 @@ class ClientTest extends TestCase
         $this->assertEquals(1, count($container));
         $this->assertEquals('DELETE', $container[0]['request']->getMethod());
     }
+
+    /**
+     * @test
+     */
+    public function maps_friendly_names_to_api_names()
+    {
+        $map = ['created_at' => 'createdAt'];
+        $api = (new Client)->friendlyToApi([
+            'id' => 1,
+            'createdAt' => '2018-01-01 10:00:00',
+            'name' => 'Test',
+        ], $map);
+
+        $this->assertEquals([
+            'id' => 1,
+            'created_at' => '2018-01-01 10:00:00',
+            'name' => 'Test',
+        ], $api);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_api_names_to_friendly_names()
+    {
+        $map = ['created_at' => 'createdAt'];
+        $friendly = (new Client)->apiToFriendly([
+            'id' => 1,
+            'created_at' => '2018-01-01 10:00:00',
+            'name' => 'Test',
+        ], $map);
+
+        $this->assertEquals([
+            'id' => 1,
+            'createdAt' => '2018-01-01 10:00:00',
+            'name' => 'Test',
+        ], $friendly);
+    }
 }
