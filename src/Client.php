@@ -255,22 +255,13 @@ class Client
         if ($item instanceof Entity) {
             $item = $item->toArray();
         }
-        foreach ($item as $apiName => $value) {
-            $filter = "";
-            if (strpos($apiName, ':') !== false) {
-                list($apiName, $filter) = explode(":", $apiName);
-                $filter = ":$filter";
-            }
-
-            $apiName = $apiName.$filter;
-            if (isset($map[$apiName])) {
-                $newItem[$map[$apiName]] = $value;
-                continue;
-            }
-
-            $newItem[$apiName] = $value;
+        foreach ($item as $key => $value) {
+            $keyParts = explode(':', $key);
+            $key = array_shift($keyParts);
+            $filter = array_shift($keyParts);
+            $filter = !empty($filter) ? ':' . $filter : '';
+            $newItem[(isset($map[$key]) ? $map[$key] : $key) . $filter] = $value;
         }
-
         return $newItem;
     }
 
