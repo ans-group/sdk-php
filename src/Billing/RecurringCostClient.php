@@ -4,10 +4,10 @@ namespace UKFast\SDK\Billing;
 
 use UKFast\SDK\Billing\Entities\RecurringCost;
 use UKFast\SDK\Billing\Entities\Product;
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Page;
 
-class RecurringCostClient extends Client
+class RecurringCostClient extends BaseClient
 {
     protected $basePath = 'billing/';
 
