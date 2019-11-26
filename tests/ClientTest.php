@@ -463,4 +463,62 @@ class ClientTest extends TestCase
             'name' => 'Test',
         ], $friendly);
     }
+
+    /**
+     * @test
+     */
+    public function maps_api_names_to_friendly_names_with_filters()
+    {
+        $map = ['key_with_filter' => 'keyWithFilter'];
+        $friendly = (new Client)->apiToFriendly([
+            'key_with_filter:eq' => 1,
+        ], $map);
+
+        $this->assertEquals([
+            'keyWithFilter:eq' => 1,
+        ], $friendly);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_friendly_names_to_api_names_with_filters()
+    {
+        $map = ['key_with_filter' => 'keyWithFilter'];
+        $friendly = (new Client)->friendlyToApi([
+            'keyWithFilter:eq' => 1,
+        ], $map);
+
+        $this->assertEquals([
+            'key_with_filter:eq' => 1,
+        ], $friendly);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_api_names_to_friendly_names_without_mapping()
+    {
+        $friendly = (new Client)->apiToFriendly([
+            'key_not_existing' => 'na',
+        ], []);
+
+        $this->assertEquals([
+            'key_not_existing' => 'na',
+        ], $friendly);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_friendly_names_to_api_names_without_mapping()
+    {
+        $friendly = (new Client)->friendlyToApi([
+            'key_not_existing' => 1,
+        ], []);
+
+        $this->assertEquals([
+            'key_not_existing' => 1,
+        ], $friendly);
+    }
 }
