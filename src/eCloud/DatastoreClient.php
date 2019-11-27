@@ -35,7 +35,7 @@ class DatastoreClient extends Client implements ClientEntityInterface
      */
     public function expand(Datastore $datastore)
     {
-        $data = json_encode(['size_gb' => $datastore->capacity]);
+        $data = json_encode(['capacity' => $datastore->capacity]);
 
         $response = $this->post(
             'v1/datastores/'. $datastore->id .'/expand',

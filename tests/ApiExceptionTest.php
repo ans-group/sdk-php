@@ -14,7 +14,10 @@ class ApiExceptionTest extends TestCase
      */
     public function constructs_from_standard_api_error()
     {
-        $response = new Response(500, [], json_encode([
+        $headers = [
+            'Request-ID' => 'test-request-id',
+        ];
+        $response = new Response(500, $headers, json_encode([
             'errors' => [
                 [
                     'detail' => 'Test'
@@ -26,7 +29,26 @@ class ApiExceptionTest extends TestCase
 
         $this->assertEquals(1, count($exception->getErrors()));
         $this->assertEquals('Test', $exception->getErrors()[0]->detail);
+        $this->assertEquals('test-request-id', $exception->getRequestId());
     }
+
+    /**
+     * @test
+     */
+    public function constructs_from_api_gateway_error()
+    {
+        $response = new Response(401, [], json_encode([
+            'message' => 'Invalid authentication credentials'
+        ]));
+
+        $exception = new ApiException($response);
+
+        $this->assertEquals(1, count($exception->getErrors()));
+        $this->assertEquals('API Gateway Error', $exception->getErrors()[0]->title);
+        $this->assertEquals('Invalid authentication credentials', $exception->getErrors()[0]->detail);
+        $this->assertEquals(401, $exception->getErrors()[0]->status);
+    }
+
 
     /**
      * @test
@@ -53,5 +75,23 @@ class ApiExceptionTest extends TestCase
 
         $this->expectException(InvalidJsonException::class);
         $exception = new ApiException($response);
+    }
+
+    /**
+     * @test
+     */
+    public function request_id_is_null_if_none_is_returned()
+    {
+        $response = new Response(500, [], json_encode([
+            'errors' => [
+                [
+                    'detail' => 'Test'
+                ]
+            ]
+        ]));
+
+        $exception = new ApiException($response);
+
+        $this->assertNull($exception->getRequestId());
     }
 }

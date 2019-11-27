@@ -6,17 +6,15 @@ use UKFast\SDK\Client;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\SSL\Entities\Report;
 use UKFast\SDK\SSL\Entities\ReportCertificate;
-use UKFast\Admin\Traits\Admin;
 
 class ReportClient extends Client implements ClientEntityInterface
 {
-    use Admin;
-
     protected $basePath = 'ssl/';
 
     /**
      * @param $domain
      * @return mixed|Report
+     * @throws \Exception
      */
     public function getByDomainName($domain)
     {
@@ -29,6 +27,7 @@ class ReportClient extends Client implements ClientEntityInterface
      * @param $domain
      * @param $ip
      * @return mixed|Report
+     * @throws \Exception
      */
     public function getByDomainNameAndIp($domain, $ip)
     {
@@ -37,10 +36,10 @@ class ReportClient extends Client implements ClientEntityInterface
         return $this->loadEntity($body->data);
     }
 
-
     /**
      * @param $data
      * @return mixed|Report
+     * @throws \Exception
      */
     public function loadEntity($data)
     {
@@ -49,8 +48,8 @@ class ReportClient extends Client implements ClientEntityInterface
             foreach ($data->chain->certificates as $index => $certification) {
                 $chain['certificates'][] = new Entities\ReportCertificate([
                     "name" => $data->chain->certificates[$index]->name,
-                    "validFrom" => $data->chain->certificates[$index]->valid_from,
-                    "validTo" => $data->chain->certificates[$index]->valid_to,
+                    "validFrom" => new \DateTime($data->chain->certificates[$index]->valid_from),
+                    "validTo" => new \DateTime($data->chain->certificates[$index]->valid_to),
                     "issuer" => $data->chain->certificates[$index]->issuer,
                     "serialNumber" => $data->chain->certificates[$index]->serial_number,
                     "signatureAlgorithm" => $data->chain->certificates[$index]->signature_algorithm,
@@ -61,8 +60,8 @@ class ReportClient extends Client implements ClientEntityInterface
 
         $request = new Entities\Report([
             "name" => $data->certificate->name,
-            "validFrom" => $data->certificate->valid_from,
-            "validTo" => $data->certificate->valid_to,
+            "validFrom" => new \DateTime($data->certificate->valid_from),
+            "validTo" => new \DateTime($data->certificate->valid_to),
             "issuer" => $data->certificate->issuer,
             "serialNumber" => $data->certificate->serial_number,
             "signatureAlgorithm" => $data->certificate->signature_algorithm,
@@ -76,8 +75,8 @@ class ReportClient extends Client implements ClientEntityInterface
             "ip" => $data->server->ip,
             "hostname" => $data->server->hostname,
             "port" => $data->server->port,
-            "currentTime" => $data->server->current_time,
-            "serverTime" => $data->server->server_time,
+            "currentTime" => new \DateTime($data->server->current_time),
+            "serverTime" => new \DateTime($data->server->server_time),
             "serverSoftware" => $data->server->software,
             "opensslVersion" => $data->server->openssl_version,
             "sslVersions" => $data->server->ssl_versions,

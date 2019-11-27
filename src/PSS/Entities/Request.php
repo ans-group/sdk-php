@@ -2,93 +2,32 @@
 
 namespace UKFast\SDK\PSS\Entities;
 
-class Request
+use UKFast\SDK\Entity;
+
+/**
+ * @property int $id
+ * @property \UKFast\SDK\PSS\Entities\Author $author
+ * @property string $type
+ * @property string $subject
+ * @property bool $secure
+ * @property \DateTime $createdAt
+ * @property string $priority
+ * @property bool $archived
+ * @property string $status
+ * @property bool $requestSms
+ * @property string $customerReference
+ * @property \UKFast\SDK\PSS\Entities\Product $product
+ * @property \DateTime $lastRepliedAt
+ * @property string $systemReference
+ * @property string $details
+ * @property array $cc
+ * @property int $unreadReplies
+ * @property string $contactMethod
+ */
+class Request extends Entity
 {
-    /**
-     * @var int
-     */
-    public $id;
-
-    /**
-     * @var \UKFast\SDK\Pss\Entities\Author
-     */
-    public $author;
-
-    /**
-     * @var string
-     */
-    public $type;
-
-    /**
-     * @var string
-     */
-    public $subject;
-
-    /**
-     * @var bool
-     */
-    public $secure = true;
-
-    /**
-     * @var \Datetime
-     */
-    public $createdAt;
-
-    /**
-     * @var string
-     */
-    public $priority = 'Normal';
-
-    /**
-     * @var bool
-     */
-    public $archived;
-
-    /**
-     * @var string
-     */
-    public $status;
-
-    /**
-     * @var bool
-     */
-    public $requestSms = false;
-
-    /**
-     * @var string
-     */
-    public $customerReference;
-
-    /**
-     * @var \UKFast\SDK\Pss\Entities\Author
-     */
-    public $product;
-
-    /**
-     * @var \DateTime
-     */
-    public $lastRepliedAt;
-
-    /**
-     * @var string
-     */
-    public $systemReference;
-
-    /**
-     * @var string
-     */
-    public $details;
-
-    /**
-     * @var array
-     */
-    public $cc = [];
-
-    /**
-     * @var integer
-     */
-    public $unreadReplies;
-
+    protected $dates = ['createdAt', 'lastRepliedAt'];
+    
     public function isCompleted()
     {
         return in_array($this->status, ['Completed', 'Replied and Completed']);

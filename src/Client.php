@@ -55,7 +55,7 @@ class Client
      * Sets the API key to be used by the client
      *
      * @param string $token
-     * @return Client
+     * @return $this
      */
     public function auth($token)
     {
@@ -242,5 +242,36 @@ class Client
             'ukfast-sdk-php/' . static::VERSION . '',
             'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION
         ]);
+    }
+
+    /**
+     * @param array|Entity $item
+     * @param array $map
+     * @return array
+     */
+    public function apiToFriendly($item, $map)
+    {
+        $newItem = [];
+        if ($item instanceof Entity) {
+            $item = $item->toArray();
+        }
+        foreach ($item as $key => $value) {
+            $keyParts = explode(':', $key);
+            $key = array_shift($keyParts);
+            $filter = array_shift($keyParts);
+            $filter = !empty($filter) ? ':' . $filter : '';
+            $newItem[(isset($map[$key]) ? $map[$key] : $key) . $filter] = $value;
+        }
+        return $newItem;
+    }
+
+    /**
+     * @param array|Entity $item
+     * @param array $map
+     * @return array
+     */
+    public function friendlyToApi($item, $map)
+    {
+        return $this->apiToFriendly($item, array_flip($map));
     }
 }
