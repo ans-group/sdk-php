@@ -7,10 +7,8 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $type
- * @property string $backendId
- * @property string $conditional
- * @property int $index
+ * @property string $subtype
  */
-class Condition extends Entity
+class PathUrl extends Entity
 {
 }

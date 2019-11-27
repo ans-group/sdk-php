@@ -4,9 +4,12 @@ namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Account\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Acl;
-use UKFast\SDK\Loadbalancers\Entities\Conditon;
+use UKFast\SDK\Loadbalancers\Entities\Action;
+use UKFast\SDK\Loadbalancers\Entities\Condition;
 use UKFast\SDK\Loadbalancers\Entities\Header;
+use UKFast\SDK\Loadbalancers\Entities\Ip;
 use UKFast\SDK\Loadbalancers\Entities\Match;
+use UKFast\SDK\Loadbalancers\Entities\PathUrl;
 use UKFast\SDK\SelfResponse;
 
 class AclClient extends BaseClient
@@ -27,7 +30,21 @@ class AclClient extends BaseClient
         'header_id' => 'headerId',
     ];
 
-    const CONDITION_MAP = [];
+    const CONDITION_MAP = [
+        'backend_id' => 'backendId',
+    ];
+
+    const ACTION_MAP = [
+        'arg1' => 'firstArg',
+        'arg2' => 'secondArg',
+        'arg3' => 'thirdArg',
+    ];
+
+    const IP_MAP = [
+        'ip_address' => 'address'
+    ];
+
+    const PATH_URL_MAP = [];
 
     protected $basePath = 'loadbalancers/';
 
@@ -102,7 +119,40 @@ class AclClient extends BaseClient
         $page = $this->paginatedRequest("v2/acls/$id/conditions", $page, $perPage, $filters);
 
         $page->serializeWith(function ($item) {
-            return new Conditon($this->apiToFriendly($item, self::CONDITION_MAP));
+            return new Condition($this->apiToFriendly($item, self::CONDITION_MAP));
+        });
+        return $page;
+    }
+
+    public function getActions($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $filters = $this->friendlyToApi($filters, self::ACTION_MAP);
+        $page = $this->paginatedRequest("v2/acls/$id/functions", $page, $perPage, $filters);
+
+        $page->serializeWith(function ($item) {
+            return new Action($this->apiToFriendly($item, self::ACTION_MAP));
+        });
+        return $page;
+    }
+
+    public function getIps($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $filters = $this->friendlyToApi($filters, self::IP_MAP);
+        $page = $this->paginatedRequest("v2/acls/$id/ips", $page, $perPage, $filters);
+
+        $page->serializeWith(function ($item) {
+            return new Ip($this->apiToFriendly($item, self::IP_MAP));
+        });
+        return $page;
+    }
+
+    public function getPathUrls($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $filters = $this->friendlyToApi($filters, self::PATH_URL_MAP);
+        $page = $this->paginatedRequest("v2/acls/$id/pathurls", $page, $perPage, $filters);
+
+        $page->serializeWith(function ($item) {
+            return new PathUrl($this->apiToFriendly($item, self::PATH_URL_MAP));
         });
         return $page;
     }
@@ -160,6 +210,45 @@ class AclClient extends BaseClient
             ->setClient($this)
             ->serializeWith(function ($body) {
                 return new Condition($this->apiToFriendly($body->data, self::CONDITION_MAP));
+            });
+    }
+
+    public function addAction($aclId, $action)
+    {
+        $json = json_encode($this->friendlyToApi($action, self::ACTION_MAP));
+        $response = $this->post("v2/acls/$aclId/functions", $json);
+        $response = $this->decodeJson($response->getBody()->getContents());
+        
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($body) {
+                return new Action($this->apiToFriendly($body->data, self::ACTION_MAP));
+            });
+    }
+
+    public function addIp($aclId, $ip)
+    {
+        $json = json_encode($this->friendlyToApi($ip, self::IP_MAP));
+        $response = $this->post("v2/acls/$aclId/ips", $json);
+        $response = $this->decodeJson($response->getBody()->getContents());
+        
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($body) {
+                return new Ip($this->apiToFriendly($body->data, self::IP_MAP));
+            });
+    }
+
+    public function addPathUrl($aclId, $pathUrl)
+    {
+        $json = json_encode($this->friendlyToApi($pathUrl, self::PATH_URL_MAP));
+        $response = $this->post("v2/acls/$aclId/pathurls", $json);
+        $response = $this->decodeJson($response->getBody()->getContents());
+        
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($body) {
+                return new PathUrl($this->apiToFriendly($body->data, self::PATH_URL_MAP));
             });
     }
 }
