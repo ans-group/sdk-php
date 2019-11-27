@@ -16,6 +16,14 @@ class FrontendClient extends Client
         'default_backend_id' => 'defaultBackendId',
     ];
 
+    const SSL_MAP = [
+        'binds_id' => 'bindsId',
+        'allow_tlsv1' => 'allowTls_1_1',
+        'allow_tlsv11' => 'allowTls_1_0',
+        'disable_http2' => 'disableHttp2',
+        'http2_only' => 'onlyHttp2'
+    ];
+
     /**
      * Gets a paginated response of all Frontends
      *
@@ -29,7 +37,7 @@ class FrontendClient extends Client
         $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest('v2/frontends', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return $this->serializeFrontend($item);
+            return new Frontend($this->apiToFriendly($item, self::MAP));
         });
 
         return $page;
@@ -45,7 +53,7 @@ class FrontendClient extends Client
     {
         $response = $this->request("GET", "v2/frontends/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeFrontend($body->data);
+        return new Frontend($this->apiToFriendly($body->data, self::MAP));
     }
 
     /**
@@ -62,16 +70,20 @@ class FrontendClient extends Client
         return (new SelfResponse($response))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return $this->serializeFrontend($response->data);
+                return new Frontend($this->apiToFriendly($response->data, self::MAP));
             });
     }
 
-    /**
-     * @param object $raw
-     * @return \UKFast\SDK\Loadbalancers\Entities\Frontend
-     */
-    protected function serializeFrontend($raw)
+    public function addSsl($id, $ssl)
     {
-        return new Frontend($this->apiToFriendly($raw, self::MAP));
+        $json = json_encode($this->friendlyToApi($ssl, self::SSL_MAP));
+        $response = $this->post("v2/frontends/$id/ssls", $json);
+        $response = $this->decodeJson($response->getBody()->getContents());
+        
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Frontend($this->apiToFriendly($response->data, self::SSL_MAP));
+            });
     }
 }
