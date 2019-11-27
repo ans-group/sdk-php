@@ -96,6 +96,7 @@ class ReplyClient extends BaseClient
      */
     public function upload($replyId, $name, $content)
     {
+        $name = str_replace("#", "%23", $name);
         $uri = "v1/replies/$replyId/attachments/$name";
         $response = $this->request('POST', $uri, $content);
 
@@ -112,6 +113,7 @@ class ReplyClient extends BaseClient
      */
     public function download($replyId, $name)
     {
+        $name = str_replace("#", "%23", $name);
         return new Download(
             $this->request('GET', "v1/replies/$replyId/attachments/$name")
         );
