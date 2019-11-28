@@ -84,7 +84,7 @@ class DomainVerificationTest extends TestCase
     {
         $filename           = $this->faker->word . '.txt';
         $verificationString = $this->faker->word . PHP_EOL . $this->faker->word;
-        $contentType        = 'text/plain';
+        $contentType        = 'text/plain; charset=UTF-8';
 
         $mock = new MockHandler([
             new Response(200, [
