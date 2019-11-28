@@ -15,6 +15,8 @@ class BackendClient extends Client
         'timeouts_server' => 'timeoutServer',
     ];
 
+    protected $basePath = 'loadbalancers/';
+
     /**
      * Gets a paginated response of all backends
      *

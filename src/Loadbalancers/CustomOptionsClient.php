@@ -14,6 +14,8 @@ class CustomOptionsClient extends Client
         'backend_servers_id' => 'backendServersId',
     ];
 
+    protected $basePath = 'loadbalancers/';
+
     /**
      * Gets a paginated response of all custom options
      *

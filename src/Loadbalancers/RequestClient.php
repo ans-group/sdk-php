@@ -4,6 +4,7 @@ namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Client;
 use UKFast\SDK\Loadbalancers\Entities\Request;
+use UKFast\SDK\SelfResponse;
 
 class RequestClient extends Client
 {
@@ -11,6 +12,8 @@ class RequestClient extends Client
         'haproxy_cfg' => 'haProxyConfig',
         'config_id' => 'configId',
     ];
+    
+    protected $basePath = 'loadbalancers/';
 
     /**
      * Gets a paginated response of all requests

@@ -12,6 +12,8 @@ class ErrorPagesClient extends Client
         'status_code' => 'statusCode',
     ];
 
+    protected $basePath = 'loadbalancers/';
+
     /**
      * Gets a paginated response of all error pages
      *
