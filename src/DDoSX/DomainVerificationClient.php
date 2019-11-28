@@ -13,7 +13,8 @@ class DomainVerificationClient extends BaseClient
     protected $basePath = 'ddosx/';
 
     /**
-     * Verify the domain
+     * Verify the domain via DNS
+     *
      * @param $domainName
      * @return boolean
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -26,7 +27,8 @@ class DomainVerificationClient extends BaseClient
     }
 
     /**
-     * Verify the domain
+     * Verify the domain via file upload
+     *
      * @param $domainName
      * @return boolean
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -39,7 +41,8 @@ class DomainVerificationClient extends BaseClient
     }
 
     /**
-     * Verify the domain
+     * Get the file for file upload verification
+     *
      * @param $domainName
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
