@@ -53,7 +53,12 @@ abstract class Entity
     public function set($attr, $value)
     {
         if (in_array($attr, $this->dates)) {
-            $value = DateTime::createFromFormat(DateTime::ISO8601, $value);
+            $datetime = DateTime::createFromFormat(DateTime::ISO8601, $value);
+            if (!$datetime) {
+                $datetime = DateTime::createFromFormat('Y-m-d', $value);
+            }
+
+            $value = $datetime;
         }
 
         $this->attributes[$attr] = $value;
