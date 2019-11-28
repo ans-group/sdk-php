@@ -245,6 +245,14 @@ class Client
     }
 
     /**
+     * @return string
+     */
+    public function getBasePath()
+    {
+        return $this->basePath;
+    }
+
+    /**
      * @param array|Entity $item
      * @param array $map
      * @return array
