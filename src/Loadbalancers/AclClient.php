@@ -70,9 +70,6 @@ class AclClient extends BaseClient
      */
     protected function serializeAcl($raw)
     {
-        return new Acl($this->apiToFriendly($raw, [
-            'frontend_id' => 'frontendId',
-            'backend_id' => 'backendId',
-        ]));
+        return new Acl($this->apiToFriendly($raw, self::MAP));
     }
 }
