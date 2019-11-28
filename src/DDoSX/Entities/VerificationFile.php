@@ -35,4 +35,17 @@ class VerificationFile extends Entity
         }
         return $filename[1];
     }
+
+    /**
+     * @return string|boolean
+     */
+    public function getContentType()
+    {
+        $contentType = $this->response->getHeaders()['Content-Type'][0];
+        if (empty($contentType) === false) {
+            return $contentType;
+        }
+
+        return false;
+    }
 }
