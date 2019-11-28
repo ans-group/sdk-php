@@ -2,24 +2,14 @@
 
 namespace UKFast\SDK\DDoSX\Entities;
 
+use UKFast\SDK\Entity;
 use UKFast\SDK\Exception\UKFastException;
 
-class VerificationFile
+/**
+ * @property GuzzleHttp\Psr7\Response $response
+ */
+class VerificationFile extends Entity
 {
-    /**
-     * @var \GuzzleHttp\Psr7\Response
-     */
-    protected $response;
-
-    /**
-     * VerificationFile constructor.
-     * @param \GuzzleHttp\Psr7\Response $response
-     */
-    public function __construct($response)
-    {
-        $this->response = $response;
-    }
-
     /**
      * Get a stream of the verification file's body
      *

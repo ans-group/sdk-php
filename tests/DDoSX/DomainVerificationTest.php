@@ -68,9 +68,13 @@ class DomainVerificationTest extends TestCase
     {
         $filename           = $this->faker->word . '.txt';
         $verificationString = $this->faker->word . PHP_EOL . $this->faker->word;
+        $contentType        = 'text/plain';
 
         $mock = new MockHandler([
-            new Response(200, ['Content-Disposition' => 'attachment; filename="'. $filename . '"'], $verificationString),
+            new Response(200, [
+                'Content-Disposition' => 'attachment; filename="'. $filename . '"',
+                'Content-Type'        => $contentType,
+            ], $verificationString),
         ]);
 
         $guzzle = new Client(['handler' => HandlerStack::create($mock)]);
@@ -80,5 +84,6 @@ class DomainVerificationTest extends TestCase
 
         $this->assertEquals($filename, $verificationFile->getName());
         $this->assertEquals($verificationString, $verificationFile->getStream()->getContents());
+        $this->assertEquals($contentType, $verificationFile->getContentType());
     }
 }

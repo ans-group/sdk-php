@@ -49,9 +49,8 @@ class DomainVerificationClient extends BaseClient
      */
     public function getVerificationFile($domainName)
     {
-
-        return new VerificationFile(
-            $this->get('v1/domains/' . $domainName . '/verify/file-upload')
-        );
+        return new VerificationFile([
+            'response' => $this->get('v1/domains/' . $domainName . '/verify/file-upload')
+        ]);
     }
 }
