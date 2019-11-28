@@ -59,7 +59,7 @@ class RootConfigClient extends Client
         return (new SelfResponse($response))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return $this->serializeGroup($response->data);
+                return $this->serializeConfiguration($response->data);
             });
     }
 

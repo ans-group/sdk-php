@@ -251,4 +251,13 @@ class AclClient extends BaseClient
                 return new PathUrl($this->apiToFriendly($body->data, self::PATH_URL_MAP));
             });
     }
+    
+    /**
+     * @param object $raw
+     * @return \UKFast\SDK\Loadbalancers\Entities\Acl
+     */
+    protected function serializeAcl($raw)
+    {
+        return new Acl($this->apiToFriendly($raw, self::MAP));
+    }
 }
