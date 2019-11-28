@@ -30,7 +30,14 @@ class DomainVerificationTest extends TestCase
     {
         $mock = new MockHandler([
             new Response(200),
-            new Response(422),
+            new Response(422, [], json_encode([
+                'errors' => [
+                    'title' => '"Verification Failed',
+                    'detail' => 'We were unable to verify phily.ga',
+                    'status' => 422,
+                    'source' => 'domain_name'
+                ]
+            ])),
         ]);
 
         $guzzle = new Client(['handler' => HandlerStack::create($mock)]);
@@ -49,7 +56,14 @@ class DomainVerificationTest extends TestCase
     {
         $mock = new MockHandler([
             new Response(200),
-            new Response(422),
+            new Response(422, [], json_encode([
+                'errors' => [
+                    'title' => '"Verification Failed',
+                    'detail' => 'We were unable to verify phily.ga',
+                    'status' => 422,
+                    'source' => 'domain_name'
+                ]
+            ])),
         ]);
 
         $guzzle = new Client(['handler' => HandlerStack::create($mock)]);
