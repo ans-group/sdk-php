@@ -28,7 +28,8 @@ class VerificationFile extends Entity
      */
     public function getName()
     {
-        $filenameMatch = preg_match('/filename="([[:alnum:]]+\.[[:alnum:]]+)"/', $this->response->getHeaders()['Content-Disposition'][0], $filename);
+        $contentDisposition = $this->response->getHeaders()['Content-Disposition'][0];
+        $filenameMatch      = preg_match('/filename="([[:alnum:]]+\.[[:alnum:]]+)"/', $contentDisposition, $filename);
 
         if ($filenameMatch === false || empty($filename[1])) {
             throw new UKFastException('Invalid filename');
