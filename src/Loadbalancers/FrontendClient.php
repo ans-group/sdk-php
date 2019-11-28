@@ -44,6 +44,8 @@ class FrontendClient extends Client
         'frontend_id' => 'frontendId',
     ];
 
+    protected $basePath = 'loadbalancers/';
+
     /**
      * Gets a paginated response of all Frontends
      *
