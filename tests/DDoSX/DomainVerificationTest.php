@@ -28,12 +28,13 @@ class DomainVerificationTest extends TestCase
      */
     public function verify_domain_via_dns()
     {
-        $mock = new MockHandler([
+        $domainName = $this->faker->domainName;
+        $mock       = new MockHandler([
             new Response(200),
             new Response(422, [], json_encode([
                 'errors' => [
                     'title' => '"Verification Failed',
-                    'detail' => 'We were unable to verify phily.ga',
+                    'detail' => 'We were unable to verify ' . $domainName,
                     'status' => 422,
                     'source' => 'domain_name'
                 ]
@@ -43,7 +44,7 @@ class DomainVerificationTest extends TestCase
         $guzzle = new Client(['handler' => HandlerStack::create($mock)]);
         $client = new DomainVerificationClient($guzzle);
 
-        $this->assertTrue($client->verifyByDns($this->faker->domainName));
+        $this->assertTrue($client->verifyByDns($domainName));
 
         $this->expectException(ValidationException::class);
         $client->verifyByDns($this->faker->domainName);
@@ -54,12 +55,13 @@ class DomainVerificationTest extends TestCase
      */
     public function verify_domain_via_file_upload()
     {
-        $mock = new MockHandler([
+        $domainName = $this->faker->domainName;
+        $mock       = new MockHandler([
             new Response(200),
             new Response(422, [], json_encode([
                 'errors' => [
                     'title' => '"Verification Failed',
-                    'detail' => 'We were unable to verify phily.ga',
+                    'detail' => 'We were unable to verify ' . $domainName,
                     'status' => 422,
                     'source' => 'domain_name'
                 ]
@@ -69,7 +71,7 @@ class DomainVerificationTest extends TestCase
         $guzzle = new Client(['handler' => HandlerStack::create($mock)]);
         $client = new DomainVerificationClient($guzzle);
 
-        $this->assertTrue($client->verifyByDns($this->faker->domainName));
+        $this->assertTrue($client->verifyByDns($domainName));
 
         $this->expectException(ValidationException::class);
         $client->verifyByDns($this->faker->domainName);
