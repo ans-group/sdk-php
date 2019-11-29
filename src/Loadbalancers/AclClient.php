@@ -22,6 +22,7 @@ class AclClient extends BaseClient
     const MATCH_MAP = [
         'header_id' => 'headerId',
         'match_case' => 'matchCase',
+        'path_id' => 'pathId',
     ];
 
     const HEADER_MAP = [];
