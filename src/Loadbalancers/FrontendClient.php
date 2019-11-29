@@ -191,7 +191,7 @@ class FrontendClient extends Client
         return (new SelfResponse($response))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new $this->apiFormatToSsl($response->data);
+                return $this->apiFormatToSsl((array) $response->data);
             });
     }
 
