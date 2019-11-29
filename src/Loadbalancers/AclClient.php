@@ -26,9 +26,7 @@ class AclClient extends BaseClient
 
     const HEADER_MAP = [];
 
-    const FREETYPE_MAP = [
-        'header_id' => 'headerId',
-    ];
+    const FREETYPE_MAP = [];
 
     const CONDITION_MAP = [
         'backend_id' => 'backendId',
@@ -250,14 +248,5 @@ class AclClient extends BaseClient
             ->serializeWith(function ($body) {
                 return new PathUrl($this->apiToFriendly($body->data, self::PATH_URL_MAP));
             });
-    }
-    
-    /**
-     * @param object $raw
-     * @return \UKFast\SDK\Loadbalancers\Entities\Acl
-     */
-    protected function serializeAcl($raw)
-    {
-        return new Acl($this->apiToFriendly($raw, self::MAP));
     }
 }

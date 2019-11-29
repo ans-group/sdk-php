@@ -6,8 +6,8 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $frontendId
- * @property string $backendId
+ * @property string $uuid
+ * @property string $string
  */
 class Freetype extends Entity
 {
