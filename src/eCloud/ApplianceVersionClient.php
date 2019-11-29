@@ -19,7 +19,12 @@ class ApplianceVersionClient extends Client
      */
     public function getDataPage($applianceVersionUuid, $page = 1, $perPage = 15, $filters = [])
     {
-        $page = $this->paginatedRequest("v1/appliance-version/$applianceVersionUuid/data", $page, $perPage, $filters);
+        $page = $this->paginatedRequest(
+            'v1/appliance-version/' . $applianceVersionUuid . '/data',
+            $page,
+            $perPage,
+            $filters
+        );
         $page->serializeWith(function ($item) {
             return new Data($item);
         });
@@ -36,7 +41,7 @@ class ApplianceVersionClient extends Client
      */
     public function getDataByKey($applianceVersionUuid, $key)
     {
-        $response = $this->get("v1/appliance-version/$applianceVersionUuid/data/$key");
+        $response = $this->get('v1/appliance-version/' . $applianceVersionUuid . '/data/' . $key);
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Data($body->data);
     }
