@@ -3,9 +3,9 @@
 namespace UKFast\SDK\Account;
 
 use UKFast\SDK\Account\Entities\Company;
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 
-class CompanyClient extends Client
+class CompanyClient extends BaseClient
 {
     protected $basePath = 'account/';
 
