@@ -18,11 +18,7 @@ class AccountClient extends Client
      */
     public function create(Account $account)
     {
-        $data = [
-            'reseller_id' => $account->resellerId
-        ];
-
-        $response = $this->post('v1/accounts', json_encode($data));
+        $response = $this->post('v1/accounts');
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
