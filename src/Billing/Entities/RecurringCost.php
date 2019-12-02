@@ -20,4 +20,29 @@ use UKFast\SDK\PSS\Entities\Product;
 class RecurringCost extends Entity
 {
     protected $dates = ['nextPaymentAt', 'createdAt'];
+
+    /**
+     * Returns interval & period as a friendly frequency
+     * @return string
+     */
+    public function frequency()
+    {
+        if ($this->period == 'month' && $this->interval == 1) {
+            return 'Monthly';
+        }
+
+        if ($this->period == 'month' && $this->interval == 3) {
+            return 'Quarterly';
+        }
+
+        if ($this->period == 'year' && $this->interval == 1) {
+            return 'Yearly';
+        }
+
+        if ($this->period == 'month') {
+            return 'Every ' . $this->interval . ' Months';
+        }
+
+        return 'Every ' . $this->interval . ' Years';
+    }
 }
