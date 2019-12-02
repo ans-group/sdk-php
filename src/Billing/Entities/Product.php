@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\SDK\PSS\Entities;
+namespace UKFast\SDK\Billing\Entities;
 
 use UKFast\SDK\Entity;
 

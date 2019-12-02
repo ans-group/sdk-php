@@ -88,6 +88,7 @@ class PssClientTest extends TestCase
             new Response(200, [], json_encode([
                 'data' => [[
                     'id' => 1,
+                    'request_id' => 123456,
                     'author' => [
                         'id' => 1,
                         'name' => 'Jonny Test',
@@ -125,6 +126,7 @@ class PssClientTest extends TestCase
         $reply = $page->getItems()[0];
 
         $this->assertEquals(1, $reply->id);
+        $this->assertEquals(123456, $reply->requestId);
         $this->assertEquals(1, $reply->author->id);
         $this->assertEquals('Jonny Test', $reply->author->name);
         $this->assertFalse($reply->read);
@@ -142,6 +144,7 @@ class PssClientTest extends TestCase
             new Response(200, [], json_encode([
                 'data' => [[
                     'id' => 1,
+                    'request_id' => 123456,
                     'author' => [
                         'id' => 1,
                         'name' => 'Jonny Test',
@@ -302,6 +305,7 @@ class PssClientTest extends TestCase
             new Response(200, [], json_encode([
                 'data' => [
                     'id' => "C485939",
+                    'request_id' => 123456,
                     'author' => [
                         'id' => 10,
                         'name' => 'Test Man',
@@ -323,8 +327,80 @@ class PssClientTest extends TestCase
 
         $this->assertTrue($reply instanceof \UKFast\SDK\PSS\Entities\Reply);
         $this->assertEquals('C485939', $reply->id);
+        $this->assertEquals(123456, $reply->requestId);
         $this->assertEquals('test', $reply->description);
         $this->assertInstanceOf(DateTime::class, $reply->createdAt);
         $this->assertTrue($reply->read);
+    }
+
+    /**
+     * @test
+     */
+    public function gets_replies_without_request_id()
+    {
+        $mock = new MockHandler([
+            new Response(200, [], json_encode([
+                'data' => [
+                    [
+                        'id' => 1,
+                        'request_id' => 123456,
+                        'author' => [
+                            'id' => 1,
+                            'name' => 'Jonny Test',
+                            'type' => 'Client',
+                        ],
+                        'description' => 'Test',
+                        'created_at' => '2000-01-01T00:00:00+00',
+                        'attachments' => [],
+                        'read' => false,
+                    ],
+                    [
+                        'id' => 1,
+                        'request_id' => 654321,
+                        'author' => [
+                            'id' => 1,
+                            'name' => 'Jonny Test',
+                            'type' => 'Client',
+                        ],
+                        'description' => 'Test 2',
+                        'created_at' => '2000-01-01T00:00:00+00',
+                        'attachments' => [],
+                        'read' => false,
+                    ]
+                ],
+                'meta' => [
+                    'pagination' => [
+                        'total' => 2,
+                        'count' => 1,
+                        'per_page' => 2,
+                        'total_pages' => 1,
+                        'links' => [
+                            'next' => 'http://example.com/next',
+                            'previous' => 'http://example.com/previous',
+                            'first' => 'http://example.com/first',
+                            'last' => 'http://example.com/last',
+                        ]
+                    ]
+                ]
+            ])),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Client(['handler' => $handler]);
+
+        $client = new \UKFast\SDK\PSS\Client($guzzle);
+        $page = $client->replies()->getPageWithoutRequest();
+
+        $this->assertTrue($page instanceof \UKFast\SDK\Page);
+
+        $reply = $page->getItems()[0];
+
+        $this->assertEquals(1, $reply->id);
+        $this->assertEquals(123456, $reply->requestId);
+        $this->assertEquals(1, $reply->author->id);
+        $this->assertEquals('Jonny Test', $reply->author->name);
+        $this->assertFalse($reply->read);
+        $this->assertEquals('Test', $reply->description);
+        $this->assertInstanceOf(DateTime::class, $reply->createdAt);
+        $this->assertEquals('2000-01-01 00:00:00', $reply->createdAt->format('Y-m-d H:i:s'));
     }
 }

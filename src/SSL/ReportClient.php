@@ -6,12 +6,9 @@ use UKFast\SDK\Client;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\SSL\Entities\Report;
 use UKFast\SDK\SSL\Entities\ReportCertificate;
-use UKFast\Admin\Traits\Admin;
 
 class ReportClient extends Client implements ClientEntityInterface
 {
-    use Admin;
-
     protected $basePath = 'ssl/';
 
     /**
