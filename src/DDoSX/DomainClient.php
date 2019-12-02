@@ -2,9 +2,9 @@
 
 namespace UKFast\SDK\DDoSX;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 
-class DomainClient extends Client
+class DomainClient extends BaseClient
 {
     /**
      * @inheritDoc
@@ -68,7 +68,7 @@ class DomainClient extends Client
             $domain->externalDns = new Entities\ExternalDns([
                 'verified'           => $item->external_dns->verified,
                 'verificationString' => $item->external_dns->verification_string,
-                'dnsAliasTarget'   => $item->external_dns->dns_alias_target,
+                'dnsAliasTarget'     => $item->external_dns->target,
             ]);
         }
 
