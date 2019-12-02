@@ -7,6 +7,17 @@ use UKFast\SDK\Page;
 
 class ApplianceVersionClient extends Client
 {
+    const MAP = [
+        'id' => 'id',
+        'appliance_id' => 'applianceId',
+        'version' => 'version',
+        'script_template' => 'scriptTemplate',
+        'vm_template' => 'vmTemplate',
+        'active' => 'active',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
+    ];
+
     /**
      * Gets a paginated response of Data
      *
@@ -19,6 +30,7 @@ class ApplianceVersionClient extends Client
      */
     public function getDataPage($applianceVersionUuid, $page = 1, $perPage = 15, $filters = [])
     {
+        $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest(
             'v1/appliance-version/' . $applianceVersionUuid . '/data',
             $page,

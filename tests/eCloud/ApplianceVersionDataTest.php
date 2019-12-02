@@ -14,17 +14,17 @@ class ApplianceVersionDataTest extends TestCase
     {
         $data = [
             'id' => 'ccd66630-a25e-4281-9042-e83ff71c371e',
-            'appliance_id' => '2bb38535-9f11-49b0-b6dd-37e405b57cd8',
+            'applianceId' => '2bb38535-9f11-49b0-b6dd-37e405b57cd8',
             'version' => 2,
-            'script_template' => 'cat /var/www/html/wp-config.php',
-            'vm_template' => 'centos7-wordpress-v1.0.0',
+            'scriptTemplate' => 'cat /var/www/html/wp-config.php',
+            'vmTemplate' => 'centos7-wordpress-v1.0.0',
             'active' => true,
-            'created_at' => '2019-03-14T11:41:18+00:00',
-            'updated_at' => '2019-03-14T11:41:18+00:00',
+            'createdAt' => '2019-03-14T11:41:18+00:00',
+            'updatedAt' => '2019-03-14T11:41:18+00:00',
         ];
         $mock = new MockHandler([new Response(200, [], json_encode(['data' => $data, 'meta' => []]))]);
         $client = new \UKFast\SDK\eCloud\Client(new Guzzle(['handler' => HandlerStack::create($mock)]));
-        $applianceVersion = $client->appliance()->getVersion($data['appliance_id']);
+        $applianceVersion = $client->appliance()->getVersion($data['applianceId']);
         $this->assertTrue($applianceVersion instanceof \UKFast\SDK\eCloud\Entities\ApplianceVersion);
 
         $data = [
