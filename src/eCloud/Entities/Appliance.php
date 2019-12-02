@@ -16,3 +16,4 @@ use UKFast\SDK\Entity;
 class Appliance extends Entity
 {
 }
+

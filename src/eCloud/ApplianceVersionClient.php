@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\Appliance;
 use UKFast\SDK\eCloud\Entities\Appliance\Version\Data;
 use UKFast\SDK\Page;
 
@@ -54,7 +55,9 @@ class ApplianceVersionClient extends Client
     public function getDataByKey($applianceVersionUuid, $key)
     {
         $response = $this->get('v1/appliance-version/' . $applianceVersionUuid . '/data/' . $key);
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return new Data($body->data);
+        return new Data($this->apiToFriendly(
+            $this->decodeJson($response->getBody()->getContents())->data,
+            ApplianceVersionClient::MAP
+        ));
     }
 }

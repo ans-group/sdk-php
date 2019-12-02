@@ -33,7 +33,7 @@ class ApplianceClient extends Client
         $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest('v1/appliances', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Appliance($item);
+            return new Appliance($this->apiToFriendly($item, ApplianceClient::MAP));
         });
         return $page;
     }
@@ -48,8 +48,10 @@ class ApplianceClient extends Client
     public function getById($id)
     {
         $response = $this->get('v1/appliances/' . $id);
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return new Appliance($body->data);
+        return new Appliance($this->apiToFriendly(
+            $this->decodeJson($response->getBody()->getContents())->data,
+            ApplianceClient::MAP
+        ));
     }
 
     /**
@@ -62,8 +64,10 @@ class ApplianceClient extends Client
     public function getVersion($id)
     {
         $response = $this->get('v1/appliances/' . $id . '/version');
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return new ApplianceVersion($body->data);
+        return new ApplianceVersion($this->apiToFriendly(
+            $this->decodeJson($response->getBody()->getContents())->data,
+            ApplianceVersionClient::MAP
+        ));
     }
 
     /**
@@ -76,7 +80,9 @@ class ApplianceClient extends Client
     public function getData($id)
     {
         $response = $this->get('v1/appliances/' . $id . '/data');
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return new Data($body->data);
+        return new Data($this->apiToFriendly(
+            $this->decodeJson($response->getBody()->getContents())->data,
+            DataClient::MAP
+        ));
     }
 }
