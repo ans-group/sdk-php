@@ -2,12 +2,16 @@
 
 namespace UKFast\SDK;
 
+use DateTime;
+
 abstract class Entity
 {
     /**
      * @var array
      */
     protected $attributes = [];
+
+    protected $dates = [];
 
     /**
      * @param array $attributes
@@ -17,8 +21,8 @@ abstract class Entity
         if (is_object($attributes)) {
             $attributes = (array) $attributes;
         }
-        
-        $this->attributes = $attributes;
+
+        $this->fill($attributes);
     }
 
     /**
@@ -48,6 +52,15 @@ abstract class Entity
      */
     public function set($attr, $value)
     {
+        if (in_array($attr, $this->dates)) {
+            $datetime = DateTime::createFromFormat(DateTime::ISO8601, $value);
+            if (!$datetime) {
+                $datetime = DateTime::createFromFormat('Y-m-d', $value);
+            }
+
+            $value = $datetime;
+        }
+
         $this->attributes[$attr] = $value;
     }
 
@@ -68,7 +81,7 @@ abstract class Entity
     public function fill($attributes)
     {
         foreach ($attributes as $name => $value) {
-            $this->attributes[$name] = $value;
+            $this->set($name, $value);
         }
     }
 

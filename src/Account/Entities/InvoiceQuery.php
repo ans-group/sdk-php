@@ -62,6 +62,11 @@ class InvoiceQuery
     public $status;
 
     /**
+     * @var \DateTime
+     */
+    public $date;
+
+    /**
      * InvoiceQuery constructor.
      *
      * @param null $item
@@ -76,6 +81,10 @@ class InvoiceQuery
             ? DateTime::createFromFormat(DateTime::ISO8601, $item->resolution_date)
             : null;
 
+        $date = ($item->date != null)
+            ? DateTime::createFromFormat(DateTime::ISO8601, $item->date)
+            : null;
+
         $this->id = $item->id;
         $this->contactId = $item->contact_id;
         $this->amount = $item->amount;
@@ -86,6 +95,7 @@ class InvoiceQuery
         $this->contactMethod = $item->contact_method;
         $this->resolution = $item->resolution;
         $this->resolutionDate = $resolutionDate;
+        $this->date = $date;
         $this->status = $item->status;
     }
 }
