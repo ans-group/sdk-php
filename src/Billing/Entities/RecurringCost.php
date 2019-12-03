@@ -4,7 +4,7 @@ namespace UKFast\SDK\Billing\Entities;
 
 use UKFast\SDK\Entity;
 use DateTime;
-use UKFast\SDK\PSS\Entities\Product;
+use UKFast\SDK\Billing\Entities\Product;
 
 /**
  * @property int $id
