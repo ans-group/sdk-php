@@ -10,6 +10,8 @@ class GroupClient extends Client
 {
     const MAP = [];
 
+    protected $basePath = 'loadbalancers/';
+
     /**
      * Gets a paginated response of all Groups
      *
