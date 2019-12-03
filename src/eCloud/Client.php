@@ -84,16 +84,8 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
-    public function appliance()
+    public function appliances()
     {
         return (new ApplianceClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
-     * @return BaseClient
-     */
-    public function applianceVersion()
-    {
-        return (new ApplianceVersionClient($this->httpClient))->auth($this->token);
     }
 }
