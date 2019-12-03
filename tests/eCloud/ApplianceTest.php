@@ -23,7 +23,7 @@ class ApplianceTest extends TestCase
         ];
         $mock = new MockHandler([new Response(200, [], json_encode(['data' => $data, 'meta' => []]))]);
         $client = new \UKFast\SDK\eCloud\Client(new Guzzle(['handler' => HandlerStack::create($mock)]));
-        $appliance = $client->appliance()->getById($data['id']);
+        $appliance = $client->appliances()->getById($data['id']);
         $this->assertTrue($appliance instanceof \UKFast\SDK\eCloud\Entities\Appliance);
         foreach (array_keys($data) as $key) {
             $modelKey = lcfirst(str_replace('_', '', ucwords($key, '_')));
@@ -43,7 +43,7 @@ class ApplianceTest extends TestCase
         ];
         $mock = new MockHandler([new Response(200, [], json_encode(['data' => $data, 'meta' => []]))]);
         $client = new \UKFast\SDK\eCloud\Client(new Guzzle(['handler' => HandlerStack::create($mock)]));
-        $applianceVersion = $client->appliance()->getVersion($data['appliance_id']);
+        $applianceVersion = $client->appliances()->getVersion($data['appliance_id']);
         $this->assertTrue($applianceVersion instanceof \UKFast\SDK\eCloud\Entities\ApplianceVersion);
         foreach (array_keys($data) as $key) {
             $modelKey = lcfirst(str_replace('_', '', ucwords($key, '_')));
@@ -59,7 +59,7 @@ class ApplianceTest extends TestCase
         ];
         $mock = new MockHandler([new Response(200, [], json_encode(['data' => $data, 'meta' => []]))]);
         $client = new \UKFast\SDK\eCloud\Client(new Guzzle(['handler' => HandlerStack::create($mock)]));
-        $applianceVersionData = $client->appliance()->getData(null);
+        $applianceVersionData = $client->appliances()->getData(null);
         $this->assertTrue($applianceVersionData instanceof \UKFast\SDK\eCloud\Entities\Appliance\Version\Data);
         foreach (array_keys($data) as $key) {
             $modelKey = lcfirst(str_replace('_', '', ucwords($key, '_')));
