@@ -80,4 +80,20 @@ class Client extends BaseClient
     {
         return (new IopsClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function appliance()
+    {
+        return (new ApplianceClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function applianceVersion()
+    {
+        return (new ApplianceVersionClient($this->httpClient))->auth($this->token);
+    }
 }
