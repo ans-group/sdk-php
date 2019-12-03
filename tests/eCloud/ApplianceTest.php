@@ -36,10 +36,8 @@ class ApplianceTest extends TestCase
         $data = [
             'id' => 'ccd66630-a25e-4281-9042-e83ff71c371e',
             'appliance_id' => '2bb38535-9f11-49b0-b6dd-37e405b57cd8',
-            'version' => 2,
+            'description' => 'description',
             'script_template' => 'cat /var/www/html/wp-config.php',
-            'vm_template' => 'centos7-wordpress-v1.0.0',
-            'active' => true,
             'created_at' => '2019-03-14T11:41:18+00:00',
             'updated_at' => '2019-03-14T11:41:18+00:00',
         ];

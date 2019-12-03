@@ -11,10 +11,8 @@ class ApplianceVersionClient extends Client
     const MAP = [
         'id' => 'id',
         'appliance_id' => 'applianceId',
-        'version' => 'version',
+        'description' => 'description',
         'script_template' => 'scriptTemplate',
-        'vm_template' => 'vmTemplate',
-        'active' => 'active',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
