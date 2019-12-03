@@ -20,8 +20,6 @@ class ApplianceClient extends Client
     ];
 
     /**
-     * Gets a paginated response of Pods
-     *
      * @param int $page
      * @param int $perPage
      * @param array $filters
@@ -39,8 +37,6 @@ class ApplianceClient extends Client
     }
 
     /**
-     * Gets an individual Pod
-     *
      * @param int $id
      * @return Appliance
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -55,8 +51,6 @@ class ApplianceClient extends Client
     }
 
     /**
-     * Gets the latest appliance version
-     *
      * @param int $id
      * @return ApplianceVersion
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -71,8 +65,6 @@ class ApplianceClient extends Client
     }
 
     /**
-     * Gets the latest appliance version data
-     *
      * @param int $id
      * @return Data
      * @throws \GuzzleHttp\Exception\GuzzleException
