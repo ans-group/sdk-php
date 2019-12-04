@@ -12,6 +12,8 @@ class RootConfigClient extends Client
         'request_id' => 'requestId',
         'group_id' => 'groupId',
     ];
+    
+    protected $basePath = 'loadbalancers/';
 
     /**
      * Gets a paginated response of all Root configs

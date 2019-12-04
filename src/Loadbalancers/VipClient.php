@@ -10,6 +10,8 @@ class VipClient extends Client
 {
     const MAP = ['group_id' => 'groupId'];
 
+    protected $basePath = 'loadbalancers/';
+
     /**
      * Gets a paginated response of all Vips
      *
