@@ -52,11 +52,12 @@ class BackendClient extends Client
      * Creates a backend
      * @param \UKFast\SDK\Loadbalancers\Entities\Backend $backend
      * @return \UKFast\SDK\SelfResponse
-     */ 
+     */
     public function create($backend)
     {
         $response = $this->post('v2/backends', json_encode($this->friendlyToApi(
-            $backend, self::MAP
+            $backend,
+            self::MAP
         )));
 
         $response  = $this->decodeJson($response->getBody()->getContents());

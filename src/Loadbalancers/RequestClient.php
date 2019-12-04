@@ -54,7 +54,8 @@ class RequestClient extends Client
     public function create($request)
     {
         $response = $this->post('v2/requests', json_encode($this->friendlyToApi(
-            $request, self::MAP
+            $request,
+            self::MAP
         )));
 
         $response  = $this->decodeJson($response->getBody()->getContents());

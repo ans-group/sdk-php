@@ -51,11 +51,12 @@ class CustomOptionsClient extends Client
      * Creates a custom option
      * @param \UKFast\SDK\Loadbalancers\Entities\CustomOption $customOption
      * @return \UKFast\SDK\SelfResponse
-     */ 
+     */
     public function create($customOption)
     {
         $response = $this->post('v2/custom-options', json_encode($this->friendlyToApi(
-            $customOption, self::MAP
+            $customOption,
+            self::MAP
         )));
 
         $response  = $this->decodeJson($response->getBody()->getContents());

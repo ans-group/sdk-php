@@ -49,11 +49,12 @@ class ErrorPagesClient extends Client
      * Creates an error page
      * @param \UKFast\SDK\Loadbalancers\Entities\ErrorPage $errorPage
      * @return \UKFast\SDK\SelfResponse
-     */ 
+     */
     public function create($errorPage)
     {
         $response = $this->post('v2/error-pages', json_encode($this->friendlyToApi(
-            $errorPage, self::MAP
+            $errorPage,
+            self::MAP
         )));
 
         $response  = $this->decodeJson($response->getBody()->getContents());
