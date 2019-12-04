@@ -11,18 +11,17 @@ class Client extends BaseClient
         return (new BackendClient($this->httpClient))->auth($this->token);
     }
 
-    public function backends()
+    public function customOptions()
     {
         return (new CustomOptionsClient($this->httpClient))->auth($this->token);
     }
 
-
-    public function backends()
+    public function errorPages()
     {
         return (new ErrorPagesClient($this->httpClient))->auth($this->token);
     }
 
-    public function backends()
+    public function requestss()
     {
         return (new RequestClient($this->httpClient))->auth($this->token);
     }
@@ -42,12 +41,12 @@ class Client extends BaseClient
         return (new GroupClient($this->httpClient))->auth($this->token);
     }
 
-    public function groups()
+    public function rootConfigs()
     {
         return (new RootConfigClient($this->httpClient))->auth($this->token);
     }
 
-    public function groups()
+    public function vips()
     {
         return (new VipClient($this->httpClient))->auth($this->token);
     }
