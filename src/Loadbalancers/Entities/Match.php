@@ -6,9 +6,9 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $type
- * @property bool $matchCase
+ * @property string $headerId
  * @property string $pathId
+ * @property string $match
  */
 class Match extends Entity
 {
