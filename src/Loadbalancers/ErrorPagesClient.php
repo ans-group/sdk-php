@@ -71,6 +71,6 @@ class ErrorPagesClient extends Client
      */
     protected function serializeErrorPage($raw)
     {
-        return new ErrorPage($this->friendlyToApi($raw, self::MAP));
+        return new ErrorPage($this->apiToFriendly($raw, self::MAP));
     }
 }
