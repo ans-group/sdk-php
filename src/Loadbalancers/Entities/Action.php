@@ -9,6 +9,7 @@ use UKFast\SDK\Entity;
  * @property string $function
  * @property string $firstArg
  * @property string $secondArg
+ * @property string $thirdArg
  * @property string $conditional
  * @property string $index
  */

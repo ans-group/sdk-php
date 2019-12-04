@@ -6,6 +6,7 @@ use UKFast\SDK\Account\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Acl;
 use UKFast\SDK\Loadbalancers\Entities\Action;
 use UKFast\SDK\Loadbalancers\Entities\Condition;
+use UKFast\SDK\Loadbalancers\Entities\Freetype;
 use UKFast\SDK\Loadbalancers\Entities\Header;
 use UKFast\SDK\Loadbalancers\Entities\Ip;
 use UKFast\SDK\Loadbalancers\Entities\Match;
@@ -40,7 +41,8 @@ class AclClient extends BaseClient
     ];
 
     const IP_MAP = [
-        'ip_address' => 'address'
+        'ip_address' => 'address',
+        'acl_id' => 'aclId'
     ];
 
     const PATH_URL_MAP = [];
@@ -96,7 +98,7 @@ class AclClient extends BaseClient
         $page = $this->paginatedRequest("v2/acls/$id/matches", $page, $perPage, $filters);
 
         $page->serializeWith(function ($item) {
-            return new Match($this->apiToFriendly($item, self::HEADER_MAP));
+            return new Match($this->apiToFriendly($item, self::MATCH_MAP));
         });
         return $page;
     }
