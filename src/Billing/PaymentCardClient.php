@@ -21,7 +21,7 @@ class PaymentCardClient extends BaseClient
     protected $basePath = 'billing/';
 
     /**
-     * Gets a paginated response of all recurring costs
+     * Gets a paginated response of all payment cards
      *
      * @param int $page
      * @param int $perPage
@@ -40,7 +40,7 @@ class PaymentCardClient extends BaseClient
     }
 
     /**
-     * Gets an individual recurring cost
+     * Gets an individual payment card
      *
      * @param $id
      * @return PaymentCard
