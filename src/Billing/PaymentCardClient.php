@@ -62,7 +62,7 @@ class PaymentCardClient extends BaseClient
      */
     public function create($paymentCard)
     {
-        $response = $this->post("v1/cards", $this->friendlyToApi($paymentCard, self::MAP));
+        $response = $this->post("v1/cards", json_encode($this->friendlyToApi($paymentCard, self::MAP)));
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
@@ -80,7 +80,7 @@ class PaymentCardClient extends BaseClient
      */
     public function update($id, $paymentCard)
     {
-        $response = $this->patch("v1/cards/$id", $this->friendlyToApi($paymentCard, self::MAP));
+        $response = $this->patch("v1/cards/$id", json_encode($this->friendlyToApi($paymentCard, self::MAP)));
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
