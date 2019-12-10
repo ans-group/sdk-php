@@ -21,4 +21,14 @@ use DateTime;
 class PaymentCard extends Entity
 {
     protected $dates = ['validFrom', 'expiry'];
+
+    public function isExpired()
+    {
+        return $this->expiry < date_format(new DateTime, 'Y-m-d');
+    }
+
+    public function isNotExpired()
+    {
+        return !$this->isExpired();
+    }
 }

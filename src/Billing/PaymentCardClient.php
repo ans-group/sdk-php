@@ -76,6 +76,7 @@ class PaymentCardClient extends BaseClient
      * @param $id
      * @param $paymentCard
      * @return SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function update($id, $paymentCard)
     {
@@ -92,6 +93,7 @@ class PaymentCardClient extends BaseClient
     /**
      * @param $id
      * @return void
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function destroy($id)
     {
