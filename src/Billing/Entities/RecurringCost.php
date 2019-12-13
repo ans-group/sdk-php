@@ -16,6 +16,9 @@ use UKFast\SDK\Billing\Entities\Product;
  * @property string $paymentMethod
  * @property DateTime $nextPaymentAt
  * @property DateTime $createdAt
+ * @property string $category
+ * @property string $description
+ * @property string $source
  */
 class RecurringCost extends Entity
 {

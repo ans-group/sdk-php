@@ -47,6 +47,19 @@ class RecurringCostClient extends BaseClient
     }
 
     /**
+     * @param $data
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function addRecurringCost($data)
+    {
+        $response = $this->post('v1/recurring-costs', json_encode($data));
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return $this->getByName($body->data->name);
+    }
+
+    /**
      * @param $item
      * @return RecurringCost
      */
