@@ -2,10 +2,10 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Loadbalancer;
 
-class LoadbalancerClient extends Client
+class LoadbalancerClient extends BaseClient
 {
     const MAP = [];
 
