@@ -27,10 +27,11 @@ class SelfResponse
     /**
      * SelfResponse constructor.
      * @param $response
+     * @param string $idProperty
      */
-    public function __construct($response)
+    public function __construct($response, $idProperty = "id")
     {
-        $this->id = $response->data->id;
+        $this->id = $response->data->{$idProperty};
         $this->location = $response->meta->location;
     }
 
