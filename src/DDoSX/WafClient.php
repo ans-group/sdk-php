@@ -24,7 +24,10 @@ class WafClient extends Client
      */
     public function create(Waf $waf)
     {
-        $response = $this->post('v1/domains/' . $waf->name . '/waf', json_encode($this->friendlyToApi($waf, $this->requestMap)));
+        $response = $this->post(
+            'v1/domains/' . $waf->name . '/waf',
+            json_encode($this->friendlyToApi($waf, $this->requestMap))
+        );
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($body, "domain_name"))

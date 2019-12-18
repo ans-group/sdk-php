@@ -19,7 +19,10 @@ class CdnClient extends Client
      */
     public function create(Cdn $cdn)
     {
-        $response = $this->post('v1/domains/' . $cdn->name . '/cdn', json_encode($this->friendlyToApi($cdn, $this->requestMap)));
+        $response = $this->post(
+            'v1/domains/' . $cdn->name . '/cdn',
+            json_encode($this->friendlyToApi($cdn, $this->requestMap))
+        );
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($body, "domain_name"))
