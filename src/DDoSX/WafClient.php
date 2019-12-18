@@ -2,7 +2,6 @@
 
 namespace UKFast\SDK\DDoSX;
 
-use UKFast\Admin\DDoSX\Entities\AdminWaf;
 use UKFast\SDK\Client;
 use UKFast\SDK\DDoSX\Entities\Waf;
 use UKFast\SDK\SelfResponse;
@@ -20,10 +19,10 @@ class WafClient extends Client
     ];
 
     /**
-     * @param AdminWaf $waf
+     * @param Waf $waf
      * @return SelfResponse
      */
-    public function create(AdminWaf $waf)
+    public function create(Waf $waf)
     {
         $response = $this->post('v1/domains/' . $waf->name . '/waf', json_encode($this->friendlyToApi($waf, $this->requestMap)));
         $body = $this->decodeJson($response->getBody()->getContents());

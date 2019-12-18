@@ -2,7 +2,6 @@
 
 namespace UKFast\SDK\DDoSX;
 
-use UKFast\Admin\DDoSX\Entities\AdminCdn;
 use UKFast\SDK\Client;
 use UKFast\SDK\DDoSX\Entities\Cdn;
 use UKFast\SDK\SelfResponse;
@@ -15,10 +14,10 @@ class CdnClient extends Client
     protected $basePath = 'ddosx/';
 
     /**
-     * @param AdminCdn $cdn
+     * @param Cdn $cdn
      * @return SelfResponse
      */
-    public function create(AdminCdn $cdn)
+    public function create(Cdn $cdn)
     {
         $response = $this->post('v1/domains/' . $cdn->name . '/cdn', json_encode($this->friendlyToApi($cdn, $this->requestMap)));
         $body = $this->decodeJson($response->getBody()->getContents());
