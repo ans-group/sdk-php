@@ -2,7 +2,10 @@
 
 namespace UKFast\SDK\DDoSX;
 
+use UKFast\Admin\DDoSX\Entities\AdminDomain;
 use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\DDoSX\Entities\Domain;
+use UKFast\SDK\SelfResponse;
 
 class DomainClient extends BaseClient
 {
@@ -45,6 +48,22 @@ class DomainClient extends BaseClient
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return $this->serializeDomain($body->data);
+    }
+
+    /**
+     * @param AdminDomain $domain
+     * @return SelfResponse
+     */
+    public function create(AdminDomain $domain)
+    {
+        $response = $this->post('v1/domains', json_encode($this->friendlyToApi($domain, $this->requestMap)));
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($body, "name"))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Domain($this->apiToFriendly($response->data[0], $this->requestMap));
+            });
     }
 
     /**
