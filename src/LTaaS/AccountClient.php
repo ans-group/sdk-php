@@ -3,7 +3,6 @@
 namespace UKFast\SDK\LTaaS;
 
 use GuzzleHttp\Exception\GuzzleException;
-use UKFast\SDK\Loadbalancers\Entities\Frontend;
 use UKFast\SDK\LTaaS\Entities\Account;
 use UKFast\SDK\SelfResponse;
 
