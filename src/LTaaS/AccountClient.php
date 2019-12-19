@@ -3,6 +3,7 @@
 namespace UKFast\SDK\LTaaS;
 
 use GuzzleHttp\Exception\GuzzleException;
+use UKFast\SDK\Loadbalancers\Entities\Frontend;
 use UKFast\SDK\LTaaS\Entities\Account;
 use UKFast\SDK\SelfResponse;
 
@@ -12,20 +13,18 @@ class AccountClient extends Client
 
     /**
      * Get the latest authorisation agreement
-     * @param Account $account
      * @return SelfResponse
      * @throws GuzzleException
      */
-    public function create(Account $account)
+    public function create()
     {
         $response = $this->post('v1/accounts');
+        $response = $this->decodeJson($response->getBody()->getContents());
 
-        $body = $this->decodeJson($response->getBody()->getContents());
-
-        return (new SelfResponse($body))
+        return (new SelfResponse($response))
             ->setClient($this)
-            ->serializeWith(function ($body) {
-                return $this->serializeRequest($body->data);
+            ->serializeWith(function ($response) {
+                return new Account($response->data);
             });
     }
 }
