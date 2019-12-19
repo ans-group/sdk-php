@@ -7,7 +7,6 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  */
-
 class Account extends Entity
 {
 }
