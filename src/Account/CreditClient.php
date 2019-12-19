@@ -2,10 +2,10 @@
 
 namespace UKFast\SDK\Account;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Account\Entities\Credit;
 
-class CreditClient extends Client
+class CreditClient extends BaseClient
 {
     protected $basePath = 'account/';
 
