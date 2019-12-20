@@ -11,6 +11,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function accounts()
+    {
+        return (new AccountClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function domains()
     {
         return (new DomainClient($this->httpClient))->auth($this->token);
