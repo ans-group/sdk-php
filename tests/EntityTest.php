@@ -162,5 +162,5 @@ class EntityTest extends TestCase
  */
 class Contact extends Entity
 {
-    protected $readOnly = ['createdDate'];
+    //
 }
