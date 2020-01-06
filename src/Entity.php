@@ -29,28 +29,32 @@ abstract class Entity implements ArrayAccess
     /**
      * @inheritDoc
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset)
+    {
         return array_key_exists($offset, $this->attributes);
     }
 
     /**
      * @inheritDoc
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset)
+    {
         return $this->attributes[$offset];
     }
 
     /**
      * @inheritDoc
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value)
+    {
         $this->attributes[$offset] = $value;
     }
 
     /**
      * @inheritDoc
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset)
+    {
         unset($this->attributes[$offset]);
     }
 
