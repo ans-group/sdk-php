@@ -13,6 +13,8 @@ class DomainClient extends BaseClient
      */
     protected $basePath = 'ddosx/';
 
+    protected $requestMap = [];
+
     /**
      * Gets a paginated response of all DDoSX domains
      *

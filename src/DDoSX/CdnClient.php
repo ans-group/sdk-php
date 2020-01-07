@@ -13,6 +13,8 @@ class CdnClient extends Client
      */
     protected $basePath = 'ddosx/';
 
+    protected $requestMap = [];
+
     /**
      * @param Cdn $cdn
      * @return SelfResponse
