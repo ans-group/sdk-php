@@ -92,7 +92,7 @@ class PodClient extends Client
     {
         $page = $this->paginatedRequest("v1/pods/$id/appliances", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Appliance($item);
+            return new Appliance($this->apiToFriendly($item, ApplianceClient::MAP));
         });
 
         return $page;
