@@ -2,11 +2,11 @@
 
 namespace UKFast\SDK\DDoSX;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\Waf;
 use UKFast\SDK\SelfResponse;
 
-class WafClient extends Client
+class WafClient extends BaseClient
 {
     /**
      * @inheritDoc

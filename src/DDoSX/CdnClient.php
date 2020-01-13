@@ -2,11 +2,11 @@
 
 namespace UKFast\SDK\DDoSX;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\Cdn;
 use UKFast\SDK\SelfResponse;
 
-class CdnClient extends Client
+class CdnClient extends BaseClient
 {
     /**
      * @inheritDoc
