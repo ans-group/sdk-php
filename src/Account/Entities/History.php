@@ -1,0 +1,19 @@
+<?php
+
+namespace UKFast\SDK\Account\Entities;
+
+use UKFast\SDK\Entity;
+
+/**
+ * @property int $id
+ * @property int $contact_id
+ * @property string $username
+ * @property string $date
+ * @property string $reason
+ * @property string $ip
+ * @property string $url
+ * @property string $useragent
+ */
+class History extends Entity
+{
+}
