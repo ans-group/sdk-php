@@ -22,6 +22,26 @@ class Client extends BaseClient
     }
 
     /**
+     * Return a cdnClient instance
+     *
+     * @return CdnClient
+     */
+    public function cdn()
+    {
+        return (new CdnClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return a wafClient instance
+     *
+     * @return WafClient
+     */
+    public function waf()
+    {
+        return (new WafClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
      * Return a DomainVerificationClient instance
      *
      * @return DomainVerificationClient
