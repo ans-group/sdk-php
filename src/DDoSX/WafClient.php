@@ -33,7 +33,7 @@ class WafClient extends BaseClient
         return (new SelfResponse($body, "domain_name"))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new Waf($this->apiToFriendly($response->data[0], $this->requestMap));
+                return new Waf($this->apiToFriendly($response->data, $this->requestMap));
             });
     }
 }
