@@ -6,14 +6,15 @@ use UKFast\SDK\Entity;
 
 /**
  * @property int $id
- * @property int $contact_id
+ * @property int $contactId
  * @property string $username
  * @property string $date
  * @property string $reason
  * @property string $ip
  * @property string $url
- * @property string $useragent
+ * @property string $userAgent
  */
 class History extends Entity
 {
+    protected $dates = ['date'];
 }
