@@ -30,7 +30,7 @@ class CdnClient extends BaseClient
         return (new SelfResponse($body, "domain_name"))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new Cdn($this->apiToFriendly($response->data[0], $this->requestMap));
+                return new Cdn($this->apiToFriendly($response->data, $this->requestMap));
             });
     }
 }

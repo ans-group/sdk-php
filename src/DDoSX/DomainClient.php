@@ -63,7 +63,7 @@ class DomainClient extends BaseClient
         return (new SelfResponse($body, "name"))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new Domain($this->apiToFriendly($response->data[0], $this->requestMap));
+                return new Domain($this->apiToFriendly($response->data, $this->requestMap));
             });
     }
 
