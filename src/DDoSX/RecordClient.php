@@ -48,7 +48,7 @@ class RecordClient extends BaseClient
      */
     public function destroy(Record $record)
     {
-        $response = $this->delete("v1/domains/".$record->domainName."/records/".$record->id);
+        $response = $this->delete("v1/domains/".$record->domain_name."/records/".$record->id);
 
         return $response->getStatusCode() == 204;
     }
