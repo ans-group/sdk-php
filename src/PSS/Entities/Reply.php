@@ -4,7 +4,15 @@ namespace UKFast\SDK\PSS\Entities;
 
 class Reply
 {
+    /**
+     * @var int
+     */
     public $id;
+
+    /**
+     * @var int
+     */
+    public $requestId;
 
     /**
      * @var \UKFast\SDK\Pss\Entities\Author
@@ -25,4 +33,9 @@ class Reply
      * @var array
      */
     public $attachments = [];
+
+    /**
+     * @var bool
+     */
+    public $read;
 }

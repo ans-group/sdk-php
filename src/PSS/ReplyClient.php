@@ -9,6 +9,8 @@ use UKFast\SDK\SelfResponse;
 
 class ReplyClient extends BaseClient
 {
+    protected $basePath = 'pss/';
+
     /**
      * Gets a paginated response of all replies to a ticket
      *
@@ -39,6 +41,25 @@ class ReplyClient extends BaseClient
         $response = $this->request("GET", "v1/replies/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->serializeReply($body->data);
+    }
+
+    /**
+     * Gets a paginated response of all replies to a ticket
+     *
+     * @param int $requestId - ID of request replies belong to
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return \UKFast\SDK\Page
+     */
+    public function getPageWithoutRequest($page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest("v1/replies", $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return $this->serializeReply($item);
+        });
+
+        return $page;
     }
 
     /**
@@ -75,6 +96,7 @@ class ReplyClient extends BaseClient
      */
     public function upload($replyId, $name, $content)
     {
+        $name = str_replace("#", "%23", $name);
         $uri = "v1/replies/$replyId/attachments/$name";
         $response = $this->request('POST', $uri, $content);
 
@@ -87,10 +109,11 @@ class ReplyClient extends BaseClient
     /**
      * Downloads an attachment
      *
-     * @return \GuzzleHttp\Psr7\Stream
+     * @return \UKFast\SDK\PSS\Entities\Download
      */
     public function download($replyId, $name)
     {
+        $name = str_replace("#", "%23", $name);
         return new Download(
             $this->request('GET', "v1/replies/$replyId/attachments/$name")
         );
@@ -118,9 +141,11 @@ class ReplyClient extends BaseClient
         $reply = new Entities\Reply;
         
         $reply->id = $item->id;
+        $reply->requestId = $item->request_id;
         $reply->author = new Entities\Author($item->author);
         $reply->description = $item->description;
         $reply->createdAt = DateTime::createFromFormat(DateTime::ISO8601, $item->created_at);
+        $reply->read = $item->read;
 
         foreach ($item->attachments as $attachment) {
             $reply->attachments[] = new Entities\Attachment($attachment);

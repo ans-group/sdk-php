@@ -8,12 +8,19 @@ class Client extends BaseClient
 {
     protected $basePath = 'ssl/';
 
-
     /**
      * @return BaseClient
      */
     public function certificates()
     {
         return (new CertificateClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ReportClient
+     */
+    public function reports()
+    {
+        return (new ReportClient($this->httpClient))->auth($this->token);
     }
 }

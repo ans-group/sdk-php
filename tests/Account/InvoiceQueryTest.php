@@ -32,7 +32,11 @@ class InvoiceQueryTest extends TestCase
                             2456789,
                             1245678
                     ],
-                    "contact_method" => "email"
+                    "contact_method" => "email",
+                    "resolution" => "This issue was resolved.",
+                    "resolution_date" => '2019-10-25T00:00:00+01:00',
+                    "status" => "Submitted",
+                    "date" => "2019-11-07T10:56:54+00:00"
                 ],
                 "meta" => []
             ])),
@@ -55,6 +59,10 @@ class InvoiceQueryTest extends TestCase
         $this->assertEquals("Resolve the difference", $invoiceQuery->proposedSolution);
         $this->assertEquals([2514571, 2456789, 1245678], $invoiceQuery->invoiceIds);
         $this->assertEquals("email", $invoiceQuery->contactMethod);
+        $this->assertEquals("This issue was resolved.", $invoiceQuery->resolution);
+        $this->assertInstanceOf(DateTime::class, $invoiceQuery->resolutionDate);
+        $this->assertEquals("Submitted", $invoiceQuery->status);
+        $this->assertInstanceOf(DateTime::class, $invoiceQuery->date);
     }
 
     /**
@@ -67,13 +75,13 @@ class InvoiceQueryTest extends TestCase
                 'id' => 123
             ],
             'meta' => (object) [
-                'location' => 'https://api.ukfast.io/v1/invoices/query/123'
+                'location' => 'https://api.ukfast.io/account/v1/invoice-queries/123'
             ],
         ];
 
         $selfResponse = new SelfResponse($response);
 
         $this->assertEquals(123, $selfResponse->getId());
-        $this->assertEquals('https://api.ukfast.io/v1/invoices/query/123', $selfResponse->getLocation());
+        $this->assertEquals('https://api.ukfast.io/account/v1/invoice-queries/123', $selfResponse->getLocation());
     }
 }

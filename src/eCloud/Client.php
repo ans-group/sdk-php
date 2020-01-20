@@ -72,4 +72,20 @@ class Client extends BaseClient
     {
         return (new VirtualMachineClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function iops()
+    {
+        return (new IopsClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function appliances()
+    {
+        return (new ApplianceClient($this->httpClient))->auth($this->token);
+    }
 }

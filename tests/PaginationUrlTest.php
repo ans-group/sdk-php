@@ -31,7 +31,7 @@ class PaginationUrlTest extends TestCase
     public function applies_filter_values()
     {
         $url = new PaginationUrl("/my-endpoint", 1, 10, ['id:eq' => 12]);
-        $this->assertEquals("/my-endpoint?page=1&per_page=10&id%3Aeq=12", $url->toString());
+        $this->assertEquals("/my-endpoint?page=1&per_page=10&id:eq=12", $url->toString());
     }
 
     /**
@@ -40,7 +40,7 @@ class PaginationUrlTest extends TestCase
     public function url_encodes_filter_values()
     {
         $url = new PaginationUrl("/my-endpoint", 1, 10, ['desc:eq' => '99% Memory Usage']);
-        $this->assertEquals("/my-endpoint?page=1&per_page=10&desc%3Aeq=99%25+Memory+Usage", $url->toString());
+        $this->assertEquals("/my-endpoint?page=1&per_page=10&desc:eq=99% Memory Usage", $url->toString());
     }
 
     /**
@@ -49,7 +49,7 @@ class PaginationUrlTest extends TestCase
     public function converts_filter_arrays_into_comma_delimited_string()
     {
         $url = new PaginationUrl("/my-endpoint", 1, 10, ['id:in' => [1, 2, 3, 4]]);
-        $this->assertEquals("/my-endpoint?page=1&per_page=10&id%3Ain=1%2C2%2C3%2C4", $url->toString());
+        $this->assertEquals("/my-endpoint?page=1&per_page=10&id:in=1,2,3,4", $url->toString());
     }
 
     /**
@@ -59,5 +59,14 @@ class PaginationUrlTest extends TestCase
     {
         $url = new PaginationUrl("/my-endpoint", 1, 10, ['archived' => true]);
         $this->assertEquals("/my-endpoint?page=1&per_page=10&archived=true", $url->toString());
+    }
+
+    /**
+     * @test
+     */
+    public function starts_query_with_ampersand_if_a_query_string_is_already_present()
+    {
+        $url = new PaginationUrl("/my-endpoint?some-query-string=present", 1, 10);
+        $this->assertEquals("/my-endpoint?some-query-string=present&page=1&per_page=10", $url->toString());
     }
 }

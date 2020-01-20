@@ -13,21 +13,29 @@ class ApiException extends UKFastException
     public function __construct($response)
     {
         $response->getBody()->rewind();
-        $body = json_decode($response->getBody()->getContents());
+        $this->response = $response;
+
+        $raw = $response->getBody()->getContents();
+        $body = json_decode($raw);
         $err = json_last_error();
         if ($err !== JSON_ERROR_NONE) {
-            throw new InvalidJsonException($err);
+            throw new InvalidJsonException(json_last_error_msg() . ': ' . $raw);
         }
 
         if (isset($body->errors) && is_array($body->errors)) {
             $this->errors = $this->getErrorsFromBody($body);
+        } elseif (isset($body->message)) {
+            $this->errors = $this->getApiGatewayErrorFromBody($body);
         }
 
         if (!empty($this->errors)) {
-            $this->message = $this->errors[0]->detail;
-        }
+            $message = $this->errors[0]->detail;
+            if (empty($message)) {
+                $message = $this->errors[0]->title;
+            }
 
-        $this->response = $response;
+            $this->message = $message;
+        }
     }
 
     /**
@@ -54,6 +62,15 @@ class ApiException extends UKFastException
         return $this->response;
     }
 
+    public function getRequestId()
+    {
+        if (!empty($this->response->getHeader('Request-ID'))) {
+            return $this->response->getHeader('Request-ID')[0];
+        }
+
+        return null;
+    }
+
     private function getErrorsFromBody($body)
     {
         $errors = [];
@@ -66,5 +83,15 @@ class ApiException extends UKFastException
         }
 
         return $errors;
+    }
+
+    private function getApiGatewayErrorFromBody($body)
+    {
+        $error = new ApiError;
+        $error->title = 'API Gateway Error';
+        $error->detail = $body->message;
+        $error->status = $this->response->getStatusCode();
+
+        return [$error];
     }
 }

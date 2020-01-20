@@ -10,33 +10,6 @@ use UKFast\SDK\eCloud\Entities\Datastore;
 class DatastoreClient extends Client implements ClientEntityInterface
 {
     /**
-     * Create a datastore
-     * @param Datastore $datastore
-     * @return bool
-     */
-    public function create(Datastore $datastore)
-    {
-        $data = json_encode(
-            [
-                'name' => $datastore->name,
-                'solution_id' => $datastore->solutionId,
-                'capacity' => $datastore->capacity
-            ]
-        );
-
-        if (!empty($datastore->siteId)) {
-            $data['site_id'] = $datastore->siteId;
-        }
-
-        $response = $this->post(
-            'v1/datastores',
-            $data
-        );
-
-        return $response->getStatusCode() == 202;
-    }
-
-    /**
      * Gets a paginated response of Datastores
      *
      * @param int $page
@@ -62,7 +35,7 @@ class DatastoreClient extends Client implements ClientEntityInterface
      */
     public function expand(Datastore $datastore)
     {
-        $data = json_encode(['size_gb' => $datastore->capacity]);
+        $data = json_encode(['capacity' => $datastore->capacity]);
 
         $response = $this->post(
             'v1/datastores/'. $datastore->id .'/expand',

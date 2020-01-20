@@ -2,19 +2,11 @@
 
 namespace UKFast\SDK\PSS\Entities;
 
-class Attachment
-{
-    /**
-     * @var string
-     */
-    public $name;
+use UKFast\SDK\Entity;
 
-    /**
-     * Attachment constructor.
-     * @param $item
-     */
-    public function __construct($item)
-    {
-        $this->name = $item->name;
-    }
+/**
+ * @property string $name
+ */
+class Attachment extends Entity
+{
 }

@@ -273,7 +273,7 @@ class ClientTest extends TestCase
             new Response(500, [], json_encode([
                 'errors' => [[
                     'title' => 'Testing errors',
-                    'detail' => 'Testing errors detail',
+                    'detail' => 'Testing errors',
                     'status' => 500,
                 ]]
             ])),
@@ -286,7 +286,34 @@ class ClientTest extends TestCase
             $client->request('GET', '/');
         } catch (ApiException $e) {
             $this->assertEquals(1, count($e->getErrors()));
-            $this->assertEquals('Testing errors detail', $e->getMessage());
+            $this->assertEquals('Testing errors', $e->getMessage());
+            return;
+        }
+
+        $this->expectException(ApiException::class);
+    }
+
+    /**
+     * @test
+     */
+    public function defaults_exception_message_to_title_if_no_detail_is_set()
+    {
+        $mock = new MockHandler([
+            new Response(500, [], json_encode([
+                'errors' => [[
+                    'title' => 'Testing errors title',
+                    'status' => 500,
+                ]]
+            ])),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Guzzle(['handler' => $handler]);
+        $client = new Client($guzzle);
+
+        try {
+            $client->request('GET', '/');
+        } catch (ApiException $e) {
+            $this->assertEquals('Testing errors title', $e->getMessage());
             return;
         }
 
@@ -397,5 +424,101 @@ class ClientTest extends TestCase
         
         $this->assertEquals(1, count($container));
         $this->assertEquals('DELETE', $container[0]['request']->getMethod());
+    }
+
+    /**
+     * @test
+     */
+    public function maps_friendly_names_to_api_names()
+    {
+        $map = ['created_at' => 'createdAt'];
+        $api = (new Client)->friendlyToApi([
+            'id' => 1,
+            'createdAt' => '2018-01-01 10:00:00',
+            'name' => 'Test',
+        ], $map);
+
+        $this->assertEquals([
+            'id' => 1,
+            'created_at' => '2018-01-01 10:00:00',
+            'name' => 'Test',
+        ], $api);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_api_names_to_friendly_names()
+    {
+        $map = ['created_at' => 'createdAt'];
+        $friendly = (new Client)->apiToFriendly([
+            'id' => 1,
+            'created_at' => '2018-01-01 10:00:00',
+            'name' => 'Test',
+        ], $map);
+
+        $this->assertEquals([
+            'id' => 1,
+            'createdAt' => '2018-01-01 10:00:00',
+            'name' => 'Test',
+        ], $friendly);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_api_names_to_friendly_names_with_filters()
+    {
+        $map = ['key_with_filter' => 'keyWithFilter'];
+        $friendly = (new Client)->apiToFriendly([
+            'key_with_filter:eq' => 1,
+        ], $map);
+
+        $this->assertEquals([
+            'keyWithFilter:eq' => 1,
+        ], $friendly);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_friendly_names_to_api_names_with_filters()
+    {
+        $map = ['key_with_filter' => 'keyWithFilter'];
+        $friendly = (new Client)->friendlyToApi([
+            'keyWithFilter:eq' => 1,
+        ], $map);
+
+        $this->assertEquals([
+            'key_with_filter:eq' => 1,
+        ], $friendly);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_api_names_to_friendly_names_without_mapping()
+    {
+        $friendly = (new Client)->apiToFriendly([
+            'key_not_existing' => 'na',
+        ], []);
+
+        $this->assertEquals([
+            'key_not_existing' => 'na',
+        ], $friendly);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_friendly_names_to_api_names_without_mapping()
+    {
+        $friendly = (new Client)->friendlyToApi([
+            'key_not_existing' => 1,
+        ], []);
+
+        $this->assertEquals([
+            'key_not_existing' => 1,
+        ], $friendly);
     }
 }
