@@ -2,14 +2,18 @@
 
 namespace UKFast\SDK\DDoSX;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\DDoSX\Entities\Domain;
+use UKFast\SDK\SelfResponse;
 
-class DomainClient extends Client
+class DomainClient extends BaseClient
 {
     /**
      * @inheritDoc
      */
     protected $basePath = 'ddosx/';
+
+    protected $requestMap = [];
 
     /**
      * Gets a paginated response of all DDoSX domains
@@ -48,6 +52,22 @@ class DomainClient extends Client
     }
 
     /**
+     * @param Domain $domain
+     * @return SelfResponse
+     */
+    public function create(Domain $domain)
+    {
+        $response = $this->post('v1/domains', json_encode($this->friendlyToApi($domain, $this->requestMap)));
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($body, "name"))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Domain($this->apiToFriendly($response->data, $this->requestMap));
+            });
+    }
+
+    /**
      * Converts a response stdClass into a Domain object
      *
      * @param \stdClass
@@ -68,7 +88,7 @@ class DomainClient extends Client
             $domain->externalDns = new Entities\ExternalDns([
                 'verified'           => $item->external_dns->verified,
                 'verificationString' => $item->external_dns->verification_string,
-                'dnsAliasTarget'   => $item->external_dns->dns_alias_target,
+                'dnsAliasTarget'     => $item->external_dns->target,
             ]);
         }
 
