@@ -20,11 +20,11 @@ use DateTime;
  */
 class PaymentCard extends Entity
 {
-    protected $dates = ['validFrom', 'expiry'];
+    protected $dates = [];
 
     public function isExpired()
     {
-        return $this->expiry < new DateTime();
+        return new DateTime($this->expiry) < new DateTime();
     }
 
     public function isNotExpired()
