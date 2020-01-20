@@ -14,6 +14,7 @@ class PaymentCardClientTest extends TestCase
 {
     /**
      * @test
+     * @throws \Exception
      */
     public function get_payment_cards_by_id()
     {
@@ -50,8 +51,8 @@ class PaymentCardClientTest extends TestCase
         $this->assertEquals("M44 0AB", $paymentCard->postcode);
         $this->assertEquals("4111111111111111", $paymentCard->cardNumber);
         $this->assertEquals("Visa", $paymentCard->cardType);
-        $this->assertEquals('2019-10-31T00:00:00+0000', $paymentCard->validFrom->format(DateTime::ISO8601));
-        $this->assertEquals('2035-10-31T00:00:00+0000', $paymentCard->expiry->format(DateTime::ISO8601));
+        $this->assertEquals('2019-10-31T00:00:00+0000', (new DateTime($paymentCard->validFrom))->format(DateTime::ISO8601));
+        $this->assertEquals('2035-10-31T00:00:00+0000', (new DateTime($paymentCard->expiry))->format(DateTime::ISO8601));
         $this->assertEquals(12, $paymentCard->issueNumber);
         $this->assertTrue(true, $paymentCard->primaryCard);
 
