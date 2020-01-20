@@ -2,12 +2,12 @@
 
 namespace UKFast\SDK\SSL;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Page;
 use UKFast\SDK\SSL\Entities\Certificate;
 use UKFast\SDK\SSL\Entities\CertificatePEM;
 
-class CertificateClient extends Client
+class CertificateClient extends BaseClient
 {
     protected $basePath = 'ssl/';
 
