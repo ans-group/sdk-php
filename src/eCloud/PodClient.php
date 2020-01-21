@@ -1,15 +1,23 @@
 <?php
 
 namespace UKFast\SDK\eCloud;
+;
 
+use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 
 use UKFast\SDK\eCloud\Entities\Appliance;
 use UKFast\SDK\eCloud\Entities\Pod;
 use UKFast\SDK\eCloud\Entities\Template;
 
-class PodClient extends Client
+class PodClient extends Client implements ClientEntityInterface
 {
+    const MAP = [
+        'id' => 'id',
+        'name' => 'name',
+        'services' => 'services'
+    ];
+
     /**
      * Gets a paginated response of Pods
      *
@@ -23,7 +31,7 @@ class PodClient extends Client
     {
         $page = $this->paginatedRequest("v1/pods", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Pod($item);
+            return $this->loadEntity($item);
         });
 
         return $page;
@@ -38,9 +46,8 @@ class PodClient extends Client
      */
     public function getById($id)
     {
-        $response = $this->get("v1/pods/$id");
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return new Pod($body->data);
+        $response = $this->get('v1/pods/' . $id);
+        return $this->loadEntity($this->decodeJson($response->getBody()->getContents())->data);
     }
 
     /**
@@ -96,5 +103,15 @@ class PodClient extends Client
         });
 
         return $page;
+    }
+
+    /**
+     * Load Pod Entity
+     * @param $data
+     * @return mixed|Pod
+     */
+    public function loadEntity($data)
+    {
+        return new Pod($this->apiToFriendly($data, static::MAP));
     }
 }
