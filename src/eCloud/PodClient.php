@@ -1,7 +1,6 @@
 <?php
 
 namespace UKFast\SDK\eCloud;
-;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
