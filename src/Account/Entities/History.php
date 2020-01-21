@@ -8,7 +8,7 @@ use UKFast\SDK\Entity;
  * @property int $id
  * @property int $contactId
  * @property string $username
- * @property string $date
+ * @property string $created_at
  * @property string $reason
  * @property string $ip
  * @property string $url
@@ -16,5 +16,5 @@ use UKFast\SDK\Entity;
  */
 class History extends Entity
 {
-    protected $dates = ['date'];
+    protected $dates = ['createdAt'];
 }

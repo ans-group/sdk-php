@@ -11,7 +11,7 @@ class HistoryClient extends BaseClient
         'id'         => 'id',
         'contact_id' => 'contactId',
         'username'   => 'username',
-        'date'       => 'date',
+        'created_at' => 'createdAt',
         'ip'         => 'ip',
         'url'        => 'url',
         'user_agent' => 'userAgent'
