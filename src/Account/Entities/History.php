@@ -8,7 +8,7 @@ use UKFast\SDK\Entity;
  * @property int $id
  * @property int $contactId
  * @property string $username
- * @property string $created_at
+ * @property string $createdAt
  * @property string $reason
  * @property string $ip
  * @property string $url
