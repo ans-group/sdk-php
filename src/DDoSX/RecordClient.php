@@ -7,20 +7,34 @@ use UKFast\SDK\DDoSX\Entities\Record;
 
 class RecordClient extends BaseClient
 {
+    /**
+     * @var string $basePath
+     */
     protected $basePath = 'ddosx/';
 
     /**
-     * @param $domainName
+     * @var array $requestMap
+     */
+    protected $requestMap = [
+        "domain_name" => "domainName",
+        "safedns_record_id" => "safednsRecordId",
+        "ssl_id" => "sslId"
+    ];
+
+    /**
+     * @param string $domainName
      * @param int $page
      * @param int $perPage
      * @param array $filters
      * @return int|\UKFast\SDK\Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getPage($domainName, $page = 1, $perPage = 20, $filters = [])
+    public function getPage($page = 1, $perPage = 20, $filters = [])
     {
-        $page = $this->paginatedRequest('v1/domains/' . $domainName . '/records', $page, $perPage, $filters);
+        $filters = $this->friendlyToApi($filters, $this->requestMap);
+        $page = $this->paginatedRequest('v1/records', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Record($item);
+            return new Record($this->apiToFriendly($item, $this->requestMap));
         });
 
         return $page;
@@ -51,5 +65,25 @@ class RecordClient extends BaseClient
         $response = $this->delete("v1/domains/".$record->domain_name."/records/".$record->id);
 
         return $response->getStatusCode() == 204;
+    }
+  
+    /**
+     * @param $domainName
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return int|\UKFast\SDK\Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getPageByDomainName($domainName, $page = 1, $perPage = 20, $filters = [])
+    {
+        $filters = $this->friendlyToApi($filters, $this->requestMap);
+
+        $page = $this->paginatedRequest('v1/domains/' . $domainName . '/records', $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return new Record($this->apiToFriendly($item, $this->requestMap));
+        });
+
+        return $page;
     }
 }
