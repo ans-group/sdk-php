@@ -22,12 +22,12 @@ class RecordClient extends BaseClient
     ];
 
     /**
-     * @param string $domainName
-     * @param int $page
-     * @param int $perPage
+     * Get paginated response of records
+     *
+     * @param int   $page
+     * @param int   $perPage
      * @param array $filters
      * @return int|\UKFast\SDK\Page
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 20, $filters = [])
     {
@@ -41,6 +41,8 @@ class RecordClient extends BaseClient
     }
 
     /**
+     * Get singular records by its Id
+     *
      * @param $domainName
      * @param $recordId
      * @return UKFast\SDK\DDoSX\Entities\Record
@@ -68,6 +70,8 @@ class RecordClient extends BaseClient
     }
   
     /**
+     * Get paginated response of records associated with a domain name
+     *
      * @param $domainName
      * @param int $page
      * @param int $perPage
