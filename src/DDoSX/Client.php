@@ -50,4 +50,14 @@ class Client extends BaseClient
     {
         return (new DomainVerificationClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * Return a RecordClient instance
+     *
+     * @return RecordClient
+     */
+    public function records()
+    {
+        return (new RecordClient($this->httpClient))->auth($this->token);
+    }
 }
