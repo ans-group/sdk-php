@@ -45,14 +45,14 @@ class RecordClient extends BaseClient
      *
      * @param $domainName
      * @param $recordId
-     * @return UKFast\SDK\DDoSX\Entities\Record
+     * @return Record
      */
     public function getById($domainName, $recordId)
     {
         $response = $this->request("GET", 'v1/domains/' . $domainName . '/records/' . $recordId);
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Record($body->data);
+        return new Record($this->apiToFriendly($body, $this->requestMap));
     }
 
     /**
