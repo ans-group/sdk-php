@@ -28,6 +28,11 @@ class Company
      * @var string
      */
     public $name;
+    
+    /**
+     * @var string
+     */
+    public $country;
 
     /**
      * Company constructor.
@@ -46,5 +51,7 @@ class Company
         $this->isDemoAccount = $item->is_demo_account;
 
         $this->name = $item->name;
+        
+        $this->country = $item->country;
     }
 }

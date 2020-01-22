@@ -4,10 +4,9 @@ namespace UKFast\SDK\Billing;
 
 use UKFast\SDK\Billing\Entities\CloudCost;
 use UKFast\SDK\Billing\Entities\Resource;
-use UKFast\SDK\Client;
-use UKFast\SDK\Exception\NotFoundException;
+use UKFast\SDK\Client as BaseClient;
 
-class CloudCostClient extends Client
+class CloudCostClient extends BaseClient
 {
     protected $basePath = 'billing/';
 
