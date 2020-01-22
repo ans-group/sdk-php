@@ -20,8 +20,8 @@ class CertificateClient extends Client
         'common_name'       => 'commonName',
         'alternative_names' => 'alternativeNames',
         'valid_days'        => 'validDays',
-        'ordered_date'      => 'orderedDate',
-        'renewal_date'      => 'renewalDate',
+        'ordered_date'      => 'orderedAt',
+        'renewal_date'      => 'renewalAt',
     ];
 
     /**

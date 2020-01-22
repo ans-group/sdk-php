@@ -61,8 +61,8 @@ class SslCertificateTest extends TestCase
         $this->assertEquals($response['common_name'], $certificate->commonName);
         $this->assertEquals($response['alternative_names'], $certificate->alternativeNames);
         $this->assertEquals($response['valid_days'], $certificate->validDays);
-        $this->assertEquals($response['ordered_date'], $certificate->orderedDate);
-        $this->assertEquals($response['renewal_date'], $certificate->renewalDate);
+        $this->assertEquals(DateTime::createFromFormat(DateTime::ATOM, $response['ordered_date']), $certificate->orderedAt);
+        $this->assertEquals(DateTime::createFromFormat(DateTime::ATOM, $response['renewal_date']), $certificate->renewalAt);
     }
 
     /**
@@ -144,20 +144,18 @@ class SslCertificateTest extends TestCase
 
         $mockHandler = new MockHandler([
             new Response(200, [], json_encode([
-                'data' => [
-                    [
-                        'id'                => $this->faker->randomDigitNotNull,
-                        'name'              => $this->faker->word,
-                        'status'            => $this->faker->word,
-                        'common_name'       => $this->faker->domainName,
-                        'alternative_names' => [
-                            $this->faker->domainName,
-                            $this->faker->domainName,
-                        ],
-                        'valid_days'        => $validDays,
-                        'ordered_date'      => (new DateTime('-' . (825 - $validDays) . ' days'))->format(DateTime::ATOM),
-                        'renewal_date'      => (new DateTime('+' . $validDays . ' days'))->format(DateTime::ATOM),
+            'data' => [
+                    'id'                => $this->faker->randomDigitNotNull,
+                    'name'              => $this->faker->word,
+                    'status'            => $this->faker->word,
+                    'common_name'       => $this->faker->domainName,
+                    'alternative_names' => [
+                        $this->faker->domainName,
+                        $this->faker->domainName,
                     ],
+                    'valid_days'        => $validDays,
+                    'ordered_date'      => (new DateTime('-' . (825 - $validDays) . ' days'))->format(DateTime::ATOM),
+                    'renewal_date'      => (new DateTime('+' . $validDays . ' days'))->format(DateTime::ATOM),
                 ],
                 'meta' => []
             ])),

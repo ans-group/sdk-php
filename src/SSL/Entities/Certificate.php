@@ -11,10 +11,18 @@ use UKFast\SDK\Entity;
  * @property $commonName
  * @property $alternativeNames
  * @property $validDays
- * @property $orderedDate
- * @property $renewalDate
+ * @property $orderedAt
+ * @property $renewalAt
  */
 class Certificate extends Entity
 {
-    //
+    /**
+     * Dates to map to \DateTime objects
+     *
+     * @var array $dates
+     */
+    protected $dates = [
+        'orderedAt',
+        'renewalAt',
+    ];
 }
