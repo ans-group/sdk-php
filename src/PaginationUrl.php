@@ -32,8 +32,8 @@ class PaginationUrl
             $startQuery = "&";
         }
 
-        $path .= "{$startQuery}page=".urlencode($this->page);
-        $path .= "&per_page=".urlencode($this->perPage);
+        $path .= "{$startQuery}page=".$this->page;
+        $path .= "&per_page=".$this->perPage;
 
         foreach ($this->filters as $prop => $filter) {
             if (is_array($filter)) {
@@ -42,7 +42,7 @@ class PaginationUrl
             if (is_bool($filter)) {
                 $filter = var_export($filter, true);
             }
-            $path .= "&".urlencode($prop)."=".urlencode($filter);
+            $path .= "&".$prop."=".$filter;
         }
 
         return $path;

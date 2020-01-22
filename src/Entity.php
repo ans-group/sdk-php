@@ -57,6 +57,9 @@ abstract class Entity
             if (!$datetime) {
                 $datetime = DateTime::createFromFormat('Y-m-d', $value);
             }
+            if (!$datetime) {
+                $datetime = null;
+            }
 
             $value = $datetime;
         }

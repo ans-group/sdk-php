@@ -126,7 +126,7 @@ class JobClient extends Client
      */
     public function stop($id)
     {
-        $response = $this->get('v1/jobs/' . $id . '/stop');
+        $response = $this->post('v1/jobs/' . $id . '/stop');
 
         return $response->getStatusCode() == 200;
     }
