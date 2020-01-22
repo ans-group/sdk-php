@@ -13,8 +13,8 @@ use DateTime;
  * @property string $postcode
  * @property string $cardNumber
  * @property string $cardType
- * @property DateTime $validFrom
- * @property DateTime $expiry
+ * @property string $validFrom
+ * @property string $expiry
  * @property int $issueNumber
  * @property boolean $primaryCard
  */
