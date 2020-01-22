@@ -12,6 +12,19 @@ class CertificateClient extends Client
     protected $basePath = 'ssl/';
 
     /**
+     * Certificate API fields which need mapping
+     *
+     * @var array
+     */
+    public $certificateMap = [
+        'common_name'       => 'commonName',
+        'alternative_names' => 'alternativeNames',
+        'valid_days'        => 'validDays',
+        'ordered_date'      => 'orderedDate',
+        'renewal_date'      => 'renewalDate',
+    ];
+
+    /**
      * Gets a paginated response of all certificates
      *
      * @param int $page
@@ -22,9 +35,11 @@ class CertificateClient extends Client
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
+        $filters = $this->friendlyToApi($filters, $this->certificateMap);
+
         $page = $this->paginatedRequest('v1/certificates', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Certificate($item);
+            return new Certificate($this->apiToFriendly($item, $this->certificateMap));
         });
 
         return $page;
@@ -40,8 +55,9 @@ class CertificateClient extends Client
     public function getById($id)
     {
         $response = $this->request("GET", "v1/certificates/$id");
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return new Certificate($body->data);
+        $body     = $this->decodeJson($response->getBody()->getContents());
+
+        return new Certificate($this->apiToFriendly($body->data, $this->certificateMap));
     }
 
     /**
