@@ -20,13 +20,25 @@ use DateTime;
  */
 class PaymentCard extends Entity
 {
-    protected $dates = [];
-
+    /**
+     * Check if the PaymentCard has expired.
+     *
+     * @return bool
+     * @throws \Exception
+     */
     public function isExpired()
     {
-        return DateTime::createFromFormat('m/y', $this->expiry) < new DateTime();
+        $date = DateTime::createFromFormat('m/y', $this->expiry);
+
+        return $date->format('Y-m-t') < (new DateTime())->format('Y-m-d');
     }
 
+    /**
+     * Check if the PaymentCard has not yet expired.
+     *
+     * @return bool
+     * @throws \Exception
+     */
     public function isNotExpired()
     {
         return !$this->isExpired();
