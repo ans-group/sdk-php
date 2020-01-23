@@ -23,7 +23,23 @@ class Client extends BaseClient
     {
         return (new RecurringCostClient($this->httpClient))->auth($this->token);
     }
-
+  
+    /**
+     * @return CloudCostClient
+     */
+    public function cloudCosts()
+    {
+        return (new CloudCostClient($this->httpClient))->auth($this->token);
+    }
+  
+    /**
+     * @return BaseClient
+     */
+    public function invoices()
+    {
+        return (new InvoiceClient($this->httpClient))->auth($this->token);
+    }
+  
     /**
      * @return BaseClient
      */
