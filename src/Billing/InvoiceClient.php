@@ -2,7 +2,7 @@
 
 namespace UKFast\SDK\Billing;
 
-use UKFast\SDK\Account\Entities\Invoice;
+use UKFast\SDK\Billing\Entities\Invoice;
 use UKFast\SDK\Client as BaseClient;
 
 class InvoiceClient extends BaseClient
