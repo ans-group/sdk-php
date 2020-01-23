@@ -3,10 +3,10 @@
 namespace UKFast\SDK\Billing;
 
 use UKFast\SDK\Billing\Entities\InvoiceQuery;
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\SelfResponse;
 
-class InvoiceQueryClient extends Client
+class InvoiceQueryClient extends BaseClient
 {
     protected $basePath = 'billing/';
 
