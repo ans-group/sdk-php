@@ -2,25 +2,14 @@
 
 namespace UKFast\SDK\Account\Entities;
 
-class Credit
+use UKFast\SDK\Entity;
+
+/**
+ * @property string $type
+ * @property int    $total
+ * @property int    $remaining
+ */
+class Credit extends Entity
 {
-    public $type;
-    public $total;
-    public $remaining;
-
-
-    /**
-     * Credit constructor.
-     * @param null $item
-     */
-    public function __construct($item = null)
-    {
-        if (empty($item)) {
-            return;
-        }
-
-        $this->type = $item->type;
-        $this->total = $item->total;
-        $this->remaining = $item->remaining;
-    }
+    //
 }

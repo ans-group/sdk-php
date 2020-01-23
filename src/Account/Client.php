@@ -35,6 +35,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function history()
+    {
+        return (new HistoryClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function invoices()
     {
         return (new InvoiceClient($this->httpClient))->auth($this->token);
