@@ -23,4 +23,12 @@ class Client extends BaseClient
     {
         return (new RecurringCostClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function invoiceQueries()
+    {
+        return (new InvoiceQueryClient($this->httpClient))->auth($this->token);
+    }
 }
