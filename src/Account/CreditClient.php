@@ -42,7 +42,7 @@ class CreditClient extends BaseClient
      * @return Credit
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function findByReference($reference)
+    public function getByReference($reference)
     {
         $response = $this->request("GET", "v1/credits/" . $reference);
         $body = $this->decodeJson($response->getBody()->getContents());
