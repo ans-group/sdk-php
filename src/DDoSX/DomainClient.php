@@ -4,6 +4,7 @@ namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\Domain;
+use UKFast\SDK\DDoSX\Entities\Ip;
 use UKFast\SDK\SelfResponse;
 
 class DomainClient extends BaseClient
@@ -65,6 +66,32 @@ class DomainClient extends BaseClient
             ->serializeWith(function ($response) {
                 return new Domain($this->apiToFriendly($response->data[0], $this->requestMap));
             });
+    }
+
+    /**
+     * @param $domainName
+     * @return |null
+     */
+    public function deploy($domainName)
+    {
+        $this->post('v1/domains/' . $domainName . '/deploy');
+
+        return null;
+    }
+
+    /**
+     * @param $domainName
+     * @return Ip
+     */
+    public function getIpByDomainName($domainName)
+    {
+        $response = $this->request("GET", 'v1/domains/' . $domainName . '/ip');
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Ip([
+            'ipv4Address' => $body->data->ipv4_address,
+            'ipv6Address' => $body->data->ipv6_address
+        ]);
     }
 
     /**
