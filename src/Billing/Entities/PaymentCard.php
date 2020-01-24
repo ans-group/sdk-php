@@ -28,9 +28,10 @@ class PaymentCard extends Entity
      */
     public function isExpired()
     {
-        $date = DateTime::createFromFormat('m/y', $this->expiry);
+        $date = DateTime::createFromFormat('m/y H:i:s', $this->expiry . ' 23:59:59');
+        $input = new DateTime($date->format('Y-m-t H:i:s'));
 
-        return $date->format('Y-m-t') < (new DateTime())->format('Y-m-d');
+        return $input < new DateTime();
     }
 
     /**
