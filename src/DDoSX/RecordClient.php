@@ -17,7 +17,7 @@ class RecordClient extends BaseClient
      * @var array $requestMap
      */
     protected $requestMap = [
-        "domain_name" => "domainName",
+        "name" => "domainName",
         "safedns_record_id" => "safednsRecordId",
         "ssl_id" => "sslId"
     ];
