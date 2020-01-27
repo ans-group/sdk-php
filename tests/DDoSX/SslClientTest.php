@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use UKFast\SDK\DDoSX\Client as DdosxClient;
 use UKFast\SDK\DDoSX\Entities\Ssl;
 use UKFast\SDK\DDoSX\SslClient;
+use UKFast\SDK\SelfResponse;
 
 class SslClientTest extends TestCase
 {
@@ -122,5 +123,45 @@ class SslClientTest extends TestCase
         $this->assertEquals(2, count($ssls));
         $this->assertInstanceOf(Ssl::class, $ssls[0]);
         $this->assertInstanceOf(Ssl::class, $ssls[1]);
+    }
+
+    /**
+     * @test
+     */
+    public function creates_and_gets_ssl_correctly()
+    {
+        $apiData = [
+            'id'            => $this->faker->uuid,
+            'ukfast_ssl_id' => $this->faker->randomDigit,
+            'domains'       => [
+                $this->faker->domainName,
+                $this->faker->domainName,
+            ],
+            'friendly_name' => $this->faker->word,
+            'expires_at'    => $this->faker->dateTimeBetween('+1 day', '+825 days')->format(DateTime::ATOM),
+        ];
+
+        $mockHandler = new MockHandler([
+            new Response(201, [], json_encode([
+                'data' => [
+                    'id' => $apiData['id'],
+                ],
+                'meta' => [
+                    'location' => 'http://localhost/ddosx/v1/ssls/' . $apiData['id'],
+                ],
+            ])),
+            new Response(200, [], json_encode([
+                'data' => $apiData,
+                'meta' => [],
+            ])),
+        ]);
+
+        $httpClient     = new GuzzleClient(['handler' => HandlerStack::create($mockHandler)]);
+        $client         = new SslClient($httpClient);
+        $createResponse = $client->create(new Ssl($client->apiToFriendly($apiData, SslClient::CERTIFICATE_MAP)));
+
+        $this->assertInstanceOf(SelfResponse::class, $createResponse);
+
+        $this->assertInstanceOf(Ssl::class, $createResponse->get());
     }
 }
