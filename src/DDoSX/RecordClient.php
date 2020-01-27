@@ -4,6 +4,7 @@ namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\Record;
+use UKFast\SDK\SelfResponse;
 
 class RecordClient extends BaseClient
 {
@@ -58,5 +59,24 @@ class RecordClient extends BaseClient
         });
 
         return $page;
+    }
+
+    /**
+     * @param Record $record
+     * @return SelfResponse
+     */
+    public function create(Record $record)
+    {
+        $response = $this->post(
+            'v1/domains/' . $record->domainName . '/records',
+            json_encode($this->friendlyToApi($record, $this->requestMap))
+        );
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($body) {
+                return new Record($this->apiToFriendly($body->data, $this->requestMap));
+            });
     }
 }
