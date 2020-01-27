@@ -4,6 +4,7 @@ namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\Ssl;
+use UKFast\SDK\SelfResponse;
 
 class SslClient extends BaseClient
 {
@@ -39,5 +40,24 @@ class SslClient extends BaseClient
         });
 
         return $page;
+    }
+
+    /**
+     * Send the request to the API to store a new job
+     * @param Ssl $ssl
+     * @return SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function create(Ssl $ssl)
+    {
+        $data     = $this->friendlyToApi($ssl, static::CERTIFICATE_MAP);
+        $response = $this->post('v1/ssls', json_encode($data));
+        $body     = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($body) {
+                return new Ssl($this->apiToFriendly($body->data, self::CERTIFICATE_MAP));
+            });
     }
 }
