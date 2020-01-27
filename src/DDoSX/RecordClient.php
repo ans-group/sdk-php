@@ -17,7 +17,7 @@ class RecordClient extends BaseClient
      * @var array $requestMap
      */
     protected $requestMap = [
-        "name" => "domainName",
+        "domain_name" => "domainName",
         "safedns_record_id" => "safednsRecordId",
         "ssl_id" => "sslId"
     ];
@@ -59,24 +59,5 @@ class RecordClient extends BaseClient
         });
 
         return $page;
-    }
-
-    /**
-     * @param Record $record
-     * @return SelfResponse
-     */
-    public function create(Record $record)
-    {
-        $response = $this->post(
-            'v1/domains/' . $record->domainName . '/records',
-            json_encode($this->friendlyToApi($record, $this->requestMap))
-        );
-        $body = $this->decodeJson($response->getBody()->getContents());
-
-        return (new SelfResponse($body))
-            ->setClient($this)
-            ->serializeWith(function ($body) {
-                return new Record($this->apiToFriendly($body->data, $this->requestMap));
-            });
     }
 }
