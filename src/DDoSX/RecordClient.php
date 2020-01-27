@@ -4,7 +4,6 @@ namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\Record;
-use UKFast\SDK\SelfResponse;
 
 class RecordClient extends BaseClient
 {
