@@ -45,7 +45,7 @@ class SslClient extends BaseClient
     /**
      * Send the request to the API to store a new job
      * @param Ssl $ssl
-     * @return mixed
+     * @return SelfResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function create(Ssl $ssl)
