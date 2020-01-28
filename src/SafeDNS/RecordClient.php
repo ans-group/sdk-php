@@ -67,7 +67,7 @@ class RecordClient extends Client implements ClientEntityInterface
         $data         = $this->friendlyToApi($record, static::RECORD_MAP);
         $data['type'] = strtoupper($data['type']);
 
-        $response = $this->post('v1/zones/' . $record->zone . 'records', json_encode($data));
+        $response = $this->post('v1/zones/' . $record->zone . '/records', json_encode($data));
         $body     = $this->decodeJson($response->getBody()->getContents());
         $zoneName = $record->zone;
 
