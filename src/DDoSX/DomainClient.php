@@ -69,12 +69,12 @@ class DomainClient extends BaseClient
     }
 
     /**
-     * @param $domainName
-     * @return |null
+     * @param Domain $domain
+     * @return null
      */
-    public function deploy($domainName)
+    public function deploy(Domain $domain)
     {
-        $this->post('v1/domains/' . $domainName . '/deploy');
+        $this->post('v1/domains/' . $domain->name . '/deploy');
 
         return null;
     }
