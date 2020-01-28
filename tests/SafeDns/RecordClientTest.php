@@ -9,7 +9,6 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\SDK\DDoSX\Client as DdosxClient;
 use UKFast\SDK\SafeDNS\Client as SafeDnsClient;
 use UKFast\SDK\SafeDNS\Entities\Record;
 use UKFast\SDK\SafeDNS\RecordClient;

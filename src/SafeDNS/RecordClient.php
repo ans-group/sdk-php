@@ -2,13 +2,13 @@
 
 namespace UKFast\SDK\SafeDNS;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 use UKFast\SDK\SafeDNS\Entities\Record;
 use UKFast\SDK\SelfResponse;
 
-class RecordClient extends Client implements ClientEntityInterface
+class RecordClient extends BaseClient implements ClientEntityInterface
 {
     protected $basePath = 'safedns/';
 
