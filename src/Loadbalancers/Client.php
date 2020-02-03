@@ -6,6 +6,8 @@ use UKFast\SDK\Client as BaseClient;
 
 class Client extends BaseClient
 {
+    protected $basePath = 'loadbalancers/';
+
     public function backends()
     {
         return (new BackendClient($this->httpClient))->auth($this->token);
@@ -49,5 +51,10 @@ class Client extends BaseClient
     public function vips()
     {
         return (new VipClient($this->httpClient))->auth($this->token);
+    }
+
+    public function loadbalancers()
+    {
+        return (new LoadbalancerClient($this->httpClient))->auth($this->token);
     }
 }

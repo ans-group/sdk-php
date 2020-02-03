@@ -60,4 +60,14 @@ class Client extends BaseClient
     {
         return (new RecordClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * Return a SslClient instance
+     *
+     * @return SslClient
+     */
+    public function ssls()
+    {
+        return (new SslClient($this->httpClient))->auth($this->token);
+    }
 }
