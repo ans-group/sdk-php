@@ -17,7 +17,12 @@ class DomainClient extends BaseClient
     /**
      * @var array
      */
-    protected $requestMap = [
+    protected $requestMap = [];
+
+    /**
+     * @var array
+     */
+    protected $ipMap = [
         "ipv4_address" => "ipv4Address",
         "ipv6_address" => "ipv6Address"
     ];
@@ -94,7 +99,7 @@ class DomainClient extends BaseClient
         $response = $this->request("GET", 'v1/domains/' . $domainName . '/ip');
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Ip($this->apiToFriendly($body->data, $this->requestMap));
+        return new Ip($this->apiToFriendly($body->data, $this->ipMap));
     }
 
     /**
