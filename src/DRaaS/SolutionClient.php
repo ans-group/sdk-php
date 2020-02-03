@@ -11,7 +11,6 @@ class SolutionClient extends Client implements ClientEntityInterface
     const MAP = [
         'id' => 'id',
         'name' => 'name',
-        'reseller_id' => 'resellerId',
         'tenant_uid' => 'tenantUid',
     ];
 
