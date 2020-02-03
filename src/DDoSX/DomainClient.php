@@ -14,7 +14,13 @@ class DomainClient extends BaseClient
      */
     protected $basePath = 'ddosx/';
 
-    protected $requestMap = [];
+    /**
+     * @var array
+     */
+    protected $requestMap = [
+        "ipv4_address" => "ipv4Address",
+        "ipv6_address" => "ipv6Address"
+    ];
 
     /**
      * Gets a paginated response of all DDoSX domains
@@ -88,10 +94,7 @@ class DomainClient extends BaseClient
         $response = $this->request("GET", 'v1/domains/' . $domainName . '/ip');
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Ip([
-            'ipv4Address' => $body->data->ipv4_address,
-            'ipv6Address' => $body->data->ipv6_address
-        ]);
+        return new Ip($this->apiToFriendly($body->data, $this->requestMap));
     }
 
     /**
