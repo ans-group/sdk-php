@@ -76,14 +76,14 @@ class DomainClient extends BaseClient
     {
         $this->post('v1/domains/' . $domain->name . '/deploy');
 
-        return null;
+        return true;
     }
 
     /**
      * @param $domainName
      * @return Ip
      */
-    public function getIpByDomainName($domainName)
+    public function getIpByName($domainName)
     {
         $response = $this->request("GET", 'v1/domains/' . $domainName . '/ip');
         $body = $this->decodeJson($response->getBody()->getContents());
