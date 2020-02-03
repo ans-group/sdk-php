@@ -81,7 +81,7 @@ class DomainClient extends BaseClient
 
     /**
      * @param Domain $domain
-     * @return null
+     * @return bool
      */
     public function deploy(Domain $domain)
     {
