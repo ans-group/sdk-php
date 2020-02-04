@@ -36,7 +36,7 @@ class SslClient extends BaseClient
         $page    = $this->paginatedRequest('v1/ssls', $page, $perPage, $filters);
 
         $page->serializeWith(function ($item) {
-            return new Ssl($this->apiToFriendly($item, self::CERTIFICATE_MAP));
+            return $this->serializeSsl($item);
         });
 
         return $page;
@@ -57,7 +57,18 @@ class SslClient extends BaseClient
         return (new SelfResponse($body))
             ->setClient($this)
             ->serializeWith(function ($body) {
-                return new Ssl($this->apiToFriendly($body->data, self::CERTIFICATE_MAP));
+                return $this->serializeSsl($body->data);
             });
+    }
+
+    /**
+     * Converts a response stdClass into a Ssl entity
+     *
+     * @param $item
+     * @return Ssl
+     */
+    protected function serializeSsl($item)
+    {
+        return new Ssl($this->apiToFriendly($item, self::CERTIFICATE_MAP));
     }
 }
