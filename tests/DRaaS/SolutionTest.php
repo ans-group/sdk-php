@@ -54,7 +54,6 @@ class SolutionTest extends TestCase
         $this->assertTrue($request instanceof \UKFast\SDK\DRaaS\Entities\Solution);
 
         $this->assertEquals('dc76dbbb-12a6-11ea-89fb-005056a64a16', $request->id);
-        $this->assertEquals(1, $request->resellerId);
         $this->assertEquals('Clifford Home', $request->name);
         $this->assertEquals('4333f8f4-2d47-4856-b5f1-74af0dcab3cd', $request->tenantUid);
     }
