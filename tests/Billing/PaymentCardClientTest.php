@@ -14,6 +14,7 @@ class PaymentCardClientTest extends TestCase
 {
     /**
      * @test
+     * @throws \Exception
      */
     public function get_payment_cards_by_id()
     {
@@ -27,8 +28,8 @@ class PaymentCardClientTest extends TestCase
                     "postcode" => "M44 0AB",
                     "card_number" => "4111111111111111",
                     "card_type" => "Visa",
-                    "valid_from" => "2019-10-31T00:00:00+0000",
-                    "expiry" => "2035-10-31T00:00:00+0000",
+                    "valid_from" => "10/19",
+                    "expiry" => "10/35",
                     "issue_number" => 12,
                     "primary_card" => true
                 ],
@@ -50,8 +51,8 @@ class PaymentCardClientTest extends TestCase
         $this->assertEquals("M44 0AB", $paymentCard->postcode);
         $this->assertEquals("4111111111111111", $paymentCard->cardNumber);
         $this->assertEquals("Visa", $paymentCard->cardType);
-        $this->assertEquals('2019-10-31T00:00:00+0000', $paymentCard->validFrom->format(DateTime::ISO8601));
-        $this->assertEquals('2035-10-31T00:00:00+0000', $paymentCard->expiry->format(DateTime::ISO8601));
+        $this->assertEquals('10/19', $paymentCard->validFrom);
+        $this->assertEquals('10/35', $paymentCard->expiry);
         $this->assertEquals(12, $paymentCard->issueNumber);
         $this->assertTrue(true, $paymentCard->primaryCard);
 
@@ -75,8 +76,8 @@ class PaymentCardClientTest extends TestCase
                         "postcode" => "M44 0AB",
                         "card_number" => "4111111111111111",
                         "card_type" => "Visa",
-                        "valid_from" => "2019-10-31T00:00:00+0000",
-                        "expiry" => "2035-10-31T00:00:00+0000",
+                        "valid_from" => "10/19",
+                        "expiry" => "10/35",
                         "issue_number" => 12,
                         "primary_card" => true
                     ],
@@ -89,7 +90,7 @@ class PaymentCardClientTest extends TestCase
                         "card_number" => "5355 1234 5678 9012",
                         "card_type" => "Mastercard",
                         "valid_from" => null,
-                        "expiry" => "2035-10-31T00:00:00+0000",
+                        "expiry" => "10/35",
                         "issue_number" => null,
                         "primary_card" => false
                     ],
