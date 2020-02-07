@@ -2,14 +2,19 @@
 
 namespace UKFast\SDK\SafeDNS;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 use UKFast\SDK\SafeDNS\Entities\Record;
+use UKFast\SDK\SelfResponse;
 
-class RecordClient extends Client implements ClientEntityInterface
+class RecordClient extends BaseClient implements ClientEntityInterface
 {
     protected $basePath = 'safedns/';
+
+    const RECORD_MAP = [
+        'updated_at' => 'updatedAt'
+    ];
 
     /**
      * Get records by zone name
@@ -59,21 +64,21 @@ class RecordClient extends Client implements ClientEntityInterface
      */
     public function create(Record $record)
     {
-        $data = [
-            'name' => $record->name,
-            'type' => strtoupper($record->type),
-            'content' => $record->content,
-        ];
+        $data         = $this->friendlyToApi($record, static::RECORD_MAP);
+        $data['type'] = strtoupper($data['type']);
 
-        $response = $this->post("v1/zones/".$record->zone."/records", json_encode($data), [
-            'Content-Type' => 'application/json'
-        ]);
+        $response = $this->post('v1/zones/' . $record->zone . '/records', json_encode($data));
+        $body     = $this->decodeJson($response->getBody()->getContents());
+        $zoneName = $record->zone;
 
-        $body = $this->decodeJson($response->getBody()->getContents());
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($body) use ($zoneName) {
+                $record       = new Record($body->data);
+                $record->zone = $zoneName;
 
-        $record->id = $body->data->id;
-
-        return $record;
+                return $record;
+            });
     }
 
     /**
