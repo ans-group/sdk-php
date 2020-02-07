@@ -11,7 +11,7 @@ class SolutionClient extends Client implements ClientEntityInterface
     const MAP = [
         'id' => 'id',
         'name' => 'name',
-        'tenant_uid' => 'tenantUid',
+        'iops_tier' => 'iopsTier',
     ];
 
     /**
@@ -46,6 +46,23 @@ class SolutionClient extends Client implements ClientEntityInterface
         return $this->loadEntity($body->data);
     }
 
+    /**
+     * @param Solution $solution
+     * @return bool
+     */
+    public function update(Solution $solution)
+    {
+        $data = [
+            'name' => $solution->name,
+            'iops_tier' => $solution->iopsTier,
+        ];
+
+        $response = $this->patch("v1/solutions/" . $solution->id, json_encode($data), [
+            'Content-Type' => 'application/json'
+        ]);
+
+        return $response->getStatusCode() == 200;
+    }
 
     /**
      * Load an instance of Datastore from API data
