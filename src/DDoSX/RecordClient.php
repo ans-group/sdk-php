@@ -3,7 +3,6 @@
 namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
-use UKFast\SDK\DDoSX\Entities\Domain;
 use UKFast\SDK\DDoSX\Entities\Record;
 use UKFast\SDK\SelfResponse;
 
@@ -93,7 +92,7 @@ class RecordClient extends BaseClient
         return (new SelfResponse($body))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new Domain($this->apiToFriendly($response->data, $this->requestMap));
+                return new Record($this->apiToFriendly($response->data, $this->requestMap));
             });
     }
 }
