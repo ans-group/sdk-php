@@ -127,6 +127,36 @@ class SslClientTest extends TestCase
 
     /**
      * @test
+     * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function gets_ssl_by_id()
+    {
+        $uuid = $this->faker->uuid;
+        $mockHandler = new MockHandler([
+            new Response(200, [], json_encode([
+                'data' => [
+                    'id'            => $uuid,
+                    'ukfast_ssl_id' => $this->faker->randomDigit,
+                    'domains'       => [
+                        $this->faker->domainName,
+                        $this->faker->domainName,
+                    ],
+                    'friendly_name' => $this->faker->word,
+                    'expires_at'    => $this->faker->dateTimeBetween('+1 day', '+825 days')->format(DateTime::ATOM),
+                ]
+            ])),
+        ]);
+
+        $httpClient = new GuzzleClient(['handler' => HandlerStack::create($mockHandler)]);
+        $client     = new SslClient($httpClient);
+        $ssl    = $client->getById($uuid);
+
+        $this->assertInstanceOf(Ssl::class, $ssl);
+    }
+
+    /**
+     * @test
      */
     public function creates_and_gets_ssl_correctly()
     {
