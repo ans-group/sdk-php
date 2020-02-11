@@ -45,7 +45,7 @@ class SslClient extends BaseClient
     /**
      * Gets the SSL by its Id
      * @param int $sslId
-     * @return object Customer
+     * @return object Ssl
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($sslId)
