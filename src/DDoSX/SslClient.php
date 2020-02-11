@@ -43,6 +43,19 @@ class SslClient extends BaseClient
     }
 
     /**
+     * Gets the SSL by its Id
+     * @param string $sslId
+     * @return object Ssl
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getById($sslId)
+    {
+        $response = $this->request("GET", "v1/ssls/$sslId");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializeSsl($body->data);
+    }
+
+    /**
      * Send the request to the API to store a new job
      * @param Ssl $ssl
      * @return SelfResponse
