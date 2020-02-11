@@ -12,6 +12,7 @@ class SolutionClient extends Client implements ClientEntityInterface
         'id' => 'id',
         'name' => 'name',
         'tenant_uid' => 'tenantUid',
+        'tenant_name' => 'tenantName',
     ];
 
     /**
