@@ -96,7 +96,7 @@ class DomainClient extends BaseClient
      */
     public function getIpByName($domainName)
     {
-        $response = $this->request("GET", 'v1/domains/' . $domainName . '/ip');
+        $response = $this->request("GET", 'v1/domains/' . $domainName . '/ips');
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return new Ip($this->apiToFriendly($body->data, $this->ipMap));
