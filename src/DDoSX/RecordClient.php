@@ -75,4 +75,24 @@ class RecordClient extends BaseClient
                 return new Record($this->apiToFriendly($body->data, $this->requestMap));
             });
     }
+
+    /**
+     * @param Record $record
+     * @return SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function update(Record $record)
+    {
+        $response = $this->patch(
+            'v1/domains/' . $record->domainName . '/records/' . $record->id,
+            json_encode($this->friendlyToApi($record, $this->requestMap))
+        );
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Record($this->apiToFriendly($response->data, $this->requestMap));
+            });
+    }
 }
