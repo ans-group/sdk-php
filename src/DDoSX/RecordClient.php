@@ -95,4 +95,18 @@ class RecordClient extends BaseClient
                 return new Record($this->apiToFriendly($response->data, $this->requestMap));
             });
     }
+
+    /**
+     * @param $domainName
+     * @param $recordId
+     * @return Record
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getById($domainName, $recordId)
+    {
+        $response = $this->request("GET", 'v1/domains/' . $domainName . '/records/' . $recordId);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Record($this->apiToFriendly($body->data, $this->requestMap));
+    }
 }
