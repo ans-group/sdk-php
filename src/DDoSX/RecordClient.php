@@ -3,7 +3,6 @@
 namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
-use UKFast\SDK\DDoSX\Entities\Domain;
 use UKFast\SDK\DDoSX\Entities\Record;
 use UKFast\SDK\SelfResponse;
 
@@ -40,6 +39,20 @@ class RecordClient extends BaseClient
         });
 
         return $page;
+    }
+
+    /**
+     * @param $domainName
+     * @param $recordId
+     * @return Record
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getById($domainName, $recordId)
+    {
+        $response = $this->request("GET", 'v1/domains/' . $domainName . '/records/' . $recordId);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Record($this->apiToFriendly($body->data, $this->requestMap));
     }
 
     /**
@@ -103,6 +116,7 @@ class RecordClient extends BaseClient
                 return new Record($this->apiToFriendly($response->data, $this->requestMap));
             });
     }
+
 
     /**
      * Delete an existing DDoSX Record
