@@ -107,6 +107,6 @@ class RecordClient extends BaseClient
         $response = $this->request("GET", 'v1/domains/' . $domainName . '/records/' . $recordId);
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Record($this->apiToFriendly($body, $this->requestMap));
+        return new Record($this->apiToFriendly($body->data, $this->requestMap));
     }
 }
