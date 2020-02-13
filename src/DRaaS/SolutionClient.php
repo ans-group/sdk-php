@@ -11,7 +11,7 @@ class SolutionClient extends Client implements ClientEntityInterface
     const MAP = [
         'id' => 'id',
         'name' => 'name',
-        'iops_tier' => 'iopsTier',
+        'iops_tier_id' => 'iopsTierId',
     ];
 
     /**
@@ -54,7 +54,7 @@ class SolutionClient extends Client implements ClientEntityInterface
     {
         $data = [
             'name' => $solution->name,
-            'iops_tier' => $solution->iopsTier,
+            'iops_tier_id' => $solution->iopsTierId,
         ];
 
         $response = $this->patch("v1/solutions/" . $solution->id, json_encode($data), [
