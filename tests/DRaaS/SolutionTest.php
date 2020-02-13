@@ -68,7 +68,7 @@ class SolutionTest extends TestCase
                 'data' => [
                     'id' => 'dc76dbbb-12a6-11ea-89fb-005056a64a16',
                     'name' => 'Clifford Home',
-                    'iops_tier_uid' => '4333f8f4-2d47-4856-b5f1-74af0dcab3cd'
+                    'iops_tier_id' => '4333f8f4-2d47-4856-b5f1-74af0dcab3cd'
                 ],
                 "meta" => []
             ])),
