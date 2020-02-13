@@ -21,12 +21,12 @@ class SolutionTest extends TestCase
                     [
                         'id' => 'dc76dbbb-12a6-11ea-89fb-005056a64a16',
                         'name' => 'Clifford Home',
-                        'tenant_uid' => '4333f8f4-2d47-4856-b5f1-74af0dcab3cd'
+                        'iops_tier_id' => '4333f8f4-2d47-4856-b5f1-74af0dcab3cd'
                     ],
                     [
                         'id' => 'fae31760-3c6e-11ea-89fb-005056a64a16',
                         'name' => 'Paul',
-                        'tenant_uid' => 'e76c005e-a8ab-4039-a438-fd13e3621988'
+                        'iops_tier_id' => 'e76c005e-a8ab-4039-a438-fd13e3621988'
                     ],
                 ],
                 "meta" => [
@@ -55,7 +55,7 @@ class SolutionTest extends TestCase
 
         $this->assertEquals('dc76dbbb-12a6-11ea-89fb-005056a64a16', $request->id);
         $this->assertEquals('Clifford Home', $request->name);
-        $this->assertEquals('4333f8f4-2d47-4856-b5f1-74af0dcab3cd', $request->tenantUid);
+        $this->assertEquals('4333f8f4-2d47-4856-b5f1-74af0dcab3cd', $request->iopsTierId);
     }
 
     /**
