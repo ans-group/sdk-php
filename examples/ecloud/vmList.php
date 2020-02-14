@@ -19,4 +19,4 @@ foreach ($virtualMachines as $virtualMachine) {
         "\n";
 }
 
-// # 12345 - 192.0.2.1.srvlist.ukfast.net	 Complete 	 LIVE web server 	 192.0.2.12 	 203.0.113.20
+// # 12345 - 192.0.2.12.srvlist.ukfast.net	 Complete 	 LIVE web server 	 192.0.2.12 	 203.0.113.20
