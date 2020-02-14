@@ -315,10 +315,11 @@ class VirtualMachineClient extends Client
      * @param $item
      * @return VirtualMachine
      */
-    private function loadEntity($item) {
+    protected function loadEntity($item)
+    {
         if (isset($item->hdd_disks) && is_array($item->hdd_disks)) {
             // hydrate HDD entities
-            foreach($item->hdd_disks as $key => $hdd) {
+            foreach ($item->hdd_disks as $key => $hdd) {
                 $item->hdd_disks[$key] = new Hdd($this->apiToFriendly($hdd, static::HDD_MAP));
             };
         }
