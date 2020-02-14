@@ -323,10 +323,10 @@ class VirtualMachineClient extends Client
             };
         }
 
-        // remap primary IP addresses
+        // remap primary IP properties
         $item->ipAddresses = (object) [
-            'internal' => $item->ip_internal,
-            'external' => $item->ip_external,
+            'internal' => isset($item->ip_internal) ? $item->ip_internal : null,
+            'external' => isset($item->ip_external) ? $item->ip_external : null,
         ];
         unset($item->ip_internal, $item->ip_external);
 

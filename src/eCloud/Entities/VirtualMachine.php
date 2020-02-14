@@ -39,7 +39,6 @@ use UKFast\SDK\Entity;
  *
  * @property string $credentials
  */
-
 class VirtualMachine extends Entity
 {
 
