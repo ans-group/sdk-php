@@ -27,7 +27,7 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  composer self-update
+                  sudo composer self-update
                   composer update --prefer-stable --prefer-dist --no-interaction --no-suggest
 
             - name: Execute tests
