@@ -43,6 +43,20 @@ class RecordClient extends BaseClient
 
     /**
      * @param $domainName
+     * @param $recordId
+     * @return Record
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getById($domainName, $recordId)
+    {
+        $response = $this->request("GET", 'v1/domains/' . $domainName . '/records/' . $recordId);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Record($this->apiToFriendly($body->data, $this->requestMap));
+    }
+
+    /**
+     * @param $domainName
      * @param int $page
      * @param int $perPage
      * @param array $filters
@@ -61,13 +75,19 @@ class RecordClient extends BaseClient
         return $page;
     }
 
+    /**
+     * Create a new DDoSX Record
+     *
+     * @param Record $record
+     * @return SelfResponse
+     */
     public function create(Record $record)
     {
         $response = $this->post(
             'v1/domains/' . $record->domainName . '/records',
             json_encode($this->friendlyToApi($record, $this->requestMap))
         );
-        $body     = $this->decodeJson($response->getBody()->getContents());
+        $body = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($body))
             ->setClient($this)
@@ -77,6 +97,7 @@ class RecordClient extends BaseClient
     }
 
     /**
+     * Updates an existing DDoSX Record
      * @param Record $record
      * @return SelfResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -94,5 +115,20 @@ class RecordClient extends BaseClient
             ->serializeWith(function ($response) {
                 return new Record($this->apiToFriendly($response->data, $this->requestMap));
             });
+    }
+
+
+    /**
+     * Delete an existing DDoSX Record
+     *
+     * @param Record $record
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function destroy(Record $record)
+    {
+        $response = $this->delete("v1/domains/".$record->domainName."/records/".$record->id);
+
+        return $response->getStatusCode() == 204;
     }
 }
