@@ -166,7 +166,7 @@ abstract class Entity implements ArrayAccess
      * and not worry about mutating anything in the original
      * @return Entity
      */
-    public function fresh()
+    public function copy()
     {
         $clone = function ($data) use (&$clone) {
             if (is_array($data)) {
@@ -177,7 +177,7 @@ abstract class Entity implements ArrayAccess
                 return $new;
             }
             if ($data instanceof Entity) {
-                return $data->fresh();
+                return $data->copy();
             }
             return $data;
         };
