@@ -9,14 +9,13 @@ use UKFast\SDK\Entity;
  * @property int $quantity
  * @property int $price
  * @property string $period
- * @property float $usage_since_last_invoice
- * @property float $cost_since_last_invoice
- * @property float $usage_for_period_estimate
- * @property float $cost_for_period_estimate
- * @property \DateTime $billing_start
- * @property \DateTime $billing_end
- * @property \DateTime $billing_due_date
- * @property boolean $billing_item_bill_complete
+ * @property int $usageSinceLastInvoice
+ * @property float $costSinceLastInvoice
+ * @property int $usageForPeriodEstimate
+ * @property float $costForPeriodEstimate
+ * @property \DateTime $billingStart
+ * @property \DateTime $billingEnd
+ * @property \DateTime $billingDueDate
  */
 class Resource extends Entity
 {
