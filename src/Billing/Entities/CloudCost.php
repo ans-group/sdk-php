@@ -7,12 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property int $id
  * @property int $serverId
- * @property \DateTime $billing_start
- * @property \DateTime $billing_end
  * @property Resource $resource
- * @property string $period
- * @property float $price
- * @property \DateTime $billingDueDate
  */
 class CloudCost extends Entity
 {
