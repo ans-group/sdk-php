@@ -2,29 +2,14 @@
 
 namespace UKFast\SDK\eCloud\Entities;
 
-class Pod
+use UKFast\SDK\Entity;
+
+/**
+ * Class Pod
+ * @property int $id Pod ID
+ * @property string $name Pod Name
+ * @services object $services Services available on the pod
+ */
+class Pod extends Entity
 {
-    public $id;
-    public $name;
-    public $services;
-
-    /**
-     * Pod constructor.
-     * @param null $item
-     */
-    public function __construct($item = null)
-    {
-        if (empty($item)) {
-            return;
-        }
-
-        $this->id = $item->id;
-        $this->name = $item->name;
-
-        $this->services = (object) [
-            'public' => $item->services->public,
-            'burst' => $item->services->burst,
-            'appliances' => $item->services->appliances,
-        ];
-    }
 }
