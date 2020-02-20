@@ -66,7 +66,8 @@ class CloudCostClient extends BaseClient
     public function getTotalCostSinceLastInvoice($serverId = null)
     {
         $optionalParameters = isset($serverId) ? ['serverId' => $serverId] : '';
-        $billingItems = ($this->getPage(1, 100, $optionalParameters))->getItems();
+        $billingItems = $this->getPage(1, 100, $optionalParameters);
+        $billingItems = $billingItems->getItems();
 
         $billingTotals = [];
         foreach ($billingItems as $billingItem) {
