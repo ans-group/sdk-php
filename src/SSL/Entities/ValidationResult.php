@@ -5,9 +5,10 @@ namespace UKFast\SDK\SSL\Entities;
 use UKFast\SDK\Entity;
 
 /**
- * @property string $certificate
- * @property string $certificateKey
- * @property string $caBundle
+ * @property bool $result
+ * @property array $errorset
+ * @property array $altHosts
+ * @property int $expiryTimestamp
  */
 class ValidationResult extends Entity
 {

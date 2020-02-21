@@ -10,13 +10,13 @@ class ValidationClient extends BaseClient
     protected $basePath = 'ssl/';
 
     /**
-     * Certificate Validation API fields which need mapping
+     * Validation Result API fields which need mapping
      *
      * @var array
      */
     public $validationMap = [
-        'certificate_key' => 'certificateKey',
-        'ca_bundle' => 'caBundle',
+        'alt_hosts' => 'altHosts',
+        'expiry_timestamp' => 'expiryTimestamp',
     ];
 
     /**
