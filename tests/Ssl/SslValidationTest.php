@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use UKFast\SDK\SSL\Entities\ValidationResult;
 use UKFast\SDK\SSL\ValidationClient;
-use Carbon\Carbon;
+use DateTime;
 
 class SslValidationTest extends TestCase
 {
@@ -78,7 +78,7 @@ SSLKEY;
         $response = [
             'result'           => true,
             'alt_hosts'        => ["ukfast.co.uk"],
-            'expiry_timestamp' => now()->addDays(2),
+            'expiry_timestamp' => (new \DateTime('now +1 day'))->getTimestamp(),
         ];
 
         $validationClient = new ValidationClient;
@@ -121,7 +121,7 @@ SSLKEY;
         $validationData = (object)[
             'result'           => true,
             'alt_hosts'        => ["ukfast.co.uk"],
-            'expiry_timestamp' => now()->addDays(2),
+            'expiry_timestamp' => (new \DateTime('now +1 day'))->getTimestamp(),
         ];
 
         $mockHandler = new MockHandler([
