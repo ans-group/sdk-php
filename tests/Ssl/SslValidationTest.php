@@ -78,7 +78,7 @@ SSLKEY;
         $response = [
             'result'           => true,
             'alt_hosts'        => ["ukfast.co.uk"],
-            'expiry_timestamp' => Carbon::now()->addDays(2),
+            'expiry_timestamp' => now()->addDays(2),
         ];
 
         $validationClient = new ValidationClient;
@@ -121,7 +121,7 @@ SSLKEY;
         $validationData = (object)[
             'result'           => true,
             'alt_hosts'        => ["ukfast.co.uk"],
-            'expiry_timestamp' => Carbon::now()->addDays(2),
+            'expiry_timestamp' => now()->addDays(2),
         ];
 
         $mockHandler = new MockHandler([
