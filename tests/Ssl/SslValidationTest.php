@@ -118,7 +118,7 @@ SSLKEY;
      */
     public function testGetValidationResultForValidCertificate()
     {
-        $validationData = (object)[
+        $validationData = [
             'result'           => true,
             'alt_hosts'        => ["ukfast.co.uk"],
             'expiry_timestamp' => (new \DateTime('now +1 day'))->getTimestamp(),
@@ -126,7 +126,7 @@ SSLKEY;
 
         $mockHandler = new MockHandler([
             new Response(200, [], json_encode([
-                'data' => $validationData,
+                'data' => (object)$validationData,
                 'meta' => []
             ])),
         ]);
@@ -149,14 +149,14 @@ SSLKEY;
      */
     public function testGetValidationResultForInvalidCertificate()
     {
-        $validationData = (object)[
+        $validationData = [
             'result'           => false,
             'errorset'         => ["Certificate expired on 11\/02\/2020 18:00:43"],
         ];
 
         $mockHandler = new MockHandler([
             new Response(200, [], json_encode([
-                'data' => $validationData,
+                'data' => (object)$validationData,
                 'meta' => []
             ])),
         ]);
