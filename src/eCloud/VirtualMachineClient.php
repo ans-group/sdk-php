@@ -3,11 +3,26 @@
 namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Page;
-
 use UKFast\SDK\eCloud\Entities\VirtualMachine;
+use UKFast\SDK\eCloud\Entities\Hdd;
 
 class VirtualMachineClient extends Client
 {
+    const VM_MAP = [
+        'computername' => 'computerName',
+        'hdd_disks' => 'disks',
+        'power_status' => 'power',
+        'tools_status' => 'tools',
+        'solution_id' => 'solutionId',
+        'pod_id' => 'podId',
+        'ad_domain_id' => 'adDomainId',
+    ];
+
+    const HDD_MAP = [
+
+    ];
+
+
     /**
      * Gets a paginated response of all Virtual Machines
      *
@@ -21,7 +36,7 @@ class VirtualMachineClient extends Client
     {
         $page = $this->paginatedRequest('v1/vms', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new VirtualMachine($item);
+            return $this->loadEntity($item);
         });
 
         return $page;
@@ -71,7 +86,7 @@ class VirtualMachineClient extends Client
     {
         $response = $this->get("v1/vms/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return new VirtualMachine($body->data);
+        return $this->loadEntity($body->data);
     }
 
     /**
@@ -293,5 +308,29 @@ class VirtualMachineClient extends Client
     {
         $response = $this->delete("v1/vms/$id");
         return $response->getStatusCode() == 202;
+    }
+
+    /**
+     * load entity from api response
+     * @param $item
+     * @return VirtualMachine
+     */
+    protected function loadEntity($item)
+    {
+        if (isset($item->hdd_disks) && is_array($item->hdd_disks)) {
+            // hydrate HDD entities
+            foreach ($item->hdd_disks as $key => $hdd) {
+                $item->hdd_disks[$key] = new Hdd($this->apiToFriendly($hdd, static::HDD_MAP));
+            };
+        }
+
+        // remap primary IP properties
+        $item->ipAddresses = (object) [
+            'internal' => isset($item->ip_internal) ? $item->ip_internal : null,
+            'external' => isset($item->ip_external) ? $item->ip_external : null,
+        ];
+        unset($item->ip_internal, $item->ip_external);
+
+        return new VirtualMachine($this->apiToFriendly($item, static::VM_MAP));
     }
 }

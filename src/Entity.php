@@ -161,6 +161,34 @@ abstract class Entity implements ArrayAccess
     }
 
     /**
+     * Clones an entity and all nested entities
+     * Useful if you need to operate on a copy of an entity
+     * and not worry about mutating anything in the original
+     * @return Entity
+     */
+    public function copy()
+    {
+        $clone = function ($data) use (&$clone) {
+            if (is_array($data)) {
+                $new = [];
+                foreach ($data as $datum) {
+                    $new[] = $clone($datum);
+                }
+                return $new;
+            }
+            if ($data instanceof Entity) {
+                return $data->copy();
+            }
+            return $data;
+        };
+        $cloned = [];
+        foreach ($this->all() as $key => $value) {
+            $cloned[$key] = $clone($value);
+        }
+        return new static($cloned);
+    }
+
+    /**
      * Magic getter method. Proxies property access to
      * internal array of attributes
      *
