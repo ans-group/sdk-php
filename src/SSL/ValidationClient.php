@@ -29,11 +29,15 @@ class ValidationClient extends BaseClient
      */
     public function validate($certificate, $certificateKey, $caBundle)
     {
-        $response = $this->request("POST", "v1/validate", json_encode([
+        $requestBody = [
             'certificate' => $certificate,
             'certificate_key' => $certificateKey,
-            'ca_bundle' => $caBundle,
-        ]));
+        ];
+        if (empty($caBundle) === false) {
+            $requestBody['ca_bundle'] = $caBundle;
+        }
+
+        $response = $this->post("v1/validate", json_encode($requestBody));
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return new ValidationResult($this->apiToFriendly($body->data, $this->validationMap));
