@@ -13,7 +13,7 @@ class RecurringCostTest extends TestCase
     public function frequency_can_return_monthly()
     {
         $recurringCost = new RecurringCost;
-        $recurringCost->period = 'month';
+        $recurringCost->period = 'monthly';
         $recurringCost->interval = 1;
 
         $this->assertEquals('Monthly', $recurringCost->frequency());
@@ -25,7 +25,7 @@ class RecurringCostTest extends TestCase
     public function frequency_can_return_quarterly()
     {
         $recurringCost = new RecurringCost;
-        $recurringCost->period = 'month';
+        $recurringCost->period = 'monthly';
         $recurringCost->interval = 3;
 
         $this->assertEquals('Quarterly', $recurringCost->frequency());
@@ -37,7 +37,7 @@ class RecurringCostTest extends TestCase
     public function frequency_can_return_yearly()
     {
         $recurringCost = new RecurringCost;
-        $recurringCost->period = 'year';
+        $recurringCost->period = 'yearly';
         $recurringCost->interval = 1;
 
         $this->assertEquals('Yearly', $recurringCost->frequency());
@@ -49,7 +49,7 @@ class RecurringCostTest extends TestCase
     public function frequency_can_return_every_x_months()
     {
         $recurringCost = new RecurringCost;
-        $recurringCost->period = 'month';
+        $recurringCost->period = 'monthly';
         $recurringCost->interval = 5;
 
         $this->assertEquals('Every 5 Months', $recurringCost->frequency());
@@ -61,7 +61,7 @@ class RecurringCostTest extends TestCase
     public function frequency_can_return_every_x_years()
     {
         $recurringCost = new RecurringCost;
-        $recurringCost->period = 'year';
+        $recurringCost->period = 'yearly';
         $recurringCost->interval = 5;
 
         $this->assertEquals('Every 5 Years', $recurringCost->frequency());

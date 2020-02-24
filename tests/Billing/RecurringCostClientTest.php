@@ -22,8 +22,12 @@ class RecurringCostClientTest extends TestCase
             new Response(200, [], json_encode([
                 'data' => [
                     'id' => 123,
-                    'name' => 'Example recurring cost',
-                    'product' => null,
+                    'reference_id' => 782,
+                    'reference_name' => 'Example recurring cost',
+                    'product' => [
+                        "id" => 1,
+                        'name' => ""
+                    ],
                     'total' => 12.50,
                     'period' => 'month',
                     'interval' => 1,
@@ -43,8 +47,10 @@ class RecurringCostClientTest extends TestCase
 
         $this->assertTrue($recurringCost instanceof RecurringCost);
         $this->assertEquals(123, $recurringCost->id);
-        $this->assertEquals('Example recurring cost', $recurringCost->name);
-        $this->assertEquals(null, $recurringCost->product);
+        $this->assertEquals(782, $recurringCost->referenceId);
+        $this->assertEquals('Example recurring cost', $recurringCost->referenceName);
+        $this->assertEquals(1, $recurringCost->product->id);
+        $this->assertEquals("", $recurringCost->product->name);
         $this->assertEquals(12.50, $recurringCost->total);
         $this->assertEquals('month', $recurringCost->period);
         $this->assertEquals(1, $recurringCost->interval);
@@ -67,8 +73,12 @@ class RecurringCostClientTest extends TestCase
                 'data' => [
                     [
                         'id' => 123,
-                        'name' => 'Example recurring cost',
-                        'product' => null,
+                        'reference_id' => 782,
+                        'reference_name' => 'Example recurring cost',
+                        'product' => [
+                            "id" => 1,
+                            'name' => ""
+                        ],
                         'total' => 12.50,
                         'period' => 'month',
                         'interval' => 1,
@@ -78,8 +88,12 @@ class RecurringCostClientTest extends TestCase
                     ],
                     [
                         'id' => 1234,
-                        'name' => 'Example recurring cost 1',
-                        'product' => null,
+                        'reference_id' => 782,
+                        'reference_name' => 'Example recurring cost 1',
+                        'product' => [
+                            "id" => 1,
+                            'name' => ""
+                        ],
                         'total' => 12.50,
                         'period' => 'month',
                         'interval' => 1,

@@ -11,6 +11,14 @@ class RecurringCostClient extends BaseClient
 {
     protected $basePath = 'billing/';
 
+    const MAP = [
+        'reference_name' => 'referenceName',
+        'reference_id' => 'referenceId',
+        'payment_method' => 'paymentMethod',
+        'next_payment_at' => 'nextPaymentAt',
+        'created_at' => 'createdAt'
+    ];
+
     /**
      * Gets a paginated response of all recurring costs
      *
@@ -52,11 +60,7 @@ class RecurringCostClient extends BaseClient
      */
     protected function serializeRecurringCost($item)
     {
-        $recurringCost = new RecurringCost($this->apiToFriendly($item, [
-            'payment_method' => 'paymentMethod',
-            'next_payment_at' => 'nextPaymentAt',
-            'created_at' => 'createdAt',
-        ]));
+        $recurringCost = new RecurringCost($this->apiToFriendly($item, self::MAP));
 
         if (!is_null($item->product)) {
             $recurringCost->product = new Product($item->product);

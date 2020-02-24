@@ -6,8 +6,9 @@ use UKFast\SDK\Entity;
 
 /**
  * @property int $id
- * @property string $type
+ * @property string $name
  */
 class Product extends Entity
 {
+    //
 }
