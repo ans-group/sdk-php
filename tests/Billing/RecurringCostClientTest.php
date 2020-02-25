@@ -47,8 +47,8 @@ class RecurringCostClientTest extends TestCase
 
         $this->assertTrue($recurringCost instanceof RecurringCost);
         $this->assertEquals(123, $recurringCost->id);
-        $this->assertEquals(782, $recurringCost->referenceId);
-        $this->assertEquals('Example recurring cost', $recurringCost->referenceName);
+        $this->assertEquals(782, $recurringCost->type->id);
+        $this->assertEquals('Example recurring cost', $recurringCost->type->name);
         $this->assertEquals(1, $recurringCost->product->id);
         $this->assertEquals("", $recurringCost->product->name);
         $this->assertEquals(12.50, $recurringCost->total);
