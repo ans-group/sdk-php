@@ -22,8 +22,10 @@ class RecurringCostClientTest extends TestCase
             new Response(200, [], json_encode([
                 'data' => [
                     'id' => 123,
-                    'reference_id' => 782,
-                    'reference_name' => 'Example recurring cost',
+                    'type' => [
+                        "id" => 782,
+                        'name' => 'Example recurring cost',
+                    ],
                     'product' => [
                         "id" => 1,
                         'name' => ""
