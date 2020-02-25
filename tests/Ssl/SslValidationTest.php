@@ -93,26 +93,6 @@ SSLKEY;
     }
 
     /**
-     * Tests ValidationResult entity class from invalid response
-     */
-    public function testConstructsFromInvalidResponse()
-    {
-        $response = [
-            'result'           => false,
-            'errorset'         => ["Certificate expired on 11\/02\/2020 18:00:43"],
-        ];
-
-        $validationClient = new ValidationClient;
-        $validationResult = new ValidationResult($validationClient->apiToFriendly(
-            $response,
-            $validationClient->validationMap
-        ));
-
-        $this->assertEquals($response['result'], $validationResult->result);
-        $this->assertEquals($response['errorset'], $validationResult->errorset);
-    }
-
-    /**
      * @throws \Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -149,15 +129,15 @@ SSLKEY;
      */
     public function testGetValidationResultForInvalidCertificate()
     {
-        $validationData = [
-            'result'           => false,
-            'errorset'         => ["Certificate expired on 11\/02\/2020 18:00:43"],
+        $errorData = [
+            'title'  => 'Validation Error',
+            'detail' => "Certificate expired on 11\/02\/2020 18:00:43",
+            'status' => 422
         ];
 
         $mockHandler = new MockHandler([
-            new Response(200, [], json_encode([
-                'data' => (object)$validationData,
-                'meta' => []
+            new Response(422, [], json_encode([
+                'errors' => (object)$errorData
             ])),
         ]);
 
@@ -168,7 +148,7 @@ SSLKEY;
         $validationResult = $client->validate(static::Certificate, static::CertificateKey, null);
 
         $this->assertInstanceOf(ValidationResult::class, $validationResult);
-        $this->assertEquals($validationData['result'], $validationResult->result);
-        $this->assertEquals($validationData['errorset'], $validationResult->errorset);
+        $this->assertEquals($errorData['result'], $validationResult->result);
+        $this->assertEquals($errorData['errorset'], $validationResult->errorset);
     }
 }
