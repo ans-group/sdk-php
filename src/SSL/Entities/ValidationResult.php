@@ -6,7 +6,6 @@ use UKFast\SDK\Entity;
 
 /**
  * @property bool $result
- * @property array $errorset
  * @property array $altHosts
  * @property int $expiryTimestamp
  */
