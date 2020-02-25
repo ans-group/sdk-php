@@ -8,8 +8,7 @@ use UKFast\SDK\Billing\Entities\Product;
 
 /**
  * @property int $id
- * @property int $referenceId
- * @property string $referenceName
+ * @property Type $type
  * @property Product $product
  * @property float $total
  * @property string $period

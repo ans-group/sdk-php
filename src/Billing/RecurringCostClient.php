@@ -12,8 +12,6 @@ class RecurringCostClient extends BaseClient
     protected $basePath = 'billing/';
 
     const MAP = [
-        'reference_name' => 'referenceName',
-        'reference_id' => 'referenceId',
         'payment_method' => 'paymentMethod',
         'next_payment_at' => 'nextPaymentAt',
         'created_at' => 'createdAt'
