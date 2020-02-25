@@ -7,6 +7,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use UKFast\SDK\Exception\ValidationException;
 use UKFast\SDK\SSL\Entities\ValidationResult;
 use UKFast\SDK\SSL\ValidationClient;
 use DateTime;
@@ -137,18 +138,15 @@ SSLKEY;
 
         $mockHandler = new MockHandler([
             new Response(422, [], json_encode([
-                'errors' => (object)$errorData
+                'errors' => $errorData
             ])),
         ]);
 
         $handlerStack = HandlerStack::create($mockHandler);
-        $httpClient   = new GuzzleClient(['handler' => $handlerStack]);
+        $httpClient = new GuzzleClient(['handler' => $handlerStack]);
+        $client     = new ValidationClient($httpClient);
 
-        $client           = new ValidationClient($httpClient);
-        $validationResult = $client->validate(static::Certificate, static::CertificateKey, null);
-
-        $this->assertInstanceOf(ValidationResult::class, $validationResult);
-        $this->assertEquals($errorData['result'], $validationResult->result);
-        $this->assertEquals($errorData['errorset'], $validationResult->errorset);
+        $this->expectException(ValidationException::class);
+        $client->validate(static::Certificate, static::CertificateKey, null);
     }
 }
