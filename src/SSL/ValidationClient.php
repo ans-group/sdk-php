@@ -10,28 +10,27 @@ class ValidationClient extends BaseClient
     protected $basePath = 'ssl/';
 
     /**
-     * Validation Result API fields which need mapping
+     * Validation Result API fields which need to be mapped
      *
      * @var array
      */
     public $validationMap = [
-        'alt_hosts' => 'altHosts',
-        'expiry_timestamp' => 'expiryTimestamp',
+        'expires_at' => 'expiresAt',
     ];
 
     /**
      * Validate a certificate against its key or key and CA bundle
      *
      * @param string $certificate
-     * @param string $certificateKey
+     * @param string $key
      * @param string $caBundle
      * @return ValidationResult
      */
-    public function validate($certificate, $certificateKey, $caBundle)
+    public function validate($certificate, $key, $caBundle)
     {
         $requestBody = [
             'certificate' => $certificate,
-            'certificate_key' => $certificateKey,
+            'key' => $key,
         ];
         if (empty($caBundle) === false) {
             $requestBody['ca_bundle'] = $caBundle;

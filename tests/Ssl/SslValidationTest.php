@@ -77,9 +77,8 @@ SSLKEY;
     public function testConstructsFromValidResponse()
     {
         $response = [
-            'result'           => true,
-            'alt_hosts'        => ["ukfast.co.uk"],
-            'expiry_timestamp' => (new \DateTime('now +1 day'))->getTimestamp(),
+            'domains'    => ["ukfast.co.uk"],
+            'expires_at' => (new \DateTime('now +1 day'))->format(DateTime::ATOM),
         ];
 
         $validationClient = new ValidationClient;
@@ -88,9 +87,8 @@ SSLKEY;
             $validationClient->validationMap
         ));
 
-        $this->assertEquals($response['result'], $validationResult->result);
-        $this->assertEquals($response['alt_hosts'], $validationResult->altHosts);
-        $this->assertEquals($response['expiry_timestamp'], $validationResult->expiryTimestamp);
+        $this->assertEquals($response['domains'], $validationResult->domains);
+        $this->assertEquals($response['expires_at'], $validationResult->expiresAt->format(DateTime::ATOM));
     }
 
     /**
@@ -100,9 +98,8 @@ SSLKEY;
     public function testGetValidationResultForValidCertificate()
     {
         $validationData = [
-            'result'           => true,
-            'alt_hosts'        => ["ukfast.co.uk"],
-            'expiry_timestamp' => (new \DateTime('now +1 day'))->getTimestamp(),
+            'domains'        => ["ukfast.co.uk"],
+            'expires_at' => (new DateTime('now +1 day'))->format(DateTime::ATOM),
         ];
 
         $mockHandler = new MockHandler([
@@ -119,9 +116,8 @@ SSLKEY;
         $validationResult = $client->validate(static::Certificate, static::CertificateKey, null);
 
         $this->assertInstanceOf(ValidationResult::class, $validationResult);
-        $this->assertEquals($validationData['result'], $validationResult->result);
-        $this->assertEquals($validationData['alt_hosts'], $validationResult->altHosts);
-        $this->assertEquals($validationData['expiry_timestamp'], $validationResult->expiryTimestamp);
+        $this->assertEquals($validationData['domains'], $validationResult->domains);
+        $this->assertEquals($validationData['expires_at'], $validationResult->expiresAt->format(DateTime::ATOM));
     }
 
     /**
