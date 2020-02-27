@@ -23,10 +23,10 @@ class ValidationClient extends BaseClient
      *
      * @param string $certificate
      * @param string $key
-     * @param string $caBundle
+     * @param string|null $caBundle
      * @return ValidationResult
      */
-    public function validate($certificate, $key, $caBundle)
+    public function validate($certificate, $key, $caBundle = null)
     {
         $requestBody = [
             'certificate' => $certificate,
