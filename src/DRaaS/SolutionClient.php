@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\DRaaS;
 
+use UKFast\SDK\DRaaS\Entities\Resources;
 use UKFast\SDK\DRaaS\Entities\Solution;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
@@ -44,6 +45,24 @@ class SolutionClient extends Client implements ClientEntityInterface
         $response = $this->get("v1/solutions/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->loadEntity($body->data);
+    }
+
+    /**
+     * Get backup resources for the solution
+     * @param integer $id Solution ID
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return Page
+     */
+    public function getResourcesPage($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest("v1/solutions/$id/resources", $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return new Resources($this->apiToFriendly($item, ResourcesClient::MAP));
+        });
+
+        return $page;
     }
 
     /**
