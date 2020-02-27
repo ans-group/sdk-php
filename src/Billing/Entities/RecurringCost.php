@@ -5,6 +5,7 @@ namespace UKFast\SDK\Billing\Entities;
 use UKFast\SDK\Entity;
 use DateTime;
 use UKFast\SDK\Billing\Entities\Product;
+use UKFast\SDK\Billing\Entities\Type;
 
 /**
  * @property int $id
