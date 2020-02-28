@@ -15,4 +15,12 @@ class Client extends BaseClient
     {
         return (new SolutionClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return IopsTiersClient
+     */
+    public function iops()
+    {
+        return (new IopsTiersClient($this->httpClient))->auth($this->token);
+    }
 }
