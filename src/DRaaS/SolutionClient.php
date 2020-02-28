@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\DRaaS;
 
+use UKFast\SDK\DRaaS\Entities\ComputeResources;
 use UKFast\SDK\DRaaS\Entities\Solution;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
@@ -62,6 +63,24 @@ class SolutionClient extends Client implements ClientEntityInterface
         ]);
 
         return $response->getStatusCode() == 200;
+    }
+
+    /**
+     * Return a paginated response of compute resources associated with the solution
+     * @param $id
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return int|Page
+     */
+    public function getComputeResourcesPage($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest("v1/solutions/$id/compute-resources", $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return new ComputeResources($this->apiToFriendly($item, ComputeResourcesClient::MAP));
+        });
+
+        return $page;
     }
 
     /**
