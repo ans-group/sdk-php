@@ -9,7 +9,7 @@ class RecommendationClient extends Client
 {
     protected $basePath = 'ssl/';
 
-    public $requestMap = [];
+    protected $requestMap = [];
 
     /**
      * @param $domainName
