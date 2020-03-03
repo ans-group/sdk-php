@@ -7,9 +7,7 @@ use UKFast\SDK\Entities\ClientEntityInterface;
 
 class ComputeResourcesClient extends Client implements ClientEntityInterface
 {
-    const MAP = [
-        'hardware_plan_name' => 'hardwarePlanName'
-    ];
+    const MAP = [];
 
     public function loadEntity($data)
     {
