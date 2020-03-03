@@ -2,7 +2,7 @@
 
 namespace UKFast\SDK\DRaaS;
 
-use UKFast\SDK\DRaaS\Entities\Resources;
+use UKFast\SDK\DRaaS\Entities\BackupResources;
 use UKFast\SDK\DRaaS\Entities\Solution;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
@@ -55,11 +55,11 @@ class SolutionClient extends Client implements ClientEntityInterface
      * @param array $filters
      * @return Page
      */
-    public function getResourcesPage($id, $page = 1, $perPage = 15, $filters = [])
+    public function getBackupResources($id, $page = 1, $perPage = 15, $filters = [])
     {
-        $page = $this->paginatedRequest("v1/solutions/$id/resources", $page, $perPage, $filters);
+        $page = $this->paginatedRequest("v1/solutions/$id/backup-resources", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Resources($this->apiToFriendly($item, ResourcesClient::MAP));
+            return new BackupResources($this->apiToFriendly($item, BackupResourcesClient::MAP));
         });
 
         return $page;

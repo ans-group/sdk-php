@@ -11,6 +11,6 @@ use UKFast\SDK\Entity;
  * @property string $quota
  * @property string $usedQuota
  */
-class Resources extends Entity
+class BackupResources extends Entity
 {
 }

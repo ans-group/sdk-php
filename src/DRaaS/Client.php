@@ -17,10 +17,10 @@ class Client extends BaseClient
     }
 
     /**
-     * @return ResourcesClient
+     * @return BackupResourcesClient
      */
-    public function resources()
+    public function backupResources()
     {
-        return (new ResourcesClient($this->httpClient))->auth($this->token);
+        return (new BackupResourcesClient($this->httpClient))->auth($this->token);
     }
 }
