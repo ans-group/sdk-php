@@ -16,7 +16,7 @@ class RecommendationClient extends Client
      * @return Recommendation
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getSslRecommendation($domainName)
+    public function getRecommendation($domainName)
     {
         $response = $this->request("GET", 'v1/recommendation/' . $domainName);
         $body = $this->decodeJson($response->getBody()->getContents());
