@@ -2,7 +2,7 @@
 
 // example of loading eCloud Appliance details
 //
-// php examples/ecloud/podApplianceList.php
+// php examples/ecloud/applianceDetails.php
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
