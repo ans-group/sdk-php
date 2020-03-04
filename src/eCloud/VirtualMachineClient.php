@@ -102,17 +102,35 @@ class VirtualMachineClient extends Client
             'environment' => $virtualMachine->environment,
 
             'name' => $virtualMachine->name,
-            'computername' => $virtualMachine->computerName,
         ];
 
-        if ($virtualMachine->environment != 'Public') {
+
+        // environment
+        if ($virtualMachine->environment == 'Public') {
+            $data['pod_id'] = $virtualMachine->podId;
+        } elseif ($virtualMachine->environment != 'Public') {
             $data['solution_id'] = $virtualMachine->solutionId;
+
+            if (!empty($virtualMachine->siteId)) {
+                $data['site_id'] = $virtualMachine->siteId;
+            }
         }
 
 
         // template
         if (!empty($virtualMachine->template)) {
             $data['template'] = $virtualMachine->template;
+        } elseif (!empty($virtualMachine->applianceId)) {
+            $data['appliance_id'] = $virtualMachine->applianceId;
+
+            if (!empty($virtualMachine->applianceParameters) && is_array($virtualMachine->applianceParameters)) {
+                foreach ($virtualMachine->applianceParameters as $key => $value) {
+                    $data['parameters'][] = [
+                        'key' => $key,
+                        'value' => $value,
+                    ];
+                }
+            }
         }
 
 
@@ -128,7 +146,7 @@ class VirtualMachineClient extends Client
             'hdd' => $virtualMachine->hdd,
         ]);
 
-        if (!empty($virtualMachine->disks)) {
+        if (!empty($virtualMachine->disks) && is_array($virtualMachine->disks)) {
             foreach ($virtualMachine->disks as $disk) {
                 $data['hdd_disks'][] = [
                     'name' => $disk->name,
@@ -143,6 +161,35 @@ class VirtualMachineClient extends Client
 
 
         // set network
+        if (!empty($virtualMachine->networkId)) {
+            $data['network_id'] = $virtualMachine->networkId;
+        }
+
+        if ($virtualMachine->externalIpRequired == true) {
+            $data['external_ip_required'] = true;
+        }
+
+
+        // additional options
+        if ($virtualMachine->encryptionRequired == true) {
+            $data['encrypt'] = true;
+        }
+
+        if (!empty($virtualMachine->adDomainId)) {
+            $data['ad_domain_id'] = true;
+        }
+
+        if (!empty($virtualMachine->sshKeys)) {
+            $data['ssh_keys'] = $virtualMachine->sshKeys;
+        }
+
+        if (!empty($virtualMachine->tags)) {
+            $data['tags'] = $virtualMachine->tags;
+        }
+
+        if (!empty($virtualMachine->computerName)) {
+            $data['computername'] = $virtualMachine->computerName;
+        }
 
 
         $response = $this->post("v1/vms", json_encode($data), [
@@ -152,8 +199,6 @@ class VirtualMachineClient extends Client
         $body = $this->decodeJson($response->getBody()->getContents());
 
         $virtualMachine->id = $body->data->id;
-        $virtualMachine->status = $body->data->status;
-
         $virtualMachine->credentials = $body->data->credentials;
 
         return $virtualMachine;
