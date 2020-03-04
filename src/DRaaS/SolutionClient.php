@@ -3,6 +3,7 @@
 namespace UKFast\SDK\DRaaS;
 
 use UKFast\SDK\DRaaS\Entities\BackupService;
+use UKFast\SDK\DRaaS\Entities\BackupResources;
 use UKFast\SDK\DRaaS\Entities\Solution;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
@@ -53,7 +54,7 @@ class SolutionClient extends Client implements ClientEntityInterface
     }
 
     /**
-     * Returns information relating to teh backup service linked to the solution
+     * Returns information relating to the backup service linked to the solution
      * @param $id
      * @return BackupService
      */
@@ -63,7 +64,25 @@ class SolutionClient extends Client implements ClientEntityInterface
         $body = $this->decodeJson($response->getBody()->getContents());
         return new BackupService($this->apiToFriendly($body, static::BACKUP_SERVICE_MAP));
     }
+  
+    /**
+     * Get backup resources for the solution
+     * @param integer $id Solution ID
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return Page
+     */
+    public function getBackupResources($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest("v1/solutions/$id/backup-resources", $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return new BackupResources($this->apiToFriendly($item, BackupResourcesClient::MAP));
+        });
 
+        return $page;
+    }
+  
     /**
      * @param Solution $solution
      * @return bool
