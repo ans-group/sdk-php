@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\DRaaS;
 
+use UKFast\SDK\DRaaS\Entities\BackupService;
 use UKFast\SDK\DRaaS\Entities\Solution;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
@@ -12,6 +13,11 @@ class SolutionClient extends Client implements ClientEntityInterface
         'id' => 'id',
         'name' => 'name',
         'iops_tier_id' => 'iopsTierId',
+    ];
+
+    const BACKUP_SERVICE_MAP = [
+        'service' => 'service',
+        'account_name' => 'accountName'
     ];
 
     /**
@@ -44,6 +50,18 @@ class SolutionClient extends Client implements ClientEntityInterface
         $response = $this->get("v1/solutions/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->loadEntity($body->data);
+    }
+
+    /**
+     * Returns information relating to teh backup service linked to the solution
+     * @param $id
+     * @return BackupService
+     */
+    public function getBackupService($id)
+    {
+        $response = $this->get("v1/solutions/$id/backup-service");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return new BackupService($this->apiToFriendly($body, static::BACKUP_SERVICE_MAP));
     }
 
     /**
