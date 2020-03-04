@@ -20,7 +20,7 @@ use UKFast\SDK\Entity;
  *
  * @property string $hdd
  * @property string $disks
- * @property string $datastoreId
+ * @property int $datastoreId
  *
  * @property string $ipAddresses
  *
@@ -31,8 +31,9 @@ use UKFast\SDK\Entity;
  * @property string $support
  *
  * @property string $environment
- * @property string $solutionId
- * @property string $adDomainId
+ * @property int $podId
+ * @property int $solutionId
+ * @property int $adDomainId
  *
  * @property string $power
  * @property string $tools
