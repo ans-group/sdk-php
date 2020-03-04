@@ -23,4 +23,12 @@ class Client extends BaseClient
     {
         return (new BackupResourcesClient($this->httpClient))->auth($this->token);
     }
+  
+    /**
+     * @return IopsTiersClient
+     */
+    public function iops()
+    {
+        return (new IopsTiersClient($this->httpClient))->auth($this->token);
+    }
 }
