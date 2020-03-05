@@ -171,12 +171,8 @@ class VirtualMachineClient extends Client
 
 
         // additional options
-        if ($virtualMachine->encryptionRequired == true) {
-            $data['encrypt'] = true;
-        }
-
-        if (!empty($virtualMachine->adDomainId)) {
-            $data['ad_domain_id'] = true;
+        if (!empty($virtualMachine->computerName)) {
+            $data['computername'] = $virtualMachine->computerName;
         }
 
         if (!empty($virtualMachine->sshKeys)) {
@@ -187,10 +183,17 @@ class VirtualMachineClient extends Client
             $data['tags'] = $virtualMachine->tags;
         }
 
-        if (!empty($virtualMachine->computerName)) {
-            $data['computername'] = $virtualMachine->computerName;
+        if (!empty($virtualMachine->adDomainId)) {
+            $data['ad_domain_id'] = true;
         }
 
+        if ($virtualMachine->encryptionRequired == true) {
+            $data['encrypt'] = true;
+        }
+
+        if ($virtualMachine->backup == true) {
+            $data['backup'] = true;
+        }
 
         $response = $this->post("v1/vms", json_encode($data), [
             'Content-Type' => 'application/json'
