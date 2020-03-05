@@ -195,6 +195,17 @@ class VirtualMachineClient extends Client
             $data['backup'] = true;
         }
 
+
+        // support
+        if ($virtualMachine->monitoring == true) {
+            $data['monitoring'] = true;
+
+            if (!empty($virtualMachine->monitoringContacts)) {
+                $data['monitoring-contacts'] = $virtualMachine->monitoringContacts;
+            }
+        }
+
+
         $response = $this->post("v1/vms", json_encode($data), [
             'Content-Type' => 'application/json'
         ]);
