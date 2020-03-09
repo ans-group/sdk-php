@@ -25,10 +25,10 @@ class Client extends BaseClient
     }
 
     /**
-     * @return RecommendationClient
+     * @return RecommendationsClient
      */
     public function recommendations()
     {
-        return (new RecommendationClient($this->httpClient))->auth($this->token);
+        return (new RecommendationsClient($this->httpClient))->auth($this->token);
     }
 }

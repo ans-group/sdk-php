@@ -8,7 +8,7 @@ use UKFast\SDK\Entity;
  * @property string $level
  * @property array $messages
  */
-class Recommendation extends Entity
+class Recommendations extends Entity
 {
 
 }

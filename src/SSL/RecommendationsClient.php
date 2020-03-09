@@ -3,9 +3,9 @@
 namespace UKFast\SDK\SSL;
 
 use UKFast\SDK\Client;
-use UKFast\SDK\SSL\Entities\Recommendation;
+use UKFast\SDK\SSL\Entities\Recommendations;
 
-class RecommendationClient extends Client
+class RecommendationsClient extends Client
 {
     protected $basePath = 'ssl/';
 
@@ -16,11 +16,11 @@ class RecommendationClient extends Client
      * @return Recommendation
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getRecommendation($domainName)
+    public function getRecommendations($domainName)
     {
-        $response = $this->request("GET", 'v1/recommendation/' . $domainName);
+        $response = $this->request("GET", 'v1/recommendations/' . $domainName);
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Recommendation($this->apiToFriendly($body->data, $this->requestMap));
+        return new Recommendations($this->apiToFriendly($body->data, $this->requestMap));
     }
 }
