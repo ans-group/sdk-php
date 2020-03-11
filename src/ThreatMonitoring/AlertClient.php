@@ -39,34 +39,11 @@ class AlertClient extends Client
     }
 
     /**
-     * Get all the alerts by looping the paginated results
+     * Get an alert by it's ID
+     * @param $id
+     * @return Alert
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAll($filters = [])
-    {
-        // get first page
-        $page = $this->getPage($currentPage = 1, $perPage = 100, $filters);
-        if ($page->totalItems() == 0) {
-            return [];
-        }
-
-        $jobs = $page->getItems();
-        if ($page->totalPages() == 1) {
-            return $jobs;
-        }
-
-        // get any remaining pages
-        while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->getPage($currentPage++, $perPage, $filters);
-
-            $jobs = array_merge(
-                $jobs,
-                $page->getItems()
-            );
-        }
-
-        return $jobs;
-    }
-
     public function getById($id)
     {
         $response = $this->request("GET", "v1/alerts/$id");
