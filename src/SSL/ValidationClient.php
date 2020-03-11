@@ -36,7 +36,7 @@ class ValidationClient extends BaseClient
             $requestBody['ca_bundle'] = $caBundle;
         }
 
-        $response = $this->request('GET', 'v1/validate', json_encode($requestBody));
+        $response = $this->post("v1/validate", json_encode($requestBody));
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return new ValidationResult($this->apiToFriendly($body->data, $this->validationMap));
