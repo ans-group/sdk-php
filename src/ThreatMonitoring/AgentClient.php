@@ -14,6 +14,7 @@ class AgentClient extends Client
 
     const MAP = [
         'threat_response_enabled' => 'threatResponseEnabled',
+        'friendly_name' => 'friendlyName',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt'
     ];
