@@ -2,10 +2,10 @@
 
 namespace UKFast\SDK\SSL;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\SSL\Entities\Recommendations;
 
-class RecommendationsClient extends Client
+class RecommendationsClient extends BaseClient
 {
     protected $basePath = 'ssl/';
 
