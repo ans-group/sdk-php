@@ -1,7 +1,9 @@
 <?php
 namespace UKFast\SDK\DDoSX;
+
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\DomainProperty;
+
 class DomainPropertiesClient extends BaseClient
 {
     protected $basePath = 'ddosx/';
