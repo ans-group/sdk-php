@@ -70,4 +70,13 @@ class Client extends BaseClient
     {
         return (new SslClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * Return the AclGeoIpClient instance
+     * @return AclGeoIpClient
+     */
+    public function aclGeoIps()
+    {
+        return (new AclGeoIpClient($this->httpClient))->auth($this->token);
+    }
 }
