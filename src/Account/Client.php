@@ -55,4 +55,12 @@ class Client extends BaseClient
     {
         return (new InvoiceQueryClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function products()
+    {
+        return (new ProductClient($this->httpClient))->auth($this->token);
+    }
 }
