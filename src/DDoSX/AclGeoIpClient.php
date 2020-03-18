@@ -4,11 +4,13 @@ namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\AclGeoIp;
+use UKFast\SDK\DDoSX\Entities\AclGeoIpMode;
 
 class AclGeoIpClient extends BaseClient
 {
     protected $basePath = 'ddosx/';
-    const MAP = [];
+    const GEOIPMAP = [];
+    const MODEMAP = [];
 
     /**
      * Return a page of the ACL GeoIP rules for a domain
@@ -29,7 +31,7 @@ class AclGeoIpClient extends BaseClient
         );
 
         $page->serializeWith(function ($item) {
-            return $this->serializeData($item);
+            return $this->serializeGeoIp($item);
         });
 
         return $page;
@@ -48,11 +50,31 @@ class AclGeoIpClient extends BaseClient
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return $this->serializeData($body->data);
+        return $this->serializeGeoIp($body->data);
     }
 
-    public function serializeData($raw)
+    /**
+     * Get the current GeoIp Mode for a domain
+     * @param $domainName
+     * @return AclGeoIpMode
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getMode($domainName)
     {
-        return new AclGeoIp($this->apiToFriendly($raw, self::MAP));
+        $response = $this->get('v1/domains/' . $domainName . '/acls/geo-ips/mode');
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return $this->serializeMode($body->data);
+    }
+
+    public function serializeGeoIp($raw)
+    {
+        return new AclGeoIp($this->apiToFriendly($raw, self::GEOIPMAP));
+    }
+
+    public function serializeMode($raw)
+    {
+        return new AclGeoIpMode($this->apiToFriendly($raw, self::MODEMAP));
     }
 }

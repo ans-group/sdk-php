@@ -10,18 +10,23 @@ class DomainPropertiesClient extends BaseClient
     const MAP = [];
 
     /**
+     * Get a paginated list of domain properties
      * @param $domainName
      * @param int $page
      * @param int $perPage
      * @param array $filter
+     * @return int|\UKFast\SDK\Page
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($domainName, $page = 1, $perPage = 15, $filter = [])
     {
         $response = $this->paginatedRequest('v1/domains/' . $domainName . '/properties', $page, $perPage);
-        $response->serializeWith(function ($item) {
+
+        $page = $response->serializeWith(function ($item) {
             return $this->serializeData($item);
         });
+
+        return $page;
     }
 
     /**
