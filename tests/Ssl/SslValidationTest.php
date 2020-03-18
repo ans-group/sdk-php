@@ -113,7 +113,7 @@ SSLKEY;
         $httpClient   = new GuzzleClient(['handler' => $handlerStack]);
 
         $client           = new ValidationClient($httpClient);
-        $validationResult = $client->validate(static::Certificate, static::CertificateKey, null);
+        $validationResult = $client->validate(static::CertificateKey, static::Certificate, null);
 
         $this->assertInstanceOf(ValidationResult::class, $validationResult);
         $this->assertEquals($validationData['domains'], $validationResult->domains);
@@ -143,6 +143,6 @@ SSLKEY;
         $client     = new ValidationClient($httpClient);
 
         $this->expectException(ValidationException::class);
-        $client->validate(static::Certificate, static::CertificateKey, null);
+        $client->validate(static::CertificateKey, static::Certificate, null);
     }
 }
