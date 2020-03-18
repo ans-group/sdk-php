@@ -21,16 +21,16 @@ class ValidationClient extends BaseClient
     /**
      * Validate a certificate against its key or key and CA bundle
      *
-     * @param string $certificate
      * @param string $key
+     * @param string $certificate
      * @param string|null $caBundle
      * @return ValidationResult
      */
-    public function validate($certificate, $key, $caBundle = null)
+    public function validate($key, $certificate, $caBundle = null)
     {
         $requestBody = [
-            'certificate' => $certificate,
             'key' => $key,
+            'certificate' => $certificate,
         ];
         if (empty($caBundle) === false) {
             $requestBody['ca_bundle'] = $caBundle;
