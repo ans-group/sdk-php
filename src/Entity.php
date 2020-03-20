@@ -82,11 +82,24 @@ abstract class Entity implements ArrayAccess
      * @param string $attr
      * @param mixed $value
      * @return void
+     * @throws \Exception
      */
     public function set($attr, $value)
     {
+        if (in_array($attr, array_keys($this->dates))) {
+            try {
+                $datetime = new DateTime($value);
+                $value = $datetime->format($this->dates[$attr]);
+            } catch (\Exception $e) {
+                $datetime = null;
+            }
+        }
+
         if (in_array($attr, $this->dates)) {
-            $datetime = DateTime::createFromFormat(DateTime::ISO8601, $value);
+            $datetime = DateTime::createFromFormat(DateTime::ATOM, $value);
+            if (!$datetime) {
+                $datetime = DateTime::createFromFormat(DateTime::ISO8601, $value);
+            }
             if (!$datetime) {
                 $datetime = DateTime::createFromFormat('Y-m-d', $value);
             }
