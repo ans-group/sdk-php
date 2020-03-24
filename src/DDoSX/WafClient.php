@@ -36,4 +36,24 @@ class WafClient extends BaseClient
                 return new Waf($this->apiToFriendly($response->data, $this->requestMap));
             });
     }
+
+    /**
+     * Gets the WAF settings for the domain
+     * @param $domainName
+     * @return Waf
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getByDomainName($domainName)
+    {
+        $response = $this->get('v1/domains/' . $domainName . '/waf');
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return $this->serializeData($body->data);
+    }
+
+    public function serializeData($raw)
+    {
+        return new Waf($this->apiToFriendly($raw, $this->requestMap));
+    }
 }

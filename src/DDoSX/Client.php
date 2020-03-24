@@ -88,4 +88,31 @@ class Client extends BaseClient
     {
         return (new AclGeoIpClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * Return the WafRulesetClient instance
+     * @return WafRulesetClient
+     */
+    public function wafRulsets()
+    {
+        return (new WafRulesetClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return the WafRulesClient instance
+     * @return WafRulesClient
+     */
+    public function wafRules()
+    {
+        return (new WafRulesClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return the WafAdvancedRulesClient instance
+     * @return WafAdvancedRulesClient
+     */
+    public function wafAdvancedRules()
+    {
+        return (new WafAdvancedRulesClient($this->httpClient))->auth($this->token);
+    }
 }
