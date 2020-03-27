@@ -8,4 +8,6 @@ use UKFast\SDK\Entity;
  * @property string $mode
  */
 class AclGeoIpMode extends Entity
-{}
+{
+
+}
