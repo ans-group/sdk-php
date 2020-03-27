@@ -57,7 +57,7 @@ class SslClientTest extends TestCase
 
         $ssl = new Ssl($sslClient->apiToFriendly(
             $response,
-            SslClient::CERTIFICATE_MAP
+            SslClient::SSL_MAP
         ));
 
         $this->assertEquals($response['id'], $ssl->id);
