@@ -2,17 +2,18 @@
 
 namespace UKFast\SDK\DDoSX;
 
-use UKFast\SDK\DDoSX\Client;
-use UKFast\SDK\DDoSX\Entities\WafAdvancedRule;
+use UKFast\SDK\DDoSX\Entities\CdnRule;
 
-class WafAdvancedRulesClient extends Client
+class CdnRulesClient extends Client
 {
-    protected $basePath = 'ddosx';
-
-    const MAP = [];
+    const RULES_MAP = [
+        'cache_control' => 'cacheControl',
+        'mime_types' => 'mimeTypes',
+        'cache_control_duration' => 'cacheControlDuration'
+    ];
 
     /**
-     * Get a paginated response of advanced rules for a domain
+     * Get a paginated list of cdn rules for a domain
      * @param $domainName
      * @param int $page
      * @param int $perPage
@@ -23,7 +24,7 @@ class WafAdvancedRulesClient extends Client
     public function getPage($domainName, $page = 1, $perPage = 15, $filters = [])
     {
         $page = $this->paginatedRequest(
-            'v1/domains/' . $domainName . '/waf/advanced-rules',
+            'v1/domains/' . $domainName . '/cdn/rules',
             $page,
             $perPage,
             $filters
@@ -37,15 +38,15 @@ class WafAdvancedRulesClient extends Client
     }
 
     /**
-     * Get an advanced rule for a domain by it's ID
+     * Get a rule for a domain by it's ID
      * @param $domainName
      * @param $ruleId
-     * @return WafAdvancedRule
+     * @return CdnRule
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getById($domainName, $ruleId)
     {
-        $response = $this->get('v1/domains/' . $domainName . '/waf/advanced-rules/' . $ruleId);
+        $response = $this->get('v1/domains/' . $domainName . '/cdn/rules/' . $ruleId);
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return $this->serializeData($body->data);
@@ -53,6 +54,6 @@ class WafAdvancedRulesClient extends Client
 
     protected function serializeData($raw)
     {
-        return new WafAdvancedRule($this->apiToFriendly($raw, self::MAP));
+        return new CdnRule($this->apiToFriendly($raw, self::RULES_MAP));
     }
 }

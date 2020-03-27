@@ -52,7 +52,7 @@ class WafClient extends BaseClient
         return $this->serializeData($body->data);
     }
 
-    public function serializeData($raw)
+    protected function serializeData($raw)
     {
         return new Waf($this->apiToFriendly($raw, $this->requestMap));
     }

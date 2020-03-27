@@ -68,12 +68,12 @@ class AclGeoIpClient extends BaseClient
         return $this->serializeMode($body->data);
     }
 
-    public function serializeGeoIp($raw)
+    protected function serializeGeoIp($raw)
     {
         return new AclGeoIp($this->apiToFriendly($raw, self::GEOIPMAP));
     }
 
-    public function serializeMode($raw)
+    protected function serializeMode($raw)
     {
         return new AclGeoIpMode($this->apiToFriendly($raw, self::MODEMAP));
     }

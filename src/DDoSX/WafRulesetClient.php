@@ -28,7 +28,7 @@ class WafRulesetClient extends Client
         }, $body->data);
     }
 
-    public function serializeData($raw)
+    protected function serializeData($raw)
     {
         return new WafRuleset($this->apiToFriendly($raw, self::MAP));
     }

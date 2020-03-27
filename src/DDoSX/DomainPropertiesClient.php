@@ -46,7 +46,7 @@ class DomainPropertiesClient extends BaseClient
     /**
      * @return DomainProperty
      */
-    public function serializeData($raw)
+    protected function serializeData($raw)
     {
         return new DomainProperty($this->apiToFriendly($raw, self::MAP));
     }
