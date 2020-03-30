@@ -6,7 +6,6 @@ use UKFast\SDK\DDoSX\Entities\DomainProperty;
 
 class DomainPropertiesClient extends BaseClient
 {
-    protected $basePath = 'ddosx/';
     const MAP = [];
 
     /**

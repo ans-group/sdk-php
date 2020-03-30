@@ -8,7 +8,6 @@ use UKFast\SDK\DDoSX\Entities\AclGeoIpMode;
 
 class AclGeoIpClient extends BaseClient
 {
-    protected $basePath = 'ddosx/';
     const GEOIPMAP = [];
     const MODEMAP = [];
 

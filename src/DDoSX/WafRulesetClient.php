@@ -7,8 +7,6 @@ use UKFast\SDK\DDoSX\Entities\WafRuleset;
 
 class WafRulesetClient extends Client
 {
-    protected $basePath = 'ddosx';
-
     const MAP = [];
 
     /**
