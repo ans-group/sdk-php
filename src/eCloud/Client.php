@@ -74,6 +74,14 @@ class Client extends BaseClient
     }
 
     /**
+     * @return VirtualMachineTagClient
+     */
+    public function virtualMachineTags()
+    {
+        return (new VirtualMachineTagClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
      * @return BaseClient
      */
     public function iops()
