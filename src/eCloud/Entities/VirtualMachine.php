@@ -15,11 +15,11 @@ use UKFast\SDK\Entity;
  * @property string $hostname
  * @property string $computerName
  *
- * @property string $cpu
- * @property string $ram
+ * @property int $cpu
+ * @property int $ram
  *
- * @property string $hdd
- * @property string $disks
+ * @property int $hdd
+ * @property array $disks
  * @property int $datastoreId
  *
  * @property string $ipAddresses
@@ -27,18 +27,19 @@ use UKFast\SDK\Entity;
  * @property string $template
  * @property string $platform
  *
- * @property string $backup
- * @property string $support
+ * @property boolean $backup
+ * @property boolean $support
  *
  * @property string $environment
  * @property int $podId
  * @property int $solutionId
+ *
  * @property int $adDomainId
  *
  * @property string $power
  * @property string $tools
  *
- * @property string $credentials
+ * @property array $credentials
  */
 class VirtualMachine extends Entity
 {

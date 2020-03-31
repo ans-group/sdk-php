@@ -3,6 +3,7 @@
 namespace UKFast\SDK\DRaaS;
 
 use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\DRaaS\Entities\ComputeResources;
 
 class Client extends BaseClient
 {
@@ -17,13 +18,21 @@ class Client extends BaseClient
     }
 
     /**
+     * @return ComputeResourcesClient
+     */
+    public function computeResources()
+    {
+        return (new ComputeResourcesClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
      * @return BackupResourcesClient
      */
     public function backupResources()
     {
         return (new BackupResourcesClient($this->httpClient))->auth($this->token);
     }
-  
+
     /**
      * @return IopsTiersClient
      */
