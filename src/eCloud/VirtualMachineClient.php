@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\Tag;
 use UKFast\SDK\Page;
 use UKFast\SDK\eCloud\Entities\VirtualMachine;
 use UKFast\SDK\eCloud\Entities\Hdd;
@@ -20,6 +21,10 @@ class VirtualMachineClient extends Client
 
     const HDD_MAP = [
 
+    ];
+
+    const TAG_MAP = [
+        'created_at' => 'createdAt'
     ];
 
 
@@ -367,6 +372,41 @@ class VirtualMachineClient extends Client
     {
         $response = $this->delete("v1/vms/$id");
         return $response->getStatusCode() == 202;
+    }
+
+    /**
+     * Return a paginated list of virtual machine tags
+     * @param $id
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getTags($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest('v1/vms/' . $id . '/tags', $page, $perPage, $filters);
+
+        $page->serializeWith(function ($item) {
+            return new Tag($this->apiToFriendly($item, self::TAG_MAP));
+        });
+
+        return $page;
+    }
+
+    /**
+     * Get a tag by it's key for a specific vm
+     * @param $id
+     * @param $tagKey
+     * @return Tag
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getTagByKey($id, $tagKey)
+    {
+        $response = $this->get('v1/vms/' . $id . '/tags/' . $tagKey);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Tag($this->apiToFriendly($body->data, self::TAG_MAP));
     }
 
     /**

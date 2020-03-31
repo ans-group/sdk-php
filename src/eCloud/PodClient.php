@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\GpuProfile;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 
@@ -15,6 +16,10 @@ class PodClient extends Client implements ClientEntityInterface
         'id' => 'id',
         'name' => 'name',
         'services' => 'services'
+    ];
+
+    const GPU_PROFILE_MAP = [
+        'card_type' => 'cardType'
     ];
 
     /**
@@ -99,6 +104,25 @@ class PodClient extends Client implements ClientEntityInterface
         $page = $this->paginatedRequest("v1/pods/$id/appliances", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return new Appliance($this->apiToFriendly($item, ApplianceClient::MAP));
+        });
+
+        return $page;
+    }
+
+    /**
+     * Get a paginated results of pod GPUs
+     * @param $id
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return int|Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getGpuProfiles($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest('v1/pods/' . $id . '/gpu-profiles', $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return new GpuProfile($this->apiToFriendly($item, self::GPU_PROFILE_MAP));
         });
 
         return $page;
