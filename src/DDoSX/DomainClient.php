@@ -4,6 +4,7 @@ namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\Domain;
+use UKFast\SDK\DDoSX\Entities\DomainProperty;
 use UKFast\SDK\DDoSX\Entities\Ip;
 use UKFast\SDK\SelfResponse;
 
@@ -22,10 +23,12 @@ class DomainClient extends BaseClient
     /**
      * @var array
      */
-    protected $ipMap = [
+    const IP_MAP = [
         "ipv4_address" => "ipv4Address",
         "ipv6_address" => "ipv6Address"
     ];
+
+    const PROPERTIES_MAP = [];
 
     /**
      * Gets a paginated response of all DDoSX domains
@@ -99,7 +102,42 @@ class DomainClient extends BaseClient
         $response = $this->request("GET", 'v1/domains/' . $domainName . '/ips');
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return new Ip($this->apiToFriendly($body->data, $this->ipMap));
+        return new Ip($this->apiToFriendly($body->data, self::IP_MAP));
+    }
+
+    /**
+     * Get a paginated list of domain properties
+     * @param $domainName
+     * @param int $page
+     * @param int $perPage
+     * @param array $filter
+     * @return int|\UKFast\SDK\Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getProperties($domainName, $page = 1, $perPage = 15, $filter = [])
+    {
+        $response = $this->paginatedRequest('v1/domains/' . $domainName . '/properties', $page, $perPage);
+
+        $page = $response->serializeWith(function ($item) {
+            return $this->serializeDomainProperty($item);
+        });
+
+        return $page;
+    }
+
+    /**
+     * Get a property by it's ID
+     * @param $domainId
+     * @param $propertyId
+     * @return DomainProperty
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getPropertyById($domainId, $propertyId)
+    {
+        $response = $this->get('v1/domains/' . $domainId . '/properties/' . $propertyId);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return $this->serializeDomainProperty($body->data);
     }
 
     /**
@@ -128,5 +166,10 @@ class DomainClient extends BaseClient
         }
 
         return $domain;
+    }
+
+    protected function serializeDomainProperty($raw)
+    {
+        return new DomainProperty($this->apiToFriendly($raw, self::PROPERTIES_MAP));
     }
 }

@@ -32,15 +32,6 @@ class Client extends BaseClient
     }
 
     /**
-     * Return a CdnRulesClient instance
-     * @return CdnRulesClient
-     */
-    public function cdnRules()
-    {
-        return (new CdnRulesClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
      * Return a wafClient instance
      *
      * @return WafClient
@@ -81,15 +72,6 @@ class Client extends BaseClient
     }
 
     /**
-     * Return the DomainPropertiesClient instance
-     * @return DomainPropertiesClient
-     */
-    public function domainProperties()
-    {
-        return (new DomainPropertiesClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
      * Return the AclGeoIpClient instance
      * @return AclGeoIpClient
      */
@@ -99,47 +81,11 @@ class Client extends BaseClient
     }
 
     /**
-     * Return the WafRulesetClient instance
-     * @return WafRulesetClient
-     */
-    public function wafRulsets()
-    {
-        return (new WafRulesetClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
-     * Return the WafRulesClient instance
-     * @return WafRulesClient
-     */
-    public function wafRules()
-    {
-        return (new WafRulesClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
-     * Return the WafAdvancedRulesClient instance
-     * @return WafAdvancedRulesClient
-     */
-    public function wafAdvancedRules()
-    {
-        return (new WafAdvancedRulesClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
      * Return the HstsClient instance
      * @return HstsClient
      */
     public function hsts()
     {
         return (new HstsClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
-     * Return the HstsRulesClient instance
-     * @return HstsRulesClient
-     */
-    public function hstsRules()
-    {
-        return (new HstsRulesClient($this->httpClient))->auth($this->token);
     }
 }
