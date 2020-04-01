@@ -34,4 +34,24 @@ class Client extends BaseClient
     {
         return (new NoteClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * Shortcut to get a TemplateClient
+     *
+     * @return BaseClient
+     */
+    public function templates()
+    {
+        return (new TemplateClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Shortcut to get a SettingsClient
+     *
+     * @return SettingsClient
+     */
+    public function settings()
+    {
+        return (new SettingsClient($this->httpClient))->auth($this->token);
+    }
 }
