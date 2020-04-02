@@ -121,6 +121,22 @@ class SolutionClient extends Client implements ClientEntityInterface
     }
 
     /**
+     * Reset the credentials for the solution's backup service.
+     * @param $id string The solution ID
+     * @param $newPassword
+     * @return bool
+     */
+    public function resetBackupServiceCredentials($id, $newPassword)
+    {
+        $response = $this->post(
+            "v1/solutions/$id/backup-service/reset-credentials",
+            json_encode(['password' => $newPassword])
+        );
+
+        return $response->getStatusCode() == 202;
+    }
+
+    /**
      * Load an instance of Datastore from API data
      * @param $data
      * @return Solution
