@@ -3,7 +3,6 @@
 namespace UKFast\SDK\DRaaS;
 
 use UKFast\SDK\Client as BaseClient;
-use UKFast\SDK\DRaaS\Entities\ComputeResources;
 
 class Client extends BaseClient
 {
@@ -39,5 +38,13 @@ class Client extends BaseClient
     public function iops()
     {
         return (new IopsTiersClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return FailoverPlanClient
+     */
+    public function failoverPlans()
+    {
+        return (new FailoverPlanClient($this->httpClient))->auth($this->token);
     }
 }
