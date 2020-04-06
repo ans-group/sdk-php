@@ -23,4 +23,20 @@ class Client extends BaseClient
     {
         return (new ReportClient($this->httpClient))->auth($this->token);
     }
+
+    /*
+     * @return RecommendationsClient
+     */
+    public function recommendations()
+    {
+        return (new RecommendationsClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ValidationClient
+     */
+    public function validation()
+    {
+        return (new ValidationClient($this->httpClient))->auth($this->token);
+    }
 }

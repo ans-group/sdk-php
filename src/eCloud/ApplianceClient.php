@@ -4,6 +4,7 @@ namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\eCloud\Entities\Appliance;
 use UKFast\SDK\eCloud\Entities\ApplianceVersion;
+use UKFast\SDK\eCloud\Entities\ApplianceParameter;
 use UKFast\SDK\eCloud\Entities\Appliance\Version\Data;
 use UKFast\SDK\Page;
 
@@ -62,6 +63,30 @@ class ApplianceClient extends Client
             $this->decodeJson($response->getBody()->getContents())->data,
             ApplianceVersionClient::MAP
         ));
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getParameters($id)
+    {
+        $response = $this->get('v1/appliances/' . $id . '/parameters');
+        $responseData = $this->decodeJson($response->getBody()->getContents())->data;
+        if (empty($responseData)) {
+            return [];
+        }
+
+        $parameters = [];
+        foreach ($responseData as $item) {
+            $parameters[] = new ApplianceParameter($this->apiToFriendly(
+                $item,
+                ApplianceParameterClient::MAP
+            ));
+        }
+
+        return $parameters;
     }
 
     /**

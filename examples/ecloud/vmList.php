@@ -15,7 +15,8 @@ $virtualMachines = $ecloud->virtualMachines()->getAll();
 foreach ($virtualMachines as $virtualMachine) {
     echo "# {$virtualMachine->id} - {$virtualMachine->hostname}".
         "\t {$virtualMachine->status} \t {$virtualMachine->name}" .
+        "\t {$virtualMachine->ipAddresses->internal} \t {$virtualMachine->ipAddresses->external}" .
         "\n";
 }
 
-// # 12345 - 192.0.2.1.srvlist.ukfast.net
+// # 12345 - 192.0.2.12.srvlist.ukfast.net	 Complete 	 LIVE web server 	 192.0.2.12 	 203.0.113.20
