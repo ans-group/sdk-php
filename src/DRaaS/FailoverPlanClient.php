@@ -50,4 +50,41 @@ class FailoverPlanClient extends Client implements ClientEntityInterface
     {
         return new FailoverPlan($this->apiToFriendly($data, static::MAP));
     }
+
+    /**
+     * Start a failover plan
+     * @param $solutionId
+     * @param $failoverPlanId
+     * @param $startNow
+     * @param $startDate
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function start($solutionId, $failoverPlanId, $startNow, $startDate)
+    {
+        return $this->post(
+                'v1/solutions/' . $solutionId . '/failover-plans/' . $failoverPlanId,
+                json_encode([
+                    'start_now' => $startNow,
+                    'start_date' => $startDate,
+                ]),
+                ['Content-Type' => 'application/json']
+            )->getStatusCode() == 200;
+    }
+
+    /**
+     * Stop a failover plan
+     * @param $solutionId
+     * @param $failoverPlanId
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function stop($solutionId, $failoverPlanId)
+    {
+        return $this->post(
+                'v1/solutions/' . $solutionId . '/failover-plans/' . $failoverPlanId,
+                json_encode([]),
+                ['Content-Type' => 'application/json']
+            )->getStatusCode() == 200;
+    }
 }
