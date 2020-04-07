@@ -109,6 +109,8 @@ class SolutionClient extends Client implements ClientEntityInterface
      * @param int $perPage
      * @param array $filters
      * @return int|Page
+     *
+     * @deprecated please use ComputeResourcesClient::getPage()
      */
     public function getComputeResourcesPage($id, $page = 1, $perPage = 15, $filters = [])
     {
