@@ -47,4 +47,12 @@ class Client extends BaseClient
     {
         return (new FailoverPlanClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return HardwarePlanClient
+     */
+    public function hardwarePlans()
+    {
+        return (new HardwarePlanClient($this->httpClient))->auth($this->token);
+    }
 }
