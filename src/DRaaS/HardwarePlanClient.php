@@ -3,11 +3,13 @@
 namespace UKFast\SDK\DRaaS;
 
 use UKFast\SDK\DRaaS\Entities\HardwarePlan;
+use UKFast\SDK\DRaaS\Entities\Replica;
 use UKFast\SDK\Entities\ClientEntityInterface;
 
 class HardwarePlanClient extends Client implements ClientEntityInterface
 {
     const MAP = [];
+    const REPLICA = [];
 
     /**
      * Gets a paginated response of hardware Plans
@@ -39,6 +41,24 @@ class HardwarePlanClient extends Client implements ClientEntityInterface
         $response = $this->get("v1/solutions/$solutionId/hardware-plans/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->loadEntity($body->data);
+    }
+
+    /**
+     * Get replicas for the hardware plan
+     * @param $solutionId
+     * @param $id
+     * @param int $page
+     * @param int $perPage
+     * @return \UKFast\SDK\Page
+     */
+    public function getReplicasPage($solutionId, $id, $page = 1, $perPage = 15)
+    {
+        $page = $this->paginatedRequest("v1/solutions/$solutionId/hardware-plans/$id/replicas", $page, $perPage);
+        $page->serializeWith(function ($item) {
+            return new Replica($this->apiToFriendly($item, static::REPLICA));
+        });
+
+        return $page;
     }
 
     /**
