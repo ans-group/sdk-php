@@ -55,4 +55,12 @@ class Client extends BaseClient
     {
         return (new HardwarePlanClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return HardwarePlanClient
+     */
+    public function billingTypes()
+    {
+        return (new BillingTypeClient($this->httpClient))->auth($this->token);
+    }
 }
