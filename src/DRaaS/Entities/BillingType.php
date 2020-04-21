@@ -7,7 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * Class BillingType
  * @property string $id
- * @property integer $type
+ * @property string $type
  */
 class BillingType extends Entity
 {

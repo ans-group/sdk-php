@@ -57,7 +57,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return HardwarePlanClient
+     * @return BillingTypeClient
      */
     public function billingTypes()
     {
