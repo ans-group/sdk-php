@@ -3,12 +3,19 @@
 namespace UKFast\SDK\Billing;
 
 use UKFast\SDK\Billing\Entities\RecurringCost;
-use UKFast\SDK\Billing\Entities\Product;
+use UKFast\SDK\Billing\Entities\RecurringCosts\Product;
+use UKFast\SDK\Billing\Entities\RecurringCosts\Type;
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Page;
 
 class RecurringCostClient extends BaseClient
 {
+    const MAP = [
+        'on_account' => 'onAccount',
+        'next_payment_at' => 'nextPaymentAt',
+        'created_at' => 'createdAt'
+    ];
+
     protected $basePath = 'billing/';
 
     /**
@@ -52,11 +59,11 @@ class RecurringCostClient extends BaseClient
      */
     protected function serializeRecurringCost($item)
     {
-        $recurringCost = new RecurringCost($this->apiToFriendly($item, [
-            'payment_method' => 'paymentMethod',
-            'next_payment_at' => 'nextPaymentAt',
-            'created_at' => 'createdAt',
-        ]));
+        $recurringCost = new RecurringCost($this->apiToFriendly($item, self::MAP));
+
+        if (!is_null($item->type)) {
+            $recurringCost->type = new Type($item->type);
+        }
 
         if (!is_null($item->product)) {
             $recurringCost->product = new Product($item->product);
