@@ -7,7 +7,6 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\SDK\Billing\Entities\Product;
 use UKFast\SDK\Billing\Entities\RecurringCost;
 
 class RecurringCostClientTest extends TestCase

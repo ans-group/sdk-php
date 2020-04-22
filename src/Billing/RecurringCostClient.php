@@ -11,6 +11,7 @@ use UKFast\SDK\Page;
 class RecurringCostClient extends BaseClient
 {
     const MAP = [
+        'order_id' => 'orderId',
         'on_account' => 'onAccount',
         'next_payment_at' => 'nextPaymentAt',
         'created_at' => 'createdAt'
