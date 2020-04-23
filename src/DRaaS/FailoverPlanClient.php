@@ -63,13 +63,13 @@ class FailoverPlanClient extends Client implements ClientEntityInterface
     public function start($solutionId, $failoverPlanId, $startNow, $startDate)
     {
         return $this->post(
-                'v1/solutions/' . $solutionId . '/failover-plans/' . $failoverPlanId . '/start',
-                json_encode([
-                    'start_now' => $startNow,
-                    'start_date' => $startDate,
-                ]),
-                ['Content-Type' => 'application/json']
-            )->getStatusCode() == 200;
+            'v1/solutions/' . $solutionId . '/failover-plans/' . $failoverPlanId . '/start',
+            json_encode([
+                'start_now' => $startNow,
+                'start_date' => $startDate,
+            ]),
+            ['Content-Type' => 'application/json']
+        )->getStatusCode() == 200;
     }
 
     /**
@@ -82,9 +82,9 @@ class FailoverPlanClient extends Client implements ClientEntityInterface
     public function stop($solutionId, $failoverPlanId)
     {
         return $this->post(
-                'v1/solutions/' . $solutionId . '/failover-plans/' . $failoverPlanId . '/stop',
-                json_encode([]),
-                ['Content-Type' => 'application/json']
-            )->getStatusCode() == 200;
+            'v1/solutions/' . $solutionId . '/failover-plans/' . $failoverPlanId . '/stop',
+            json_encode([]),
+            ['Content-Type' => 'application/json']
+        )->getStatusCode() == 200;
     }
 }
