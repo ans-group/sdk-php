@@ -46,6 +46,16 @@ class Client extends BaseClient
     }
 
     /**
+     * Shortcut to get a TemplateClient
+     *
+     * @return BaseClient
+     */
+    public function templateRecords()
+    {
+        return (new TemplateRecordClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
      * Shortcut to get a SettingsClient
      *
      * @return SettingsClient
