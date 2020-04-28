@@ -55,4 +55,12 @@ class Client extends BaseClient
     {
         return (new HardwarePlanClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return ReplicaClient
+     */
+    public function replicas()
+    {
+        return (new ReplicaClient($this->httpClient))->auth($this->token);
+    }
 }
