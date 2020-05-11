@@ -15,6 +15,7 @@ class SolutionClient extends Client implements ClientEntityInterface
         'id' => 'id',
         'name' => 'name',
         'iops_tier_id' => 'iopsTierId',
+        'billing_type_id' => 'billingTypeId',
     ];
 
     const BACKUP_SERVICE_MAP = [

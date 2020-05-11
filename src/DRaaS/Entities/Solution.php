@@ -9,6 +9,7 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property integer $resellerId
  * @property string $name
+ * @property string $billing_type_id
  * @property string $tenantUid
  */
 class Solution extends Entity
