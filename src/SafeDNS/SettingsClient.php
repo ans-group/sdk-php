@@ -10,10 +10,10 @@ class SettingsClient extends Client
         'custom_soa_allowed' => 'customSoaAllowed',
         'custom_base_ns_allowed' => 'customBaseNsAllowed',
         'custom_axfr' => 'customAxfr',
-        'delegationAllowed'
+        'delegation_allowed' => 'delegationAllowed'
     ];
 
-    public function getSettings()
+    public function get()
     {
         $response = $this->get('v1/settings');
         $body = $this->decodeJson($response->getBody()->getContents());
