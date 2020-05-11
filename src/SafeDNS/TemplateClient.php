@@ -19,7 +19,7 @@ class TemplateClient extends Client
      * @return int|\UKFast\SDK\Page
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getPage($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 20, $filters = [])
     {
         $page = $this->paginatedRequest('v1/templates', $page, $perPage);
         $page->serializeWith(function ($item) {
