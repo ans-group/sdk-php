@@ -30,7 +30,7 @@ class CdnClient extends BaseClient
     {
         $response = $this->post(
             'v1/domains/' . $cdn->name . '/cdn',
-            json_encode($this->friendlyToApi($cdn, $this->requestMap))
+            json_encode($this->friendlyToApi($cdn, self::CDN_MAP))
         );
         $body = $this->decodeJson($response->getBody()->getContents());
 

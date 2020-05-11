@@ -56,7 +56,7 @@ class WafClient extends BaseClient
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return $this->serializeData($body->data);
+        return $this->serializeWaf($body->data);
     }
 
     /**
