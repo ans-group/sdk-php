@@ -25,7 +25,7 @@ class RecordClient extends BaseClient implements ClientEntityInterface
      * @return int|Page
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getByZoneName($zoneName, $page = 1, $perPage = 15, $filters = [])
+    public function getByZoneName($zoneName, $page = 1, $perPage = 20, $filters = [])
     {
         $page = $this->paginatedRequest('v1/zones/'.$zoneName.'/records', $page, $perPage, $filters);
         $page->serializeWith(function ($item) use ($zoneName) {

@@ -43,6 +43,11 @@ class TemplateClient extends Client
         return $this->serializeData($body->data);
     }
 
+    /**
+     * Convert the api fields to a friendly name
+     * @param $raw
+     * @return Template
+     */
     protected function serializeData($raw)
     {
         return new Template($this->apiToFriendly($raw, self::TEMPLATE_MAP));

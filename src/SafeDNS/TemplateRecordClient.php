@@ -49,6 +49,11 @@ class TemplateRecordClient extends Client
         return $this->serializeData($body->data);
     }
 
+    /**
+     * Convert the api fields to a friendly name
+     * @param $raw
+     * @return Record
+     */
     protected function serializeData($raw)
     {
         return new Record($this->apiToFriendly($raw, self::RECORD_MAP));

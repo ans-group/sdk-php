@@ -13,7 +13,11 @@ class SettingsClient extends Client
         'delegation_allowed' => 'delegationAllowed'
     ];
 
-    public function get()
+    /**
+     * Get the safeDNS settings
+     * @return \Psr\Http\Message\ResponseInterface|Settings
+     */
+    public function getAll()
     {
         $response = $this->get('v1/settings');
         $body = $this->decodeJson($response->getBody()->getContents());
