@@ -46,7 +46,7 @@ class Client extends BaseClient
     }
 
     /**
-     * Shortcut to get a TemplateClient
+     * Shortcut to get a TemplateRecordClient
      *
      * @return BaseClient
      */
