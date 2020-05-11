@@ -8,8 +8,8 @@ use UKFast\SDK\DDoSX\Entities\AclGeoIpMode;
 
 class AclGeoIpClient extends BaseClient
 {
-    const GEOIPMAP = [];
-    const MODEMAP = [];
+    const GEO_IP_MAP = [];
+    const MODE_MAP = [];
 
     /**
      * Return a page of the ACL GeoIP rules for a domain
@@ -69,11 +69,11 @@ class AclGeoIpClient extends BaseClient
 
     protected function serializeGeoIp($raw)
     {
-        return new AclGeoIp($this->apiToFriendly($raw, self::GEOIPMAP));
+        return new AclGeoIp($this->apiToFriendly($raw, self::GEO_IP_MAP));
     }
 
     protected function serializeMode($raw)
     {
-        return new AclGeoIpMode($this->apiToFriendly($raw, self::MODEMAP));
+        return new AclGeoIpMode($this->apiToFriendly($raw, self::MODE_MAP));
     }
 }

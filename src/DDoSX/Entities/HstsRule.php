@@ -6,8 +6,8 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $maxAge
- * @property string $includeSubdomains
+ * @property int $maxAge
+ * @property bool $includeSubdomains
  * @property string $type
  * @property string $recordName
  */

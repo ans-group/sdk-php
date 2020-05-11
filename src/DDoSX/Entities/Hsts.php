@@ -5,7 +5,7 @@ namespace UKFast\SDK\DDoSX\Entities;
 use UKFast\SDK\Entity;
 
 /**
- * @property string $enable
+ * @property bool $enabled
  */
 class Hsts extends Entity
 {

@@ -83,6 +83,6 @@ class CdnClient extends BaseClient
 
     protected function serializeCdnRule($raw)
     {
-        return new CdnRule($this->apiToFriendly($raw));
+        return new CdnRule($this->apiToFriendly($raw, self::RULES_MAP));
     }
 }
