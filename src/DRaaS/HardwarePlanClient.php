@@ -9,7 +9,6 @@ use UKFast\SDK\Entities\ClientEntityInterface;
 class HardwarePlanClient extends Client implements ClientEntityInterface
 {
     const MAP = [];
-    const REPLICA = [];
 
     /**
      * Gets a paginated response of hardware Plans
@@ -55,7 +54,7 @@ class HardwarePlanClient extends Client implements ClientEntityInterface
     {
         $page = $this->paginatedRequest("v1/solutions/$solutionId/hardware-plans/$id/replicas", $page, $perPage);
         $page->serializeWith(function ($item) {
-            return new Replica($this->apiToFriendly($item, static::REPLICA));
+            return new Replica($this->apiToFriendly($item, ReplicaClient::MAP));
         });
 
         return $page;

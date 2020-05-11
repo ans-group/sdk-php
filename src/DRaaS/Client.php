@@ -57,6 +57,14 @@ class Client extends BaseClient
     }
 
     /**
+     * @return ReplicaClient
+     */
+    public function replicas()
+    {
+        return (new ReplicaClient($this->httpClient))->auth($this->token);
+    }
+  
+    /**
      * @return BillingTypeClient
      */
     public function billingTypes()
