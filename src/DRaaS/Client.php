@@ -71,4 +71,12 @@ class Client extends BaseClient
     {
         return (new BillingTypeClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return PodClient
+     */
+    public function pods()
+    {
+        return (new PodClient($this->httpClient))->auth($this->token);
+    }
 }
