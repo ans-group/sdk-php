@@ -55,4 +55,28 @@ class Client extends BaseClient
     {
         return (new HardwarePlanClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return ReplicaClient
+     */
+    public function replicas()
+    {
+        return (new ReplicaClient($this->httpClient))->auth($this->token);
+    }
+  
+    /**
+     * @return BillingTypeClient
+     */
+    public function billingTypes()
+    {
+        return (new BillingTypeClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return PodClient
+     */
+    public function pods()
+    {
+        return (new PodClient($this->httpClient))->auth($this->token);
+    }
 }
