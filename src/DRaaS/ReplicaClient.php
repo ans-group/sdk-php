@@ -15,9 +15,13 @@ class ReplicaClient extends Client
     {
         $data['iops_tier_id'] = $iopsTier;
 
-        $response = $this->post("v1/solutions/" . $solutionId . '/replicas/' . $replicaId . '/iops', json_encode($data), [
-            'Content-Type' => 'application/json'
-        ]);
+        $response = $this->post(
+            "v1/solutions/" . $solutionId . '/replicas/' . $replicaId . '/iops',
+            json_encode($data),
+            [
+                'Content-Type' => 'application/json'
+            ]
+        );
 
         return $response->getStatusCode() == 204;
     }
