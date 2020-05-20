@@ -86,7 +86,10 @@ abstract class Entity implements ArrayAccess
     public function set($attr, $value)
     {
         if (in_array($attr, $this->dates)) {
-            $datetime = DateTime::createFromFormat(DateTime::ISO8601, $value);
+            $datetime = DateTime::createFromFormat(DateTime::ATOM, $value);
+            if (!$datetime) {
+                $datetime = DateTime::createFromFormat(DateTime::ISO8601, $value);
+            }
             if (!$datetime) {
                 $datetime = DateTime::createFromFormat('Y-m-d', $value);
             }
