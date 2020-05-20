@@ -11,7 +11,7 @@ use UKFast\SDK\Entity;
  * @property string $platform
  * @property integer $cpu
  * @property integer $ram
- * @property integer $hdd
+ * @property integer $disk
  * @property integer $iops
  * @property boolean $power
  */
