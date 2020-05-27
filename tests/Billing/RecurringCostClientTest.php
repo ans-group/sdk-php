@@ -22,22 +22,32 @@ class RecurringCostClientTest extends TestCase
                     "id" => 1,
                     "type" => [
                         "id" => 1,
-                        "name" => "name",
-                        "category" => "category"
+                        "name" => "name"
                     ],
                     "description" => "description",
+                    "status" => "Active",
                     "order_id" => "PG1234",
+                    "purchase_order_id" => "TEST",
+                    "cost_centre_id" => 12,
                     "product" => [
                         "id" => 1,
                         "name" => "SOLO"
                     ],
-                    "total" => 45.99,
+                    "cost" => 45.99,
                     "period" => "monthly",
                     "interval" => 2,
-                    "quantity" => 2,
-                    "on_account" => true,
+                    "by_card" => true,
                     "next_payment_at" => "2020-06-21",
+                    "end_date" => "2020-10-21",
+                    "contract_end_date" => "2020-10-21",
+                    "frozen_end_date" => "2020-10-21",
+                    "migration_end_date" => "2020-10-21",
                     "created_at" => "2020-04-21T09:49:03+00:00",
+                    "partner" => [
+                        "id" => 1,
+                        "cost" => "0.00"
+                    ],
+                    "project_id" => 1
                 ],
                 'meta' => []
             ])),
@@ -53,18 +63,26 @@ class RecurringCostClientTest extends TestCase
         $this->assertEquals(1, $recurringCost->id);
         $this->assertEquals(1, $recurringCost->type->id);
         $this->assertEquals('name', $recurringCost->type->name);
-        $this->assertEquals('category', $recurringCost->type->category);
         $this->assertEquals('description', $recurringCost->description);
+        $this->assertEquals('Active', $recurringCost->status);
         $this->assertEquals('PG1234', $recurringCost->orderId);
+        $this->assertEquals('TEST', $recurringCost->purchaseOrderId);
+        $this->assertEquals(12, $recurringCost->costCentreId);
         $this->assertEquals(1, $recurringCost->product->id);
         $this->assertEquals('SOLO', $recurringCost->product->name);
-        $this->assertEquals(45.99, $recurringCost->total);
+        $this->assertEquals(45.99, $recurringCost->cost);
         $this->assertEquals('monthly', $recurringCost->period);
         $this->assertEquals(2, $recurringCost->interval);
-        $this->assertEquals(2, $recurringCost->quantity);
-        $this->assertTrue($recurringCost->onAccount);
+        $this->assertTrue($recurringCost->byCard);
         $this->assertTrue($recurringCost->nextPaymentAt instanceof \DateTime);
+        $this->assertTrue($recurringCost->endDate instanceof \DateTime);
+        $this->assertTrue($recurringCost->contractEndDate instanceof \DateTime);
+        $this->assertTrue($recurringCost->frozenEndDate instanceof \DateTime);
+        $this->assertTrue($recurringCost->migrationEndDate instanceof \DateTime);
         $this->assertTrue($recurringCost->createdAt instanceof \DateTime);
+        $this->assertEquals(1, $recurringCost->partner->id);
+        $this->assertEquals("0.00", $recurringCost->partner->cost);
+        $this->assertEquals(1, $recurringCost->projectId);
     }
 
     /**
@@ -79,43 +97,63 @@ class RecurringCostClientTest extends TestCase
                         "id" => 1,
                         "type" => [
                             "id" => 1,
-                            "name" => "name",
-                            "category" => "category"
+                            "name" => "name"
                         ],
                         "description" => "description",
+                        "status" => "Active",
                         "order_id" => "PG1234",
+                        "purchase_order_id" => "TEST",
+                        "cost_centre_id" => 12,
                         "product" => [
                             "id" => 1,
                             "name" => "SOLO"
                         ],
-                        "total" => 45.99,
+                        "cost" => 45.99,
                         "period" => "monthly",
                         "interval" => 2,
-                        "quantity" => 2,
-                        "on_account" => true,
+                        "by_card" => true,
                         "next_payment_at" => "2020-06-21",
+                        "end_date" => "2020-10-21",
+                        "contract_end_date" => "2020-10-21",
+                        "frozen_end_date" => "2020-10-21",
+                        "migration_end_date" => "2020-10-21",
                         "created_at" => "2020-04-21T09:49:03+00:00",
+                        "partner" => [
+                            "id" => 1,
+                            "cost" => "0.00"
+                        ],
+                        "project_id" => 1
                     ],
                     [
                         "id" => 2,
                         "type" => [
-                            "id" => 1,
-                            "name" => "name",
-                            "category" => "category"
+                            "id" => 2,
+                            "name" => "name"
                         ],
                         "description" => "description",
+                        "status" => "Active",
                         "order_id" => "PG1234",
+                        "purchase_order_id" => "TEST",
+                        "cost_centre_id" => 12,
                         "product" => [
                             "id" => 1,
                             "name" => "SOLO"
                         ],
-                        "total" => 45.99,
+                        "cost" => 45.99,
                         "period" => "monthly",
                         "interval" => 2,
-                        "quantity" => 2,
-                        "on_account" => true,
+                        "by_card" => true,
                         "next_payment_at" => "2020-06-21",
+                        "end_date" => "2020-10-21",
+                        "contract_end_date" => "2020-10-21",
+                        "frozen_end_date" => "2020-10-21",
+                        "migration_end_date" => "2020-10-21",
                         "created_at" => "2020-04-21T09:49:03+00:00",
+                        "partner" => [
+                            "id" => 1,
+                            "cost" => "0.00"
+                        ],
+                        "project_id" => 2
                     ],
                 ],
                 'meta' => [

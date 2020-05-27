@@ -6,9 +6,9 @@ use UKFast\SDK\Entity;
 
 /**
  * @property int $id
- * @property string $name
+ * @property float $cost
  */
-class Type extends Entity
+class Partner extends Entity
 {
     //
 }

@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\Billing\Entities;
 
+use UKFast\SDK\Billing\Entities\RecurringCosts\Partner;
 use UKFast\SDK\Billing\Entities\RecurringCosts\Product;
 use UKFast\SDK\Billing\Entities\RecurringCosts\Type;
 use UKFast\SDK\Entity;
@@ -11,19 +12,34 @@ use DateTime;
  * @property int $id
  * @property Type $type
  * @property string $description
+ * @property string $status
  * @property mixed $orderId
+ * @property string $purchaseOrderId
+ * @property int $costCentreId
  * @property Product $product
- * @property float $total
+ * @property float $cost
  * @property string $period
  * @property int $interval
- * @property int $quantity
- * @property boolean $onAccount
+ * @property boolean $byCard
  * @property DateTime $nextPaymentAt
+ * @property DateTime $endDate
+ * @property DateTime $contractEndDate
+ * @property DateTime $frozenEndDate
+ * @property DateTime $migrationEndDate
  * @property DateTime $createdAt
+ * @property Partner $partner
+ * @property int $projectId
  */
 class RecurringCost extends Entity
 {
-    protected $dates = ['nextPaymentAt', 'createdAt'];
+    protected $dates = [
+        'nextPaymentAt',
+        'endDate',
+        'contractEndDate',
+        'frozenEndDate',
+        'migrationEndDate',
+        'createdAt'
+    ];
 
     /**
      * Returns interval & period as a friendly frequency

@@ -3,6 +3,7 @@
 namespace UKFast\SDK\Billing;
 
 use UKFast\SDK\Billing\Entities\RecurringCost;
+use UKFast\SDK\Billing\Entities\RecurringCosts\Partner;
 use UKFast\SDK\Billing\Entities\RecurringCosts\Product;
 use UKFast\SDK\Billing\Entities\RecurringCosts\Type;
 use UKFast\SDK\Client as BaseClient;
@@ -12,9 +13,16 @@ class RecurringCostClient extends BaseClient
 {
     const MAP = [
         'order_id' => 'orderId',
-        'on_account' => 'onAccount',
+        'purchase_order_id' => 'purchaseOrderId',
+        'cost_centre_id' => 'costCentreId',
+        'by_card' => 'byCard',
         'next_payment_at' => 'nextPaymentAt',
-        'created_at' => 'createdAt'
+        'end_date' => 'endDate',
+        'contract_end_date' => 'contractEndDate',
+        'frozen_end_date' => 'frozenEndDate',
+        'migration_end_date' => 'migrationEndDate',
+        'created_at' => 'createdAt',
+        'project_id' => 'projectId'
     ];
 
     protected $basePath = 'billing/';
@@ -68,6 +76,10 @@ class RecurringCostClient extends BaseClient
 
         if (!is_null($item->product)) {
             $recurringCost->product = new Product($item->product);
+        }
+
+        if (!is_null($item->partner)) {
+            $recurringCost->partner = new Partner($item->partner);
         }
 
         return $recurringCost;
