@@ -75,6 +75,18 @@ class SslClient extends BaseClient
     }
 
     /**
+     * Delete an existing DDoSX SSL Record
+     *
+     * @param Ssl $ssl
+     * @return bool
+     */
+    public function destroy(Ssl $ssl)
+    {
+        $response = $this->delete("v1/ssls/{$ssl->id}");
+        return $response->getStatusCode() == 204;
+    }
+
+    /**
      * Converts a response stdClass into a Ssl entity
      *
      * @param $item

@@ -7,7 +7,9 @@ use UKFast\SDK\Entities\ClientEntityInterface;
 
 class ComputeResourcesClient extends Client implements ClientEntityInterface
 {
-    const MAP = [];
+    const MAP = [
+        'hardware_plan_id' => 'hardwarePlanId'
+    ];
 
     /**
      * Gets an individual set of compute resources by id
