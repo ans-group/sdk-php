@@ -6,6 +6,7 @@ use UKFast\SDK\DRaaS\Entities\ComputeResources;
 use UKFast\SDK\DRaaS\Entities\BackupService;
 use UKFast\SDK\DRaaS\Entities\BackupResources;
 use UKFast\SDK\DRaaS\Entities\Solution;
+use UKFast\SDK\DRaaS\Entities\NetworkAppliance;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 
@@ -15,6 +16,7 @@ class SolutionClient extends Client implements ClientEntityInterface
         'id' => 'id',
         'name' => 'name',
         'iops_tier_id' => 'iopsTierId',
+        'billing_type_id' => 'billingTypeId',
     ];
 
     const BACKUP_SERVICE_MAP = [
@@ -85,6 +87,24 @@ class SolutionClient extends Client implements ClientEntityInterface
     }
 
     /**
+     * Get network appliances for the solution
+     * @param integer $id Solution ID
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return Page
+     */
+    public function getNetworkAppliancesPage($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest("v1/solutions/$id/network-appliances", $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return new NetworkAppliance($this->apiToFriendly($item, NetworkApplianceClient::MAP));
+        });
+
+        return $page;
+    }
+
+    /**
      * @param Solution $solution
      * @return bool
      */
@@ -109,6 +129,8 @@ class SolutionClient extends Client implements ClientEntityInterface
      * @param int $perPage
      * @param array $filters
      * @return int|Page
+     *
+     * @deprecated please use ComputeResourcesClient::getPage()
      */
     public function getComputeResourcesPage($id, $page = 1, $perPage = 15, $filters = [])
     {
@@ -118,6 +140,22 @@ class SolutionClient extends Client implements ClientEntityInterface
         });
 
         return $page;
+    }
+
+    /**
+     * Reset the credentials for the solution's backup service.
+     * @param $id string The solution ID
+     * @param $newPassword
+     * @return bool
+     */
+    public function resetBackupServiceCredentials($id, $newPassword)
+    {
+        $response = $this->post(
+            "v1/solutions/$id/backup-service/reset-credentials",
+            json_encode(['password' => $newPassword])
+        );
+
+        return $response->getStatusCode() == 202;
     }
 
     /**

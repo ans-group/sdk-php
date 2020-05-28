@@ -3,7 +3,6 @@
 namespace UKFast\SDK\DRaaS;
 
 use UKFast\SDK\Client as BaseClient;
-use UKFast\SDK\DRaaS\Entities\ComputeResources;
 
 class Client extends BaseClient
 {
@@ -39,5 +38,53 @@ class Client extends BaseClient
     public function iops()
     {
         return (new IopsTiersClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return FailoverPlanClient
+     */
+    public function failoverPlans()
+    {
+        return (new FailoverPlanClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return HardwarePlanClient
+     */
+    public function hardwarePlans()
+    {
+        return (new HardwarePlanClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ReplicaClient
+     */
+    public function replicas()
+    {
+        return (new ReplicaClient($this->httpClient))->auth($this->token);
+    }
+  
+    /**
+     * @return BillingTypeClient
+     */
+    public function billingTypes()
+    {
+        return (new BillingTypeClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return PodClient
+     */
+    public function pods()
+    {
+        return (new PodClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return NetworkApplianceClient
+     */
+    public function networkAppliances()
+    {
+        return (new NetworkApplianceClient($this->httpClient))->auth($this->token);
     }
 }
