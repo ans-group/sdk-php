@@ -2,7 +2,7 @@
 
 namespace UKFast\SDK\SafeDNS\Entities;
 
-use UKFast\SafeDNS\Entity;
+use UKFast\SDK\Entity;
 
 /**
  * @property boolean $allowed
