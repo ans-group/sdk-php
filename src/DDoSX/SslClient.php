@@ -36,10 +36,23 @@ class SslClient extends BaseClient
         $page    = $this->paginatedRequest('v1/ssls', $page, $perPage, $filters);
 
         $page->serializeWith(function ($item) {
-            return new Ssl($this->apiToFriendly($item, self::CERTIFICATE_MAP));
+            return $this->serializeSsl($item);
         });
 
         return $page;
+    }
+
+    /**
+     * Gets the SSL by its Id
+     * @param string $sslId
+     * @return object Ssl
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getById($sslId)
+    {
+        $response = $this->request("GET", "v1/ssls/$sslId");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializeSsl($body->data);
     }
 
     /**
@@ -57,7 +70,30 @@ class SslClient extends BaseClient
         return (new SelfResponse($body))
             ->setClient($this)
             ->serializeWith(function ($body) {
-                return new Ssl($this->apiToFriendly($body->data, self::CERTIFICATE_MAP));
+                return $this->serializeSsl($body->data);
             });
+    }
+
+    /**
+     * Delete an existing DDoSX SSL Record
+     *
+     * @param Ssl $ssl
+     * @return bool
+     */
+    public function destroy(Ssl $ssl)
+    {
+        $response = $this->delete("v1/ssls/{$ssl->id}");
+        return $response->getStatusCode() == 204;
+    }
+
+    /**
+     * Converts a response stdClass into a Ssl entity
+     *
+     * @param $item
+     * @return Ssl
+     */
+    protected function serializeSsl($item)
+    {
+        return new Ssl($this->apiToFriendly($item, self::CERTIFICATE_MAP));
     }
 }
