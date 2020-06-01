@@ -91,7 +91,7 @@ class NoteClient extends Client implements ClientEntityInterface
             'id'         => $data->id,
             'zone'       => $data->zone,
             'contactId'  => $data->contact_id,
-            'content'    => $data->note,
+            'content'    => $data->notes,
             'ipAddress'  => $data->ip,
             'createdAt' => $createdAt,
         ]);
