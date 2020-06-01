@@ -48,19 +48,19 @@ class RecurringCost extends Entity
      */
     public function frequency()
     {
-        if ($this->period == 'monthly' && $this->interval == 1) {
+        if ($this->period == 'Monthly' && $this->interval == 1) {
             return 'Monthly';
         }
 
-        if ($this->period == 'monthly' && $this->interval == 3) {
+        if ($this->period == 'Monthly' && $this->interval == 3) {
             return 'Quarterly';
         }
 
-        if ($this->period == 'yearly' && $this->interval == 1) {
+        if ($this->period == 'Yearly' && $this->interval == 1) {
             return 'Yearly';
         }
 
-        if ($this->period == 'monthly') {
+        if ($this->period == 'Monthly') {
             return 'Every ' . $this->interval . ' Months';
         }
 

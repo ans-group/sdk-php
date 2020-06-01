@@ -34,7 +34,7 @@ class RecurringCostClientTest extends TestCase
                         "name" => "SOLO"
                     ],
                     "cost" => 45.99,
-                    "period" => "monthly",
+                    "period" => "Monthly",
                     "interval" => 2,
                     "by_card" => true,
                     "next_payment_at" => "2020-06-21",
@@ -71,7 +71,7 @@ class RecurringCostClientTest extends TestCase
         $this->assertEquals(1, $recurringCost->product->id);
         $this->assertEquals('SOLO', $recurringCost->product->name);
         $this->assertEquals(45.99, $recurringCost->cost);
-        $this->assertEquals('monthly', $recurringCost->period);
+        $this->assertEquals('Monthly', $recurringCost->period);
         $this->assertEquals(2, $recurringCost->interval);
         $this->assertTrue($recurringCost->byCard);
         $this->assertTrue($recurringCost->nextPaymentAt instanceof \DateTime);
@@ -109,7 +109,7 @@ class RecurringCostClientTest extends TestCase
                             "name" => "SOLO"
                         ],
                         "cost" => 45.99,
-                        "period" => "monthly",
+                        "period" => "Monthly",
                         "interval" => 2,
                         "by_card" => true,
                         "next_payment_at" => "2020-06-21",
@@ -140,7 +140,7 @@ class RecurringCostClientTest extends TestCase
                             "name" => "SOLO"
                         ],
                         "cost" => 45.99,
-                        "period" => "monthly",
+                        "period" => "Monthly",
                         "interval" => 2,
                         "by_card" => true,
                         "next_payment_at" => "2020-06-21",
