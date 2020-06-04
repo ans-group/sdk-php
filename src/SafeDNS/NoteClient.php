@@ -41,7 +41,7 @@ class NoteClient extends Client implements ClientEntityInterface
      */
     public function getByZoneNameAndId($zoneName, $id)
     {
-        $response = $this->request("GET", 'v1/zones/' . rawurlencode($zoneName) . '/records/' . rawurlencode($id));
+        $response = $this->request("GET", 'v1/zones/' . rawurlencode($zoneName) . '/notes/' . rawurlencode($id));
         $body     = $this->decodeJson($response->getBody()->getContents());
 
         // The zone isn't currently returned by the API
@@ -91,7 +91,7 @@ class NoteClient extends Client implements ClientEntityInterface
             'id'         => $data->id,
             'zone'       => $data->zone,
             'contactId'  => $data->contact_id,
-            'content'    => $data->note,
+            'content'    => $data->notes,
             'ipAddress'  => $data->ip,
             'createdAt' => $createdAt,
         ]);
