@@ -14,6 +14,11 @@ class HstsClient extends Client
         'record_name' => 'recordName'
     ];
 
+    /**
+     * Get the HSTS enabled status
+     * @param $domainName
+     * @return Hsts
+     */
     public function getStatus($domainName)
     {
         $response = $this->get('v1/domains/' . $domainName . '/hsts');
