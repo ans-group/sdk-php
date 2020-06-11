@@ -42,7 +42,7 @@ class CdnClient extends BaseClient
     }
 
     /**
-     * Get a paginated list of cdn rules for a domain
+     * Get a paginated list of CDN rules for a domain
      * @param $domainName
      * @param int $page
      * @param int $perPage
@@ -67,7 +67,7 @@ class CdnClient extends BaseClient
     }
 
     /**
-     * Get a rule for a domain by it's ID
+     * Get a rule for a domain by its ID
      * @param $domainName
      * @param $ruleId
      * @return CdnRule

@@ -126,7 +126,7 @@ class DomainClient extends BaseClient
     }
 
     /**
-     * Get a property by it's ID
+     * Get a property by its ID
      * @param $domainId
      * @param $propertyId
      * @return DomainProperty
