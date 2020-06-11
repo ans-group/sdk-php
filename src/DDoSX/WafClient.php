@@ -80,7 +80,7 @@ class WafClient extends BaseClient
     }
 
     /**
-     * Get the rule for a domain by it's ID
+     * Get the rule for a domain by its ID
      * @param $domainName
      * @param $ruleId
      * @return WafRule
@@ -120,7 +120,7 @@ class WafClient extends BaseClient
     }
 
     /**
-     * Get an advanced rule for a domain by it's ID
+     * Get an advanced rule for a domain by its ID
      * @param $domainName
      * @param $ruleId
      * @return WafAdvancedRule

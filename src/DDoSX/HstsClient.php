@@ -23,7 +23,7 @@ class HstsClient extends Client
     }
 
     /**
-     * Get a paginated list of hsts rules for a domain
+     * Get a paginated list of HSTS rules for a domain
      * @param $domainName
      * @param int $page
      * @param int $perPage
@@ -43,7 +43,7 @@ class HstsClient extends Client
     }
 
     /**
-     * Get an individual hsts rule for a domain
+     * Get an individual HSTS rule for a domain
      * @param $domainName
      * @param $ruleId
      * @return HstsRule

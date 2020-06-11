@@ -37,7 +37,7 @@ class AclGeoIpClient extends BaseClient
     }
 
     /**
-     * Get a GeoIp rule for a domain by it's ID
+     * Get a GeoIp rule for a domain by its ID
      * @param $domainName
      * @param $geoIpId
      * @return AclGeoIp
