@@ -87,4 +87,12 @@ class Client extends BaseClient
     {
         return (new NetworkApplianceClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return TelemetryClient
+     */
+    public function telemetry()
+    {
+        return (new TelemetryClient($this->httpClient))->auth($this->token);
+    }
 }
