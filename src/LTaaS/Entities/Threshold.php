@@ -19,6 +19,21 @@ class Threshold
      */
     public $description;
 
+    /**
+     * @var string
+     */
+    public $query;
+
+    /**
+     * @var string
+     */
+    public $createdAt;
+
+    /**
+     * @var string
+     */
+    public $updatedAt;
+
     public function __construct($item = null)
     {
         if (is_null($item)) {
@@ -28,5 +43,8 @@ class Threshold
         $this->id = $item->id;
         $this->name = $item->name;
         $this->description = $item->description;
+        $this->query = $item->query;
+        $this->createdAt = $item->created_at;
+        $this->updatedAt = $item->updated_at;
     }
 }
