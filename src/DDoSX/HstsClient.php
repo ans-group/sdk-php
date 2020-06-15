@@ -2,11 +2,17 @@
 
 namespace UKFast\SDK\DDoSX;
 
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\Hsts;
 use UKFast\SDK\DDoSX\Entities\HstsRule;
 
-class HstsClient extends Client
+class HstsClient extends BaseClient
 {
+    /**
+     * @var string $basePath
+     */
+    protected $basePath = 'ddosx/';
+
     const HSTS_MAP = [];
     const HSTS_RULE_MAP = [
         'max_age' => 'maxAge',
