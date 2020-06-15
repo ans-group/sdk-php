@@ -163,7 +163,7 @@ class WafClient extends BaseClient
 
     protected function serializeAdvancedRule($raw)
     {
-        return new WafAdvancedRule($this->apiToFriendly($raw, self::RULE_MAP));
+        return new WafAdvancedRule($this->apiToFriendly($raw, self::ADVANCED_RULE_MAP));
     }
 
     protected function serializeRuleset($raw)
