@@ -5,19 +5,11 @@ namespace UKFast\SDK\DDoSX\Entities;
 use UKFast\SDK\Entity;
 
 /**
- * @property int $id
- * @property string $request_id
- * @property string $domain
+ * @property string $requestId
  * @property string $clientIp
- * @property string $requestUri
+ * @property string $request
  * @property string $timestamp
- * @property string $countryCode
- * @property string $method
- * @property string $content
- * @property string $message
- * @property string $data
- * @property string $uriPart
- * @property string $value
+ * @property int $matchCount
  */
 class WafLog extends Entity
 {
