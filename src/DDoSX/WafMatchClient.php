@@ -17,8 +17,11 @@ class WafMatchClient extends BaseClient
      * @var array
      */
     protected $requestMap = [
-        "test" => "test",
-        "test" => "test"
+        "request_id" => "requestId",
+        "client_ip" => "clientIp",
+        "request_uri" => "requestUri",
+        "country_code" => "countryCode",
+        "uri_part" => "uriPart"
     ];
 
      /**
