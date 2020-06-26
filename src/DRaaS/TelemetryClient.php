@@ -10,7 +10,7 @@ class TelemetryClient extends Client implements ClientEntityInterface
 {
     const MAP = [
         'id' => 'id',
-        'metric' => 'hardwarePlanId',
+        'metric' => 'metric',
         'solution_id' => 'solutionId',
         'value' => 'value',
         'inserted' => 'inserted',
