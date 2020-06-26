@@ -6,7 +6,7 @@ use UKFast\SDK\Entity;
 
 /**
  * @property int $id
- * @property string $request_id
+ * @property string $requestId
  * @property string $domain
  * @property string $clientIp
  * @property string $requestUri
