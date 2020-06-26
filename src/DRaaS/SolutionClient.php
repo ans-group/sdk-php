@@ -7,6 +7,7 @@ use UKFast\SDK\DRaaS\Entities\BackupService;
 use UKFast\SDK\DRaaS\Entities\BackupResources;
 use UKFast\SDK\DRaaS\Entities\Solution;
 use UKFast\SDK\DRaaS\Entities\NetworkAppliance;
+use UKFast\SDK\DRaaS\Entities\TelemetryMetric;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Page;
 
@@ -100,6 +101,24 @@ class SolutionClient extends Client implements ClientEntityInterface
         $page = $this->paginatedRequest("v1/solutions/$id/network-appliances", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return new NetworkAppliance($this->apiToFriendly($item, NetworkApplianceClient::MAP));
+        });
+
+        return $page;
+    }
+
+    /**
+     * Get telemetry for a solution
+     * @param $id
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return Page
+     */
+    public function getTelemetryPage($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest("v1/solutions/$id/telemetry", $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return new TelemetryMetric($this->apiToFriendly($item, TelemetryClient::MAP));
         });
 
         return $page;
