@@ -3,11 +3,26 @@
 namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Page;
-
 use UKFast\SDK\eCloud\Entities\VirtualMachine;
+use UKFast\SDK\eCloud\Entities\Hdd;
 
 class VirtualMachineClient extends Client
 {
+    const VM_MAP = [
+        'computername' => 'computerName',
+        'hdd_disks' => 'disks',
+        'power_status' => 'power',
+        'tools_status' => 'tools',
+        'solution_id' => 'solutionId',
+        'pod_id' => 'podId',
+        'ad_domain_id' => 'adDomainId',
+    ];
+
+    const HDD_MAP = [
+
+    ];
+
+
     /**
      * Gets a paginated response of all Virtual Machines
      *
@@ -21,7 +36,7 @@ class VirtualMachineClient extends Client
     {
         $page = $this->paginatedRequest('v1/vms', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new VirtualMachine($item);
+            return $this->loadEntity($item);
         });
 
         return $page;
@@ -71,7 +86,7 @@ class VirtualMachineClient extends Client
     {
         $response = $this->get("v1/vms/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return new VirtualMachine($body->data);
+        return $this->loadEntity($body->data);
     }
 
     /**
@@ -87,17 +102,35 @@ class VirtualMachineClient extends Client
             'environment' => $virtualMachine->environment,
 
             'name' => $virtualMachine->name,
-            'computername' => $virtualMachine->computerName,
         ];
 
-        if ($virtualMachine->environment != 'Public') {
+
+        // environment
+        if ($virtualMachine->environment == 'Public') {
+            $data['pod_id'] = $virtualMachine->podId;
+        } elseif ($virtualMachine->environment != 'Public') {
             $data['solution_id'] = $virtualMachine->solutionId;
+
+            if (!empty($virtualMachine->siteId)) {
+                $data['site_id'] = $virtualMachine->siteId;
+            }
         }
 
 
         // template
         if (!empty($virtualMachine->template)) {
             $data['template'] = $virtualMachine->template;
+        } elseif (!empty($virtualMachine->applianceId)) {
+            $data['appliance_id'] = $virtualMachine->applianceId;
+
+            if (!empty($virtualMachine->applianceParameters) && is_array($virtualMachine->applianceParameters)) {
+                foreach ($virtualMachine->applianceParameters as $key => $value) {
+                    $data['parameters'][] = [
+                        'key' => $key,
+                        'value' => $value,
+                    ];
+                }
+            }
         }
 
 
@@ -113,7 +146,7 @@ class VirtualMachineClient extends Client
             'hdd' => $virtualMachine->hdd,
         ]);
 
-        if (!empty($virtualMachine->disks)) {
+        if (!empty($virtualMachine->disks) && is_array($virtualMachine->disks)) {
             foreach ($virtualMachine->disks as $disk) {
                 $data['hdd_disks'][] = [
                     'name' => $disk->name,
@@ -128,6 +161,49 @@ class VirtualMachineClient extends Client
 
 
         // set network
+        if (!empty($virtualMachine->networkId)) {
+            $data['network_id'] = $virtualMachine->networkId;
+        }
+
+        if ($virtualMachine->externalIpRequired == true) {
+            $data['external_ip_required'] = true;
+        }
+
+
+        // additional options
+        if (!empty($virtualMachine->computerName)) {
+            $data['computername'] = $virtualMachine->computerName;
+        }
+
+        if (!empty($virtualMachine->sshKeys)) {
+            $data['ssh_keys'] = $virtualMachine->sshKeys;
+        }
+
+        if (!empty($virtualMachine->tags)) {
+            $data['tags'] = $virtualMachine->tags;
+        }
+
+        if (!empty($virtualMachine->adDomainId)) {
+            $data['ad_domain_id'] = true;
+        }
+
+        if ($virtualMachine->encryptionRequired == true) {
+            $data['encrypt'] = true;
+        }
+
+        if ($virtualMachine->backup == true) {
+            $data['backup'] = true;
+        }
+
+
+        // support
+        if ($virtualMachine->monitoring == true) {
+            $data['monitoring'] = true;
+
+            if (!empty($virtualMachine->monitoringContacts)) {
+                $data['monitoring-contacts'] = $virtualMachine->monitoringContacts;
+            }
+        }
 
 
         $response = $this->post("v1/vms", json_encode($data), [
@@ -137,8 +213,6 @@ class VirtualMachineClient extends Client
         $body = $this->decodeJson($response->getBody()->getContents());
 
         $virtualMachine->id = $body->data->id;
-        $virtualMachine->status = $body->data->status;
-
         $virtualMachine->credentials = $body->data->credentials;
 
         return $virtualMachine;
@@ -293,5 +367,29 @@ class VirtualMachineClient extends Client
     {
         $response = $this->delete("v1/vms/$id");
         return $response->getStatusCode() == 202;
+    }
+
+    /**
+     * load entity from api response
+     * @param $item
+     * @return VirtualMachine
+     */
+    protected function loadEntity($item)
+    {
+        if (isset($item->hdd_disks) && is_array($item->hdd_disks)) {
+            // hydrate HDD entities
+            foreach ($item->hdd_disks as $key => $hdd) {
+                $item->hdd_disks[$key] = new Hdd($this->apiToFriendly($hdd, static::HDD_MAP));
+            };
+        }
+
+        // remap primary IP properties
+        $item->ipAddresses = (object) [
+            'internal' => isset($item->ip_internal) ? $item->ip_internal : null,
+            'external' => isset($item->ip_external) ? $item->ip_external : null,
+        ];
+        unset($item->ip_internal, $item->ip_external);
+
+        return new VirtualMachine($this->apiToFriendly($item, static::VM_MAP));
     }
 }

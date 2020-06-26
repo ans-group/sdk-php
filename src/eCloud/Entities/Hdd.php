@@ -2,29 +2,17 @@
 
 namespace UKFast\SDK\eCloud\Entities;
 
-class Hdd
+use UKFast\SDK\Entity;
+
+/**
+ * Class VirtualMachine
+ * @package UKFast\eCloud\Entities
+ *
+ * @property int $uuid
+ * @property string $name
+ * @property string $capacity
+ */
+class Hdd extends Entity
 {
-    public $uuid;
-    public $name;
 
-    public $capacity;
-
-
-    /**
-     * Hdd constructor.
-     * @param null $item
-     */
-    public function __construct($item = null)
-    {
-        if (empty($item)) {
-            return;
-        }
-
-        $this->name = $item->name;
-        $this->capacity = $item->capacity;
-
-        if (isset($item->uuid)) {
-            $this->uuid = $item->uuid;
-        }
-    }
 }

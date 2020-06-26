@@ -7,9 +7,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use UKFast\SDK\Billing\Entities\Product;
 use UKFast\SDK\Billing\Entities\RecurringCost;
-use DateTime;
 
 class RecurringCostClientTest extends TestCase
 {
@@ -21,15 +19,35 @@ class RecurringCostClientTest extends TestCase
         $mock = new MockHandler([
             new Response(200, [], json_encode([
                 'data' => [
-                    'id' => 123,
-                    'name' => 'Example recurring cost',
-                    'product' => null,
-                    'total' => 12.50,
-                    'period' => 'month',
-                    'interval' => 1,
-                    'payment_method' => 'On Account',
-                    'next_payment_at' => '2019-12-01',
-                    'created_at' => '2016-06-07T16:29:06+0000'
+                    "id" => 1,
+                    "type" => [
+                        "id" => 1,
+                        "name" => "name"
+                    ],
+                    "description" => "description",
+                    "status" => "Active",
+                    "order_id" => "PG1234",
+                    "purchase_order_id" => "TEST",
+                    "cost_centre_id" => 12,
+                    "product" => [
+                        "id" => 1,
+                        "name" => "SOLO"
+                    ],
+                    "cost" => 45.99,
+                    "period" => "Monthly",
+                    "interval" => 2,
+                    "by_card" => true,
+                    "next_payment_at" => "2020-06-21",
+                    "end_date" => "2020-10-21",
+                    "contract_end_date" => "2020-10-21",
+                    "frozen_end_date" => "2020-10-21",
+                    "migration_end_date" => "2020-10-21",
+                    "created_at" => "2020-04-21T09:49:03+00:00",
+                    "partner" => [
+                        "id" => 1,
+                        "cost" => "0.00"
+                    ],
+                    "project_id" => 1
                 ],
                 'meta' => []
             ])),
@@ -42,19 +60,29 @@ class RecurringCostClientTest extends TestCase
         $recurringCost = $client->recurringCosts()->getById(123);
 
         $this->assertTrue($recurringCost instanceof RecurringCost);
-        $this->assertEquals(123, $recurringCost->id);
-        $this->assertEquals('Example recurring cost', $recurringCost->name);
-        $this->assertEquals(null, $recurringCost->product);
-        $this->assertEquals(12.50, $recurringCost->total);
-        $this->assertEquals('month', $recurringCost->period);
-        $this->assertEquals(1, $recurringCost->interval);
-        $this->assertEquals('On Account', $recurringCost->paymentMethod);
-        $this->assertEquals('2019-12-01', $recurringCost->nextPaymentAt->format('Y-m-d'));
-        $this->assertEquals('2016-06-07T16:29:06+0000', $recurringCost->createdAt->format(DateTime::ISO8601));
-
-        $this->assertInternalType('int', $recurringCost->id);
-        $this->assertInternalType('float', $recurringCost->total);
-        $this->assertInternalType('int', $recurringCost->interval);
+        $this->assertEquals(1, $recurringCost->id);
+        $this->assertEquals(1, $recurringCost->type->id);
+        $this->assertEquals('name', $recurringCost->type->name);
+        $this->assertEquals('description', $recurringCost->description);
+        $this->assertEquals('Active', $recurringCost->status);
+        $this->assertEquals('PG1234', $recurringCost->orderId);
+        $this->assertEquals('TEST', $recurringCost->purchaseOrderId);
+        $this->assertEquals(12, $recurringCost->costCentreId);
+        $this->assertEquals(1, $recurringCost->product->id);
+        $this->assertEquals('SOLO', $recurringCost->product->name);
+        $this->assertEquals(45.99, $recurringCost->cost);
+        $this->assertEquals('Monthly', $recurringCost->period);
+        $this->assertEquals(2, $recurringCost->interval);
+        $this->assertTrue($recurringCost->byCard);
+        $this->assertTrue($recurringCost->nextPaymentAt instanceof \DateTime);
+        $this->assertTrue($recurringCost->endDate instanceof \DateTime);
+        $this->assertTrue($recurringCost->contractEndDate instanceof \DateTime);
+        $this->assertTrue($recurringCost->frozenEndDate instanceof \DateTime);
+        $this->assertTrue($recurringCost->migrationEndDate instanceof \DateTime);
+        $this->assertTrue($recurringCost->createdAt instanceof \DateTime);
+        $this->assertEquals(1, $recurringCost->partner->id);
+        $this->assertEquals("0.00", $recurringCost->partner->cost);
+        $this->assertEquals(1, $recurringCost->projectId);
     }
 
     /**
@@ -66,26 +94,66 @@ class RecurringCostClientTest extends TestCase
             new Response(200, [], json_encode([
                 'data' => [
                     [
-                        'id' => 123,
-                        'name' => 'Example recurring cost',
-                        'product' => null,
-                        'total' => 12.50,
-                        'period' => 'month',
-                        'interval' => 1,
-                        'payment_method' => 'On Account',
-                        'next_payment_at' => '2019-12-01',
-                        'created_at' => '2016-06-07T16:29:06+0000'
+                        "id" => 1,
+                        "type" => [
+                            "id" => 1,
+                            "name" => "name"
+                        ],
+                        "description" => "description",
+                        "status" => "Active",
+                        "order_id" => "PG1234",
+                        "purchase_order_id" => "TEST",
+                        "cost_centre_id" => 12,
+                        "product" => [
+                            "id" => 1,
+                            "name" => "SOLO"
+                        ],
+                        "cost" => 45.99,
+                        "period" => "Monthly",
+                        "interval" => 2,
+                        "by_card" => true,
+                        "next_payment_at" => "2020-06-21",
+                        "end_date" => "2020-10-21",
+                        "contract_end_date" => "2020-10-21",
+                        "frozen_end_date" => "2020-10-21",
+                        "migration_end_date" => "2020-10-21",
+                        "created_at" => "2020-04-21T09:49:03+00:00",
+                        "partner" => [
+                            "id" => 1,
+                            "cost" => "0.00"
+                        ],
+                        "project_id" => 1
                     ],
                     [
-                        'id' => 1234,
-                        'name' => 'Example recurring cost 1',
-                        'product' => null,
-                        'total' => 12.50,
-                        'period' => 'month',
-                        'interval' => 1,
-                        'payment_method' => 'On Account',
-                        'next_payment_at' => '2019-12-01',
-                        'created_at' => '2016-06-07T16:29:06+0000'
+                        "id" => 2,
+                        "type" => [
+                            "id" => 2,
+                            "name" => "name"
+                        ],
+                        "description" => "description",
+                        "status" => "Active",
+                        "order_id" => "PG1234",
+                        "purchase_order_id" => "TEST",
+                        "cost_centre_id" => 12,
+                        "product" => [
+                            "id" => 1,
+                            "name" => "SOLO"
+                        ],
+                        "cost" => 45.99,
+                        "period" => "Monthly",
+                        "interval" => 2,
+                        "by_card" => true,
+                        "next_payment_at" => "2020-06-21",
+                        "end_date" => "2020-10-21",
+                        "contract_end_date" => "2020-10-21",
+                        "frozen_end_date" => "2020-10-21",
+                        "migration_end_date" => "2020-10-21",
+                        "created_at" => "2020-04-21T09:49:03+00:00",
+                        "partner" => [
+                            "id" => 1,
+                            "cost" => "0.00"
+                        ],
+                        "project_id" => 2
                     ],
                 ],
                 'meta' => [
@@ -114,41 +182,5 @@ class RecurringCostClientTest extends TestCase
         $this->assertEquals(2, count($items));
         $this->assertTrue($items[0] instanceof RecurringCost);
         $this->assertTrue($items[1] instanceof RecurringCost);
-    }
-
-    /**
-     * @test
-     */
-    public function get_recurring_cost_with_related_product()
-    {
-        $mock = new MockHandler([
-            new Response(200, [], json_encode([
-                'data' => [
-                    'id' => 123,
-                    'name' => 'Example recurring cost',
-                    'product' => [
-                        'type' => 'server',
-                        'id' => 12345,
-                    ],
-                    'total' => 12.50,
-                    'period' => 'month',
-                    'interval' => 1,
-                    'payment_method' => 'On Account',
-                    'next_payment_at' => '2019-12-01',
-                    'created_at' => '2016-06-07T16:29:06+0000'
-                ],
-                'meta' => []
-            ])),
-        ]);
-
-        $handler = HandlerStack::create($mock);
-        $guzzle = new Guzzle(['handler' => $handler]);
-
-        $client = new \UKFast\SDK\Billing\Client($guzzle);
-        $recurringCost = $client->recurringCosts()->getById(123);
-
-        $this->assertTrue($recurringCost->product instanceof Product);
-        $this->assertEquals(12345, $recurringCost->product->id);
-        $this->assertEquals('server', $recurringCost->product->type);
     }
 }

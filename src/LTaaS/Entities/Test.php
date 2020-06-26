@@ -75,6 +75,11 @@ class Test
     public $updatedAt;
 
     /**
+     * @var object
+     */
+    public $authorisation;
+
+    /**
      * Test constructor.
      * @param null $item
      */
@@ -98,5 +103,15 @@ class Test
         $this->nextRun = $item->next_run;
         $this->createdAt = $item->created_at;
         $this->updatedAt = $item->updated_at;
+
+        if (isset($item->authorisation)) {
+            $this->authorisation = [
+                'agreementVersion' => $item->authorisation->agreement_version,
+                'name' => $item->authorisation->name,
+                'position' => $item->authorisation->position,
+                'createdAt' => $item->authorisation->created_at,
+                'updatedAt' => $item->authorisation->updated_at
+            ];
+        }
     }
 }
