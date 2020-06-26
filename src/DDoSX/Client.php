@@ -70,4 +70,14 @@ class Client extends BaseClient
     {
         return (new SslClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * Return a WafMatchClient instance
+     *
+     * @return WafMatchClient
+     */
+    public function wafMatches()
+    {
+        return (new WafMatchClient($this->httpClient))->auth($this->token);
+    }
 }
