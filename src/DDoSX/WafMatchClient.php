@@ -27,9 +27,8 @@ class WafMatchClient extends BaseClient
      /**
      * Gets a waf match
      *
-     * @param int   $page
-     * @param int   $perPage
-     * @param array $filters
+     * @param string $requestId
+     * @param int $matchId
      */
     public function getMatch($requestId, $matchId)
     {
