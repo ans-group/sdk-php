@@ -24,9 +24,7 @@ class WafLogClient extends BaseClient
      /**
      * Gets a waf log
      *
-     * @param int   $page
-     * @param int   $perPage
-     * @param array $filters
+     * @param string $requestId
      */
     public function getLog($requestId)
     {
