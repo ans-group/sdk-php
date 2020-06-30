@@ -5,9 +5,9 @@ namespace UKFast\SDK\DDoSX\Entities;
 use UKFast\SDK\Entity;
 
 /**
- * @property int $id
+ * @property int $matchId
  * @property string $requestId
- * @property string $domain
+ * @property string $host
  * @property string $clientIp
  * @property string $requestUri
  * @property string $timestamp
