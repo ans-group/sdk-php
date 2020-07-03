@@ -1,6 +1,6 @@
 <?php
 
-namespace UKFast\SDK\SSL\Entities;
+namespace UKFast\SDK\SafeDNS\Entities;
 
 use UKFast\SDK\Entity;
 

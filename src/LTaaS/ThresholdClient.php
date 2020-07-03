@@ -59,4 +59,12 @@ class ThresholdClient extends Client
 
         return $thresholds;
     }
+
+    public function getById($id)
+    {
+        $response = $this->get('v1/thresholds/' . $id);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Threshold($body->data);
+    }
 }

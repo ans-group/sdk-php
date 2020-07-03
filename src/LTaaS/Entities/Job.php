@@ -67,12 +67,12 @@ class Job
     /**
      * @var string
      */
-    public $created_at;
+    public $createdAt;
 
     /**
      * @var string
      */
-    public $updated_at;
+    public $updatedAt;
 
     /**
      * Test constructor.
