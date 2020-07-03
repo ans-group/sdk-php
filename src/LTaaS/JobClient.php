@@ -61,6 +61,20 @@ class JobClient extends Client
     }
 
     /**
+     * Get a job by it's ID
+     * @param $id
+     * @return Job
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getById($id)
+    {
+        $response = $this->get('v1/jobs/' . $id);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Job($body->data);
+    }
+
+    /**
      * Get the settings that are associated with a test
      * @param $id
      * @return JobSettings

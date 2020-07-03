@@ -32,6 +32,16 @@ class Client extends BaseClient
     }
 
     /**
+     * Return a cdnClient instance
+     *
+     * @return CdnRuleClient
+     */
+    public function cdnRules()
+    {
+        return (new CdnRuleClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
      * Return a wafClient instance
      *
      * @return WafClient
@@ -39,6 +49,36 @@ class Client extends BaseClient
     public function waf()
     {
         return (new WafClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return a wafRuleClient instance
+     *
+     * @return WafRuleClient
+     */
+    public function wafRules()
+    {
+        return (new WafRuleClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return a wafRuleClient instance
+     *
+     * @return WafAdvancedRuleClient
+     */
+    public function wafAdvancedRules()
+    {
+        return (new WafAdvancedRuleClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return a wafRuleClient instance
+     *
+     * @return WafRulesetClient
+     */
+    public function wafRulesets()
+    {
+        return (new WafRulesetClient($this->httpClient))->auth($this->token);
     }
 
     /**
@@ -87,5 +127,14 @@ class Client extends BaseClient
     public function hsts()
     {
         return (new HstsClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return the HstsRulesClient instance
+     * @return HstsRuleClient
+     */
+    public function hstsRules()
+    {
+        return (new HstsRuleClient($this->httpClient))->auth($this->token);
     }
 }

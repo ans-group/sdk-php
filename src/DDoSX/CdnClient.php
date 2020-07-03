@@ -16,13 +16,8 @@ class CdnClient extends BaseClient
 
     const CDN_MAP = [];
 
-    const RULES_MAP = [
-        'cache_control' => 'cacheControl',
-        'mime_types' => 'mimeTypes',
-        'cache_control_duration' => 'cacheControlDuration'
-    ];
-
     /**
+     * Create a new CDN for a domain
      * @param Cdn $cdn
      * @return SelfResponse
      */
@@ -39,50 +34,5 @@ class CdnClient extends BaseClient
             ->serializeWith(function ($response) {
                 return new Cdn($this->apiToFriendly($response->data, self::CDN_MAP));
             });
-    }
-
-    /**
-     * Get a paginated list of CDN rules for a domain
-     * @param $domainName
-     * @param int $page
-     * @param int $perPage
-     * @param array $filters
-     * @return int|\UKFast\SDK\Page
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getRules($domainName, $page = 1, $perPage = 15, $filters = [])
-    {
-        $page = $this->paginatedRequest(
-            'v1/domains/' . $domainName . '/cdn/rules',
-            $page,
-            $perPage,
-            $filters
-        );
-
-        $page->serializeWith(function ($item) {
-            return $this->serializeCdnRule($item);
-        });
-
-        return $page;
-    }
-
-    /**
-     * Get a rule for a domain by its ID
-     * @param $domainName
-     * @param $ruleId
-     * @return CdnRule
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getRuleById($domainName, $ruleId)
-    {
-        $response = $this->get('v1/domains/' . $domainName . '/cdn/rules/' . $ruleId);
-        $body = $this->decodeJson($response->getBody()->getContents());
-
-        return $this->serializeCdnRule($body->data);
-    }
-
-    protected function serializeCdnRule($raw)
-    {
-        return new CdnRule($this->apiToFriendly($raw, self::RULES_MAP));
     }
 }
