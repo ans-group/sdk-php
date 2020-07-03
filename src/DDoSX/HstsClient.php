@@ -42,7 +42,7 @@ class HstsClient extends BaseClient
      * @return int|\UKFast\SDK\Page
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getRules($domainName, $page = 1, $perPage = 15, $filters = [])
+    public function getRules($domainName, $page = 1, $perPage = 20, $filters = [])
     {
         $page = $this->paginatedRequest('v1/domains/' . $domainName . '/hsts/rules', $page, $perPage, $filters);
 

@@ -114,7 +114,7 @@ class DomainClient extends BaseClient
      * @return int|\UKFast\SDK\Page
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getProperties($domainName, $page = 1, $perPage = 15, $filter = [])
+    public function getProperties($domainName, $page = 1, $perPage = 20, $filter = [])
     {
         $response = $this->paginatedRequest('v1/domains/' . $domainName . '/properties', $page, $perPage);
 
