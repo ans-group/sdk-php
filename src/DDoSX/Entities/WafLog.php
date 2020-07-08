@@ -8,8 +8,7 @@ use UKFast\SDK\Entity;
  * @property string $requestId
  * @property string $clientIp
  * @property string $request
- * @property string $timestamp
- * @property int $matchCount
+ * @property string $createdAt
  */
 class WafLog extends Entity
 {
