@@ -10,7 +10,7 @@ use UKFast\SDK\Entity;
  * @property string $host
  * @property string $clientIp
  * @property string $requestUri
- * @property string $timestamp
+ * @property string $createdAt
  * @property string $countryCode
  * @property string $method
  * @property string $content
