@@ -16,7 +16,7 @@ use UKFast\SDK\ThreatMonitoring\Reporting\TopFilesChangedClient;
 
 class Client extends BaseClient
 {
-    protected $basePath = 'ssl/';
+    protected $basePath = 'threat-monitoring/';
 
     /**
      * @return AgentClient
