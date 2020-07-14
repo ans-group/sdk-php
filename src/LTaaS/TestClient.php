@@ -59,6 +59,20 @@ class TestClient extends Client
     }
 
     /**
+     * Get a test by it's ID
+     * @param $id
+     * @return Test
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getById($id)
+    {
+        $response = $this->get('v1/tests/' . $id);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Test($body->data);
+    }
+
+    /**
      * Send the request to the API to store a new test
      * @param Test $test
      * @param TestAuthorisation $authorisation

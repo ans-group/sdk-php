@@ -2,13 +2,13 @@
 
 namespace UKFast\SDK\SafeDNS;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Exception\UKFastException;
 use UKFast\SDK\Page;
 use UKFast\SDK\SafeDNS\Entities\Zone;
 
-class ZoneClient extends Client implements ClientEntityInterface
+class ZoneClient extends BaseClient implements ClientEntityInterface
 {
     protected $basePath = 'safedns/';
 
@@ -21,7 +21,7 @@ class ZoneClient extends Client implements ClientEntityInterface
      * @return Page
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getPage($page = 1, $perPage = 15, $filters = [])
+    public function getPage($page = 1, $perPage = 20, $filters = [])
     {
         $page = $this->paginatedRequest('v1/zones', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {

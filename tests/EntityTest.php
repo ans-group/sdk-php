@@ -151,6 +151,27 @@ class EntityTest extends TestCase
 
         $this->assertNull($contact->id);
     }
+
+    /**
+     * @test
+     */
+    public function can_deep_clone_an_entity()
+    {
+        $alice = new Contact([
+            'id' => 1,
+        ]);
+        $bob = new Contact([
+            'id' => 2,
+            'referrer' => $alice,
+        ]);
+
+        $copiedBob = $bob->copy();
+        $copiedBob->referrer->id = 123;
+
+        $this->assertEquals(1, $alice->id);
+        $this->assertEquals(1, $bob->referrer->id);
+        $this->assertEquals(123, $copiedBob->referrer->id);
+    }
 }
 
 

@@ -37,6 +37,20 @@ class CreditClient extends BaseClient
     }
 
     /**
+     * Get credits for an individual service
+     * @param $reference
+     * @return Credit
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getByReference($reference)
+    {
+        $response = $this->request("GET", "v1/credits/" . $reference);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Credit($body->data);
+    }
+
+    /**
      * Gets a paginated response of credits
      *
      * @param int   $page
