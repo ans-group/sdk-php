@@ -42,7 +42,6 @@ class PaginationUrl
             if (is_bool($filter)) {
                 $filter = var_export($filter, true);
             }
-
             $path .= "&".$prop."=".$filter;
         }
 
