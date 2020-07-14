@@ -64,6 +64,15 @@ class PaginationUrlTest extends TestCase
     /**
      * @test
      */
+    public function allows_null_to_be_passed_as_a_filter()
+    {
+        $url = new PaginationUrl("/my-endpoint", 1, 10, ['archived' => null]);
+        $this->assertEquals("/my-endpoint?page=1&per_page=10&archived=null", $url->toString());
+    }
+
+    /**
+     * @test
+     */
     public function starts_query_with_ampersand_if_a_query_string_is_already_present()
     {
         $url = new PaginationUrl("/my-endpoint?some-query-string=present", 1, 10);
