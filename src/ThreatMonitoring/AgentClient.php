@@ -71,7 +71,7 @@ class AgentClient extends Client
     }
 
     /**
-     * Get an agent by it's ID
+     * Get an agent by its ID
      * @param $id
      * @return Agent
      */

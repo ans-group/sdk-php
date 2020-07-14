@@ -44,7 +44,7 @@ class AlertClient extends Client
     }
 
     /**
-     * Get an alert by it's ID
+     * Get an alert by its ID
      * @param $id
      * @return Alert
      */
