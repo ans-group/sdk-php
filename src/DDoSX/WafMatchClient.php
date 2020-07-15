@@ -27,12 +27,12 @@ class WafMatchClient extends BaseClient
     ];
 
      /**
-     * Gets a waf match
+     * Gets a waf match from a request
      *
      * @param string $requestId
      * @param int $matchId
      */
-    public function getMatch($requestId, $matchId)
+    public function getRequestMatchById($requestId, $matchId)
     {
         $response = $this->request("GET", 'v1/waf/logs/' . $requestId . '/matches/' . $matchId);
         $body = $this->decodeJson($response->getBody()->getContents());
