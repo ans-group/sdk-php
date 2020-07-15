@@ -27,7 +27,7 @@ class WafLogMatchClient extends BaseClient
     ];
 
     /**
-     * Gets a waf matches for a request
+     * Gets a waf log matches for a request
      *
      * @param string $requestId
      */
