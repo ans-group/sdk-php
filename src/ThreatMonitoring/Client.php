@@ -43,6 +43,22 @@ class Client extends BaseClient
     }
 
     /**
+     * @return SecurityScanClient
+     */
+    public function scans()
+    {
+        return (new SecurityScanClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return TargetClient
+     */
+    public function targets()
+    {
+        return (new TargetClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
      * @return EventsClient
      */
     public function eventReports()
