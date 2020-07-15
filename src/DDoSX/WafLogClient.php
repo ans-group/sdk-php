@@ -26,7 +26,7 @@ class WafLogClient extends BaseClient
      *
      * @param string $requestId
      */
-    public function getLog($requestId)
+    public function getById($requestId)
     {
         $response = $this->request("GET", 'v1/waf/logs/' . $requestId);
         $body = $this->decodeJson($response->getBody()->getContents());
