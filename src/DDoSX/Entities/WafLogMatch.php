@@ -19,7 +19,7 @@ use UKFast\SDK\Entity;
  * @property string $uriPart
  * @property string $value
  */
-class WafMatch extends Entity
+class WafLogMatch extends Entity
 {
 
 }

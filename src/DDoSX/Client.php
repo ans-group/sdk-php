@@ -72,12 +72,12 @@ class Client extends BaseClient
     }
 
     /**
-     * Return a WafMatchClient instance
+     * Return a WafLogMatchClient instance
      *
-     * @return WafMatchClient
+     * @return WafLogMatchClient
      */
-    public function wafMatches()
+    public function wafLogMatches()
     {
-        return (new WafMatchClient($this->httpClient))->auth($this->token);
+        return (new WafLogMatchClient($this->httpClient))->auth($this->token);
     }
 }

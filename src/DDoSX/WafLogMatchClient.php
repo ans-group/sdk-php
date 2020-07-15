@@ -3,10 +3,10 @@
 namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
-use UKFast\SDK\DDoSX\Entities\WafMatch;
+use UKFast\SDK\DDoSX\Entities\WafLogMatch;
 
 
-class WafMatchClient extends BaseClient
+class WafLogMatchClient extends BaseClient
 {
     /**
      * @inheritDoc
@@ -27,7 +27,7 @@ class WafMatchClient extends BaseClient
     ];
 
      /**
-     * Gets a waf match from a request
+     * Gets a waf log match from a request
      *
      * @param string $requestId
      * @param int $matchId
@@ -37,6 +37,6 @@ class WafMatchClient extends BaseClient
         $response = $this->request("GET", 'v1/waf/logs/' . $requestId . '/matches/' . $matchId);
         $body = $this->decodeJson($response->getBody()->getContents());
         
-        return new WafMatch($this->apiToFriendly($body->data, $this->requestMap));
+        return new WafLogMatch($this->apiToFriendly($body->data, $this->requestMap));
     }
 }
