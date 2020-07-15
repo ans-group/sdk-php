@@ -11,7 +11,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $agentId
- * @property string $agentFriendlyName
+ * @property string $agentName
  * @property integer $level
  * @property string $description
  * @property array $gdpr

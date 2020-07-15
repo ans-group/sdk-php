@@ -10,7 +10,7 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $friendlyName
+ * @property string $name
  * @property string $hostname
  * @property integer $count
  */

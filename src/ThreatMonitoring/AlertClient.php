@@ -13,7 +13,7 @@ class AlertClient extends Client
 {
     const ALERT_MAP = [
         'agent_id' => 'agentId',
-        'agent_friendly_name' => 'agentFriendlyName',
+        'agent_name' => 'agentName',
         'pci_dss' => 'pciDss',
         'full_log' => 'fullLog'
     ];
