@@ -12,7 +12,7 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property string $status
  * @property string $threatResponseEnabled
- * @property string $friendlyName
+ * @property string $name
  * @property string $createdAt
  * @property string $updatedAt
  */

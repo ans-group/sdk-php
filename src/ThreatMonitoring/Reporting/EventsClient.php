@@ -14,9 +14,7 @@ use UKFast\SDK\ThreatMonitoring\Entities\EventsTotal;
 class EventsClient extends Client
 {
     const EVENT_TOTAL_MAP = [];
-    const EVENT_OVERVIEW_MAP = [
-        'friendly_name' => 'friendlyName'
-    ];
+    const EVENT_OVERVIEW_MAP = [];
     const EVENT_TIMELINE_MAP = [];
 
     /**
