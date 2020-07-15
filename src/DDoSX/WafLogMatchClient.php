@@ -36,7 +36,7 @@ class WafLogMatchClient extends BaseClient
         $page = $this->paginatedRequest('v1/waf/logs/' . $requestId . '/matches', $page, $perPage, $filters);
         
         $page->serializeWith(function ($item) {
-            return new WafMatch($this->apiToFriendly($item, $this->requestMap));
+            return new WafLogMatch($this->apiToFriendly($item, $this->requestMap));
         });
         
         return $page;
