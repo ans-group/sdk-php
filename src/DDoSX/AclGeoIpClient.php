@@ -14,7 +14,7 @@ class AclGeoIpClient extends BaseClient
      * @return bool
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function destroy($domainName, $geoIpRuleId)
+    public function destroyRule($domainName, $geoIpRuleId)
     {
         $response = $this->delete('v1/domains/' . $domainName . '/acls/geo-ips/' . $geoIpRuleId);
         return $response->getStatusCode() == 204;
