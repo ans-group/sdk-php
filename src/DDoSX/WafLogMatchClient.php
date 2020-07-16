@@ -31,7 +31,7 @@ class WafLogMatchClient extends BaseClient
      *
      * @param string $requestId
      */
-    public function getById($requestId, $page = 1, $perPage = 15, $filters = [])
+    public function getPageByRequestId($requestId, $page = 1, $perPage = 20, $filters = [])
     {
         $page = $this->paginatedRequest('v1/waf/logs/' . $requestId . '/matches', $page, $perPage, $filters);
         
