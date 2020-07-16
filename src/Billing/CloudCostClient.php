@@ -26,6 +26,17 @@ class CloudCostClient extends BaseClient
         'billing_due_date'          => 'billingDueDate',
     ];
 
+    const UNITS = [
+        'CPU'    => 'Core',
+        'GPU'    => 'Core',
+        'RAM'    => 'GB',
+        'HDD'    => 'GB',
+        'OS'     => 'License',
+        'CP'     => 'License',
+        'SSD'    => 'GB',
+        'Backup' => 'GB'
+    ];
+
     /**
      * Gets a page of cloud costs
      *
@@ -86,5 +97,24 @@ class CloudCostClient extends BaseClient
                 $billingItem['resource']['cost_for_period_estimate'];
         }
         return $billingTotals;
+    }
+
+    /**
+     * @param $items
+     * @return mixed
+     */
+    public function showUnits($items)
+    {
+        foreach ($items as $key => $item) {
+            if (array_key_exists($item->resource['type'], self::UNITS)) {
+                $items[$key]->resource['quantity'] =
+                    $item->resource['quantity'] . ' ' . self::UNITS[$item->resource['type']];
+
+                // Address the plural nouns
+                $items[$key]->resource['quantity'] .=
+                    in_array($item->resource['type'], ['CPU', 'GPU']) && $item->resource['quantity'] > 1 ? 's' : '';
+            }
+        }
+        return $items;
     }
 }

@@ -79,4 +79,20 @@ class Client extends BaseClient
     {
         return (new PodClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return NetworkApplianceClient
+     */
+    public function networkAppliances()
+    {
+        return (new NetworkApplianceClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return TelemetryClient
+     */
+    public function telemetry()
+    {
+        return (new TelemetryClient($this->httpClient))->auth($this->token);
+    }
 }

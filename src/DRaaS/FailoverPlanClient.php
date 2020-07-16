@@ -55,21 +55,21 @@ class FailoverPlanClient extends Client implements ClientEntityInterface
      * Start a failover plan
      * @param $solutionId
      * @param $failoverPlanId
-     * @param $startNow
      * @param $startDate
      * @return bool
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function start($solutionId, $failoverPlanId, $startNow, $startDate)
+    public function start($solutionId, $failoverPlanId, $startDate = null)
     {
+        $data = empty($startDate) ? [] : [
+            'start_date' => $startDate
+        ];
+
         return $this->post(
             'v1/solutions/' . $solutionId . '/failover-plans/' . $failoverPlanId . '/start',
-            json_encode([
-                'start_now' => $startNow,
-                'start_date' => $startDate,
-            ]),
+            json_encode($data),
             ['Content-Type' => 'application/json']
-        )->getStatusCode() == 200;
+        )->getStatusCode() == 202;
     }
 
     /**
@@ -85,6 +85,6 @@ class FailoverPlanClient extends Client implements ClientEntityInterface
             'v1/solutions/' . $solutionId . '/failover-plans/' . $failoverPlanId . '/stop',
             json_encode([]),
             ['Content-Type' => 'application/json']
-        )->getStatusCode() == 200;
+        )->getStatusCode() == 202;
     }
 }
