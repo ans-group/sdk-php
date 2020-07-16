@@ -55,4 +55,18 @@ class WafLogMatchClient extends BaseClient
         
         return new WafLogMatch($this->apiToFriendly($body->data, $this->requestMap));
     }
+
+    /**
+     * Gets a list of all waf log matches
+     */
+    public function getPage($page = 1, $perPage = 20, $filters = [])
+    {
+        $page = $this->paginatedRequest('v1/waf/logs/matches', $page, $perPage, $filters);
+        
+        $page->serializeWith(function ($item) {
+            return new WafLogMatch($this->apiToFriendly($item, $this->requestMap));
+        });
+        
+        return $page;
+    }
 }
