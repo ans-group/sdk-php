@@ -103,6 +103,18 @@ class DomainClient extends BaseClient
     }
 
     /**
+     * Delete a Domain by its domain name
+     * @param $domainName
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function destroy($domainName)
+    {
+        $response = $this->delete('v1/domains/' . $domainName);
+        return $response->getStatusCode() == 204;
+    }
+
+    /**
      * Converts a response stdClass into a Domain object
      *
      * @param \stdClass

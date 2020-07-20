@@ -72,6 +72,15 @@ class Client extends BaseClient
     }
 
     /**
+     * Return the AclGeoIpClient instance
+     * @return AclGeoIpClient
+     */
+    public function aclGeoIps()
+    {
+        return (new AclGeoIpClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
      * Return a WafLogClient instance
      *
      * @return WafLogClient
