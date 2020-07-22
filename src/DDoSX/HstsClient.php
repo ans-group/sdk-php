@@ -47,7 +47,7 @@ class HstsClient extends BaseClient
         $page = $this->paginatedRequest('v1/domains/' . $domainName . '/hsts/rules', $page, $perPage, $filters);
 
         $page->serializeWith(function ($item) {
-            return $this->serializeHstsRules($item);
+            return $this->serializeHstsRule($item);
         });
 
         return $page;
@@ -65,7 +65,7 @@ class HstsClient extends BaseClient
         $response = $this->get('v1/domains/' . $domainName . '/hsts/rules/' . $ruleId);
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return $this->serializeHstsRules($body->data);
+        return $this->serializeHstsRule($body->data);
     }
 
     /**
@@ -81,7 +81,7 @@ class HstsClient extends BaseClient
      * @param $raw
      * @return HstsRule
      */
-    protected function serializeHstsRules($raw)
+    protected function serializeHstsRule($raw)
     {
         return new HstsRule($this->apiToFriendly($raw, self::RULE_MAP));
     }

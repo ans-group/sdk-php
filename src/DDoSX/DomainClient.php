@@ -127,15 +127,15 @@ class DomainClient extends BaseClient
     }
 
     /**
-     * Get a Domain's property by its ID
-     * @param $domainId
+     * Get a Domain's property by its name
+     * @param $domainName
      * @param $propertyId
      * @return DomainProperty
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getPropertyById($domainId, $propertyId)
+    public function getPropertyById($domainName, $propertyId)
     {
-        $response = $this->get('v1/domains/' . $domainId . '/properties/' . $propertyId);
+        $response = $this->get('v1/domains/' . $domainName . '/properties/' . $propertyId);
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return $this->serializeDomainProperty($body->data);
