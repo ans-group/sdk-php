@@ -13,18 +13,18 @@ class DomainPropertiesClient extends BaseClient
 
     /**
      * Update a Domain's property
-     * @param $domainId
+     * @param $domainName
      * @param $propertyId
      * @param $data
      * @return SelfResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function update($domainId, $propertyId, $data)
+    public function update($domainName, $propertyId, $data)
     {
         $requestBody = [
             'value' => $data->value
         ];
-        $response = $this->patch('v1/domains/' . $domainId . '/properties/' . $propertyId, $requestBody);
+        $response = $this->patch('v1/domains/' . $domainName . '/properties/' . $propertyId, json_encode($requestBody));
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))

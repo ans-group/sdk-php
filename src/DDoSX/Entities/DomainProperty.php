@@ -7,7 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
- * @property integer $value
+ * @property mixed $value
  */
 class DomainProperty extends Entity
 {
