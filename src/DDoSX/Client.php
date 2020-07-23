@@ -128,6 +128,15 @@ class Client extends BaseClient
     {
         return (new HstsClient($this->httpClient))->auth($this->token);
     }
+  
+    /**
+     * Return the DomainPropertiesClient instance
+     * @return DomainPropertiesClient
+     */
+    public function domainProperties()
+    {
+        return (new DomainPropertiesClient($this->httpClient))->auth($this->token);
+    }
 
     /**
      * Return a WafLogClient instance
