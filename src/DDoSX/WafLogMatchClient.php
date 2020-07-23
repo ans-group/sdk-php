@@ -5,7 +5,6 @@ namespace UKFast\SDK\DDoSX;
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\WafLogMatch;
 
-
 class WafLogMatchClient extends BaseClient
 {
     /**
