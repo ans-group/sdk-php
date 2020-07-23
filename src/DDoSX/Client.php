@@ -72,6 +72,15 @@ class Client extends BaseClient
     }
 
     /**
+     * Return the DomainPropertiesClient instance
+     * @return DomainPropertiesClient
+     */
+    public function domainProperties()
+    {
+        return (new DomainPropertiesClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
      * Return the AclGeoIpClient instance
      * @return AclGeoIpClient
      */
