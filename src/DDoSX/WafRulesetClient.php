@@ -20,19 +20,22 @@ class WafRulesetClient extends BaseClient
 
     /**
      * Get the WAF Rulesets for a domain
-     * @param $domainName
-     * @return array
+     *
+     * @param       $domainName
+     * @param int   $page
+     * @param int   $perPage
+     * @param array $filters
+     * @return \UKFast\SDK\Page
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getRulesets($domainName)
+    public function getPageByDomain($domainName, $page = 1, $perPage = 20, $filters = [])
     {
-        $response = $this->get('v1/domains/' . $domainName . '/waf/rulesets');
-
-        $body = $this->decodeJson($response->getBody()->getContents());
-
-        return array_map(function ($item) {
+        $page = $this->paginatedRequest('v1/domains/' . $domainName . '/waf/rulesets', $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
             return $this->serializeRuleset($item);
-        }, $body->data);
+        });
+
+        return $page;
     }
 
     protected function serializeRuleset($raw)
