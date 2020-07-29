@@ -15,7 +15,7 @@ use UKFast\SDK\Entity;
  * @property string $method
  * @property string $content
  * @property string $message
- * @property string $data
+ * @property string $matchData
  * @property string $uriPart
  * @property string $value
  */

@@ -22,6 +22,7 @@ class WafLogMatchClient extends BaseClient
         "request_uri" => "requestUri",
         "created_at" => "createdAt",
         "country_code" => "countryCode",
+        "match_data" => "matchData",
         "uri_part" => "uriPart"
     ];
 
