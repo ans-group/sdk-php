@@ -16,8 +16,7 @@ class WafLogMatchClient extends BaseClient
      * @var array
      */
     protected $requestMap = [
-        "match_id" => "matchId",
-        "request_id" => "requestId",
+        "log_id" => "logId",
         "client_ip" => "clientIp",
         "request_uri" => "requestUri",
         "created_at" => "createdAt",
@@ -27,13 +26,13 @@ class WafLogMatchClient extends BaseClient
     ];
 
     /**
-     * Gets a waf log matches for a request
+     * Gets a waf log matches for a waf log
      *
-     * @param string $requestId
+     * @param string $logId
      */
-    public function getPageByRequestId($requestId, $page = 1, $perPage = 20, $filters = [])
+    public function getPageByRequestId($logId, $page = 1, $perPage = 20, $filters = [])
     {
-        $page = $this->paginatedRequest('v1/waf/logs/' . $requestId . '/matches', $page, $perPage, $filters);
+        $page = $this->paginatedRequest('v1/waf/logs/' . $logId . '/matches', $page, $perPage, $filters);
         
         $page->serializeWith(function ($item) {
             return new WafLogMatch($this->apiToFriendly($item, $this->requestMap));
@@ -43,14 +42,14 @@ class WafLogMatchClient extends BaseClient
     }
 
      /**
-     * Gets a waf log match from a request
+     * Gets a waf log match from a waf log
      *
-     * @param string $requestId
-     * @param int $matchId
+     * @param string $logId
+     * @param int $id
      */
-    public function getRequestMatchById($requestId, $matchId)
+    public function getRequestMatchById($logId, $id)
     {
-        $response = $this->request("GET", 'v1/waf/logs/' . $requestId . '/matches/' . $matchId);
+        $response = $this->request("GET", 'v1/waf/logs/' . $logId . '/matches/' . $id);
         $body = $this->decodeJson($response->getBody()->getContents());
         
         return new WafLogMatch($this->apiToFriendly($body->data, $this->requestMap));
