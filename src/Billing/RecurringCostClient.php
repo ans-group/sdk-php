@@ -69,7 +69,7 @@ class RecurringCostClient extends BaseClient
      */
     protected function serializeRecurringCost($item)
     {
-        $recurringCost = new RecurringCost($this->apiToFriendly($item, self::MAP));
+        $recurringCost = new RecurringCost($this->apiToFriendly($item, static::MAP));
 
         if (!is_null($item->type)) {
             $recurringCost->type = new Type($item->type);
