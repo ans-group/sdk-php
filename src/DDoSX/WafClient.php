@@ -13,22 +13,26 @@ class WafClient extends BaseClient
      */
     protected $basePath = 'ddosx/';
 
-    const WAF_MAP  = [
-        "domain_name" => "name",
+    /**
+     * @var string[]
+     */
+    protected $requestMap = [
+        "domain_name"    => "name",
         "paranoia_level" => "paranoia"
     ];
 
     /**
      * @param Waf $waf
      * @return SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function create(Waf $waf)
     {
         $response = $this->post(
             'v1/domains/' . $waf->name . '/waf',
-            json_encode($this->friendlyToApi($waf, self::WAF_MAP))
+            json_encode($this->friendlyToApi($waf, $this->requestMap))
         );
-        $body = $this->decodeJson($response->getBody()->getContents());
+        $body     = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($body, "domain_name"))
             ->setClient($this)
@@ -58,6 +62,6 @@ class WafClient extends BaseClient
      */
     protected function serializeWaf($raw)
     {
-        return new Waf($this->apiToFriendly($raw, self::WAF_MAP));
+        return new Waf($this->apiToFriendly($raw, $this->requestMap));
     }
 }
