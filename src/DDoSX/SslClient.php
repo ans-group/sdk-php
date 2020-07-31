@@ -22,7 +22,10 @@ class SslClient extends BaseClient
     ];
 
     const CERTIFICATE_MAP = [
-        'ca_bundle' => 'caBundle'
+        'ca_bundle' => 'caBundle',
+        'ukfast_ssl_id' => 'ukfastSslId',
+        'friendly_name' => 'friendlyName',
+        'expires_at'    => 'expiresAt',
     ];
 
     const PRIVATE_KEY_MAP = [];

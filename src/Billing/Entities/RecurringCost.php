@@ -26,6 +26,7 @@ use DateTime;
  * @property DateTime $contractEndDate
  * @property DateTime $frozenEndDate
  * @property DateTime $migrationEndDate
+ * @property DateTime $extendedMigrationEndDate
  * @property DateTime $createdAt
  * @property Partner $partner
  * @property int $projectId
@@ -38,6 +39,7 @@ class RecurringCost extends Entity
         'contractEndDate',
         'frozenEndDate',
         'migrationEndDate',
+        'extendedMigrationEndDate',
         'createdAt'
     ];
 

@@ -16,7 +16,6 @@ class WafLogClient extends BaseClient
      * @var array
      */
     protected $requestMap = [
-        "request_id" => "requestId",
         "client_ip" => "clientIp",
         "created_at" => "createdAt"
     ];
@@ -38,11 +37,11 @@ class WafLogClient extends BaseClient
      /**
      * Gets a waf log
      *
-     * @param string $requestId
+     * @param string $id
      */
-    public function getById($requestId)
+    public function getById($id)
     {
-        $response = $this->request("GET", 'v1/waf/logs/' . $requestId);
+        $response = $this->request("GET", 'v1/waf/logs/' . $id);
         $body = $this->decodeJson($response->getBody()->getContents());
         
         return new WafLog($this->apiToFriendly($body->data, $this->requestMap));
