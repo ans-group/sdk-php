@@ -5,7 +5,6 @@ namespace UKFast\SDK\DDoSX;
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\WafLogMatch;
 
-
 class WafLogMatchClient extends BaseClient
 {
     /**
@@ -17,26 +16,56 @@ class WafLogMatchClient extends BaseClient
      * @var array
      */
     protected $requestMap = [
-        "match_id" => "matchId",
-        "request_id" => "requestId",
+        "log_id" => "logId",
         "client_ip" => "clientIp",
         "request_uri" => "requestUri",
         "created_at" => "createdAt",
         "country_code" => "countryCode",
+        "match_data" => "matchData",
         "uri_part" => "uriPart"
     ];
 
-     /**
-     * Gets a waf log match from a request
+    /**
+     * Gets a waf log matches for a waf log
      *
-     * @param string $requestId
-     * @param int $matchId
+     * @param string $logId
      */
-    public function getRequestMatchById($requestId, $matchId)
+    public function getPageByRequestId($logId, $page = 1, $perPage = 20, $filters = [])
     {
-        $response = $this->request("GET", 'v1/waf/logs/' . $requestId . '/matches/' . $matchId);
+        $page = $this->paginatedRequest('v1/waf/logs/' . $logId . '/matches', $page, $perPage, $filters);
+        
+        $page->serializeWith(function ($item) {
+            return new WafLogMatch($this->apiToFriendly($item, $this->requestMap));
+        });
+        
+        return $page;
+    }
+
+     /**
+     * Gets a waf log match from a waf log
+     *
+     * @param string $logId
+     * @param int $id
+     */
+    public function getRequestMatchById($logId, $id)
+    {
+        $response = $this->request("GET", 'v1/waf/logs/' . $logId . '/matches/' . $id);
         $body = $this->decodeJson($response->getBody()->getContents());
         
         return new WafLogMatch($this->apiToFriendly($body->data, $this->requestMap));
+    }
+
+    /**
+     * Gets a list of all waf log matches
+     */
+    public function getPage($page = 1, $perPage = 20, $filters = [])
+    {
+        $page = $this->paginatedRequest('v1/waf/logs/matches', $page, $perPage, $filters);
+        
+        $page->serializeWith(function ($item) {
+            return new WafLogMatch($this->apiToFriendly($item, $this->requestMap));
+        });
+        
+        return $page;
     }
 }

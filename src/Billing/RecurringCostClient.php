@@ -21,6 +21,7 @@ class RecurringCostClient extends BaseClient
         'contract_end_date' => 'contractEndDate',
         'frozen_end_date' => 'frozenEndDate',
         'migration_end_date' => 'migrationEndDate',
+        'extended_migration_end_date' => 'extendedMigrationEndDate',
         'created_at' => 'createdAt',
         'project_id' => 'projectId'
     ];
@@ -68,7 +69,7 @@ class RecurringCostClient extends BaseClient
      */
     protected function serializeRecurringCost($item)
     {
-        $recurringCost = new RecurringCost($this->apiToFriendly($item, self::MAP));
+        $recurringCost = new RecurringCost($this->apiToFriendly($item, static::MAP));
 
         if (!is_null($item->type)) {
             $recurringCost->type = new Type($item->type);

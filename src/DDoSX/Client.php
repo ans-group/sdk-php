@@ -12,7 +12,7 @@ class Client extends BaseClient
     protected $basePath = 'ddosx/';
 
     /**
-     * Return a domainClient instance
+     * Return a DomainClient instance
      *
      * @return DomainClient
      */
@@ -22,7 +22,7 @@ class Client extends BaseClient
     }
 
     /**
-     * Return a cdnClient instance
+     * Return a CdnClient instance
      *
      * @return CdnClient
      */
@@ -32,13 +32,53 @@ class Client extends BaseClient
     }
 
     /**
-     * Return a wafClient instance
+     * Return a CdnRuleClient instance
+     *
+     * @return CdnRuleClient
+     */
+    public function cdnRules()
+    {
+        return (new CdnRuleClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return a WafClient instance
      *
      * @return WafClient
      */
     public function waf()
     {
         return (new WafClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return a WafRuleClient instance
+     *
+     * @return WafRuleClient
+     */
+    public function wafRules()
+    {
+        return (new WafRuleClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return a WafAdvancedRuleClient instance
+     *
+     * @return WafAdvancedRuleClient
+     */
+    public function wafAdvancedRules()
+    {
+        return (new WafAdvancedRuleClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return a WafRulesetClient instance
+     *
+     * @return WafRulesetClient
+     */
+    public function wafRulesets()
+    {
+        return (new WafRulesetClient($this->httpClient))->auth($this->token);
     }
 
     /**
@@ -69,6 +109,33 @@ class Client extends BaseClient
     public function ssls()
     {
         return (new SslClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return the AclGeoIpClient instance
+     * @return AclGeoIpClient
+     */
+    public function aclGeoIps()
+    {
+        return (new AclGeoIpClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * Return the HstsClient instance
+     * @return HstsClient
+     */
+    public function hsts()
+    {
+        return (new HstsClient($this->httpClient))->auth($this->token);
+    }
+  
+    /**
+     * Return the DomainPropertiesClient instance
+     * @return DomainPropertiesClient
+     */
+    public function domainProperties()
+    {
+        return (new DomainPropertiesClient($this->httpClient))->auth($this->token);
     }
 
     /**
