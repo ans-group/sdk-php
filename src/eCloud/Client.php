@@ -88,4 +88,13 @@ class Client extends BaseClient
     {
         return (new ApplianceClient($this->httpClient))->auth($this->token);
     }
+
+
+    /**
+     * @return BaseClient
+     */
+    public function vpcs()
+    {
+        return (new VpcClient($this->httpClient))->auth($this->token);
+    }
 }
