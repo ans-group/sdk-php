@@ -72,7 +72,7 @@ class SslClient extends BaseClient
      */
     public function create(Ssl $ssl)
     {
-        $data     = $this->friendlyToApi($ssl, static::SSL_MAP);
+        $data     = $this->friendlyToApi($ssl, array_merge(static::SSL_MAP, static::CERTIFICATE_MAP));
         $response = $this->post('v1/ssls', json_encode($data));
         $body     = $this->decodeJson($response->getBody()->getContents());
 
