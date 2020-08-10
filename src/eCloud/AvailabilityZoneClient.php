@@ -15,10 +15,8 @@ class AvailabilityZoneClient extends Client implements ClientEntityInterface
     public function loadEntity($data)
     {
         return new AvailabilityZone(
-            $this->apiToFriendly(
-                $data,
-                $this->getEntityMap())
-            );
+            $this->apiToFriendly($data, $this->getEntityMap())
+        );
     }
 
     public function getEntityMap()
