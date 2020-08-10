@@ -16,6 +16,11 @@ trait PageItems
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
+        $entityMap = $this->getEntityMap();
+        if (!empty($entityMap)) {
+            $filters = $this->friendlyToApi($filters, $entityMap);
+        }
+
         $page = $this->paginatedRequest($this->collectionPath, $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->loadEntity($item);
@@ -66,5 +71,10 @@ trait PageItems
         }
 
         return $items;
+    }
+
+    public function getEntityMap()
+    {
+        return [];
     }
 }
