@@ -89,6 +89,13 @@ class Client extends BaseClient
         return (new ApplianceClient($this->httpClient))->auth($this->token);
     }
 
+    /**
+     * @return BaseClient
+     */
+    public function availabilityZones()
+    {
+        return (new AvailabilityZoneClient($this->httpClient))->auth($this->token);
+    }
 
     /**
      * @return BaseClient
