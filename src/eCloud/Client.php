@@ -89,6 +89,15 @@ class Client extends BaseClient
         return (new ApplianceClient($this->httpClient))->auth($this->token);
     }
 
+
+    /**
+     * @return BaseClient
+     */
+    public function regions()
+    {
+        return (new RegionClient($this->httpClient))->auth($this->token);
+    }
+
     /**
      * @return BaseClient
      */
