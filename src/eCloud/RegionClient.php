@@ -4,17 +4,17 @@ namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\AvailabilityZone;
+use UKFast\SDK\eCloud\Entities\Region;
 
-class AvailabilityZoneClient extends Client implements ClientEntityInterface
+class RegionClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/availability-zones';
+    protected $collectionPath = 'v2/regions';
 
     public function loadEntity($data)
     {
-        return new AvailabilityZone(
+        return new Region(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }
@@ -24,8 +24,6 @@ class AvailabilityZoneClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'name' => 'name',
-            'code' => 'code',
-            'datacentre_site_id' => 'datacentreSiteId'
         ];
     }
 }
