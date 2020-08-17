@@ -71,12 +71,6 @@ class AttackGeolocationClient extends Client
 
     public function serializeGeolocationData($data)
     {
-        $data = [
-            'key' => $data->key,
-            'location' => $data->{3}->location,
-            'count' => $data->{3}->count
-        ];
-
         return new GeolocationData($this->apiToFriendly($data, static::GEOLOCATION_MAP));
     }
 }
