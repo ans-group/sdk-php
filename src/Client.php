@@ -95,7 +95,6 @@ class Client
             $status = $e->getResponse()->getStatusCode();
 
             if ($status == 404) {
-                dd($e->getMessage());
                 throw new NotFoundException($e->getResponse());
             }
 

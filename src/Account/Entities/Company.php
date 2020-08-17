@@ -35,6 +35,11 @@ class Company
     public $country;
 
     /**
+     * @var
+     */
+    public $solutionAuthorisationRequired;
+
+    /**
      * Company constructor.
      * @param null $item
      */
@@ -53,5 +58,6 @@ class Company
         $this->name = $item->name;
         
         $this->country = $item->country;
+        $this->solutionAuthorisationRequired = $item->solution_authorisation_required;
     }
 }
