@@ -15,10 +15,16 @@ class VpcClient extends Client implements ClientEntityInterface
     public function loadEntity($data)
     {
         return new Vpc(
-            [
-                'id' => $data->id,
-                'name' => $data->name,
-            ]
+            $this->apiToFriendly($data, $this->getEntityMap())
         );
+    }
+
+    public function getEntityMap()
+    {
+        return [
+            'id' => 'id',
+            'name' => 'name',
+            'region_id' => 'regionId',
+        ];
     }
 }
