@@ -2,11 +2,13 @@
 
 namespace UKFast\SDK\Account;
 
+use UKFast\Admin\Traits\Admin;
 use UKFast\SDK\Account\Entities\Company;
 use UKFast\SDK\Client as BaseClient;
 
 class CompanyClient extends BaseClient
 {
+    use Admin;
     protected $basePath = 'account/';
 
     /**
