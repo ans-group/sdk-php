@@ -20,6 +20,7 @@ class LoadBalancerClusterClient extends Client implements ClientEntityInterface
             'vpc_id' => 'vpcId',
             'availability_zone_id' => 'availabilityZoneId',
             'name' => 'name',
+            'config_id' => 'configId',
             'nodes' => 'nodes',
         ];
     }
