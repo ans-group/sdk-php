@@ -48,14 +48,14 @@ class TargetClient extends Client
     }
 
     /**
-     * Creates a backend
-     * @param Target $backend
+     * Creates a target
+     * @param Target $target
      * @return \UKFast\SDK\SelfResponse
      */
-    public function create($backend)
+    public function create($target)
     {
         $response = $this->post('v2/backends', json_encode($this->friendlyToApi(
-            $backend,
+            $target,
             self::MAP
         )));
 
