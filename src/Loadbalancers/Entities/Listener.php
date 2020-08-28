@@ -16,6 +16,6 @@ use UKFast\SDK\Entity;
  * @property bool $redirectHttps
  * @property string $defaultBackendId
  */
-class Frontend extends Entity
+class Listener extends Entity
 {
 }
