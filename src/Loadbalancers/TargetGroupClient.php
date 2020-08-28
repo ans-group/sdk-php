@@ -3,10 +3,10 @@
 namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Client;
-use UKFast\SDK\Loadbalancers\Entities\Group;
+use UKFast\SDK\Loadbalancers\Entities\TargetGroup;
 use UKFast\SDK\SelfResponse;
 
-class GroupClient extends Client
+class TargetGroupClient extends Client
 {
     const MAP = [];
 
@@ -46,7 +46,7 @@ class GroupClient extends Client
 
     /**
      * Creates a group
-     * @param \UKFast\SDK\Loadbalancers\Entities\Group $group
+     * @param \UKFast\SDK\Loadbalancers\Entities\TargetGroup $group
      * @return \UKFast\SDK\SelfResponse
      */
     public function create($group)
@@ -63,10 +63,10 @@ class GroupClient extends Client
     }
 
     /**
-     * @return \UKFast\SDK\Loadbalancers\Entities\Group
+     * @return \UKFast\SDK\Loadbalancers\Entities\TargetGroup
      */
     public function serializeGroup($raw)
     {
-        return new Group($this->apiToFriendly($raw, self::MAP));
+        return new TargetGroup($this->apiToFriendly($raw, self::MAP));
     }
 }

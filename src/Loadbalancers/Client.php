@@ -38,9 +38,9 @@ class Client extends BaseClient
         return (new FrontendClient($this->httpClient))->auth($this->token);
     }
 
-    public function groups()
+    public function targetGroups()
     {
-        return (new GroupClient($this->httpClient))->auth($this->token);
+        return (new TargetGroupClient($this->httpClient))->auth($this->token);
     }
 
     public function rootConfigs()
