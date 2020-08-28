@@ -4,22 +4,31 @@ namespace UKFast\SDK\DDoSX;
 
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\DDoSX\Entities\Ssl;
+use UKFast\SDK\DDoSX\Entities\SslCertificate;
+use UKFast\SDK\DDoSX\Entities\SslPrivateKey;
 use UKFast\SDK\SelfResponse;
 
 class SslClient extends BaseClient
 {
     /**
-     * The API's basepath
-     *
      * @var string $basepath
      */
     protected $basePath = 'ddosx/';
 
-    const CERTIFICATE_MAP = [
+    const SSL_MAP = [
         'ukfast_ssl_id' => 'ukfastSslId',
         'friendly_name' => 'friendlyName',
         'expires_at'    => 'expiresAt',
     ];
+
+    const CERTIFICATE_MAP = [
+        'ca_bundle' => 'caBundle',
+        'ukfast_ssl_id' => 'ukfastSslId',
+        'friendly_name' => 'friendlyName',
+        'expires_at'    => 'expiresAt',
+    ];
+
+    const PRIVATE_KEY_MAP = [];
 
     /**
      * Gets a paginated list of SSLs
@@ -32,7 +41,7 @@ class SslClient extends BaseClient
      */
     public function getPage($page = 1, $perPage = 20, $filters = [])
     {
-        $filters = $this->friendlyToApi($filters, self::CERTIFICATE_MAP);
+        $filters = $this->friendlyToApi($filters, self::SSL_MAP);
         $page    = $this->paginatedRequest('v1/ssls', $page, $perPage, $filters);
 
         $page->serializeWith(function ($item) {
@@ -43,7 +52,7 @@ class SslClient extends BaseClient
     }
 
     /**
-     * Gets the SSL by its Id
+     * Gets the SSL by its identifier
      * @param string $sslId
      * @return object Ssl
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -63,7 +72,7 @@ class SslClient extends BaseClient
      */
     public function create(Ssl $ssl)
     {
-        $data     = $this->friendlyToApi($ssl, static::CERTIFICATE_MAP);
+        $data     = $this->friendlyToApi($ssl, array_merge(static::SSL_MAP, static::CERTIFICATE_MAP));
         $response = $this->post('v1/ssls', json_encode($data));
         $body     = $this->decodeJson($response->getBody()->getContents());
 
@@ -75,7 +84,33 @@ class SslClient extends BaseClient
     }
 
     /**
-     * Delete an existing DDoSX SSL Record
+     * Get the certificate by its SSL identifier
+     * @param $sslId
+     * @return SslCertificate
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getCertificate($sslId)
+    {
+        $response = $this->get('v1/ssls/' . $sslId . '/certificates');
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializeCertificate($body);
+    }
+
+    /**
+     * Get the private key by its SSL identifier
+     * @param $sslId
+     * @return SslPrivateKey
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getPrivateKey($sslId)
+    {
+        $response = $this->get('v1/ssls/' . $sslId . '/private-key');
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializePrivateKey($body);
+    }
+
+    /**
+     * Delete an existing DDoSX SSL
      *
      * @param Ssl $ssl
      * @return bool
@@ -87,13 +122,29 @@ class SslClient extends BaseClient
     }
 
     /**
-     * Converts a response stdClass into a Ssl entity
-     *
-     * @param $item
+     * @param $raw
      * @return Ssl
      */
-    protected function serializeSsl($item)
+    protected function serializeSsl($raw)
     {
-        return new Ssl($this->apiToFriendly($item, self::CERTIFICATE_MAP));
+        return new Ssl($this->apiToFriendly($raw, self::SSL_MAP));
+    }
+
+    /**
+     * @param $raw
+     * @return SslCertificate
+     */
+    protected function serializeCertificate($raw)
+    {
+        return new SslCertificate($this->apiToFriendly($raw, self::CERTIFICATE_MAP));
+    }
+
+    /**
+     * @param $raw
+     * @return SslPrivateKey
+     */
+    protected function serializePrivateKey($raw)
+    {
+        return new SslPrivateKey($this->apiToFriendly($raw, self::PRIVATE_KEY_MAP));
     }
 }
