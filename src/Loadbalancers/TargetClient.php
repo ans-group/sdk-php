@@ -17,7 +17,7 @@ class TargetClient extends Client
     protected $basePath = 'loadbalancers/';
 
     /**
-     * Gets a paginated response of all backends
+     * Gets a paginated response of all targets
      *
      * @param int $page
      * @param int $perPage
@@ -35,7 +35,7 @@ class TargetClient extends Client
     }
 
     /**
-     * Gets an individual backend
+     * Gets an individual target
      *
      * @param int $id
      * @return Target
