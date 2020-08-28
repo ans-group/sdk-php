@@ -3,11 +3,10 @@
 namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Client;
-use UKFast\SDK\Loadbalancers\Entities\Backend;
-use UKFast\SDK\Loadbalancers\Entities\CustomOption;
+use UKFast\SDK\Loadbalancers\Entities\Target;
 use UKFast\SDK\SelfResponse;
 
-class BackendClient extends Client
+class TargetClient extends Client
 {
     const MAP = [
         'cookie_opts' => 'cookieOpts',
@@ -39,7 +38,7 @@ class BackendClient extends Client
      * Gets an individual backend
      *
      * @param int $id
-     * @return \UKFast\SDK\Loadbalancers\Entities\Backend
+     * @return Target
      */
     public function getById($id)
     {
@@ -50,7 +49,7 @@ class BackendClient extends Client
 
     /**
      * Creates a backend
-     * @param \UKFast\SDK\Loadbalancers\Entities\Backend $backend
+     * @param Target $backend
      * @return \UKFast\SDK\SelfResponse
      */
     public function create($backend)
@@ -70,10 +69,10 @@ class BackendClient extends Client
 
     /**
      * @param object
-     * @return \UKFast\SDK\Loadbalancers\Entities\Backend
+     * @return Target
      */
     protected function serializeBackend($raw)
     {
-        return new Backend($this->apiToFriendly($raw, self::MAP));
+        return new Target($this->apiToFriendly($raw, self::MAP));
     }
 }
