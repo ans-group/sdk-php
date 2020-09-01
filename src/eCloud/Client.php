@@ -113,4 +113,12 @@ class Client extends BaseClient
     {
         return (new VpcClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function loadBalancerClusters()
+    {
+        return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
+    }
 }
