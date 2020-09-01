@@ -3,9 +3,15 @@
 namespace UKFast\SDK\Traits;
 
 use UKFast\SDK\Page;
+use UKFast\SDK\SelfResponse;
 
 trait PageItems
 {
+    public function getEntityMap()
+    {
+        return [];
+    }
+
     /**
      * Get a paginated response from a collection
      *
@@ -27,18 +33,6 @@ trait PageItems
         });
 
         return $page;
-    }
-
-    /**
-     * Get a single item from the collection
-     * @param $id
-     * @return mixed
-     */
-    public function getById($id)
-    {
-        $response = $this->get($this->collectionPath . '/' . $id);
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->loadEntity($body->data);
     }
 
     /**
@@ -73,8 +67,66 @@ trait PageItems
         return $items;
     }
 
-    public function getEntityMap()
+
+    /**
+     * Get a single item from the collection
+     * @param $id
+     * @return mixed
+     */
+    public function getById($id)
     {
-        return [];
+        $response = $this->get($this->collectionPath . '/' . $id);
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->loadEntity($body->data);
+    }
+
+    /**
+     * Delete a single item from the collection
+     * @param $id
+     */
+    public function deleteById($id)
+    {
+        $this->delete($this->collectionPath . '/' . $id);
+    }
+
+    /**
+     * Create a new item for the collection
+     * @param $entity
+     * @return SelfResponse
+     */
+    public function createEntity($entity)
+    {
+        $response = $this->post(
+            $this->collectionPath,
+            json_encode($this->friendlyToApi($entity, $this->getEntityMap()))
+        );
+        $responseBody = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($responseBody))
+            ->setClient($this)
+            ->serializeWith(function ($responseBody) {
+                return $this->loadEntity($responseBody->data);
+            });
+    }
+
+    /**
+     * Update an existing item in the collection
+     * @param $entity
+     * @return SelfResponse
+     */
+    public function updateEntity($entity)
+    {
+        $response = $this->patch(
+            $this->collectionPath . '/' . $entity->id,
+            json_encode($this->friendlyToApi($entity, $this->getEntityMap()))
+        );
+
+        $responseBody = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($responseBody))
+            ->setClient($this)
+            ->serializeWith(function ($responseBody) {
+                return $this->loadEntity($responseBody->data);
+            });
     }
 }
