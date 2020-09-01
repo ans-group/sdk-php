@@ -8,9 +8,9 @@ class Client extends BaseClient
 {
     protected $basePath = 'loadbalancers/';
 
-    public function backends()
+    public function targets()
     {
-        return (new BackendClient($this->httpClient))->auth($this->token);
+        return (new TargetClient($this->httpClient))->auth($this->token);
     }
 
     public function customOptions()
@@ -33,9 +33,9 @@ class Client extends BaseClient
         return (new AclClient($this->httpClient))->auth($this->token);
     }
 
-    public function frontends()
+    public function listeners()
     {
-        return (new FrontendClient($this->httpClient))->auth($this->token);
+        return (new ListenerClient($this->httpClient))->auth($this->token);
     }
 
     public function groups()

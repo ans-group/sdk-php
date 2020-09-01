@@ -7,11 +7,12 @@ use UKFast\SDK\Entity;
 use UKFast\SDK\Loadbalancers\Entities\Access;
 use UKFast\SDK\Loadbalancers\Entities\Bind;
 use UKFast\SDK\Loadbalancers\Entities\Cert;
-use UKFast\SDK\Loadbalancers\Entities\Frontend;
+use UKFast\SDK\Loadbalancers\Entities\Listener;
 use UKFast\SDK\Loadbalancers\Entities\Ssl;
+use UKFast\SDK\PSS\Entities\Request;
 use UKFast\SDK\SelfResponse;
 
-class FrontendClient extends Client
+class ListenerClient extends Client
 {
     const MAP = [
         'vips_id' => 'vipsId',
@@ -59,27 +60,27 @@ class FrontendClient extends Client
         $filters = $this->friendlyToApi($filters, self::MAP);
         $page = $this->paginatedRequest('v2/frontends', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Frontend($this->apiToFriendly($item, self::MAP));
+            return new Listener($this->apiToFriendly($item, self::MAP));
         });
 
         return $page;
     }
 
     /**
-     * Gets an individual frontend
+     * Gets an individual listener
      *
      * @param int $id
-     * @return \UKFast\SDK\PSS\Entities\Request
+     * @return Listener
      */
     public function getById($id)
     {
         $response = $this->request("GET", "v2/frontends/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return new Frontend($this->apiToFriendly($body->data, self::MAP));
+        return new Listener($this->apiToFriendly($body->data, self::MAP));
     }
 
     /**
-     * Gets a page of Ssls
+     * Gets a page of SSLs
      *
      * @param int $id
      * @param int $page
@@ -159,20 +160,20 @@ class FrontendClient extends Client
     }
 
     /**
-     * Creates a new frontend
-     * @param \UKFast\SDK\Loadbalancers\Entities\Frontend $frontend
+     * Creates a new listener
+     * @param Listener $listener
      * @return \UKFast\SDK\SelfResponse
      */
-    public function create($frontend)
+    public function create($listener)
     {
-        $json = json_encode($this->friendlyToApi($frontend, self::MAP));
+        $json = json_encode($this->friendlyToApi($listener, self::MAP));
         $response = $this->post("v2/frontends", $json);
         $response = $this->decodeJson($response->getBody()->getContents());
         
         return (new SelfResponse($response))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new Frontend($this->apiToFriendly($response->data, self::MAP));
+                return new Listener($this->apiToFriendly($response->data, self::MAP));
             });
     }
 
