@@ -31,40 +31,4 @@ class LoadBalancerClusterClient extends Client implements ClientEntityInterface
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }
-
-    public function createEntity($entity)
-    {
-        $response = $this->post(
-            $this->collectionPath,
-            json_encode($this->friendlyToApi($entity, $this->getEntityMap()))
-        );
-        $responseBody = $this->decodeJson($response->getBody()->getContents());
-
-        return (new SelfResponse($responseBody))
-            ->setClient($this)
-            ->serializeWith(function ($responseBody) {
-                return $this->loadEntity($responseBody->data);
-            });
-    }
-
-    public function updateEntity($entity)
-    {
-        $response = $this->patch(
-            $this->collectionPath . '/' . $entity->id,
-            json_encode($this->friendlyToApi($entity, $this->getEntityMap()))
-        );
-
-        $responseBody = $this->decodeJson($response->getBody()->getContents());
-
-        return (new SelfResponse($responseBody))
-            ->setClient($this)
-            ->serializeWith(function ($responseBody) {
-                return $this->loadEntity($responseBody->data);
-            });
-    }
-
-    public function deleteById($id)
-    {
-        $this->delete($this->collectionPath . '/' . $id);
-    }
 }
