@@ -2,14 +2,12 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
 use UKFast\SDK\Entity;
-use UKFast\SDK\Loadbalancers\Entities\Access;
+use UKFast\SDK\Loadbalancers\Entities\AccessRule;
 use UKFast\SDK\Loadbalancers\Entities\Bind;
 use UKFast\SDK\Loadbalancers\Entities\Cert;
 use UKFast\SDK\Loadbalancers\Entities\Listener;
 use UKFast\SDK\Loadbalancers\Entities\Ssl;
-use UKFast\SDK\PSS\Entities\Request;
 use UKFast\SDK\SelfResponse;
 
 class ListenerClient extends Client
@@ -41,8 +39,9 @@ class ListenerClient extends Client
         'certs_pem' => 'pem',
     ];
 
-    const ACCESS_MAP = [
+    const ACCESS_RULE_MAP = [
         'frontend_id' => 'frontendId',
+        'whitelist' => 'whitelist',
     ];
 
     protected $basePath = 'loadbalancers/';
@@ -140,23 +139,36 @@ class ListenerClient extends Client
     }
 
     /**
-     * Gets a page of Access
+     * Gets a page of listener access rules
      *
-     * @param int $id
+     * @param int $id Listener ID
      * @param int $page
      * @param int $perPage
      * @param array $filters
      * @return \UKFast\SDK\Page
      */
-    public function getAccess($id, $page = 1, $perPage = 15, $filters = [])
+    public function getAccessRulePage($id, $page = 1, $perPage = 15, $filters = [])
     {
-        $filters = $this->friendlyToApi($filters, self::ACCESS_MAP);
+        $filters = $this->friendlyToApi($filters, self::ACCESS_RULE_MAP);
         $page = $this->paginatedRequest("v2/frontends/$id/access", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Access($this->apiToFriendly($item, self::ACCESS_MAP));
+            return new AccessRule($this->apiToFriendly($item, self::ACCESS_RULE_MAP));
         });
 
         return $page;
+    }
+
+    /**
+     * Get an access rule for a listener by ID
+     * @param $id
+     * @param $accessRuleId
+     * @return AccessRule
+     */
+    public function getAccessRuleById($id, $accessRuleId)
+    {
+        $response = $this->request("GET", "v2/frontends/$id/access/$accessRuleId");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return new AccessRule($this->apiToFriendly($body->data, self::MAP));
     }
 
     /**
@@ -215,11 +227,11 @@ class ListenerClient extends Client
     }
 
     /**
-     * Creates a new Access
-     * @param \UKFast\SDK\Loadbalancers\Entities\Access $acess
+     * Creates a new listener access rule
+     * @param $id Listener ID
      * @return \UKFast\SDK\SelfResponse
      */
-    public function addAccess($id)
+    public function createAccessRule($id)
     {
         $response = $this->post("v2/frontends/$id/access", null);
         $response = $this->decodeJson($response->getBody()->getContents());
@@ -227,8 +239,41 @@ class ListenerClient extends Client
         return (new SelfResponse($response))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new Access($this->apiToFriendly($response->data, self::ACCESS_MAP));
+                return new AccessRule($this->apiToFriendly($response->data, self::ACCESS_RULE_MAP));
             });
+    }
+
+    /**
+     * Update access rule for a listener
+     * @param $id
+     * @param AccessRule $accessRule
+     * @return SelfResponse
+     */
+    public function updateAccessRule($id, AccessRule $accessRule)
+    {
+        $response = $this->patch(
+            "v2/frontends/$id/access/$accessRule->id",
+            json_encode($this->friendlyToApi($accessRule, self::ACCESS_RULE_MAP))
+        );
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new AccessRule($this->apiToFriendly($response->data, self::ACCESS_RULE_MAP));
+            });
+    }
+
+    /**
+     * @param $id
+     * @param AccessRule $accessRule
+     * @return bool
+     */
+    public function destroyAccessRule($id, AccessRule $accessRule)
+    {
+        $response = $this->delete("v2/frontends/$id/access/$accessRule->id");
+
+        return $response->getStatusCode() == 204;
     }
 
     protected function sslToApiFormat($ssl)
