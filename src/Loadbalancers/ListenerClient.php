@@ -266,12 +266,12 @@ class ListenerClient extends Client
 
     /**
      * @param $id
-     * @param AccessRule $accessRule
+     * @param string $accessRuleId
      * @return bool
      */
-    public function destroyAccessRule($id, AccessRule $accessRule)
+    public function destroyAccessRule($id, $accessRuleId)
     {
-        $response = $this->delete("v2/frontends/$id/access/$accessRule->id");
+        $response = $this->delete("v2/frontends/$id/access/$accessRuleId");
 
         return $response->getStatusCode() == 204;
     }
