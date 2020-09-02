@@ -43,7 +43,8 @@ class ListenerClient extends Client implements ClientEntityInterface
 
     protected $collectionPath = 'v2/frontends';
 
-    public function getEntityMap() {
+    public function getEntityMap()
+    {
         return [
             'vips_id' => 'vipsId',
             'config_id' => 'configId',
