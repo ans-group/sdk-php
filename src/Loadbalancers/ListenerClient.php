@@ -3,6 +3,7 @@
 namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Client;
+use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Entity;
 use UKFast\SDK\Loadbalancers\Entities\Access;
 use UKFast\SDK\Loadbalancers\Entities\Bind;
@@ -11,16 +12,11 @@ use UKFast\SDK\Loadbalancers\Entities\Listener;
 use UKFast\SDK\Loadbalancers\Entities\Ssl;
 use UKFast\SDK\PSS\Entities\Request;
 use UKFast\SDK\SelfResponse;
+use UKFast\SDK\Traits\PageItems;
 
-class ListenerClient extends Client
+class ListenerClient extends Client implements ClientEntityInterface
 {
-    const MAP = [
-        'vips_id' => 'vipsId',
-        'hsts_enabled' => 'hstsEnabled',
-        'hsts_maxage' => 'hstsMaxAge',
-        'redirect_https' => 'redirectHttps',
-        'default_backend_id' => 'defaultBackendId',
-    ];
+    use PageItems;
 
     const SSL_MAP = [
         'binds_id' => 'bindsId',
@@ -45,38 +41,17 @@ class ListenerClient extends Client
         'frontend_id' => 'frontendId',
     ];
 
-    protected $basePath = 'loadbalancers/';
+    protected $collectionPath = 'v2/frontends';
 
-    /**
-     * Gets a paginated response of all Frontends
-     *
-     * @param int $page
-     * @param int $perPage
-     * @param array $filters
-     * @return \UKFast\SDK\Page
-     */
-    public function getPage($page = 1, $perPage = 15, $filters = [])
-    {
-        $filters = $this->friendlyToApi($filters, self::MAP);
-        $page = $this->paginatedRequest('v2/frontends', $page, $perPage, $filters);
-        $page->serializeWith(function ($item) {
-            return new Listener($this->apiToFriendly($item, self::MAP));
-        });
-
-        return $page;
-    }
-
-    /**
-     * Gets an individual listener
-     *
-     * @param int $id
-     * @return Listener
-     */
-    public function getById($id)
-    {
-        $response = $this->request("GET", "v2/frontends/$id");
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return new Listener($this->apiToFriendly($body->data, self::MAP));
+    public function getEntityMap() {
+        return [
+            'vips_id' => 'vipsId',
+            'config_id' => 'configId',
+            'hsts_enabled' => 'hstsEnabled',
+            'hsts_maxage' => 'hstsMaxAge',
+            'redirect_https' => 'redirectHttps',
+            'default_backend_id' => 'defaultBackendId',
+        ];
     }
 
     /**
@@ -157,24 +132,6 @@ class ListenerClient extends Client
         });
 
         return $page;
-    }
-
-    /**
-     * Creates a new listener
-     * @param Listener $listener
-     * @return \UKFast\SDK\SelfResponse
-     */
-    public function create($listener)
-    {
-        $json = json_encode($this->friendlyToApi($listener, self::MAP));
-        $response = $this->post("v2/frontends", $json);
-        $response = $this->decodeJson($response->getBody()->getContents());
-        
-        return (new SelfResponse($response))
-            ->setClient($this)
-            ->serializeWith(function ($response) {
-                return new Listener($this->apiToFriendly($response->data, self::MAP));
-            });
     }
 
     /**
@@ -264,5 +221,14 @@ class ListenerClient extends Client
         $ssl = new Ssl($this->apiToFriendly($apiFormat, self::SSL_MAP));
         $ssl->allowTls = $allowTls;
         return $ssl;
+    }
+
+    /**
+     * @param $data
+     * @return mixed|HardwarePlan
+     */
+    public function loadEntity($data)
+    {
+        return new Listener($this->apiToFriendly($data, $this->getEntityMap()));
     }
 }
