@@ -7,7 +7,8 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $frontendId
+ * @property string $whitelist
  */
-class Access extends Entity
+class AccessRule extends Entity
 {
 }
