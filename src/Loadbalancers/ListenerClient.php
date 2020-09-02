@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
+use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Entity;
 use UKFast\SDK\Loadbalancers\Entities\AccessRule;
 use UKFast\SDK\Loadbalancers\Entities\Bind;
@@ -9,16 +10,11 @@ use UKFast\SDK\Loadbalancers\Entities\Cert;
 use UKFast\SDK\Loadbalancers\Entities\Listener;
 use UKFast\SDK\Loadbalancers\Entities\Ssl;
 use UKFast\SDK\SelfResponse;
+use UKFast\SDK\Traits\PageItems;
 
-class ListenerClient extends Client
+class ListenerClient extends Client implements ClientEntityInterface
 {
-    const MAP = [
-        'vips_id' => 'vipsId',
-        'hsts_enabled' => 'hstsEnabled',
-        'hsts_maxage' => 'hstsMaxAge',
-        'redirect_https' => 'redirectHttps',
-        'default_backend_id' => 'defaultBackendId',
-    ];
+    use PageItems;
 
     const SSL_MAP = [
         'binds_id' => 'bindsId',
@@ -44,38 +40,18 @@ class ListenerClient extends Client
         'whitelist' => 'whitelist',
     ];
 
-    protected $basePath = 'loadbalancers/';
+    protected $collectionPath = 'v2/frontends';
 
-    /**
-     * Gets a paginated response of all Frontends
-     *
-     * @param int $page
-     * @param int $perPage
-     * @param array $filters
-     * @return \UKFast\SDK\Page
-     */
-    public function getPage($page = 1, $perPage = 15, $filters = [])
+    public function getEntityMap()
     {
-        $filters = $this->friendlyToApi($filters, self::MAP);
-        $page = $this->paginatedRequest('v2/frontends', $page, $perPage, $filters);
-        $page->serializeWith(function ($item) {
-            return new Listener($this->apiToFriendly($item, self::MAP));
-        });
-
-        return $page;
-    }
-
-    /**
-     * Gets an individual listener
-     *
-     * @param int $id
-     * @return Listener
-     */
-    public function getById($id)
-    {
-        $response = $this->request("GET", "v2/frontends/$id");
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return new Listener($this->apiToFriendly($body->data, self::MAP));
+        return [
+            'vips_id' => 'vipsId',
+            'config_id' => 'configId',
+            'hsts_enabled' => 'hstsEnabled',
+            'hsts_maxage' => 'hstsMaxAge',
+            'redirect_https' => 'redirectHttps',
+            'default_backend_id' => 'defaultBackendId',
+        ];
     }
 
     /**
@@ -168,7 +144,7 @@ class ListenerClient extends Client
     {
         $response = $this->request("GET", "v2/frontends/$id/access/$accessRuleId");
         $body = $this->decodeJson($response->getBody()->getContents());
-        return new AccessRule($this->apiToFriendly($body->data, self::MAP));
+        return new AccessRule($this->apiToFriendly($body->data, self::ACCESS_RULE_MAP));
     }
 
     /**
@@ -231,7 +207,7 @@ class ListenerClient extends Client
      * @param $id Listener ID
      * @return \UKFast\SDK\SelfResponse
      */
-    public function createAccessRule($id)
+    public function addAccessRule($id)
     {
         $response = $this->post("v2/frontends/$id/access", null);
         $response = $this->decodeJson($response->getBody()->getContents());
@@ -269,7 +245,7 @@ class ListenerClient extends Client
      * @param string $accessRuleId
      * @return bool
      */
-    public function destroyAccessRule($id, $accessRuleId)
+    public function deleteAccessRule($id, $accessRuleId)
     {
         $response = $this->delete("v2/frontends/$id/access/$accessRuleId");
 
@@ -309,5 +285,14 @@ class ListenerClient extends Client
         $ssl = new Ssl($this->apiToFriendly($apiFormat, self::SSL_MAP));
         $ssl->allowTls = $allowTls;
         return $ssl;
+    }
+
+    /**
+     * @param $data
+     * @return mixed|HardwarePlan
+     */
+    public function loadEntity($data)
+    {
+        return new Listener($this->apiToFriendly($data, $this->getEntityMap()));
     }
 }

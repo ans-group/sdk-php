@@ -86,7 +86,8 @@ trait PageItems
      */
     public function deleteById($id)
     {
-        $this->delete($this->collectionPath . '/' . $id);
+        $response = $this->delete($this->collectionPath . '/' . $id);
+        return $response->getStatusCode() == 204;
     }
 
     /**
