@@ -3,70 +3,29 @@
 namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Client;
+use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Loadbalancers\Entities\TargetGroup;
-use UKFast\SDK\SelfResponse;
+use UKFast\SDK\Traits\PageItems;
 
-class TargetGroupClient extends Client
+class TargetGroupClient extends Client implements ClientEntityInterface
 {
-    const MAP = [];
+    protected $collectionPath = 'v2/groups';
 
-    protected $basePath = 'loadbalancers/';
+    use PageItems;
 
-    /**
-     * Gets a paginated response of all Groups
-     *
-     * @param int $page
-     * @param int $perPage
-     * @param array $filters
-     * @return \UKFast\SDK\Page
-     */
-    public function getPage($page = 1, $perPage = 15, $filters = [])
+    public function getEntityMap()
     {
-        $filters = $this->friendlyToApi($filters, self::MAP);
-        $page = $this->paginatedRequest('v2/groups', $page, $perPage, $filters);
-        $page->serializeWith(function ($item) {
-            return $this->serializeGroup($item);
-        });
-
-        return $page;
-    }
-
-    /**
-     * Gets an individual group
-     *
-     * @param int $id
-     * @return \UKFast\SDK\Loadbalancers\Entities\Vip
-     */
-    public function getById($id)
-    {
-        $response = $this->request("GET", "v2/groups/$id");
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeGroup($body->data);
-    }
-
-    /**
-     * Creates a group
-     * @param \UKFast\SDK\Loadbalancers\Entities\TargetGroup $group
-     * @return \UKFast\SDK\SelfResponse
-     */
-    public function create($group)
-    {
-        $json = json_encode($this->friendlyToApi($group, self::MAP));
-        $response = $this->post("v2/groups", $json);
-        $response = $this->decodeJson($response->getBody()->getContents());
-        
-        return (new SelfResponse($response))
-            ->setClient($this)
-            ->serializeWith(function ($response) {
-                return $this->serializeGroup($response->data);
-            });
+        return [
+            'id' => 'id',
+            'name' => 'name'
+        ];
     }
 
     /**
      * @return \UKFast\SDK\Loadbalancers\Entities\TargetGroup
      */
-    public function serializeGroup($raw)
+    public function loadEntity($data)
     {
-        return new TargetGroup($this->apiToFriendly($raw, self::MAP));
+        return new TargetGroup($this->apiToFriendly($data, $this->getEntityMap()));
     }
 }
