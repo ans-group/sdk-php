@@ -13,7 +13,10 @@ class CdnClient extends BaseClient
      */
     protected $basePath = 'ddosx/';
 
-    const CDN_MAP = [];
+    /**
+     * @var array
+     */
+    protected $requestMap = [];
 
     /**
      * Create a new CDN for a domain
@@ -25,14 +28,15 @@ class CdnClient extends BaseClient
     {
         $response = $this->post(
             'v1/domains/' . $cdn->name . '/cdn',
-            json_encode($this->friendlyToApi($cdn, self::CDN_MAP))
+            json_encode($this->friendlyToApi($cdn, $this->requestMap))
         );
+
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($body, "domain_name"))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new Cdn($this->apiToFriendly($response->data, self::CDN_MAP));
+                return new Cdn($this->apiToFriendly($response->data, $this->requestMap));
             });
     }
 }

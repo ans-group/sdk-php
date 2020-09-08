@@ -16,6 +16,6 @@ use UKFast\SDK\Entity;
  * @property string $source
  * @property int $timeoutServer
  */
-class Backend extends Entity
+class Target extends Entity
 {
 }
