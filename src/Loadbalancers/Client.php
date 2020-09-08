@@ -3,6 +3,7 @@
 namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\Loadbalancers\Entities\TargetServer;
 
 class Client extends BaseClient
 {
@@ -41,6 +42,11 @@ class Client extends BaseClient
     public function targetGroups()
     {
         return (new TargetGroupClient($this->httpClient))->auth($this->token);
+    }
+
+    public function targetServers()
+    {
+        return (new TargetServer($this->httpClient))->auth($this->token);
     }
 
     public function rootConfigs()
