@@ -117,6 +117,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function instances()
+    {
+        return (new InstanceClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function loadBalancerClusters()
     {
         return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
