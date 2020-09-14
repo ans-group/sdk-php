@@ -7,6 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
+ * @property string $configId
  * @property string $vipsId
  * @property int $port
  * @property bool $hstsEnabled
@@ -16,6 +17,6 @@ use UKFast\SDK\Entity;
  * @property bool $redirectHttps
  * @property string $defaultBackendId
  */
-class Frontend extends Entity
+class Listener extends Entity
 {
 }

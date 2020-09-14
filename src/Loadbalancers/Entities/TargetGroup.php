@@ -6,8 +6,8 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $frontendId
+ * @property string $name
  */
-class Access extends Entity
+class TargetGroup extends Entity
 {
 }

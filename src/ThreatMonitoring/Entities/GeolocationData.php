@@ -9,9 +9,9 @@ namespace UKFast\SDK\ThreatMonitoring\Entities;
 use UKFast\SDK\Entity;
 
 /**
- * @property string $key
+ * @property float $latitude
+ * @property float $longitude
  * @property integer $count
- * @property AttackCoordinates $location
  */
 class GeolocationData extends Entity
 {
