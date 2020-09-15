@@ -16,8 +16,10 @@ class InstanceClient extends Client implements ClientEntityInterface
     {
         return [
             'id' => 'id',
-            'vpc_id' => 'vpcId',
             'name' => 'name',
+            'vpc_id' => 'vpcId',
+            'created_at' => 'createdAt',
+            'updated_at' => 'updatedAt',
         ];
     }
 
