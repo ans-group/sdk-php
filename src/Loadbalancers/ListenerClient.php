@@ -280,9 +280,15 @@ class ListenerClient extends Client implements ClientEntityInterface
 
     public function updateCert($id, Cert $cert)
     {
+        $data = $cert->toArray();
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
         $response = $this->patch(
             "v2/frontends/$id/certs/$cert->id",
-            json_encode($this->friendlyToApi($cert, self::CERT_MAP))
+            json_encode($this->friendlyToApi($data, self::CERT_MAP))
         );
         $response = $this->decodeJson($response->getBody()->getContents());
 
