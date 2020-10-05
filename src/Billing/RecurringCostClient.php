@@ -71,15 +71,15 @@ class RecurringCostClient extends BaseClient
     {
         $recurringCost = new RecurringCost($this->apiToFriendly($item, static::MAP));
 
-        if (!is_null($item->type)) {
+        if (isset($item->type)) {
             $recurringCost->type = new Type($item->type);
         }
 
-        if (!is_null($item->product)) {
+        if (isset($item->product)) {
             $recurringCost->product = new Product($item->product);
         }
 
-        if (!is_null($item->partner)) {
+        if (isset($item->partner)) {
             $recurringCost->partner = new Partner($item->partner);
         }
 
