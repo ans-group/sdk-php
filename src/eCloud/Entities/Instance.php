@@ -12,6 +12,7 @@ use UKFast\SDK\Entity;
  * @property boolean $locked
  * @property integer $vcpuCores
  * @property integer $ramCapacity
+ * @property integer $volumeCapacity
  */
 class Instance extends Entity
 {
