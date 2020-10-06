@@ -2,7 +2,6 @@
 
 namespace UKFast\SDK\eCloud;
 
-use UKFast\SDK\eCloud\Entities\Credentials;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
 use UKFast\SDK\eCloud\Entities\Instance;
@@ -23,6 +22,7 @@ class InstanceClient extends Client implements ClientEntityInterface
             'locked' => 'locked',
             'vcpu_cores' => 'vcpuCores',
             'ram_capacity' => 'ramCapacity',
+            'volume_capacity' => 'volumeCapacity',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
