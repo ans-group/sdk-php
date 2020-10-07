@@ -57,7 +57,6 @@ class InstanceClient extends Client implements ClientEntityInterface
         }
 
         $credentialsClient = new CredentialsClient;
-
         $page->serializeWith(function ($item) use ($credentialsClient) {
             return $credentialsClient->loadEntity($item);
         });
@@ -77,6 +76,55 @@ class InstanceClient extends Client implements ClientEntityInterface
 
             $page->serializeWith(function ($item) use ($credentialsClient) {
                 return $credentialsClient->loadEntity($item);
+            });
+
+            $items = array_merge(
+                $items,
+                $page->getItems()
+            );
+        }
+
+        return $items;
+    }
+
+    /**
+     * Get array of instance volumes
+     * @param $id
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getVolumes($id)
+    {
+        $page = $this->paginatedRequest(
+            $this->collectionPath . '/' . $id . '/volumes',
+            $currentPage = 1,
+            $perPage = 15
+        );
+
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $volumeClient = new VolumeClient;
+        $page->serializeWith(function ($item) use ($volumeClient) {
+            return $volumeClient->loadEntity($item);
+        });
+
+        $items = $page->getItems();
+        if ($page->totalPages() == 1) {
+            return $items;
+        }
+
+        // get any remaining pages
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->paginatedRequest(
+                $this->collectionPath . '/' . $id . '/volumes',
+                $currentPage++,
+                $perPage
+            );
+
+            $page->serializeWith(function ($item) use ($volumeClient) {
+                return $volumeClient->loadEntity($item);
             });
 
             $items = array_merge(
