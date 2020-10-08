@@ -11,6 +11,7 @@ use UKFast\SDK\Entity;
  * @property string $clientIp
  * @property string $requestUri
  * @property string $createdAt
+ * @property string $ruleId
  * @property string $countryCode
  * @property string $method
  * @property string $content

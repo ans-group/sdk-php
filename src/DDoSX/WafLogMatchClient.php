@@ -18,6 +18,7 @@ class WafLogMatchClient extends BaseClient
     protected $requestMap = [
         "log_id" => "logId",
         "client_ip" => "clientIp",
+        "rule_id"      => "ruleId",
         "request_uri" => "requestUri",
         "created_at" => "createdAt",
         "country_code" => "countryCode",

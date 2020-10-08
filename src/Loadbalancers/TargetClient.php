@@ -2,11 +2,11 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Target;
 use UKFast\SDK\SelfResponse;
 
-class TargetClient extends Client
+class TargetClient extends BaseClient
 {
     const MAP = [
         'cookie_opts' => 'cookieOpts',

@@ -2,11 +2,11 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Request;
 use UKFast\SDK\SelfResponse;
 
-class RequestClient extends Client
+class RequestClient extends BaseClient
 {
     const MAP = [
         'haproxy_cfg' => 'haProxyConfig',

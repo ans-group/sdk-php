@@ -2,11 +2,11 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Configuration;
 use UKFast\SDK\SelfResponse;
 
-class RootConfigClient extends Client
+class RootConfigClient extends BaseClient
 {
     const MAP = [
         'request_id' => 'requestId',

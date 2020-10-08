@@ -2,12 +2,12 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Loadbalancers\Entities\TargetGroup;
 use UKFast\SDK\Traits\PageItems;
 
-class TargetGroupClient extends Client implements ClientEntityInterface
+class TargetGroupClient extends BaseClient implements ClientEntityInterface
 {
     protected $collectionPath = 'v2/groups';
 
