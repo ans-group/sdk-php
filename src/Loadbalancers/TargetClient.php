@@ -12,6 +12,12 @@ class TargetClient extends BaseClient
         'cookie_opts' => 'cookieOpts',
         'timeouts_connect' => 'timeoutConnect',
         'timeouts_server' => 'timeoutServer',
+        'monitor_url' => 'monitorUrl',
+        'monitor_method' => 'monitorMethod',
+        'monitor_host' => 'monitorHost',
+        'monitor_http_version' => 'monitorHttpVersion',
+        'monitor_expect' => 'monitorExpect',
+        'monitor_tcp_monitoring' => 'monitorTcpMonitoring',
     ];
 
     protected $basePath = 'loadbalancers/';
