@@ -45,9 +45,9 @@ class TargetServerClient extends Client implements ClientEntityInterface
      * @param array $filters
      * @return \UKFast\SDK\Page
      */
-    public function getPage($id, $page = 1, $perPage = 15, $filters = [])
+    public function getServers($id, $page = 1, $perPage = 15, $filters = [])
     {
-        $filters = $this->friendlyToApi($filters, $this->getEntityMap());
+        $filters = $this->friendlyToApi($filters, self::SSL_MAP);
         $page = $this->paginatedRequest("v2/backends/$id/servers", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->loadEntity((array) $item);
@@ -62,7 +62,7 @@ class TargetServerClient extends Client implements ClientEntityInterface
      * @param $serverId
      * @return TargetServer
      */
-    public function getById($id, $serverId)
+    public function getServerById($id, $serverId)
     {
         $response = $this->request("GET", "v2/backends/$id/servers/$serverId");
         $body = $this->decodeJson($response->getBody()->getContents());
@@ -74,7 +74,7 @@ class TargetServerClient extends Client implements ClientEntityInterface
      * @param $server
      * @return \UKFast\SDK\SelfResponse
      */
-    public function create($id, $server)
+    public function addServer($id, $server)
     {
         $json = json_encode($this->friendlyToApi($server, $this->getEntityMap()));
 
@@ -93,7 +93,7 @@ class TargetServerClient extends Client implements ClientEntityInterface
      * @param $server
      * @return \UKFast\SDK\SelfResponse
      */
-    public function update($id, $server)
+    public function updateServer($id, $server)
     {
         $json = json_encode($this->friendlyToApi($server, $this->getEntityMap()));
 
@@ -112,7 +112,7 @@ class TargetServerClient extends Client implements ClientEntityInterface
      * @param $serverId
      * @return bool
      */
-    public function deleteById($id, $serverId)
+    public function deleteServer($id, $serverId)
     {
         $response = $this->delete("v2/backends/$id/servers/$serverId");
 
