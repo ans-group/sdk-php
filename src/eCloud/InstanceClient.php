@@ -135,4 +135,53 @@ class InstanceClient extends Client implements ClientEntityInterface
 
         return $items;
     }
+
+    /**
+     * Get array of instance nics
+     * @param $id
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getNics($id)
+    {
+        $page = $this->paginatedRequest(
+            $this->collectionPath . '/' . $id . '/nics',
+            $currentPage = 1,
+            $perPage = 15
+        );
+
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $nicClient = new NicClient;
+        $page->serializeWith(function ($item) use ($nicClient) {
+            return $nicClient->loadEntity($item);
+        });
+
+        $items = $page->getItems();
+        if ($page->totalPages() == 1) {
+            return $items;
+        }
+
+        // get any remaining pages
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->paginatedRequest(
+                $this->collectionPath . '/' . $id . '/volumes',
+                $currentPage++,
+                $perPage
+            );
+
+            $page->serializeWith(function ($item) use ($nicClient) {
+                return $nicClient->loadEntity($item);
+            });
+
+            $items = array_merge(
+                $items,
+                $page->getItems()
+            );
+        }
+
+        return $items;
+    }
 }
