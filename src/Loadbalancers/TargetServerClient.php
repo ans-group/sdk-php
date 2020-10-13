@@ -2,14 +2,14 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Loadbalancers\Entities\Target;
 use UKFast\SDK\Loadbalancers\Entities\TargetServer;
 use UKFast\SDK\SelfResponse;
 use UKFast\SDK\Traits\PageItems;
 
-class TargetServerClient extends Client implements ClientEntityInterface
+class TargetServerClient extends BaseClient implements ClientEntityInterface
 {
 
     protected $basePath = 'loadbalancers/';
