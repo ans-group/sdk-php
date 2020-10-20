@@ -43,6 +43,11 @@ class Client extends BaseClient
         return (new TargetGroupClient($this->httpClient))->auth($this->token);
     }
 
+    public function targetServers()
+    {
+        return (new TargetServerClient($this->httpClient))->auth($this->token);
+    }
+
     public function rootConfigs()
     {
         return (new RootConfigClient($this->httpClient))->auth($this->token);
