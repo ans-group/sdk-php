@@ -8,6 +8,11 @@ class Client extends BaseClient
 {
     protected $basePath = 'loadbalancers/';
 
+    public function clusters()
+    {
+        return (new ClusterClient($this->httpClient))->auth($this->token);
+    }
+
     public function targets()
     {
         return (new TargetClient($this->httpClient))->auth($this->token);
