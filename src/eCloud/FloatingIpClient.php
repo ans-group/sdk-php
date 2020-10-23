@@ -18,6 +18,7 @@ class FloatingIpClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'vpc_id' => 'vpcId',
             'ip_address' => 'ipAddress',
+            'resource_id' => 'resourceId',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
