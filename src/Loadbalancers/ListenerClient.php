@@ -16,6 +16,15 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 {
     use PageItems;
 
+    const MAP = [
+        'vips_id' => 'vipsId',
+        'configuration_id' => 'configurationId',
+        'hsts_enabled' => 'hstsEnabled',
+        'hsts_maxage' => 'hstsMaxage',
+        'redirect_https' => 'redirectHttps',
+        'default_targetgroup_id' => 'defaultTargetgroupId',
+    ];
+
     const SSL_MAP = [
         'binds_id' => 'bindsId',
         'disable_http2' => 'disableHttp2',
