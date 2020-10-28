@@ -57,11 +57,11 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     {
         return [
             'vips_id' => 'vipsId',
-            'config_id' => 'configId',
+            'configuration_id' => 'configurationId',
             'hsts_enabled' => 'hstsEnabled',
-            'hsts_maxage' => 'hstsMaxAge',
+            'hsts_maxage' => 'hstsMaxage',
             'redirect_https' => 'redirectHttps',
-            'default_backend_id' => 'defaultBackendId',
+            'default_targetgroup_id' => 'defaultTargetgroupId',
         ];
     }
 
