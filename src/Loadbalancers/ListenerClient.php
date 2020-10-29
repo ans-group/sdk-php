@@ -18,7 +18,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 
     const MAP = [
         'vips_id' => 'vipsId',
-        'configuration_id' => 'configurationId',
+        'cluster_id' => 'clusterId',
         'hsts_enabled' => 'hstsEnabled',
         'hsts_maxage' => 'hstsMaxage',
         'redirect_https' => 'redirectHttps',
@@ -57,7 +57,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     {
         return [
             'vips_id' => 'vipsId',
-            'configuration_id' => 'configurationId',
+            'cluster_id' => 'clusterId',
             'hsts_enabled' => 'hstsEnabled',
             'hsts_maxage' => 'hstsMaxage',
             'redirect_https' => 'redirectHttps',
