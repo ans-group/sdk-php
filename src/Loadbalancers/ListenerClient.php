@@ -167,16 +167,6 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     }
 
     /**
-     * alias for backwards compatibility
-     * @param Listener $listener
-     * @return \UKFast\SDK\SelfResponse
-     */
-    public function create($listener)
-    {
-        return $this->createEntity($listener);
-    }
-
-    /**
      * Creates a new SSL
      * @param $id Listener ID
      * @param \UKFast\SDK\Loadbalancers\Entities\Ssl $ssl

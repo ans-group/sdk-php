@@ -35,14 +35,4 @@ class TargetGroupClient extends BaseClient implements ClientEntityInterface
     {
         return new TargetGroup($this->apiToFriendly($data, $this->getEntityMap()));
     }
-
-    /**
-     * alias for backwards compatibility
-     * @param $target
-     * @return \UKFast\SDK\SelfResponse
-     */
-    public function create($target)
-    {
-        return $this->createEntity($target);
-    }
 }
