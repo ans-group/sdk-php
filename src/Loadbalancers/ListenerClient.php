@@ -51,18 +51,11 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         'whitelist' => 'whitelist',
     ];
 
-    protected $collectionPath = 'v2/frontends';
+    protected $collectionPath = 'v2/listeners';
 
     public function getEntityMap()
     {
-        return [
-            'vips_id' => 'vipsId',
-            'cluster_id' => 'clusterId',
-            'hsts_enabled' => 'hstsEnabled',
-            'hsts_maxage' => 'hstsMaxage',
-            'redirect_https' => 'redirectHttps',
-            'default_targetgroup_id' => 'defaultTargetgroupId',
-        ];
+        return static::MAP;
     }
 
     /**
@@ -174,21 +167,13 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     }
 
     /**
-     * Creates a new listener
+     * alias for backwards compatibility
      * @param Listener $listener
      * @return \UKFast\SDK\SelfResponse
      */
     public function create($listener)
     {
-        $json = json_encode($this->friendlyToApi($listener, self::MAP));
-        $response = $this->post("v2/frontends", $json);
-        $response = $this->decodeJson($response->getBody()->getContents());
-        
-        return (new SelfResponse($response))
-            ->setClient($this)
-            ->serializeWith(function ($response) {
-                return new Listener($this->apiToFriendly($response->data, self::MAP));
-            });
+        return $this->createEntity($listener);
     }
 
     /**
@@ -364,7 +349,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 
     /**
      * @param $data
-     * @return mixed|HardwarePlan
+     * @return Listener
      */
     public function loadEntity($data)
     {
