@@ -11,16 +11,15 @@ use UKFast\SDK\Traits\PageItems;
 
 class TargetServerClient extends BaseClient implements ClientEntityInterface
 {
-
-    protected $basePath = 'loadbalancers/';
-
     use PageItems;
+
+    protected $collectionPath = 'v2/target-servers';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
-            'backend_id' => 'backendId',
+            'targetgroup_id' => 'targetgroupId',
             'ip' => 'ip',
             'port' => 'port',
             'weight' => 'weight',
@@ -37,18 +36,19 @@ class TargetServerClient extends BaseClient implements ClientEntityInterface
     }
 
     /**
-     * Gets a page of Servers
+     * Gets a page of Servers by group id
      *
-     * @param int $id
+     * @param int $groupId
      * @param int $page
      * @param int $perPage
      * @param array $filters
      * @return \UKFast\SDK\Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getPage($id, $page = 1, $perPage = 15, $filters = [])
+    public function getPageByGroupId($groupId, $page = 1, $perPage = 15, $filters = [])
     {
         $filters = $this->friendlyToApi($filters, $this->getEntityMap());
-        $page = $this->paginatedRequest("v2/backends/$id/servers", $page, $perPage, $filters);
+        $page = $this->paginatedRequest("v2/target-groups/$groupId/servers", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->loadEntity((array) $item);
         });
@@ -58,27 +58,29 @@ class TargetServerClient extends BaseClient implements ClientEntityInterface
 
     /**
      * Get an server for a target by ID
-     * @param $id
+     * @param $groupId
      * @param $serverId
      * @return TargetServer
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getById($id, $serverId)
+    public function getServerByGroupId($groupId, $serverId)
     {
-        $response = $this->request("GET", "v2/backends/$id/servers/$serverId");
+        $response = $this->request("GET", "v2/target-groups/$groupId/servers/$serverId");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->loadEntity($body->data);
     }
 
     /**
-     * @param $id
+     * @param $groupId
      * @param $server
      * @return \UKFast\SDK\SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function create($id, $server)
+    public function createServerByGroupId($groupId, $server)
     {
         $json = json_encode($this->friendlyToApi($server, $this->getEntityMap()));
 
-        $response = $this->post("v2/backends/$id/servers", $json);
+        $response = $this->post("v2/target-groups/$groupId/servers", $json);
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
@@ -89,15 +91,16 @@ class TargetServerClient extends BaseClient implements ClientEntityInterface
     }
 
     /**
-     * @param $id
+     * @param $groupId
      * @param $server
      * @return \UKFast\SDK\SelfResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function update($id, $server)
+    public function updateServerByGroupId($groupId, $server)
     {
         $json = json_encode($this->friendlyToApi($server, $this->getEntityMap()));
 
-        $response = $this->patch("v2/backends/$id/servers/{$server->id}", $json);
+        $response = $this->patch("v2/target-groups/$groupId/servers/{$server->id}", $json);
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
@@ -108,18 +111,20 @@ class TargetServerClient extends BaseClient implements ClientEntityInterface
     }
 
     /**
-     * @param $id
+     * @param $groupId
      * @param $serverId
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function deleteById($id, $serverId)
+    public function deleteServerByGroupId($groupId, $serverId)
     {
-        $response = $this->delete("v2/backends/$id/servers/$serverId");
+        $response = $this->delete("v2/target-groups/$groupId/servers/$serverId");
 
         return $response->getStatusCode() == 204;
     }
 
     /**
+     * @param $data
      * @return \UKFast\SDK\Loadbalancers\Entities\TargetServer
      */
     public function loadEntity($data)
