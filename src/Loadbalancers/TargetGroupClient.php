@@ -45,6 +45,4 @@ class TargetGroupClient extends BaseClient implements ClientEntityInterface
     {
         return $this->createEntity($target);
     }
-
-
 }
