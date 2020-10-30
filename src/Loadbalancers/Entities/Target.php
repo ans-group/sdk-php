@@ -20,6 +20,6 @@ use UKFast\SDK\Entity;
  * @property boolean $sendProxy
  * @property boolean $sendProxyV2
  */
-class TargetServer extends Entity
+class Target extends Entity
 {
 }
