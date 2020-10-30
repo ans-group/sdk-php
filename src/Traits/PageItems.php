@@ -44,7 +44,7 @@ trait PageItems
     public function getAll($filters = [])
     {
         // get first page
-        $page = $this->getPage($currentPage = 1, $perPage = 100, $filters);
+        $page = $this->getPage(1, $perPage = 100, $filters);
         if ($page->totalItems() == 0) {
             return [];
         }
@@ -56,8 +56,7 @@ trait PageItems
 
         // get any remaining pages
         while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->getPage($currentPage++, $perPage, $filters);
-
+            $page = $this->getPage($page->pageNumber() + 1, $perPage, $filters);
             $items = array_merge(
                 $items,
                 $page->getItems()
