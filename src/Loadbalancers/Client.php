@@ -38,9 +38,9 @@ class Client extends BaseClient
         return (new TargetGroupClient($this->httpClient))->auth($this->token);
     }
 
-    public function targetServers()
+    public function targets()
     {
-        return (new TargetServerClient($this->httpClient))->auth($this->token);
+        return (new TargetClient($this->httpClient))->auth($this->token);
     }
 
     public function vips()
