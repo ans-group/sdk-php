@@ -30,4 +30,25 @@ class FloatingIpClient extends Client implements ClientEntityInterface
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }
+
+    public function assignResourceById($id, $resourceId)
+    {
+        $response = $this->post(
+            $this->collectionPath . '/' . $id . '/assign',
+            json_encode([
+                "resource_id" => $resourceId,
+            ])
+        );
+
+        return $response->getStatusCode() == 202;
+    }
+
+    public function unassignResourceById($id)
+    {
+        $response = $this->post(
+            $this->collectionPath . '/' . $id . '/unassign'
+        );
+
+        return $response->getStatusCode() == 202;
+    }
 }
