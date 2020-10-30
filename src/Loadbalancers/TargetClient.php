@@ -76,7 +76,7 @@ class TargetClient extends BaseClient implements ClientEntityInterface
     {
         $json = json_encode($this->friendlyToApi($target, $this->getEntityMap()));
 
-        $response = $this->post("v2/target-groups/$groupId/target", $json);
+        $response = $this->post("v2/target-groups/$groupId/targets", $json);
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
