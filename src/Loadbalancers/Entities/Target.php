@@ -6,15 +6,19 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $name
- * @property string $balance
- * @property string $mode
- * @property bool $close
- * @property bool $sticky
- * @property string $cookieOpts
- * @property int $timeoutConnect
- * @property string $source
- * @property int $timeoutServer
+ * @property string $backendId
+ * @property string $ip
+ * @property integer $port
+ * @property integer $weight
+ * @property boolean $backup
+ * @property integer $checkInterval
+ * @property boolean $checkSsl
+ * @property integer $checkRise
+ * @property integer $checkFall
+ * @property boolean $disableHttp2
+ * @property boolean $http2Only
+ * @property boolean $sendProxy
+ * @property boolean $sendProxyV2
  */
 class Target extends Entity
 {

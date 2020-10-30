@@ -46,7 +46,7 @@ class VipClient extends BaseClient
 
     /**
      * Creates a new vip
-     * @param \UKFast\SDK\Loadbalancers\Entities\Configuration
+     * @param \UKFast\SDK\Loadbalancers\Entities\Vip
      * @return UKFast\SDK\SelfResponse
      */
     public function create($vip)

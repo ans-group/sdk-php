@@ -16,6 +16,15 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 {
     use PageItems;
 
+    const MAP = [
+        'vips_id' => 'vipsId',
+        'cluster_id' => 'clusterId',
+        'hsts_enabled' => 'hstsEnabled',
+        'hsts_maxage' => 'hstsMaxage',
+        'redirect_https' => 'redirectHttps',
+        'default_targetgroup_id' => 'defaultTargetgroupId',
+    ];
+
     const SSL_MAP = [
         'binds_id' => 'bindsId',
         'disable_http2' => 'disableHttp2',
@@ -42,18 +51,11 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         'whitelist' => 'whitelist',
     ];
 
-    protected $collectionPath = 'v2/frontends';
+    protected $collectionPath = 'v2/listeners';
 
     public function getEntityMap()
     {
-        return [
-            'vips_id' => 'vipsId',
-            'config_id' => 'configId',
-            'hsts_enabled' => 'hstsEnabled',
-            'hsts_maxage' => 'hstsMaxAge',
-            'redirect_https' => 'redirectHttps',
-            'default_backend_id' => 'defaultBackendId',
-        ];
+        return static::MAP;
     }
 
     /**
@@ -162,24 +164,6 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         $response = $this->request("GET", "v2/frontends/$id/access/$accessRuleId");
         $body = $this->decodeJson($response->getBody()->getContents());
         return new AccessRule($this->apiToFriendly($body->data, self::ACCESS_RULE_MAP));
-    }
-
-    /**
-     * Creates a new listener
-     * @param Listener $listener
-     * @return \UKFast\SDK\SelfResponse
-     */
-    public function create($listener)
-    {
-        $json = json_encode($this->friendlyToApi($listener, self::MAP));
-        $response = $this->post("v2/frontends", $json);
-        $response = $this->decodeJson($response->getBody()->getContents());
-        
-        return (new SelfResponse($response))
-            ->setClient($this)
-            ->serializeWith(function ($response) {
-                return new Listener($this->apiToFriendly($response->data, self::MAP));
-            });
     }
 
     /**
@@ -355,7 +339,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 
     /**
      * @param $data
-     * @return mixed|HardwarePlan
+     * @return Listener
      */
     public function loadEntity($data)
     {
