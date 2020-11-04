@@ -17,7 +17,7 @@ class FirewallPolicyClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'name' => 'name',
-            'vpc_id' => 'vpcId',
+            'router_id' => 'routerId',
             'sequence' => 'sequence',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
