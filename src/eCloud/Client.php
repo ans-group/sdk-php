@@ -8,6 +8,9 @@ class Client extends BaseClient
 {
     protected $basePath = 'ecloud/';
 
+    /**
+     * eCloud v1
+     */
 
     /**
      * @return BaseClient
@@ -91,6 +94,10 @@ class Client extends BaseClient
 
 
     /**
+     * eCloud v2
+     */
+
+    /**
      * @return BaseClient
      */
     public function regions()
@@ -144,6 +151,22 @@ class Client extends BaseClient
     public function routers()
     {
         return (new RouterClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function firewallPolicies()
+    {
+        return (new FirewallPolicyClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function firewallRules()
+    {
+        return (new FirewallRuleClient($this->httpClient))->auth($this->token);
     }
 
     /**
