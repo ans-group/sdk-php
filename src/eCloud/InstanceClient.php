@@ -201,18 +201,8 @@ class InstanceClient extends Client implements ClientEntityInterface
             $nicFilter[] = $nic->id;
         }
 
-//        todo: raised bug report to correct api filter issue, added temp work around
-//        return $this->floatingIps()->getAll([
-//            'resource_id:in=' => implode(',', $nicFilter),
-//        ]);
-
-        $floatingIPs = [];
-        foreach ($this->floatingIps()->getAll() as $floatingIp) {
-            if (in_array($floatingIp->resourceId, $nicFilter)) {
-                $floatingIPs[] = $floatingIp;
-            }
-        }
-
-        return $floatingIPs;
+        return $this->floatingIps()->getAll([
+            'resourceId:in' => implode(',', $nicFilter),
+        ]);
     }
 }
