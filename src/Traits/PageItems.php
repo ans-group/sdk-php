@@ -118,7 +118,7 @@ trait PageItems
     {
         $response = $this->patch(
             $this->collectionPath . '/' . $entity->id,
-            json_encode($this->friendlyToApi($entity, $this->getEntityMap()))
+            json_encode($this->friendlyToApi($entity->getDirty(), $this->getEntityMap()))
         );
 
         $responseBody = $this->decodeJson($response->getBody()->getContents());
