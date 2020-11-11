@@ -26,4 +26,15 @@ class ClusterClient extends Client implements ClientEntityInterface
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }
+    
+    /**
+     * @param string $clusterId
+     * @return bool
+     */
+    public function deploy($clusterId)
+    {
+        $response = $this->post("v2/deploy?cluster_id=" . $clusterId);
+        
+        return $response->getStatusCode() < 300;
+    }
 }
