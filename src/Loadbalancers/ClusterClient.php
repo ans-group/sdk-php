@@ -30,7 +30,7 @@ class ClusterClient extends Client implements ClientEntityInterface
     /**
      * @param string $clusterId
      * @return bool
-     **/
+     */
     public function deploy($clusterId)
     {
         $response = $this->post("v2/deploy?cluster_id=" . $clusterId);
