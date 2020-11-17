@@ -27,6 +27,7 @@ class InstanceClient extends Client implements ClientEntityInterface
             'status' => 'status',
             'online' => 'online',
             'agent_running' => 'agentRunning',
+            'backup_enabled' => 'backupEnabled',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];

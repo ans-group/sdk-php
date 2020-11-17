@@ -17,6 +17,7 @@ use UKFast\SDK\Entity;
  * @property string $status
  * @property boolean $online
  * @property boolean $agentRunning
+ * @property boolean $backupEnabled
  * @property string $createdAt
  * @property string $updatedAt
  */
