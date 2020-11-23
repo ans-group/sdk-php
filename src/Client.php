@@ -12,6 +12,7 @@ use UKFast\SDK\Exception\ApiException;
 use UKFast\SDK\Exception\InvalidJsonException;
 use UKFast\SDK\Exception\NotFoundException;
 use UKFast\SDK\Exception\ValidationException;
+use UKFast\SDK\Exception\PreconditionFailedException;
 
 class Client
 {
@@ -100,6 +101,10 @@ class Client
 
             if ($status == 400 || $status == 422) {
                 throw new ValidationException($e->getResponse());
+            }
+
+            if ($status == 412) {
+                throw new PreconditionFailedException($e->getResponse());
             }
 
             throw new ApiException($e->getResponse());
