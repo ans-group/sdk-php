@@ -13,6 +13,7 @@ use UKFast\SDK\Exception\ApiException;
 use UKFast\SDK\Exception\InvalidJsonException;
 use UKFast\SDK\Exception\NotFoundException;
 use UKFast\SDK\Exception\ValidationException;
+use UKFast\SDK\Exception\PreconditionFailedException;
 use UKFast\SDK\Page;
 
 class ClientTest extends TestCase
@@ -520,5 +521,22 @@ class ClientTest extends TestCase
         $this->assertEquals([
             'key_not_existing' => 1,
         ], $friendly);
+    }
+
+    /**
+     * @test
+     */
+    public function throws_precondition_failed_exception()
+    {
+        $mock = new MockHandler([
+            new Response(412, [], '{"errors": [{"detail": "Testing"}]}'),
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Guzzle(['handler' => $handler]);
+
+        $client = new Client($guzzle);
+
+        $this->expectException(PreconditionFailedException::class);
+        $client->paginatedRequest("/", 1, 10);
     }
 }
