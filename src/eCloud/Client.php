@@ -180,6 +180,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function networks()
+    {
+        return (new NetworkClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function loadBalancerClusters()
     {
         return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);

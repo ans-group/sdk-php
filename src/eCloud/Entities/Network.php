@@ -2,23 +2,17 @@
 
 namespace UKFast\SDK\eCloud\Entities;
 
-class Network
+use UKFast\SDK\Entity;
+
+/**
+ * @property string $id
+ * @property string $name
+ * @property string $routerId
+ * @property string $subnet
+ * @property string $createdAt
+ * @property string $updatedAt
+ */
+class Network extends Entity
 {
-    public $id;
-    public $name;
-
-
-    /**
-     * Network constructor.
-     * @param null $item
-     */
-    public function __construct($item = null)
-    {
-        if (empty($item)) {
-            return;
-        }
-
-        $this->id = $item->id;
-        $this->name = $item->name;
-    }
+    protected $dates = ['createdAt', 'updatedAt'];
 }
