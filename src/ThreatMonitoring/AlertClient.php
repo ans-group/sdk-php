@@ -25,6 +25,11 @@ class AlertClient extends Client
         'changed_attributes' => 'changedAttributes'
     ];
 
+    const ANALYSIS_MAP = [
+        'total_reports' => 'totalReports',
+        'last_reported' => 'lastReported'
+    ];
+
     /**
      * Gets paginated response for all the alerts
      * @param int $page
@@ -66,6 +71,10 @@ class AlertClient extends Client
 
         if (isset($alert->syscheck)) {
             $alert->set('syscheck', $this->apiToFriendly($alert->syscheck, static::SYSCHECK_MAP));
+        }
+
+        if (isset($alert->analysis)) {
+            $alert->set('analysis', $this->apiToFriendly($alert->analysis, static::ANALYSIS_MAP));
         }
 
         return $alert;
