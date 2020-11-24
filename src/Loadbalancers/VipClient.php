@@ -2,11 +2,11 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Vip;
 use UKFast\SDK\SelfResponse;
 
-class VipClient extends Client
+class VipClient extends BaseClient
 {
     const MAP = ['group_id' => 'groupId'];
 
@@ -46,7 +46,7 @@ class VipClient extends Client
 
     /**
      * Creates a new vip
-     * @param \UKFast\SDK\Loadbalancers\Entities\Configuration
+     * @param \UKFast\SDK\Loadbalancers\Entities\Vip
      * @return UKFast\SDK\SelfResponse
      */
     public function create($vip)

@@ -8,6 +8,9 @@ class Client extends BaseClient
 {
     protected $basePath = 'ecloud/';
 
+    /**
+     * eCloud v1
+     */
 
     /**
      * @return BaseClient
@@ -87,5 +90,106 @@ class Client extends BaseClient
     public function appliances()
     {
         return (new ApplianceClient($this->httpClient))->auth($this->token);
+    }
+
+
+    /**
+     * eCloud v2
+     */
+
+    /**
+     * @return BaseClient
+     */
+    public function regions()
+    {
+        return (new RegionClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function availabilityZones()
+    {
+        return (new AvailabilityZoneClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpcs()
+    {
+        return (new VpcClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function instances()
+    {
+        return (new InstanceClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function volumes()
+    {
+        return (new VolumeClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function floatingIps()
+    {
+        return (new FloatingIpClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function routers()
+    {
+        return (new RouterClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function firewallPolicies()
+    {
+        return (new FirewallPolicyClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function firewallRules()
+    {
+        return (new FirewallRuleClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function firewallRulePorts()
+    {
+        return (new FirewallRulePortClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function networks()
+    {
+        return (new NetworkClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function loadBalancerClusters()
+    {
+        return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
     }
 }

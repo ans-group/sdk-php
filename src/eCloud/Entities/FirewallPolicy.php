@@ -8,11 +8,11 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property string $name
  * @property string $routerId
- * @property string $subnet
+ * @property int $sequence
  * @property string $createdAt
  * @property string $updatedAt
  */
-class Network extends Entity
+class FirewallPolicy extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }

@@ -8,9 +8,14 @@ class Client extends BaseClient
 {
     protected $basePath = 'loadbalancers/';
 
-    public function backends()
+    public function acls()
     {
-        return (new BackendClient($this->httpClient))->auth($this->token);
+        return (new AclClient($this->httpClient))->auth($this->token);
+    }
+
+    public function clusters()
+    {
+        return (new ClusterClient($this->httpClient))->auth($this->token);
     }
 
     public function customOptions()
@@ -23,38 +28,23 @@ class Client extends BaseClient
         return (new ErrorPagesClient($this->httpClient))->auth($this->token);
     }
 
-    public function requestss()
+    public function listeners()
     {
-        return (new RequestClient($this->httpClient))->auth($this->token);
+        return (new ListenerClient($this->httpClient))->auth($this->token);
     }
 
-    public function acls()
+    public function targetGroups()
     {
-        return (new AclClient($this->httpClient))->auth($this->token);
+        return (new TargetGroupClient($this->httpClient))->auth($this->token);
     }
 
-    public function frontends()
+    public function targets()
     {
-        return (new FrontendClient($this->httpClient))->auth($this->token);
-    }
-
-    public function groups()
-    {
-        return (new GroupClient($this->httpClient))->auth($this->token);
-    }
-
-    public function rootConfigs()
-    {
-        return (new RootConfigClient($this->httpClient))->auth($this->token);
+        return (new TargetClient($this->httpClient))->auth($this->token);
     }
 
     public function vips()
     {
         return (new VipClient($this->httpClient))->auth($this->token);
-    }
-
-    public function loadbalancers()
-    {
-        return (new LoadbalancerClient($this->httpClient))->auth($this->token);
     }
 }

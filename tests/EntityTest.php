@@ -172,6 +172,24 @@ class EntityTest extends TestCase
         $this->assertEquals(1, $bob->referrer->id);
         $this->assertEquals(123, $copiedBob->referrer->id);
     }
+
+    /**
+     * @test
+     */
+    public function can_determine_property_changes()
+    {
+        $contact = new Contact([
+            'id' => 1,
+            'firstName' => 'Arthur',
+            'lastName' => null,
+        ]);
+
+        $this->assertFalse($contact->isDirty());
+
+        $contact->lastName = 'Dent';
+
+        $this->assertTrue($contact->isDirty());
+    }
 }
 
 

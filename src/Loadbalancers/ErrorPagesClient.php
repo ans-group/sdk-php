@@ -2,11 +2,11 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\ErrorPage;
 use UKFast\SDK\SelfResponse;
 
-class ErrorPagesClient extends Client
+class ErrorPagesClient extends BaseClient
 {
     const MAP = [
         'status_code' => 'statusCode',

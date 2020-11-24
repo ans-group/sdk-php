@@ -6,13 +6,14 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
+ * @property string $vpcId
+ * @property string $availabilityZoneId
  * @property string $name
- * @property string $routerId
- * @property string $subnet
- * @property string $createdAt
- * @property string $updatedAt
+ * @property string $configId
+ * @property int $nodes
+ *
  */
-class Network extends Entity
+class LoadBalancerCluster extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }

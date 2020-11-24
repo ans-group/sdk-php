@@ -2,7 +2,7 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Account\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Acl;
 use UKFast\SDK\Loadbalancers\Entities\Action;
 use UKFast\SDK\Loadbalancers\Entities\Condition;
