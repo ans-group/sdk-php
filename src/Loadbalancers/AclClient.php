@@ -33,7 +33,7 @@ class AclClient extends BaseClient
     const FREETYPE_MAP = [];
 
     const CONDITION_MAP = [
-        'backend_id' => 'backendId',
+        'targetgroup_id' => 'targetgroupId',
     ];
 
     const ACTION_MAP = [
