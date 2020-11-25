@@ -18,6 +18,8 @@ class AclClient extends BaseClient
     const MAP = [
         'listener_id' => 'listenerId',
         'targetgroup_id' => 'targetgroupId',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
     ];
 
     const MATCH_MAP = [
