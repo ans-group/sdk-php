@@ -16,8 +16,10 @@ use UKFast\SDK\SelfResponse;
 class AclClient extends BaseClient
 {
     const MAP = [
-        'frontend_id' => 'frontendId',
-        'backend_id' => 'backendId',
+        'listener_id' => 'listenerId',
+        'targetgroup_id' => 'targetgroupId',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
     ];
 
     const MATCH_MAP = [
