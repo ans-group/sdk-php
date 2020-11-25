@@ -13,5 +13,5 @@ use UKFast\SDK\Entity;
  */
 class Acl extends Entity
 {
-   protected $dates = ['createdAt', 'updatedAt'];
+    protected $dates = ['createdAt', 'updatedAt'];
 }
