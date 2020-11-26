@@ -7,12 +7,9 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
- * @property string $routerId
- * @property string $subnet
- * @property string $createdAt
- * @property string $updatedAt
+ * @property string $vpcId
  */
-class Network extends Entity
+class Router extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }

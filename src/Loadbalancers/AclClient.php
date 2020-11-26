@@ -2,7 +2,7 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Account\Client as BaseClient;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Acl;
 use UKFast\SDK\Loadbalancers\Entities\Action;
 use UKFast\SDK\Loadbalancers\Entities\Condition;
@@ -16,8 +16,10 @@ use UKFast\SDK\SelfResponse;
 class AclClient extends BaseClient
 {
     const MAP = [
-        'frontend_id' => 'frontendId',
-        'backend_id' => 'backendId',
+        'listener_id' => 'listenerId',
+        'targetgroup_id' => 'targetgroupId',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
     ];
 
     const MATCH_MAP = [
@@ -31,7 +33,7 @@ class AclClient extends BaseClient
     const FREETYPE_MAP = [];
 
     const CONDITION_MAP = [
-        'backend_id' => 'backendId',
+        'targetgroup_id' => 'targetgroupId',
     ];
 
     const ACTION_MAP = [

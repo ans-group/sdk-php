@@ -3,7 +3,7 @@
 namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
-use UKFast\SDK\Entity;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\AccessRule;
 use UKFast\SDK\Loadbalancers\Entities\Bind;
 use UKFast\SDK\Loadbalancers\Entities\Cert;
@@ -12,9 +12,18 @@ use UKFast\SDK\Loadbalancers\Entities\Ssl;
 use UKFast\SDK\SelfResponse;
 use UKFast\SDK\Traits\PageItems;
 
-class ListenerClient extends Client implements ClientEntityInterface
+class ListenerClient extends BaseClient implements ClientEntityInterface
 {
     use PageItems;
+
+    const MAP = [
+        'vips_id' => 'vipsId',
+        'cluster_id' => 'clusterId',
+        'hsts_enabled' => 'hstsEnabled',
+        'hsts_maxage' => 'hstsMaxage',
+        'redirect_https' => 'redirectHttps',
+        'default_targetgroup_id' => 'defaultTargetgroupId',
+    ];
 
     const SSL_MAP = [
         'binds_id' => 'bindsId',
@@ -32,7 +41,9 @@ class ListenerClient extends Client implements ClientEntityInterface
     const CERT_MAP = [
         'frontend_id' => 'frontendId',
         'certs_name' => 'name',
-        'certs_pem' => 'pem',
+        'cert_key' => 'key',
+        'cert_certificate' => 'certificate',
+        'cert_bundle' => 'bundle'
     ];
 
     const ACCESS_RULE_MAP = [
@@ -40,18 +51,11 @@ class ListenerClient extends Client implements ClientEntityInterface
         'whitelist' => 'whitelist',
     ];
 
-    protected $collectionPath = 'v2/frontends';
+    protected $collectionPath = 'v2/listeners';
 
     public function getEntityMap()
     {
-        return [
-            'vips_id' => 'vipsId',
-            'config_id' => 'configId',
-            'hsts_enabled' => 'hstsEnabled',
-            'hsts_maxage' => 'hstsMaxAge',
-            'redirect_https' => 'redirectHttps',
-            'default_backend_id' => 'defaultBackendId',
-        ];
+        return static::MAP;
     }
 
     /**
@@ -103,7 +107,7 @@ class ListenerClient extends Client implements ClientEntityInterface
      * @param array $filters
      * @return \UKFast\SDK\Page
      */
-    public function getCerts($id, $page = 1, $perPage = 15, $filters = [])
+    public function getCertsPage($id, $page = 1, $perPage = 15, $filters = [])
     {
         $filters = $this->friendlyToApi($filters, self::CERT_MAP);
         $page = $this->paginatedRequest("v2/frontends/$id/certs", $page, $perPage, $filters);
@@ -113,6 +117,21 @@ class ListenerClient extends Client implements ClientEntityInterface
 
         return $page;
     }
+
+    /**
+     * Get a Listener cert resource
+     * @param $id
+     * @param $certId
+     * @return Cert
+     */
+    public function getCertsById($id, $certId)
+    {
+        $response = $this->request("GET", "v2/frontends/$id/certs/$certId");
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return new Cert($this->apiToFriendly($body->data, self::CERT_MAP));
+    }
+
 
     /**
      * Gets a page of listener access rules
@@ -148,25 +167,8 @@ class ListenerClient extends Client implements ClientEntityInterface
     }
 
     /**
-     * Creates a new listener
-     * @param Listener $listener
-     * @return \UKFast\SDK\SelfResponse
-     */
-    public function create($listener)
-    {
-        $json = json_encode($this->friendlyToApi($listener, self::MAP));
-        $response = $this->post("v2/frontends", $json);
-        $response = $this->decodeJson($response->getBody()->getContents());
-        
-        return (new SelfResponse($response))
-            ->setClient($this)
-            ->serializeWith(function ($response) {
-                return new Listener($this->apiToFriendly($response->data, self::MAP));
-            });
-    }
-
-    /**
      * Creates a new SSL
+     * @param $id Listener ID
      * @param \UKFast\SDK\Loadbalancers\Entities\Ssl $ssl
      * @return \UKFast\SDK\SelfResponse
      */
@@ -220,6 +222,25 @@ class ListenerClient extends Client implements ClientEntityInterface
     }
 
     /**
+     * @param $id
+     * @param Cert $cert
+     * @return SelfResponse
+     */
+    public function addCert($id, Cert $cert)
+    {
+        $response = $this->post(
+            "v2/frontends/$id/certs",
+            json_encode($this->friendlyToApi($cert, self::CERT_MAP))
+        );
+        $response = $this->decodeJson($response->getBody()->getContents());
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Cert($this->apiToFriendly($response->data, self::CERT_MAP));
+            });
+    }
+
+    /**
      * Update access rule for a listener
      * @param $id
      * @param AccessRule $accessRule
@@ -240,6 +261,21 @@ class ListenerClient extends Client implements ClientEntityInterface
             });
     }
 
+    public function updateCert($id, Cert $cert)
+    {
+        $response = $this->patch(
+            "v2/frontends/$id/certs/$cert->id",
+            json_encode($this->friendlyToApi($cert, self::CERT_MAP))
+        );
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Cert($this->apiToFriendly($response->data, self::CERT_MAP));
+            });
+    }
+
     /**
      * @param $id
      * @param string $accessRuleId
@@ -251,6 +287,20 @@ class ListenerClient extends Client implements ClientEntityInterface
 
         return $response->getStatusCode() == 204;
     }
+
+    /**
+     * Remove a cert from the listener
+     * @param $id
+     * @param $certId
+     * @return bool
+     */
+    public function deleteCertById($id, $certId)
+    {
+        $response = $this->delete("v2/frontends/$id/certs/$certId");
+
+        return $response->getStatusCode() == 204;
+    }
+
 
     protected function sslToApiFormat($ssl)
     {
@@ -289,7 +339,7 @@ class ListenerClient extends Client implements ClientEntityInterface
 
     /**
      * @param $data
-     * @return mixed|HardwarePlan
+     * @return Listener
      */
     public function loadEntity($data)
     {
