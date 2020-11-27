@@ -73,6 +73,7 @@ class AccessLogClient extends BaseClient
         $accessLog->request  = new Request($this->apiToFriendly($accessLog->request, static::$requestMap));
         $accessLog->origin   = new Origin($this->apiToFriendly($accessLog->origin, static::$originMap));
         $accessLog->response = new Response($this->apiToFriendly($accessLog->response, static::$responseMap));
+        $accessLog->syncOriginalAttributes();
 
         return $accessLog;
     }
