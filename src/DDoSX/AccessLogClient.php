@@ -48,6 +48,28 @@ class AccessLogClient extends BaseClient
     ];
 
     /**
+     * Get a paginated response from a collection for a domain
+     *
+     * @param       $domainName
+     * @param int   $page
+     * @param int   $perPage
+     * @param array $filters
+     * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getPageByDomainName($domainName, $page = 1, $perPage = 20, $filters = [])
+    {
+        $filters = $this->friendlyToApi($filters, static::$logMap);
+
+        $page = $this->paginatedRequest('v1/domains/'. $domainName .'/access-logs', $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return $this->loadEntity($item);
+        });
+
+        return $page;
+    }
+
+     /**
      * Get a single item from the collection for a single domain
      *
      * @param $domainName
