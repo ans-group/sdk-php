@@ -48,6 +48,20 @@ class AccessLogClient extends BaseClient
     ];
 
     /**
+     * Get a single item from the collection
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getById($id)
+    {
+        $response = $this->get('v1/access-logs' . '/' . $id);
+        $body     = $this->decodeJson($response->getBody()->getContents());
+
+        return $this->loadEntity($body->data);
+    }
+
+    /**
      * @param $data
      * @return AccessLog
      */
