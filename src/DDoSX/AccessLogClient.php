@@ -61,6 +61,44 @@ class AccessLogClient extends BaseClient
         return $this->loadEntity($body->data);
     }
 
+     /**
+     * Get a paginated response from a collection for a domain
+     *
+     * @param       $domainName
+     * @param int   $page
+     * @param int   $perPage
+     * @param array $filters
+     * @return Page
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getPageByDomainName($domainName, $page = 1, $perPage = 20, $filters = [])
+    {
+        $filters = $this->friendlyToApi($filters, static::$logMap);
+
+        $page = $this->paginatedRequest('v1/domains/'. $domainName .'/access-logs', $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return $this->loadEntity($item);
+        });
+
+        return $page;
+    }
+
+     /**
+     * Get a single item from the collection for a single domain
+     *
+     * @param $domainName
+     * @param $id
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getByDomainNameAndId($domainName, $id)
+    {
+        $response = $this->get('v1/domains/' . $domainName . '/access-logs/' . $id);
+        $body     = $this->decodeJson($response->getBody()->getContents());
+
+        return $this->loadEntity($body->data);
+    }
+
     /**
      * @param $data
      * @return AccessLog
@@ -71,6 +109,7 @@ class AccessLogClient extends BaseClient
         $accessLog->request  = new Request($this->apiToFriendly($accessLog->request, static::$requestMap));
         $accessLog->origin   = new Origin($this->apiToFriendly($accessLog->origin, static::$originMap));
         $accessLog->response = new Response($this->apiToFriendly($accessLog->response, static::$responseMap));
+        $accessLog->syncOriginalAttributes();
 
         return $accessLog;
     }
