@@ -48,6 +48,26 @@ class AccessLogClient extends BaseClient
     ];
 
     /**
+     * Get a paginated response from a collection
+     *
+     * @param int   $page
+     * @param int   $perPage
+     * @param array $filters
+     * @return Page
+     */
+    public function getPage($page = 1, $perPage = 20, $filters = [])
+    {
+        $filters = $this->friendlyToApi($filters, static::$logMap);
+
+        $page = $this->paginatedRequest('v1/access-logs', $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return $this->loadEntity($item);
+        });
+
+        return $page;
+    }
+
+    /**
      * @param $data
      * @return AccessLog
      */
