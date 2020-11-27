@@ -54,9 +54,9 @@ class AccessLogClient extends BaseClient
     public function loadEntity($data)
     {
         $accessLog           = new AccessLog($this->apiToFriendly($data, static::$logMap));
-        $accessLog->request  = new Request($this->apiToFriendly($data, static::$requestMap));
-        $accessLog->origin   = new Origin($this->apiToFriendly($data, static::$originMap));
-        $accessLog->response = new Response($this->apiToFriendly($data, static::$responseMap));
+        $accessLog->request  = new Request($this->apiToFriendly($accessLog->request, static::$requestMap));
+        $accessLog->origin   = new Origin($this->apiToFriendly($accessLog->origin, static::$originMap));
+        $accessLog->response = new Response($this->apiToFriendly($accessLog->response, static::$responseMap));
 
         return $accessLog;
     }
