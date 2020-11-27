@@ -48,6 +48,22 @@ class AccessLogClient extends BaseClient
     ];
 
     /**
+     * Get a single item from the collection for a single domain
+     *
+     * @param $domainName
+     * @param $id
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getByDomainNameAndId($domainName, $id)
+    {
+        $response = $this->get('v1/domains/' . $domainName . '/access-logs/' . $id);
+        $body     = $this->decodeJson($response->getBody()->getContents());
+
+        return $this->loadEntity($body->data);
+    }
+
+    /**
      * @param $data
      * @return AccessLog
      */
