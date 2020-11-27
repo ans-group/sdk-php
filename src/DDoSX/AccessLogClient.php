@@ -69,6 +69,22 @@ class AccessLogClient extends BaseClient
         return $page;
     }
 
+     /**
+     * Get a single item from the collection for a single domain
+     *
+     * @param $domainName
+     * @param $id
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getByDomainNameAndId($domainName, $id)
+    {
+        $response = $this->get('v1/domains/' . $domainName . '/access-logs/' . $id);
+        $body     = $this->decodeJson($response->getBody()->getContents());
+
+        return $this->loadEntity($body->data);
+    }
+
     /**
      * @param $data
      * @return AccessLog
@@ -79,6 +95,7 @@ class AccessLogClient extends BaseClient
         $accessLog->request  = new Request($this->apiToFriendly($accessLog->request, static::$requestMap));
         $accessLog->origin   = new Origin($this->apiToFriendly($accessLog->origin, static::$originMap));
         $accessLog->response = new Response($this->apiToFriendly($accessLog->response, static::$responseMap));
+        $accessLog->syncOriginalAttributes();
 
         return $accessLog;
     }
