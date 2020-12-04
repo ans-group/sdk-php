@@ -20,7 +20,7 @@ trait PageItems
      * Return an entity model
      * @param $data
      */
-    public abstract function loadEntity($data);
+    abstract public function loadEntity($data);
 
     /**
      * Get a paginated response from a collection
