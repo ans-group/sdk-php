@@ -192,4 +192,12 @@ class Client extends BaseClient
     {
         return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function billingMetrics()
+    {
+        return (new BillingMetricClient($this->httpClient))->auth($this->token);
+    }
 }
