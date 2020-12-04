@@ -7,10 +7,20 @@ use UKFast\SDK\SelfResponse;
 
 trait PageItems
 {
+    /**
+     * Return array of api properties to map to the entity
+     * @return array
+     */
     public function getEntityMap()
     {
         return [];
     }
+
+    /**
+     * Return an entity model
+     * @param $data
+     */
+    public abstract function loadEntity($data);
 
     /**
      * Get a paginated response from a collection
@@ -36,7 +46,7 @@ trait PageItems
     }
 
     /**
-     * Gets array of all Page Items
+     * Get an array of all items from all pages
      *
      * @param array $filters
      * @return array
@@ -66,7 +76,6 @@ trait PageItems
         return $items;
     }
 
-
     /**
      * Get a single item from the collection
      * @param $id
@@ -82,6 +91,7 @@ trait PageItems
     /**
      * Delete a single item from the collection
      * @param $id
+     * @return bool
      */
     public function deleteById($id)
     {
