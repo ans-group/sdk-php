@@ -182,6 +182,30 @@ class DomainClient extends BaseClient
     }
 
     /**
+     * @param $domainName
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function activateProtection($domainName)
+    {
+        $response = $this->post('v1/domains/' . $domainName . '/dns/active');
+
+        return $response->getStatusCode() == 200;
+    }
+
+    /**
+     * @param $domainName
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function deactivateProtection($domainName)
+    {
+        $response = $this->delete('v1/domains/' . $domainName . '/dns/active');
+
+        return $response->getStatusCode() == 200;
+    }
+
+    /**
      * @param $raw
      * @return DomainProperty
      */
