@@ -82,6 +82,16 @@ class AclClient extends BaseClient
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Acl($this->apiToFriendly($body->data, self::MAP));
     }
+    
+    /**
+     * Delete an individual ACL
+     * @param $id
+     */
+    public function deleteById($id)
+    {
+        $response = $this->delete("v2/acls/$id");
+        return $response->getStatusCode() == 204;
+    }
 
     public function getHeaders($id, $page = 1, $perPage = 15, $filters = [])
     {
