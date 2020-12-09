@@ -31,6 +31,19 @@ class DomainClient extends BaseClient
 
     const PROPERTIES_MAP = [];
 
+    const DOMAIN_MAP = [
+        'safedns_zone_id' => 'safednsZoneId',
+        'status'          => 'status',
+        'dns_active'      => 'dnsActive',
+        'cdn_active'      => 'cdnActive',
+        'waf_active'      => 'wafActive',
+    ];
+
+    const EXTERNAL_DNS_MAP = [
+        'verification_string' => 'verificationString',
+        'target'              => 'dnsAliasTarget',
+    ];
+
     /**
      * Gets a paginated response of all DDoSX domains
      *
@@ -161,22 +174,16 @@ class DomainClient extends BaseClient
      */
     public function serializeDomain($item)
     {
-        $domain = new Domain([
-            'safednsZoneId' => $item->safedns_zone_id,
-            'name' => $item->name,
-            'status' => $item->status,
-            'dnsActive' => $item->dns_active,
-            'cdnActive' => $item->cdn_active,
-            'wafActive' => $item->waf_active,
-        ]);
+        $domain = new Domain($this->apiToFriendly($item, static::DOMAIN_MAP));
 
         if (empty($item->external_dns) === false) {
-            $domain->externalDns = new ExternalDns([
-                'verified'           => $item->external_dns->verified,
-                'verificationString' => $item->external_dns->verification_string,
-                'dnsAliasTarget'     => $item->external_dns->target,
-            ]);
+            $domain->externalDns  = new ExternalDns($this->apiToFriendly(
+                $domain->external_dns,
+                static::EXTERNAL_DNS_MAP
+            ));
         }
+
+        //$domain->syncOriginalAttributes();
 
         return $domain;
     }
