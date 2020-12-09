@@ -183,7 +183,7 @@ class DomainClient extends BaseClient
             ));
         }
 
-        //$domain->syncOriginalAttributes();
+        $domain->syncOriginalAttributes();
 
         return $domain;
     }
