@@ -113,4 +113,12 @@ class Client extends BaseClient
     {
         return (new AttackGeolocationClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return ConfigClient
+     */
+    public function config()
+    {
+        return (new ConfigClient($this->httpClient))->auth($this->token);
+    }
 }
