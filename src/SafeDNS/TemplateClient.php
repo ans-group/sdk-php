@@ -21,7 +21,7 @@ class TemplateClient extends Client
      */
     public function getPage($page = 1, $perPage = 20, $filters = [])
     {
-        $page = $this->paginatedRequest('v1/templates', $page, $perPage);
+        $page = $this->paginatedRequest('v1/templates', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeData($item);
         });
