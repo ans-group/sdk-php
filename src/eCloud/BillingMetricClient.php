@@ -22,6 +22,8 @@ class BillingMetricClient extends Client implements ClientEntityInterface
             'value' => 'value',
             'start' => 'start',
             'end' => 'end',
+            'category' => 'category',
+            'price' => 'price',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
