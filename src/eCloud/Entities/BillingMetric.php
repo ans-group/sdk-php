@@ -12,10 +12,17 @@ use UKFast\SDK\Entity;
  * @property string $value
  * @property string $start
  * @property string $end
+ * @property string $category
+ * @property float $price
  * @property string $createdAt
  * @property string $updatedAt
  */
 class BillingMetric extends Entity
 {
-    protected $dates = ['createdAt', 'updatedAt'];
+    protected $dates = [
+        'start',
+        'end',
+        'createdAt',
+        'updatedAt'
+    ];
 }
