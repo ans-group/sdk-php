@@ -3,6 +3,10 @@
 namespace UKFast\SDK\ThreatMonitoring;
 
 use UKFast\SDK\ThreatMonitoring\Entities\Config;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\Directory;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\FimDirectory;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\Log;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\Logs;
 
 class ConfigClient extends Client
 {
@@ -63,17 +67,22 @@ class ConfigClient extends Client
     {
         $directories = [];
         foreach ($data->fim->directories as $directory) {
-            $directories[] = $this->apiToFriendly($directory, self::FIM_DIRECTORIES_MAP);
+            $directory = new Directory($this->apiToFriendly($directory, self::FIM_DIRECTORIES_MAP));
+            $directories[] = $directory;
         }
 
         $logs = [];
         foreach ($data->logs as $log) {
-            $logs[] = $this->apiToFriendly($log, self::LOG_MAP);
+            $log = new Log($this->apiToFriendly($log, self::LOG_MAP));
+            $logs[] = $log;
         }
 
-        $data->fim->directories = $directories;
-        $data->logs = $logs;
+        $data->fim->directories = new FimDirectory($directories);
+        $data->logs = new Logs($logs);
 
-        return new Config($data);
+        $config = new Config($data);
+        $config->syncOriginalAttributes();
+
+        return $config;
     }
 }
