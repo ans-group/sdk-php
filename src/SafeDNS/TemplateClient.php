@@ -51,6 +51,7 @@ class TemplateClient extends Client
     public function deleteById($templateId)
     {
         $response = $this->delete('v1/templates/' . $templateId);
+
         return $response->getStatusCode() == 204;
     }
 
