@@ -44,6 +44,18 @@ class TemplateClient extends Client
     }
 
     /**
+     * @param $templateId
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function deleteById($templateId)
+    {
+        $response = $this->delete('v1/templates/' . $templateId);
+
+        return $response->getStatusCode() == 204;
+    }
+
+    /**
      * Convert the api fields to a friendly name
      * @param $raw
      * @return Template
