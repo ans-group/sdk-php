@@ -200,4 +200,12 @@ class Client extends BaseClient
     {
         return (new BillingMetricClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function discountPlans()
+    {
+        return (new DiscountPlanClient($this->httpClient))->auth($this->token);
+    }
 }
