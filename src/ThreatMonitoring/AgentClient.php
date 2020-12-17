@@ -8,6 +8,7 @@ namespace UKFast\SDK\ThreatMonitoring;
 
 use UKFast\SDK\Page;
 use UKFast\SDK\ThreatMonitoring\Entities\Agent;
+use UKFast\SDK\ThreatMonitoring\Entities\Groups;
 
 class AgentClient extends Client
 {
@@ -79,6 +80,18 @@ class AgentClient extends Client
         $response = $this->get('v1/agents/' . $id);
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->serializeResponse($body->data);
+    }
+
+    /**
+     * Get the groups that are assigned to an agent
+     * @param $id
+     * @return Groups
+     */
+    public function getGroupsById($id)
+    {
+        $response = $this->get('v1/agents/' . $id . '/groups');
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return new Groups($body->data);
     }
 
     /**
