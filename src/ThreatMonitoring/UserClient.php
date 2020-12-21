@@ -33,9 +33,9 @@ class UserClient extends Client
      * @param $id
      * @return Groups
      */
-    public function getGroupsById($id)
+    public function getGroups()
     {
-        $response = $this->get('v1/accounts/' . $id . '/groups');
+        $response = $this->get('v1/accounts/groups');
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Groups($body->data);
     }
