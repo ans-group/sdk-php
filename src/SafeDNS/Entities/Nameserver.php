@@ -10,5 +10,5 @@ use UKFast\SDK\Entity;
  */
 class Nameserver extends Entity
 {
-
+    //
 }
