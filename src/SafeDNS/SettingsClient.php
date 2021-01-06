@@ -16,6 +16,7 @@ class SettingsClient extends Client
     /**
      * Get the safeDNS settings
      * @return \Psr\Http\Message\ResponseInterface|Settings
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAll()
     {
