@@ -7,10 +7,10 @@ use UKFast\SDK\SafeDNS\Entities\Settings;
 class SettingsClient extends Client
 {
     const SETTINGS_MAP = [
-        'custom_soa_allowed' => 'customSoaAllowed',
+        'custom_soa_allowed'     => 'customSoaAllowed',
         'custom_base_ns_allowed' => 'customBaseNsAllowed',
-        'custom_axfr' => 'customAxfr',
-        'delegation_allowed' => 'delegationAllowed'
+        'custom_axfr'            => 'customAxfr',
+        'delegation_allowed'     => 'delegationAllowed'
     ];
 
     /**
@@ -21,7 +21,7 @@ class SettingsClient extends Client
     public function getAll()
     {
         $response = $this->get('v1/settings');
-        $body = $this->decodeJson($response->getBody()->getContents());
+        $body     = $this->decodeJson($response->getBody()->getContents());
 
         return new Settings($this->apiToFriendly($body->data, self::SETTINGS_MAP));
     }
