@@ -79,7 +79,9 @@ class ConfigClient extends Client
         
         $ignoredDirectories = [];
         foreach ($data->fim->ignores as $ignoredDirectory) {
-            $ignoredDirectory = new IgnoredDirectory($this->apiToFriendly($ignoredDirectory, self::IGNORED_DIRECTORIES_MAP));
+            $ignoredDirectory = new IgnoredDirectory(
+                $this->apiToFriendly($ignoredDirectory, self::IGNORED_DIRECTORIES_MAP)
+            );
             $ignoredDirectories[] = $ignoredDirectory;
         }
         $data->fim->ignores = $ignoredDirectories;
@@ -98,5 +100,4 @@ class ConfigClient extends Client
         
         return $config;
     }
-    
 }
