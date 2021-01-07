@@ -1,8 +1,4 @@
 <?php
-/**
- * @author: John Birch-Evans <john.birch-evans@ukfast.co.uk>
- * @copyright: 2020 UKFast.net Ltd
- */
 
 namespace UKFast\SDK\ThreatMonitoring;
 
@@ -112,5 +108,13 @@ class Client extends BaseClient
     public function attackGeolocationReports()
     {
         return (new AttackGeolocationClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ConfigClient
+     */
+    public function config()
+    {
+        return (new ConfigClient($this->httpClient))->auth($this->token);
     }
 }
