@@ -5,6 +5,7 @@ namespace UKFast\SDK\ThreatMonitoring;
 use UKFast\SDK\ThreatMonitoring\Entities\Config;
 use UKFast\SDK\ThreatMonitoring\Entities\Config\Directory;
 use UKFast\SDK\ThreatMonitoring\Entities\Config\FimDirectory;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\IgnoredDirectory;
 use UKFast\SDK\ThreatMonitoring\Entities\Config\Log;
 use UKFast\SDK\ThreatMonitoring\Entities\Config\Logs;
 
@@ -27,6 +28,10 @@ class ConfigClient extends Client
         'recursion_level' => 'recursionLevel',
         'report_changes' => 'reportChanges'
     ];
+    
+    const IGNORED_DIRECTORIES_MAP = [
+		'is_regex' => 'isRegex',
+	];
 
     const LOG_MAP = [
         'log_format' => 'logFormat'
@@ -70,14 +75,22 @@ class ConfigClient extends Client
             $directory = new Directory($this->apiToFriendly($directory, self::FIM_DIRECTORIES_MAP));
             $directories[] = $directory;
         }
+		$data->fim->directories = $directories;
+	
+		$ignoredDirectories = [];
+        foreach ($data->fim->ignores as $ignoredDirectory) {
+			$ignoredDirectory = new IgnoredDirectory($this->apiToFriendly($ignoredDirectory, self::IGNORED_DIRECTORIES_MAP));
+			$ignoredDirectories[] = $ignoredDirectory;
+		}
+		$data->fim->ignores = $ignoredDirectories;
 
         $logs = [];
         foreach ($data->logs as $log) {
             $log = new Log($this->apiToFriendly($log, self::LOG_MAP));
             $logs[] = $log;
         }
-
-        $data->fim->directories = new FimDirectory($directories);
+		
+		$data->fim = new FimDirectory($data->fim);
         $data->logs = new Logs($logs);
 
         $config = new Config($data);
