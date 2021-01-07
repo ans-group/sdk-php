@@ -3,6 +3,7 @@
 namespace UKFast\SDK\ThreatMonitoring;
 
 use Exception;
+use http\QueryString;
 use UKFast\SDK\ThreatMonitoring\Entities\Groups;
 
 class UserClient extends Client
@@ -27,15 +28,21 @@ class UserClient extends Client
             throw new Exception($e->getMessage());
         }
     }
-
+    
     /**
      * Get the groups that are assigned to a user
-     * @param $id
+     * @param array $filters
      * @return Groups
      */
-    public function getGroups()
+    public function getGroups($filters = [])
     {
-        $response = $this->get('v1/accounts/groups');
+        $queryParams = '';
+    
+        if (count($filters) > 0) {
+            $queryParams = '?' . http_build_query($filters);
+        }
+        
+        $response = $this->get('v1/accounts/groups' . $queryParams);
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Groups($body->data);
     }

@@ -40,11 +40,18 @@ class ConfigClient extends Client
     /**
      * Get the config data by the group name
      * @param $groupName
+     * @param array $filters
      * @return Config
      */
-    public function getByGroupName($groupName)
+    public function getByGroupName($groupName, $filters = [])
     {
-        $response = $this->get('v1/configs/groups/' . $groupName);
+        $queryParams = '';
+    
+        if (count($filters) > 0) {
+            $queryParams = '?' . http_build_query($filters);
+        }
+        
+        $response = $this->get('v1/configs/groups/' . $groupName  . $queryParams);
         $body = $this->decodeJson($response->getBody()->getContents());
         
         return $this->serializeResponse($body->data);
@@ -53,11 +60,18 @@ class ConfigClient extends Client
     /**
      * Get the config data by the agent id
      * @param $agentId
+     * @param array $filters
      * @return Config
      */
-    public function getByAgentId($agentId)
+    public function getByAgentId($agentId, $filters = [])
     {
-        $response = $this->get('v1/configs/agents/' . $agentId);
+        $queryParams = '';
+    
+        if (count($filters) > 0) {
+            $queryParams = '?' . http_build_query($filters);
+        }
+        
+        $response = $this->get('v1/configs/agents/' . $agentId  . $queryParams);
         $body = $this->decodeJson($response->getBody()->getContents());
         
         return $this->serializeResponse($body->data);
