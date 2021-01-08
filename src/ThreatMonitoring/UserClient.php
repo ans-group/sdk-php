@@ -34,15 +34,9 @@ class UserClient extends Client
      * @param array $filters
      * @return Groups
      */
-    public function getGroups($filters = [])
+    public function getGroups()
     {
-        $queryParams = '';
-    
-        if (count($filters) > 0) {
-            $queryParams = '?' . http_build_query($filters);
-        }
-        
-        $response = $this->get('v1/accounts/groups' . $queryParams);
+        $response = $this->get('v1/accounts/groups');
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Groups($body->data);
     }
