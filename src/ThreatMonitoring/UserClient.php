@@ -31,7 +31,6 @@ class UserClient extends Client
     
     /**
      * Get the groups that are assigned to a user
-     * @param array $filters
      * @return Groups
      */
     public function getGroups()
