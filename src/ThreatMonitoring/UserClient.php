@@ -3,7 +3,6 @@
 namespace UKFast\SDK\ThreatMonitoring;
 
 use Exception;
-use http\QueryString;
 use UKFast\SDK\ThreatMonitoring\Entities\Groups;
 
 class UserClient extends Client
