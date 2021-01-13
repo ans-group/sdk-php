@@ -12,6 +12,7 @@ use UKFast\SDK\Entity;
  * @property string $fullLog
  * @property string $sourceUser
  * @property string $targetUser
+ * @property ReportAgentDetails $agent
  * @property \DateTime $timestamp
  */
 class LoginRecord extends Entity

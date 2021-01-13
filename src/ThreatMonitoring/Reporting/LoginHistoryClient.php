@@ -10,6 +10,7 @@ use UKFast\SDK\Page;
 use UKFast\SDK\ThreatMonitoring\Client;
 use UKFast\SDK\ThreatMonitoring\Entities\ElevatedPrivileges;
 use UKFast\SDK\ThreatMonitoring\Entities\LoginRecord;
+use UKFast\SDK\ThreatMonitoring\Entities\ReportAgentDetails;
 
 class LoginHistoryClient extends Client
 {
@@ -21,6 +22,10 @@ class LoginHistoryClient extends Client
     
     const ELEVATED_PRIVILEGES_MAP = [
         'source_user' => 'sourceUser'
+    ];
+    
+    const AGENT_DETAILS_MAP = [
+        'friendly_name' => 'name'
     ];
     
     /**
@@ -61,11 +66,21 @@ class LoginHistoryClient extends Client
     
     public function serializeLoginTimeline($data)
     {
-        return new LoginRecord($this->apiToFriendly($data, self::LOGIN_RECORD_MAP));
+        $data->agent = new ReportAgentDetails($this->apiToFriendly($data->agent, self::AGENT_DETAILS_MAP));
+        
+        $loginRecord = new LoginRecord($this->apiToFriendly($data, self::LOGIN_RECORD_MAP));
+        $loginRecord->syncOriginalAttributes();
+        
+        return $loginRecord;
     }
     
     public function serializeElevatedPrivileges($data)
     {
-        return new ElevatedPrivileges($this->apiToFriendly($data, self::ELEVATED_PRIVILEGES_MAP));
+        $data->agent = new ReportAgentDetails($this->apiToFriendly($data->agent, self::AGENT_DETAILS_MAP));
+    
+        $elevatedPrivileges = new ElevatedPrivileges($this->apiToFriendly($data, self::ELEVATED_PRIVILEGES_MAP));
+        $elevatedPrivileges->syncOriginalAttributes();
+    
+        return $elevatedPrivileges;
     }
 }
