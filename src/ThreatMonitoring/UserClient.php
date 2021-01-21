@@ -3,6 +3,12 @@
 namespace UKFast\SDK\ThreatMonitoring;
 
 use Exception;
+use UKFast\SDK\ThreatMonitoring\Entities\Config;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\Directory;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\FimDirectory;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\IgnoredDirectory;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\Log;
+use UKFast\SDK\ThreatMonitoring\Entities\Config\Logs;
 use UKFast\SDK\ThreatMonitoring\Entities\Groups;
 
 class UserClient extends Client
@@ -38,5 +44,17 @@ class UserClient extends Client
         $response = $this->get('v1/accounts/groups');
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Groups($body->data);
+    }
+    
+    /**
+     * Get the config data for the current user that is making the request
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        $response = $this->get('v1/configs/user');
+        $body = $this->decodeJson($response->getBody()->getContents());
+    
+        return (new ConfigClient)->serializeResponse($body->data);
     }
 }
