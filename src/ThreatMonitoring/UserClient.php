@@ -3,12 +3,6 @@
 namespace UKFast\SDK\ThreatMonitoring;
 
 use Exception;
-use UKFast\SDK\ThreatMonitoring\Entities\Config;
-use UKFast\SDK\ThreatMonitoring\Entities\Config\Directory;
-use UKFast\SDK\ThreatMonitoring\Entities\Config\FimDirectory;
-use UKFast\SDK\ThreatMonitoring\Entities\Config\IgnoredDirectory;
-use UKFast\SDK\ThreatMonitoring\Entities\Config\Log;
-use UKFast\SDK\ThreatMonitoring\Entities\Config\Logs;
 use UKFast\SDK\ThreatMonitoring\Entities\Groups;
 
 class UserClient extends Client
