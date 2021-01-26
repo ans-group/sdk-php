@@ -45,8 +45,6 @@ foreach ($page->getItems() as $request) {
 }
 ```
 
-We have a [collection of examples](/examples/) of common functionality for each service to help you get started.
-
 
 Contributing
 ------------
