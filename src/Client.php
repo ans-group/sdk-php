@@ -8,11 +8,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
-use UKFast\SDK\Exception\ApiException;
-use UKFast\SDK\Exception\InvalidJsonException;
-use UKFast\SDK\Exception\NotFoundException;
-use UKFast\SDK\Exception\ValidationException;
-use UKFast\SDK\Exception\PreconditionFailedException;
+use UKFast\SDK\Exception;
 
 class Client
 {
@@ -96,20 +92,20 @@ class Client
             $status = $e->getResponse()->getStatusCode();
 
             if ($status == 404) {
-                throw new NotFoundException($e->getResponse());
+                throw new Exception\NotFoundException($e->getResponse());
             }
 
             if ($status == 400 || $status == 422) {
-                throw new ValidationException($e->getResponse());
+                throw new Exception\ValidationException($e->getResponse());
             }
 
             if ($status == 412) {
-                throw new PreconditionFailedException($e->getResponse());
+                throw new Exception\PreconditionFailedException($e->getResponse());
             }
 
-            throw new ApiException($e->getResponse());
+            throw new Exception\ClientException($e->getResponse());
         } catch (ServerException $e) {
-            throw new ApiException($e->getResponse());
+            throw new Exception\ServerException($e->getResponse());
         }
 
         return $response;
@@ -223,7 +219,7 @@ class Client
      * Convenience function for decoding json and checking errors
      *
      * @param string $raw
-     * @throws InvalidJsonException
+     * @throws Exception\InvalidJsonException
      * @return mixed
      */
     protected function decodeJson($raw)
@@ -231,7 +227,7 @@ class Client
         $decoded = json_decode($raw);
         $err = json_last_error();
         if ($err !== JSON_ERROR_NONE) {
-            throw new InvalidJsonException(json_last_error_msg() . ': ' . $raw);
+            throw new Exception\InvalidJsonException(json_last_error_msg() . ': ' . $raw);
         }
 
         return $decoded;
