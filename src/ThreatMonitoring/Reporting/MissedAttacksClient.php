@@ -30,6 +30,6 @@ class MissedAttacksClient extends Client
 
     public function serializeResponse($data)
     {
-        return new MissedAttacksTotal($this->apiToFriendly($data, static::MISSED_ATTACK_TOTAL_MAP));
+        return new MissedAttacksTotal($this->apiToFriendly($data, self::MISSED_ATTACK_TOTAL_MAP));
     }
 }
