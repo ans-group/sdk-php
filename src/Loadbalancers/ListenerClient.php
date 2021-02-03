@@ -300,6 +300,18 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         return $response->getStatusCode() == 204;
     }
 
+    /**
+     * Remove a bind from the listener
+     * @param $id
+     * @param $bindId
+     * @return bool
+     */
+    public function deleteBindById($id, $bindId)
+    {
+        $response = $this->delete("v2/listeners/$id/binds/$bindId");
+
+        return $response->getStatusCode() == 204;
+    }
 
     protected function sslToApiFormat($ssl)
     {
