@@ -112,6 +112,14 @@ class Client extends BaseClient
     }
     
     /**
+     * @return AttackGeolocationClient
+     */
+    public function missedAttacksReports()
+    {
+        return (new AttackGeolocationClient($this->httpClient))->auth($this->token);
+    }
+    
+    /**
      * @return LoginHistoryClient
      */
     public function loginHistory()
