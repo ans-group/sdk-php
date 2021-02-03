@@ -17,7 +17,6 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     use PageItems;
 
     const MAP = [
-        'vips_id' => 'vipsId',
         'cluster_id' => 'clusterId',
         'hsts_enabled' => 'hstsEnabled',
         'hsts_maxage' => 'hstsMaxage',
