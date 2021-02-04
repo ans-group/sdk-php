@@ -39,4 +39,16 @@ class UserClient extends Client
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Groups($body->data);
     }
+    
+    /**
+     * Get the config data for the current user that is making the request
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        $response = $this->get('v1/configs/user');
+        $body = $this->decodeJson($response->getBody()->getContents());
+    
+        return (new ConfigClient)->serializeResponse($body->data);
+    }
 }
