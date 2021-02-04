@@ -13,7 +13,7 @@ use UKFast\SDK\Entity;
  * @property int $hstsMaxAge
  * @property bool $close
  * @property bool $redirectHttps
- * @property string $defaultBackendId
+ * @property string $defaultTargetgroupId
  */
 class Listener extends Entity
 {

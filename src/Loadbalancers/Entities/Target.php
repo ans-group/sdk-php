@@ -6,7 +6,7 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $backendId
+ * @property string $targetgroupId
  * @property string $ip
  * @property integer $port
  * @property integer $weight
