@@ -55,7 +55,7 @@ class ApiException extends UKFastException
     }
 
     /**
-     * @return int
+     * @return \GuzzleHttp\Psr7\Response
      */
     public function getResponse()
     {
