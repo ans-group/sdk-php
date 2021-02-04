@@ -2,6 +2,6 @@
 
 namespace UKFast\SDK\Exception;
 
-class ValidationException extends ApiException
+class ValidationException extends ClientException
 {
 }

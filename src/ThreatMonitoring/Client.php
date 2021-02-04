@@ -1,8 +1,4 @@
 <?php
-/**
- * @author: John Birch-Evans <john.birch-evans@ukfast.co.uk>
- * @copyright: 2020 UKFast.net Ltd
- */
 
 namespace UKFast\SDK\ThreatMonitoring;
 
@@ -11,6 +7,7 @@ use UKFast\SDK\ThreatMonitoring\Reporting\AttackGeolocationClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\AttackingIpsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\BlockedAttacksClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\EventsClient;
+use UKFast\SDK\ThreatMonitoring\Reporting\LoginHistoryClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopAlertsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopFilesChangedClient;
 
@@ -112,5 +109,21 @@ class Client extends BaseClient
     public function attackGeolocationReports()
     {
         return (new AttackGeolocationClient($this->httpClient))->auth($this->token);
+    }
+    
+    /**
+     * @return LoginHistoryClient
+     */
+    public function loginHistory()
+    {
+        return (new LoginHistoryClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ConfigClient
+     */
+    public function config()
+    {
+        return (new ConfigClient($this->httpClient))->auth($this->token);
     }
 }

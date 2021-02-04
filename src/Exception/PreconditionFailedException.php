@@ -2,6 +2,6 @@
 
 namespace UKFast\SDK\Exception;
 
-class PreconditionFailedException extends ApiException
+class PreconditionFailedException extends ClientException
 {
 }

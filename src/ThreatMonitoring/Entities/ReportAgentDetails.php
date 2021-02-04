@@ -5,8 +5,9 @@ namespace UKFast\SDK\ThreatMonitoring\Entities;
 use UKFast\SDK\Entity;
 
 /**
- * @property integer $total
+ * @property string $id
+ * @property string $name
  */
-class EventsTotal extends Entity
+class ReportAgentDetails extends Entity
 {
 }

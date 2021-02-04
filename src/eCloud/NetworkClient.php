@@ -17,6 +17,7 @@ class NetworkClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'name' => 'name',
+            'vpc_id' => 'vpcId',
             'router_id' => 'routerId',
             'subnet' => 'subnet',
             'created_at' => 'createdAt',
