@@ -8,6 +8,7 @@ use UKFast\SDK\ThreatMonitoring\Reporting\AttackingIpsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\BlockedAttacksClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\EventsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\LoginHistoryClient;
+use UKFast\SDK\ThreatMonitoring\Reporting\MissedAttacksClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopAlertsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopFilesChangedClient;
 
@@ -109,6 +110,14 @@ class Client extends BaseClient
     public function attackGeolocationReports()
     {
         return (new AttackGeolocationClient($this->httpClient))->auth($this->token);
+    }
+    
+    /**
+     * @return MissedAttacksClient
+     */
+    public function missedAttacksReports()
+    {
+        return (new MissedAttacksClient($this->httpClient))->auth($this->token);
     }
     
     /**
