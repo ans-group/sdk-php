@@ -6,8 +6,14 @@ use UKFast\SDK\ApiError;
 
 class ApiException extends UKFastException
 {
+    /**
+     * @var array|ApiError[]
+     */
     protected $errors = [];
 
+    /**
+     * @var \GuzzleHttp\Psr7\Response
+     */
     protected $response;
 
     public function __construct($response)
@@ -62,6 +68,9 @@ class ApiException extends UKFastException
         return $this->response;
     }
 
+    /**
+     * @return mixed|null
+     */
     public function getRequestId()
     {
         if (!empty($this->response->getHeader('Request-ID'))) {
@@ -71,6 +80,10 @@ class ApiException extends UKFastException
         return null;
     }
 
+    /**
+     * @param \stdClass $body
+     * @return array
+     */
     private function getErrorsFromBody($body)
     {
         $errors = [];
@@ -85,6 +98,10 @@ class ApiException extends UKFastException
         return $errors;
     }
 
+    /**
+     * @param \stdClass $body
+     * @return ApiError[]
+     */
     private function getApiGatewayErrorFromBody($body)
     {
         $error = new ApiError;
