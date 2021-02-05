@@ -10,7 +10,7 @@ class ClusterClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/configurations';
+    protected $collectionPath = 'v2/clusters';
 
     public function getEntityMap()
     {
