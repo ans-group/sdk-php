@@ -206,4 +206,32 @@ class InstanceClient extends Client implements ClientEntityInterface
             'resourceId:in' => implode(',', $nicFilter),
         ]);
     }
+
+    public function getByVolumeId($volumeId)
+    {
+        $page = $this->paginatedRequest('v2/volumes/'.$volumeId.'/instances', 1, 100);
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $page->serializeWith(function ($item) {
+            return $this->loadEntity($item);
+        });
+
+        $collection = $page->getItems();
+        if ($page->totalPages() == 1) {
+            return $collection;
+        }
+
+        // get any remaining pages
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->getPage($page->pageNumber() + 1, 100);
+            $collection = array_merge(
+                $collection,
+                $page->getItems()
+            );
+        }
+
+        return $collection;
+    }
 }
