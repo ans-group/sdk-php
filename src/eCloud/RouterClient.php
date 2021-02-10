@@ -18,6 +18,8 @@ class RouterClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'vpc_id' => 'vpcId',
+            'router_throughput_id' => 'throughputId',
+            'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
