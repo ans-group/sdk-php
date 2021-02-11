@@ -188,8 +188,32 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function networks()
+    {
+        return (new NetworkClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function loadBalancerClusters()
     {
         return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function billingMetrics()
+    {
+        return (new BillingMetricClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function discountPlans()
+    {
+        return (new DiscountPlanClient($this->httpClient))->auth($this->token);
     }
 }

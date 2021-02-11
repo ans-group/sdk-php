@@ -21,7 +21,7 @@ class TemplateClient extends Client
      */
     public function getPage($page = 1, $perPage = 20, $filters = [])
     {
-        $page = $this->paginatedRequest('v1/templates', $page, $perPage);
+        $page = $this->paginatedRequest('v1/templates', $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->serializeData($item);
         });
@@ -41,6 +41,18 @@ class TemplateClient extends Client
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return $this->serializeData($body->data);
+    }
+
+    /**
+     * @param $templateId
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function deleteById($templateId)
+    {
+        $response = $this->delete('v1/templates/' . $templateId);
+
+        return $response->getStatusCode() == 204;
     }
 
     /**
