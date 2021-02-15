@@ -15,6 +15,7 @@ use UKFast\SDK\Entity;
  * @property boolean $checkSsl
  * @property integer $checkRise
  * @property integer $checkFall
+ * @property integer $checkPort
  * @property boolean $disableHttp2
  * @property boolean $http2Only
  * @property boolean $sendProxy
