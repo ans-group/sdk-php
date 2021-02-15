@@ -18,7 +18,7 @@ class TargetClient extends BaseClient implements ClientEntityInterface
     {
         return [
             'id' => 'id',
-            'targetgroup_id' => 'targetgroupId',
+            'target_group_id' => 'targetGroupId',
             'ip' => 'ip',
             'port' => 'port',
             'weight' => 'weight',
