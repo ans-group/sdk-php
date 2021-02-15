@@ -7,7 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $listenerId
- * @property string $targetgroupId
+ * @property string $targetGroupId
  * @property string $createdAt
  * @property string $updatedAt
  */
