@@ -156,6 +156,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function routerThroughputs()
+    {
+        return (new RouterThroughputClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function firewallPolicies()
     {
         return (new FirewallPolicyClient($this->httpClient))->auth($this->token);
