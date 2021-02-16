@@ -17,7 +17,7 @@ class AclClient extends BaseClient
 {
     const MAP = [
         'listener_id' => 'listenerId',
-        'targetgroup_id' => 'targetgroupId',
+        'target_group_id' => 'targetGroupId',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
@@ -33,7 +33,7 @@ class AclClient extends BaseClient
     const FREETYPE_MAP = [];
 
     const CONDITION_MAP = [
-        'targetgroup_id' => 'targetgroupId',
+        'target_group_id' => 'targetGroupId',
     ];
 
     const ACTION_MAP = [

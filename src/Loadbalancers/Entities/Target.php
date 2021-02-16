@@ -6,7 +6,7 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $targetgroupId
+ * @property string $targetGroupId
  * @property string $ip
  * @property integer $port
  * @property integer $weight
@@ -15,6 +15,7 @@ use UKFast\SDK\Entity;
  * @property boolean $checkSsl
  * @property integer $checkRise
  * @property integer $checkFall
+ * @property integer $checkPort
  * @property boolean $disableHttp2
  * @property boolean $http2Only
  * @property boolean $sendProxy
