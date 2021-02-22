@@ -26,15 +26,21 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 
     const SSL_MAP = [
         'binds_id' => 'bindsId',
+        'allow_tls_v1' => 'allowTlsV1',
+        'allow_tls_v11' => 'allowTlsV11',
         'disable_http2' => 'disableHttp2',
-        'http2_only' => 'onlyHttp2',
+        'http2_only' => 'http2Only',
         'custom_ciphers' => 'customCiphers',
         'custom_tls13_ciphers' => 'customTls13Ciphers',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
     ];
 
     const BIND_MAP = [
         'frontend_id' => 'frontendId',
         'vips_id' => 'vipsId',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
     ];
 
     const CERT_MAP = [
