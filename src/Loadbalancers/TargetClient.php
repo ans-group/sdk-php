@@ -22,7 +22,6 @@ class TargetClient extends BaseClient implements ClientEntityInterface
             'check_ssl' => 'checkSsl',
             'check_rise' => 'checkRise',
             'check_fall' => 'checkFall',
-            'check_port' => 'checkPort',
             'disable_http2' => 'disableHttp2',
             'http2_only' => 'http2Only',
             'created_at' => 'createdAt',
