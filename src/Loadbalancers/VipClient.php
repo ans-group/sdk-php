@@ -8,7 +8,12 @@ use UKFast\SDK\SelfResponse;
 
 class VipClient extends BaseClient
 {
-    const MAP = ['group_id' => 'groupId'];
+    const MAP = [
+        'cluster_id' => 'clusterId',
+        'mac_address' => 'macAddress',
+        'internal_cidr' => 'internalCidr',
+        'external_cidr' => 'externalCidr',
+    ];
 
     protected $basePath = 'loadbalancers/';
 

@@ -6,9 +6,10 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $groupId
- * @property string $type
- * @property string $cidr
+ * @property string $clusterId
+ * @property string $macAddress
+ * @property string $internalCidr
+ * @property string $externalCidr
  */
 class Vip extends Entity
 {
