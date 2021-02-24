@@ -196,6 +196,31 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function networkPolicies()
+    {
+        return (new NetworkPolicyClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function networkRules()
+    {
+        return (new NetworkRuleClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function networkRulePorts()
+    {
+        return (new NetworkRulePortClient($this->httpClient))->auth($this->token);
+    }
+
+
+    /**
+     * @return BaseClient
+     */
     public function loadBalancerClusters()
     {
         return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
