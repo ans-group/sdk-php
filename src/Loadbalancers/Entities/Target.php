@@ -6,7 +6,8 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $backendId
+ * @property string $targetGroupId
+ * @property string $name
  * @property string $ip
  * @property integer $port
  * @property integer $weight
@@ -17,9 +18,13 @@ use UKFast\SDK\Entity;
  * @property integer $checkFall
  * @property boolean $disableHttp2
  * @property boolean $http2Only
- * @property boolean $sendProxy
- * @property boolean $sendProxyV2
+ * @property \DateTime $createdAt
+ * @property \DateTime $updatedAt
  */
 class Target extends Entity
 {
+    protected $dates = [
+        'createdAt',
+        'updatedAt'
+    ];
 }

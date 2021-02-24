@@ -10,13 +10,16 @@ class ClusterClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/configurations';
+    protected $collectionPath = 'v2/clusters';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
             'name' => 'name',
+            'deployed_at' => 'deployedAt',
+            'created_at' => 'createdAt',
+            'updated_at' => 'updatedAt',
         ];
     }
 
@@ -33,7 +36,7 @@ class ClusterClient extends Client implements ClientEntityInterface
      */
     public function deploy($clusterId)
     {
-        $response = $this->post("v2/deploy?cluster_id=" . $clusterId);
+        $response = $this->post("v2/clusters/$clusterId/deploy");
         
         return $response->getStatusCode() < 300;
     }

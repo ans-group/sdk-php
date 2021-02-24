@@ -156,6 +156,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function routerThroughputs()
+    {
+        return (new RouterThroughputClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function firewallPolicies()
     {
         return (new FirewallPolicyClient($this->httpClient))->auth($this->token);
@@ -191,5 +199,21 @@ class Client extends BaseClient
     public function loadBalancerClusters()
     {
         return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function billingMetrics()
+    {
+        return (new BillingMetricClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function discountPlans()
+    {
+        return (new DiscountPlanClient($this->httpClient))->auth($this->token);
     }
 }

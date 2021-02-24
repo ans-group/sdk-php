@@ -1,8 +1,4 @@
 <?php
-/**
- * @author: John Birch-Evans <john.birch-evans@ukfast.co.uk>
- * @copyright: 2020 UKFast.net Ltd
- */
 
 namespace UKFast\SDK\ThreatMonitoring;
 
@@ -23,6 +19,11 @@ class AlertClient extends Client
         'process_name' => 'processName',
         'process_id' => 'processId',
         'changed_attributes' => 'changedAttributes'
+    ];
+
+    const ANALYSIS_MAP = [
+        'total_reports' => 'totalReports',
+        'last_reported' => 'lastReported'
     ];
 
     /**
@@ -66,6 +67,10 @@ class AlertClient extends Client
 
         if (isset($alert->syscheck)) {
             $alert->set('syscheck', $this->apiToFriendly($alert->syscheck, static::SYSCHECK_MAP));
+        }
+
+        if (isset($alert->analysis)) {
+            $alert->set('analysis', $this->apiToFriendly($alert->analysis, static::ANALYSIS_MAP));
         }
 
         return $alert;

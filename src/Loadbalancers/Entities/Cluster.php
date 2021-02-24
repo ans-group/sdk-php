@@ -7,10 +7,12 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
- * @property string $createdAt
- * @property string $updatedAt
+ * @property bool $deployed
+ * @property \DateTime $deployedAt
+ * @property \DateTime $createdAt
+ * @property \DateTime $updatedAt
  */
 class Cluster extends Entity
 {
-    protected $dates = ['createdAt', 'updatedAt'];
+    protected $dates = ['deployedAt', 'createdAt', 'updatedAt'];
 }

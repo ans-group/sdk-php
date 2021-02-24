@@ -9,6 +9,9 @@ use UKFast\SDK\Entity;
  * @property string $name
  * @property string $vpcId
  * @property integer $capacity
+ * @property integer $iops
+ * @property boolean $mounted
+ * @property string $sync
  */
 class Volume extends Entity
 {
