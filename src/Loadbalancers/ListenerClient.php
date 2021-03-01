@@ -45,10 +45,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 
     const CERT_MAP = [
         'frontend_id' => 'frontendId',
-        'certs_name' => 'name',
-        'cert_key' => 'key',
-        'cert_certificate' => 'certificate',
-        'cert_bundle' => 'bundle'
+        'ca_bundle' => 'caBundle'
     ];
 
     const ACCESS_RULE_MAP = [
