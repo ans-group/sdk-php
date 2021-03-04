@@ -277,6 +277,21 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
                 return new Cert($this->apiToFriendly($response->data, self::CERT_MAP));
             });
     }
+    
+    public function updateBind($id, Bind $bind)
+    {
+        $response = $this->patch(
+            "v2/listeners/$id/binds/{$bind->id}",
+            json_encode($this->friendlyToApi($bind, self::BIND_MAP))
+        );
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Bind($this->apiToFriendly($response->data, self::BIND_MAP));
+            });
+    }
 
     /**
      * @param $id
