@@ -281,7 +281,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function updateBind($id, Bind $bind)
     {
         $response = $this->patch(
-            "v2/listeners/$id/binds/$bind->id",
+            "v2/listeners/$id/binds/{$bind->id}",
             json_encode($this->friendlyToApi($bind, self::BIND_MAP))
         );
         $response = $this->decodeJson($response->getBody()->getContents());
