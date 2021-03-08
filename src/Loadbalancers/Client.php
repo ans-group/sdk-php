@@ -47,4 +47,9 @@ class Client extends BaseClient
     {
         return (new VipClient($this->httpClient))->auth($this->token);
     }
+
+    public function accessIps()
+    {
+        return (new AccessIpClient($this->httpClient))->auth($this->token);
+    }
 }

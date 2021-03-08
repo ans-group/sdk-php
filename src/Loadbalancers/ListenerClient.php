@@ -22,6 +22,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         'hsts_maxage' => 'hstsMaxage',
         'redirect_https' => 'redirectHttps',
         'default_target_group_id' => 'defaultTargetGroupId',
+        'access_is_allow_list' => 'accessIsAllowList',
     ];
 
     const SSL_MAP = [
