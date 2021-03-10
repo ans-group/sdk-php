@@ -22,6 +22,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         'hsts_maxage' => 'hstsMaxage',
         'redirect_https' => 'redirectHttps',
         'default_target_group_id' => 'defaultTargetGroupId',
+        'access_is_allow_list' => 'accessIsAllowList',
     ];
 
     const SSL_MAP = [
@@ -45,10 +46,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 
     const CERT_MAP = [
         'frontend_id' => 'frontendId',
-        'certs_name' => 'name',
-        'cert_key' => 'key',
-        'cert_certificate' => 'certificate',
-        'cert_bundle' => 'bundle'
+        'ca_bundle' => 'caBundle'
     ];
 
     const ACCESS_RULE_MAP = [
@@ -278,6 +276,21 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
             ->setClient($this)
             ->serializeWith(function ($response) {
                 return new Cert($this->apiToFriendly($response->data, self::CERT_MAP));
+            });
+    }
+    
+    public function updateBind($id, Bind $bind)
+    {
+        $response = $this->patch(
+            "v2/listeners/$id/binds/{$bind->id}",
+            json_encode($this->friendlyToApi($bind, self::BIND_MAP))
+        );
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Bind($this->apiToFriendly($response->data, self::BIND_MAP));
             });
     }
 

@@ -18,6 +18,7 @@ use UKFast\SDK\Entity;
  * @property integer $checkFall
  * @property boolean $disableHttp2
  * @property boolean $http2Only
+ * @property boolean $active
  * @property \DateTime $createdAt
  * @property \DateTime $updatedAt
  */
