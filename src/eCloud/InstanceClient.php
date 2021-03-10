@@ -18,7 +18,7 @@ class InstanceClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'vpc_id' => 'vpcId',
-            'appliance_id' => 'applianceId',
+            'image_id' => 'imageId',
             'platform' => 'platform',
             'vcpu_cores' => 'vcpuCores',
             'ram_capacity' => 'ramCapacity',
