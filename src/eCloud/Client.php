@@ -124,6 +124,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function images()
+    {
+        return (new ImageClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function instances()
     {
         return (new InstanceClient($this->httpClient))->auth($this->token);
