@@ -36,7 +36,6 @@ class VolumeClient extends Client implements ClientEntityInterface
 
     public function getInstances($id)
     {
-        $instanceClient = new InstanceClient;
-        return $instanceClient->getByVolumeId($id);
+        return $this->instances()->getByVolumeId($id);
     }
 }
