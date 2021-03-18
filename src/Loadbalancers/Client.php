@@ -52,4 +52,9 @@ class Client extends BaseClient
     {
         return (new AccessIpClient($this->httpClient))->auth($this->token);
     }
+    
+    public function deployments()
+    {
+        return (new DeploymentClient($this->httpClient))->auth($this->token);
+    }
 }
