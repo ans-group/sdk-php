@@ -249,4 +249,28 @@ class Client extends BaseClient
     {
         return (new DiscountPlanClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function hostGroups()
+    {
+        return (new HostGroupClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function hostSpecs()
+    {
+        return (new HostSpecClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function dedicatedHosts()
+    {
+        return (new DedicatedHostClient($this->httpClient))->auth($this->token);
+    }
 }
