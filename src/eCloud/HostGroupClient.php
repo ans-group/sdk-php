@@ -20,6 +20,7 @@ class HostGroupClient extends Client implements ClientEntityInterface
             'vpc_id' => 'vpcId',
             'availability_zone_id' => 'availabilityZoneId',
             'host_spec_id' => 'specId',
+            'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
