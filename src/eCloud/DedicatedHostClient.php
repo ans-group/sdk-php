@@ -19,6 +19,7 @@ class DedicatedHostClient extends Client implements ClientEntityInterface
             'name' => 'name',
             'vpc_id' => 'vpcId',
             'host_group_id' => 'groupId',
+            'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];

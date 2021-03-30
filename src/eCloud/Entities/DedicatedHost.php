@@ -9,6 +9,7 @@ use UKFast\SDK\Entity;
  * @property string $name
  * @property string $vpcId
  * @property string $groupId
+ * @property string $sync
  * @property string $createdAt
  * @property string $updatedAt
  */
