@@ -39,7 +39,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 
     const BIND_MAP = [
         'frontend_id' => 'frontendId',
-        'vips_id' => 'vipsId',
+        'vip_id' => 'vipId',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
