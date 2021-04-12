@@ -10,7 +10,7 @@ use UKFast\SDK\Entity;
  * @property string $vpcId
  * @property integer $capacity
  * @property integer $iops
- * @property boolean $mounted
+ * @property boolean $attached
  * @property string $sync
  */
 class Volume extends Entity

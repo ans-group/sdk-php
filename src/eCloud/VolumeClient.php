@@ -20,7 +20,7 @@ class VolumeClient extends Client implements ClientEntityInterface
             'vpc_id' => 'vpcId',
             'capacity' => 'capacity',
             'iops' => 'iops',
-            'mounted' => 'mounted',
+            'attached' => 'attached',
             'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
