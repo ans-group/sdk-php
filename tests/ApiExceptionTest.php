@@ -35,6 +35,31 @@ class ApiExceptionTest extends TestCase
     /**
      * @test
      */
+    public function constructs_from_standard_api_error_with_additional_properties()
+    {
+        $headers = [
+            'Request-ID' => 'test-request-id',
+        ];
+        $response = new Response(500, $headers, json_encode([
+            'errors' => [
+                [
+                    'detail' => 'Test',
+                    'id' => 123,
+                ]
+            ]
+        ]));
+
+        $exception = new ApiException($response);
+
+        $this->assertEquals(1, count($exception->getErrors()));
+        $this->assertEquals('Test', $exception->getErrors()[0]->detail);
+        $this->assertEquals(123, $exception->getErrors()[0]->id);
+        $this->assertEquals('test-request-id', $exception->getRequestId());
+    }
+
+    /**
+     * @test
+     */
     public function constructs_from_api_gateway_error()
     {
         $response = new Response(401, [], json_encode([

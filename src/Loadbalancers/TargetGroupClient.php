@@ -20,14 +20,20 @@ class TargetGroupClient extends BaseClient implements ClientEntityInterface
             'name' => 'name',
             'cluster_id' => 'clusterId',
             'cookie_opts' => 'cookieOpts',
-            'timeouts_connect' => 'timeoutConnect',
-            'timeouts_server' => 'timeoutServer',
+            'timeouts_connect' => 'timeoutsConnect',
+            'timeouts_server' => 'timeoutsServer',
             'monitor_url' => 'monitorUrl',
             'monitor_method' => 'monitorMethod',
             'monitor_host' => 'monitorHost',
             'monitor_http_version' => 'monitorHttpVersion',
             'monitor_expect' => 'monitorExpect',
             'monitor_tcp_monitoring' => 'monitorTcpMonitoring',
+            'custom_options' => 'customOptions',
+            'check_port' => 'checkPort',
+            'send_proxy' => 'sendProxy',
+            'send_proxy_v2' => 'sendProxyV2',
+            'created_at' => 'createdAt',
+            'updated_at' => 'updatedAt',
         ];
     }
 
