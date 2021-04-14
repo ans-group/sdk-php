@@ -50,24 +50,6 @@ class VipClient extends BaseClient
     }
 
     /**
-     * Creates a new vip
-     * @param \UKFast\SDK\Loadbalancers\Entities\Vip
-     * @return UKFast\SDK\SelfResponse
-     */
-    public function create($vip)
-    {
-        $json = json_encode($this->friendlyToApi($vip, self::MAP));
-        $response = $this->post("v2/vips", $json);
-        $response = $this->decodeJson($response->getBody()->getContents());
-        
-        return (new SelfResponse($response))
-            ->setClient($this)
-            ->serializeWith(function ($response) {
-                return $this->serializeVip($response->data);
-            });
-    }
-
-    /**
      * @return \UKFast\SDK\Loadbalancers\Entities\Vip
      */
     public function serializeVip($raw)
