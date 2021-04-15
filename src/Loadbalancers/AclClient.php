@@ -186,6 +186,23 @@ class AclClient extends BaseClient
                 return new Acl($this->apiToFriendly($body->data, self::MAP));
             });
     }
+    
+    /**
+     * @param Acl $acl
+     * @return SelfResponse
+     */
+    public function update(Acl $acl)
+    {
+        $data = json_encode($this->friendlyToApi($acl, static::MAP));
+        $response = $this->patch("v2/acls/{$acl->id}", $data);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Acl($this->apiToFriendly($body->data, self::MAP));
+            });
+    }
 
     public function addHeader($aclId, $header)
     {
