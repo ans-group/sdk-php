@@ -7,13 +7,12 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
- * @property string $vpcId
- * @property integer $capacity
- * @property integer $iops
- * @property boolean $attached
- * @property string $sync
+ * @property string $networkId
+ * @property int $sync
+ * @property string $createdAt
+ * @property string $updatedAt
  */
-class Volume extends Entity
+class NetworkPolicy extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }

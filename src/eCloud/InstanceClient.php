@@ -3,6 +3,7 @@
 namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
+use UKFast\SDK\Exception\UKFastException;
 use UKFast\SDK\Traits\PageItems;
 use UKFast\SDK\eCloud\Entities\Instance;
 
@@ -18,7 +19,7 @@ class InstanceClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'vpc_id' => 'vpcId',
-            'appliance_id' => 'applianceId',
+            'image_id' => 'imageId',
             'platform' => 'platform',
             'vcpu_cores' => 'vcpuCores',
             'ram_capacity' => 'ramCapacity',
@@ -233,5 +234,16 @@ class InstanceClient extends Client implements ClientEntityInterface
         }
 
         return $collection;
+    }
+
+    public function getConsoleSession($id)
+    {
+        $response = $this->post($this->collectionPath . '/' . $id . '/console-session');
+
+        if ($response->getStatusCode() != 200) {
+            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
+        }
+
+        return $this->decodeJson($response->getBody()->getContents())->data;
     }
 }

@@ -4,23 +4,20 @@ namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\Volume;
+use UKFast\SDK\eCloud\Entities\NetworkPolicy;
 
-class VolumeClient extends Client implements ClientEntityInterface
+class NetworkPolicyClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/volumes';
+    protected $collectionPath = 'v2/network-policies';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
             'name' => 'name',
-            'vpc_id' => 'vpcId',
-            'capacity' => 'capacity',
-            'iops' => 'iops',
-            'attached' => 'attached',
+            'network_id' => 'networkId',
             'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
@@ -29,13 +26,8 @@ class VolumeClient extends Client implements ClientEntityInterface
 
     public function loadEntity($data)
     {
-        return new Volume(
+        return new NetworkPolicy(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
-    }
-
-    public function getInstances($id)
-    {
-        return $this->instances()->getByVolumeId($id);
     }
 }

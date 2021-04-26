@@ -33,20 +33,8 @@ class ApiError
         }
 
         $error = new static;
-        if (isset($raw->title)) {
-            $error->title = $raw->title;
-        }
-
-        if (isset($raw->detail)) {
-            $error->detail = $raw->detail;
-        }
-
-        if (isset($raw->status)) {
-            $error->status = $raw->status;
-        }
-
-        if (isset($raw->source)) {
-            $error->source = $raw->source;
+        foreach (get_object_vars($raw) as $key => $value) {
+            $error->$key = $value;
         }
 
         return $error;

@@ -14,6 +14,7 @@ use UKFast\SDK\Entity;
  * @property bool $close
  * @property bool $redirectHttps
  * @property string $defaultTargetGroupId
+ * @property bool $accessIsAllowList
  */
 class Listener extends Entity
 {
