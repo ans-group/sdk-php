@@ -19,7 +19,6 @@ class RouterThroughputClient extends Client implements ClientEntityInterface
             'name' => 'name',
             'availability_zone_id' => 'availabilityZoneId',
             'committed_bandwidth' => 'committedBandwidth',
-            'burst_size' => 'burstSize',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
