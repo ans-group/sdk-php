@@ -17,7 +17,7 @@ class AclClient extends BaseClient
 {
     const MAP = [
         'listener_id' => 'listenerId',
-        'targetgroup_id' => 'targetgroupId',
+        'target_group_id' => 'targetGroupId',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
@@ -33,7 +33,7 @@ class AclClient extends BaseClient
     const FREETYPE_MAP = [];
 
     const CONDITION_MAP = [
-        'targetgroup_id' => 'targetgroupId',
+        'target_group_id' => 'targetGroupId',
     ];
 
     const ACTION_MAP = [
@@ -183,6 +183,23 @@ class AclClient extends BaseClient
         return (new SelfResponse($response))
             ->setClient($this)
             ->serializeWith(function ($body) {
+                return new Acl($this->apiToFriendly($body->data, self::MAP));
+            });
+    }
+    
+    /**
+     * @param Acl $acl
+     * @return SelfResponse
+     */
+    public function update(Acl $acl)
+    {
+        $data = json_encode($this->friendlyToApi($acl, static::MAP));
+        $response = $this->patch("v2/acls/{$acl->id}", $data);
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($body))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
                 return new Acl($this->apiToFriendly($body->data, self::MAP));
             });
     }

@@ -21,28 +21,32 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         'hsts_enabled' => 'hstsEnabled',
         'hsts_maxage' => 'hstsMaxage',
         'redirect_https' => 'redirectHttps',
-        'default_targetgroup_id' => 'defaultTargetgroupId',
+        'default_target_group_id' => 'defaultTargetGroupId',
+        'access_is_allow_list' => 'accessIsAllowList',
     ];
 
     const SSL_MAP = [
         'binds_id' => 'bindsId',
+        'allow_tls_v1' => 'allowTlsV1',
+        'allow_tls_v11' => 'allowTlsV11',
         'disable_http2' => 'disableHttp2',
-        'http2_only' => 'onlyHttp2',
+        'http2_only' => 'http2Only',
         'custom_ciphers' => 'customCiphers',
         'custom_tls13_ciphers' => 'customTls13Ciphers',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
     ];
 
     const BIND_MAP = [
         'frontend_id' => 'frontendId',
-        'vips_id' => 'vipsId',
+        'vip_id' => 'vipId',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
     ];
 
     const CERT_MAP = [
         'frontend_id' => 'frontendId',
-        'certs_name' => 'name',
-        'cert_key' => 'key',
-        'cert_certificate' => 'certificate',
-        'cert_bundle' => 'bundle'
+        'ca_bundle' => 'caBundle'
     ];
 
     const ACCESS_RULE_MAP = [
@@ -69,7 +73,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function getSsls($id, $page = 1, $perPage = 15, $filters = [])
     {
         $filters = $this->sslToApiFormat($filters, self::SSL_MAP);
-        $page = $this->paginatedRequest("v2/frontends/$id/ssls", $page, $perPage, $filters);
+        $page = $this->paginatedRequest("v2/listeners/$id/ssls", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return $this->apiFormatToSsl((array) $item);
         });
@@ -89,7 +93,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function getBinds($id, $page = 1, $perPage = 15, $filters = [])
     {
         $filters = $this->friendlyToApi($filters, self::BIND_MAP);
-        $page = $this->paginatedRequest("v2/frontends/$id/binds", $page, $perPage, $filters);
+        $page = $this->paginatedRequest("v2/listeners/$id/binds", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return new Bind($this->apiToFriendly($item, self::BIND_MAP));
         });
@@ -109,7 +113,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function getCertsPage($id, $page = 1, $perPage = 15, $filters = [])
     {
         $filters = $this->friendlyToApi($filters, self::CERT_MAP);
-        $page = $this->paginatedRequest("v2/frontends/$id/certs", $page, $perPage, $filters);
+        $page = $this->paginatedRequest("v2/listeners/$id/certs", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return new Cert($this->apiToFriendly($item, self::CERT_MAP));
         });
@@ -125,7 +129,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
      */
     public function getCertsById($id, $certId)
     {
-        $response = $this->request("GET", "v2/frontends/$id/certs/$certId");
+        $response = $this->request("GET", "v2/listeners/$id/certs/$certId");
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return new Cert($this->apiToFriendly($body->data, self::CERT_MAP));
@@ -144,7 +148,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function getAccessRulePage($id, $page = 1, $perPage = 15, $filters = [])
     {
         $filters = $this->friendlyToApi($filters, self::ACCESS_RULE_MAP);
-        $page = $this->paginatedRequest("v2/frontends/$id/access", $page, $perPage, $filters);
+        $page = $this->paginatedRequest("v2/listeners/$id/access", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
             return new AccessRule($this->apiToFriendly($item, self::ACCESS_RULE_MAP));
         });
@@ -160,7 +164,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
      */
     public function getAccessRuleById($id, $accessRuleId)
     {
-        $response = $this->request("GET", "v2/frontends/$id/access/$accessRuleId");
+        $response = $this->request("GET", "v2/listeners/$id/access/$accessRuleId");
         $body = $this->decodeJson($response->getBody()->getContents());
         return new AccessRule($this->apiToFriendly($body->data, self::ACCESS_RULE_MAP));
     }
@@ -175,7 +179,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     {
         $json = json_encode($this->friendlyToApi($this->sslToApiFormat($ssl), self::SSL_MAP));
 
-        $response = $this->post("v2/frontends/$id/ssls", $json);
+        $response = $this->post("v2/listeners/$id/ssls", $json);
         $response = $this->decodeJson($response->getBody()->getContents());
         
         return (new SelfResponse($response))
@@ -193,7 +197,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function addBind($id, $bind)
     {
         $json = json_encode($this->friendlyToApi($bind, self::BIND_MAP));
-        $response = $this->post("v2/frontends/$id/binds", $json);
+        $response = $this->post("v2/listeners/$id/binds", $json);
         $response = $this->decodeJson($response->getBody()->getContents());
         
         return (new SelfResponse($response))
@@ -210,7 +214,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
      */
     public function addAccessRule($id)
     {
-        $response = $this->post("v2/frontends/$id/access", null);
+        $response = $this->post("v2/listeners/$id/access", null);
         $response = $this->decodeJson($response->getBody()->getContents());
         
         return (new SelfResponse($response))
@@ -228,7 +232,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function addCert($id, Cert $cert)
     {
         $response = $this->post(
-            "v2/frontends/$id/certs",
+            "v2/listeners/$id/certs",
             json_encode($this->friendlyToApi($cert, self::CERT_MAP))
         );
         $response = $this->decodeJson($response->getBody()->getContents());
@@ -248,7 +252,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function updateAccessRule($id, AccessRule $accessRule)
     {
         $response = $this->patch(
-            "v2/frontends/$id/access/$accessRule->id",
+            "v2/listeners/$id/access/$accessRule->id",
             json_encode($this->friendlyToApi($accessRule, self::ACCESS_RULE_MAP))
         );
         $response = $this->decodeJson($response->getBody()->getContents());
@@ -263,7 +267,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function updateCert($id, Cert $cert)
     {
         $response = $this->patch(
-            "v2/frontends/$id/certs/$cert->id",
+            "v2/listeners/$id/certs/$cert->id",
             json_encode($this->friendlyToApi($cert, self::CERT_MAP))
         );
         $response = $this->decodeJson($response->getBody()->getContents());
@@ -274,6 +278,21 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
                 return new Cert($this->apiToFriendly($response->data, self::CERT_MAP));
             });
     }
+    
+    public function updateBind($id, Bind $bind)
+    {
+        $response = $this->patch(
+            "v2/listeners/$id/binds/{$bind->id}",
+            json_encode($this->friendlyToApi($bind, self::BIND_MAP))
+        );
+        $response = $this->decodeJson($response->getBody()->getContents());
+
+        return (new SelfResponse($response))
+            ->setClient($this)
+            ->serializeWith(function ($response) {
+                return new Bind($this->apiToFriendly($response->data, self::BIND_MAP));
+            });
+    }
 
     /**
      * @param $id
@@ -282,7 +301,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
      */
     public function deleteAccessRule($id, $accessRuleId)
     {
-        $response = $this->delete("v2/frontends/$id/access/$accessRuleId");
+        $response = $this->delete("v2/listeners/$id/access/$accessRuleId");
 
         return $response->getStatusCode() == 204;
     }
@@ -295,7 +314,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
      */
     public function deleteCertById($id, $certId)
     {
-        $response = $this->delete("v2/frontends/$id/certs/$certId");
+        $response = $this->delete("v2/listeners/$id/certs/$certId");
 
         return $response->getStatusCode() == 204;
     }

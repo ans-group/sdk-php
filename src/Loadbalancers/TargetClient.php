@@ -17,20 +17,15 @@ class TargetClient extends BaseClient implements ClientEntityInterface
     public function getEntityMap()
     {
         return [
-            'id' => 'id',
-            'targetgroup_id' => 'targetgroupId',
-            'ip' => 'ip',
-            'port' => 'port',
-            'weight' => 'weight',
-            'backup' => 'backup',
+            'target_group_id' => 'targetGroupId',
             'check_interval' => 'checkInterval',
             'check_ssl' => 'checkSsl',
             'check_rise' => 'checkRise',
             'check_fall' => 'checkFall',
             'disable_http2' => 'disableHttp2',
             'http2_only' => 'http2Only',
-            'send_proxy' => 'sendProxy',
-            'send_proxy_v2' => 'sendProxyV2',
+            'created_at' => 'createdAt',
+            'updated_at' => 'updatedAt',
         ];
     }
 

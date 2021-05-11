@@ -7,7 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $type
- * @property string $targetgroupId
+ * @property string $targetGroupId
  * @property string $conditional
  * @property int $index
  */

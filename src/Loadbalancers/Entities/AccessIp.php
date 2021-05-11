@@ -6,12 +6,11 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $listenerId
- * @property string $targetGroupId
+ * @property string $ip
  * @property string $createdAt
  * @property string $updatedAt
  */
-class Acl extends Entity
+class AccessIp extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }

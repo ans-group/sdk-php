@@ -4,23 +4,23 @@ namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\Router;
+use UKFast\SDK\eCloud\Entities\NetworkRulePort;
 
-class RouterClient extends Client implements ClientEntityInterface
+class NetworkRulePortClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/routers';
+    protected $collectionPath = 'v2/network-rule-ports';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
             'name' => 'name',
-            'vpc_id' => 'vpcId',
-            'availability_zone_id' => 'availabilityZoneId',
-            'router_throughput_id' => 'throughputId',
-            'sync' => 'sync',
+            'network_rule_id' => 'ruleId',
+            'protocol' => 'protocol',
+            'source' => 'source',
+            'destination' => 'destination',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
@@ -28,7 +28,7 @@ class RouterClient extends Client implements ClientEntityInterface
 
     public function loadEntity($data)
     {
-        return new Router(
+        return new NetworkRulePort(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }

@@ -3,6 +3,7 @@
 namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
+use UKFast\SDK\Exception\UKFastException;
 use UKFast\SDK\Traits\PageItems;
 use UKFast\SDK\eCloud\Entities\Instance;
 
@@ -18,7 +19,7 @@ class InstanceClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'vpc_id' => 'vpcId',
-            'appliance_id' => 'applianceId',
+            'image_id' => 'imageId',
             'platform' => 'platform',
             'vcpu_cores' => 'vcpuCores',
             'ram_capacity' => 'ramCapacity',
@@ -205,5 +206,44 @@ class InstanceClient extends Client implements ClientEntityInterface
         return $this->floatingIps()->getAll([
             'resourceId:in' => implode(',', $nicFilter),
         ]);
+    }
+
+    public function getByVolumeId($volumeId)
+    {
+        $page = $this->paginatedRequest('v2/volumes/'.$volumeId.'/instances', 1, 100);
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $page->serializeWith(function ($item) {
+            return $this->loadEntity($item);
+        });
+
+        $collection = $page->getItems();
+        if ($page->totalPages() == 1) {
+            return $collection;
+        }
+
+        // get any remaining pages
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->getPage($page->pageNumber() + 1, 100);
+            $collection = array_merge(
+                $collection,
+                $page->getItems()
+            );
+        }
+
+        return $collection;
+    }
+
+    public function getConsoleSession($id)
+    {
+        $response = $this->post($this->collectionPath . '/' . $id . '/console-session');
+
+        if ($response->getStatusCode() != 200) {
+            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
+        }
+
+        return $this->decodeJson($response->getBody()->getContents())->data;
     }
 }
