@@ -15,6 +15,11 @@ use UKFast\SDK\Entity;
  * @property bool $redirectHttps
  * @property string $defaultTargetGroupId
  * @property bool $accessIsAllowList
+ * @property bool $allowTlsv1
+ * @property bool $allowTlsv11
+ * @property bool $disableHttp2
+ * @property bool $http2Only
+ * @property string $customCiphers
  */
 class Listener extends Entity
 {
