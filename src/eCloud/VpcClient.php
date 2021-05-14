@@ -26,6 +26,7 @@ class VpcClient extends Client implements ClientEntityInterface
             'name' => 'name',
             'region_id' => 'regionId',
             'support_enabled' => 'supportEnabled',
+            'advanced_networking' => 'advancedNetworkingEnabled',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
