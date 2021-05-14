@@ -19,6 +19,9 @@ class VolumeClient extends Client implements ClientEntityInterface
             'name' => 'name',
             'vpc_id' => 'vpcId',
             'capacity' => 'capacity',
+            'iops' => 'iops',
+            'attached' => 'attached',
+            'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
@@ -29,5 +32,10 @@ class VolumeClient extends Client implements ClientEntityInterface
         return new Volume(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
+    }
+
+    public function getInstances($id)
+    {
+        return $this->instances()->getByVolumeId($id);
     }
 }

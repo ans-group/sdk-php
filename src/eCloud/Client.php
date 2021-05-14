@@ -124,6 +124,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function images()
+    {
+        return (new ImageClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function instances()
     {
         return (new InstanceClient($this->httpClient))->auth($this->token);
@@ -151,6 +159,14 @@ class Client extends BaseClient
     public function routers()
     {
         return (new RouterClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function routerThroughputs()
+    {
+        return (new RouterThroughputClient($this->httpClient))->auth($this->token);
     }
 
     /**
@@ -188,6 +204,31 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function networkPolicies()
+    {
+        return (new NetworkPolicyClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function networkRules()
+    {
+        return (new NetworkRuleClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function networkRulePorts()
+    {
+        return (new NetworkRulePortClient($this->httpClient))->auth($this->token);
+    }
+
+
+    /**
+     * @return BaseClient
+     */
     public function loadBalancerClusters()
     {
         return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
@@ -207,5 +248,29 @@ class Client extends BaseClient
     public function discountPlans()
     {
         return (new DiscountPlanClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function hostGroups()
+    {
+        return (new HostGroupClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function hostSpecs()
+    {
+        return (new HostSpecClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function dedicatedHosts()
+    {
+        return (new DedicatedHostClient($this->httpClient))->auth($this->token);
     }
 }

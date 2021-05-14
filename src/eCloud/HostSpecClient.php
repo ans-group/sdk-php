@@ -2,24 +2,26 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\HostSpec;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\Network;
 
-class NetworkClient extends Client implements ClientEntityInterface
+class HostSpecClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/networks';
+    protected $collectionPath = 'v2/host-specs';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
             'name' => 'name',
-            'vpc_id' => 'vpcId',
-            'router_id' => 'routerId',
-            'subnet' => 'subnet',
+            'cpu_type' => 'cpuType',
+            'cpu_sockets' => 'cpuSockets',
+            'cpu_cores' => 'cpuCores',
+            'cpu_clock_speed' => 'cpuSpeed',
+            'ram_capacity' => 'ramCapacity',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
@@ -27,7 +29,7 @@ class NetworkClient extends Client implements ClientEntityInterface
 
     public function loadEntity($data)
     {
-        return new Network(
+        return new HostSpec(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }

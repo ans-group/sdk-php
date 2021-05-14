@@ -4,22 +4,21 @@ namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\Network;
+use UKFast\SDK\eCloud\Entities\RouterThroughput;
 
-class NetworkClient extends Client implements ClientEntityInterface
+class RouterThroughputClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/networks';
+    protected $collectionPath = 'v2/router-throughputs';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
             'name' => 'name',
-            'vpc_id' => 'vpcId',
-            'router_id' => 'routerId',
-            'subnet' => 'subnet',
+            'availability_zone_id' => 'availabilityZoneId',
+            'committed_bandwidth' => 'committedBandwidth',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
@@ -27,7 +26,7 @@ class NetworkClient extends Client implements ClientEntityInterface
 
     public function loadEntity($data)
     {
-        return new Network(
+        return new RouterThroughput(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }

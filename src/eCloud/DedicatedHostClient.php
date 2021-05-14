@@ -2,15 +2,15 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\DedicatedHost;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\Network;
 
-class NetworkClient extends Client implements ClientEntityInterface
+class DedicatedHostClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/networks';
+    protected $collectionPath = 'v2/hosts';
 
     public function getEntityMap()
     {
@@ -18,8 +18,8 @@ class NetworkClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'vpc_id' => 'vpcId',
-            'router_id' => 'routerId',
-            'subnet' => 'subnet',
+            'host_group_id' => 'groupId',
+            'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
@@ -27,8 +27,13 @@ class NetworkClient extends Client implements ClientEntityInterface
 
     public function loadEntity($data)
     {
-        return new Network(
+        return new DedicatedHost(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
+    }
+
+    public function getInstances($id)
+    {
+        return $this->instances()->getByVolumeId($id);
     }
 }

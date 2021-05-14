@@ -10,7 +10,7 @@ use UKFast\SDK\Entity;
  * @property string $name
  * @property string $key
  * @property string $certificate
- * @property string $bundle
+ * @property string $caBundle
  */
 class Cert extends Entity
 {

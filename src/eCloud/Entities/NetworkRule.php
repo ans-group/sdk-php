@@ -7,13 +7,16 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
- * @property string $vpcId
- * @property string $routerId
- * @property string $subnet
+ * @property string $policyId
+ * @property string $source
+ * @property string $destination
+ * @property string $action
+ * @property int $sequence
+ * @property bool $enabled
  * @property string $createdAt
  * @property string $updatedAt
  */
-class Network extends Entity
+class NetworkRule extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }
