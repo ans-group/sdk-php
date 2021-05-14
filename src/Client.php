@@ -203,11 +203,11 @@ class Client
      * @throws GuzzleException
      * @return Page
      */
-    public function paginatedRequest($endpoint, $page, $perPage, $filters = [])
+    public function paginatedRequest($endpoint, $page, $perPage, $filters = [], $body = null, $headers = [])
     {
         $url = (new PaginationUrl($endpoint, $page, $perPage, $filters))->toString();
 
-        $response = $this->request('GET', $url);
+        $response = $this->request('GET', $url, $body = null, $headers = []);
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
