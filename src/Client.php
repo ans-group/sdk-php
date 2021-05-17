@@ -200,6 +200,7 @@ class Client
      * @param int $page
      * @param int $perPage
      * @param array $filters
+     * @param array $headers
      * @throws GuzzleException
      * @return Page
      */
