@@ -25,7 +25,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         'access_is_allow_list' => 'accessIsAllowList',
         'allow_tlsv1' => 'allowTlsv1',
         'allow_tlsv11' => 'allowTlsv11',
-        'disallow_tlsv12' => 'disallowTlsv12',
+        'disable_tlsv12' => 'disableTlsv12',
         'disable_http2' => 'disableHttp2',
         'http2_only' => 'http2Only',
         'custom_ciphers' => 'customCiphers',
