@@ -207,7 +207,7 @@ class Client
     {
         $url = (new PaginationUrl($endpoint, $page, $perPage, $filters))->toString();
 
-        $response = $this->request('GET', $url, $body = null, $headers = []);
+        $response = $this->request('GET', $url, $body, $headers);
 
         $body = $this->decodeJson($response->getBody()->getContents());
 
