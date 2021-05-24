@@ -2,11 +2,11 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\CustomOption;
 use UKFast\SDK\SelfResponse;
 
-class CustomOptionsClient extends Client
+class CustomOptionsClient extends BaseClient
 {
     const MAP = [
         'frontend_id' => 'frontendId',

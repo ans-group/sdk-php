@@ -7,10 +7,20 @@ use UKFast\SDK\SelfResponse;
 
 trait PageItems
 {
+    /**
+     * Return array of api properties to map to the entity
+     * @return array
+     */
     public function getEntityMap()
     {
         return [];
     }
+
+    /**
+     * Return an entity model
+     * @param $data
+     */
+    abstract public function loadEntity($data);
 
     /**
      * Get a paginated response from a collection
@@ -36,7 +46,7 @@ trait PageItems
     }
 
     /**
-     * Gets array of all Page Items
+     * Get an array of all items from all pages
      *
      * @param array $filters
      * @return array
@@ -44,7 +54,7 @@ trait PageItems
     public function getAll($filters = [])
     {
         // get first page
-        $page = $this->getPage($currentPage = 1, $perPage = 100, $filters);
+        $page = $this->getPage(1, $perPage = 100, $filters);
         if ($page->totalItems() == 0) {
             return [];
         }
@@ -56,8 +66,7 @@ trait PageItems
 
         // get any remaining pages
         while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->getPage($currentPage++, $perPage, $filters);
-
+            $page = $this->getPage($page->pageNumber() + 1, $perPage, $filters);
             $items = array_merge(
                 $items,
                 $page->getItems()
@@ -66,7 +75,6 @@ trait PageItems
 
         return $items;
     }
-
 
     /**
      * Get a single item from the collection
@@ -83,6 +91,7 @@ trait PageItems
     /**
      * Delete a single item from the collection
      * @param $id
+     * @return bool
      */
     public function deleteById($id)
     {
@@ -119,7 +128,7 @@ trait PageItems
     {
         $response = $this->patch(
             $this->collectionPath . '/' . $entity->id,
-            json_encode($this->friendlyToApi($entity, $this->getEntityMap()))
+            json_encode($this->friendlyToApi($entity->getDirty(), $this->getEntityMap()))
         );
 
         $responseBody = $this->decodeJson($response->getBody()->getContents());

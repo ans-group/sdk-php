@@ -11,6 +11,7 @@ abstract class Entity implements ArrayAccess
      * @var array
      */
     protected $attributes = [];
+    protected $originalAttributes = [];
 
     protected $dates = [];
 
@@ -24,6 +25,45 @@ abstract class Entity implements ArrayAccess
         }
 
         $this->fill($attributes);
+        $this->syncOriginalAttributes();
+    }
+
+
+    /**
+     * Magic getter method. Proxies property access to
+     * internal array of attributes
+     *
+     * @param string $attr
+     * @return mixed
+     */
+    public function __get($attr)
+    {
+        return $this->get($attr);
+    }
+
+    /**
+     * Magic setter method. Proxies property access to
+     * internal array of attributes
+     *
+     * @param string $attr
+     * @param mixed $value
+     * @return void
+     */
+    public function __set($attr, $value)
+    {
+        $this->set($attr, $value);
+    }
+
+    /**
+     * Allows an entity to work with isset() or empty()
+     * Checks that the attribute has been set and that
+     * the value is not null
+     *
+     * @return bool
+     */
+    public function __isset($key)
+    {
+        return !is_null($this->get($key));
     }
 
     /**
@@ -192,39 +232,49 @@ abstract class Entity implements ArrayAccess
     }
 
     /**
-     * Magic getter method. Proxies property access to
-     * internal array of attributes
-     *
-     * @param string $attr
-     * @return mixed
-     */
-    public function __get($attr)
-    {
-        return $this->get($attr);
-    }
-
-    /**
-     * Magic setter method. Proxies property access to
-     * internal array of attributes
-     *
-     * @param string $attr
-     * @param mixed $value
+     * Sync the original attributes with current
      * @return void
      */
-    public function __set($attr, $value)
+    public function syncOriginalAttributes()
     {
-        $this->set($attr, $value);
+        $this->originalAttributes = $this->attributes;
     }
 
     /**
-     * Allows an entity to work with isset() or empty()
-     * Checks that the attribute has been set and that
-     * the value is not null
-     *
+     * Determine if the entity has changes
      * @return bool
      */
-    public function __isset($key)
+    public function isDirty()
     {
-        return !is_null($this->get($key));
+        return !empty($this->getDirty());
+    }
+
+    /**
+     * Determine if the entity has no changes
+     * @return bool
+     */
+    public function isClean()
+    {
+        return !$this->isDirty();
+    }
+
+    /**
+     * Get attributes that have changed since last sync
+     *
+     * @return array
+     */
+    public function getDirty()
+    {
+        $dirty = [];
+
+        foreach ($this->attributes as $key => $value) {
+            if (!array_key_exists($key, $this->originalAttributes) ||
+                $value !== $this->originalAttributes[$key]
+            ) {
+                $dirty[$key] = $value;
+            }
+        }
+
+        return $dirty;
     }
 }

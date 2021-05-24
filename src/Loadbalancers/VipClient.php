@@ -2,13 +2,18 @@
 
 namespace UKFast\SDK\Loadbalancers;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Vip;
 use UKFast\SDK\SelfResponse;
 
-class VipClient extends Client
+class VipClient extends BaseClient
 {
-    const MAP = ['group_id' => 'groupId'];
+    const MAP = [
+        'cluster_id' => 'clusterId',
+        'mac_address' => 'macAddress',
+        'internal_cidr' => 'internalCidr',
+        'external_cidr' => 'externalCidr',
+    ];
 
     protected $basePath = 'loadbalancers/';
 
@@ -42,24 +47,6 @@ class VipClient extends Client
         $response = $this->request("GET", "v2/vips/$id");
         $body = $this->decodeJson($response->getBody()->getContents());
         return $this->serializeVip($body->data);
-    }
-
-    /**
-     * Creates a new vip
-     * @param \UKFast\SDK\Loadbalancers\Entities\Configuration
-     * @return UKFast\SDK\SelfResponse
-     */
-    public function create($vip)
-    {
-        $json = json_encode($this->friendlyToApi($vip, self::MAP));
-        $response = $this->post("v2/vips", $json);
-        $response = $this->decodeJson($response->getBody()->getContents());
-        
-        return (new SelfResponse($response))
-            ->setClient($this)
-            ->serializeWith(function ($response) {
-                return $this->serializeVip($response->data);
-            });
     }
 
     /**
