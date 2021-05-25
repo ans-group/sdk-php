@@ -18,6 +18,7 @@ use UKFast\SDK\Entity;
  * @property boolean $online
  * @property boolean $agentRunning
  * @property boolean $backupEnabled
+ * @property string $hostGroupId
  * @property string $createdAt
  * @property string $updatedAt
  */
