@@ -4,11 +4,9 @@ namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Client as BaseClient;
-use UKFast\SDK\Loadbalancers\Entities\AccessRule;
 use UKFast\SDK\Loadbalancers\Entities\Bind;
 use UKFast\SDK\Loadbalancers\Entities\Cert;
 use UKFast\SDK\Loadbalancers\Entities\Listener;
-use UKFast\SDK\Loadbalancers\Entities\Ssl;
 use UKFast\SDK\SelfResponse;
 use UKFast\SDK\Traits\PageItems;
 

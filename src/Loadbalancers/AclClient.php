@@ -4,13 +4,6 @@ namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Acl;
-use UKFast\SDK\Loadbalancers\Entities\Action;
-use UKFast\SDK\Loadbalancers\Entities\Condition;
-use UKFast\SDK\Loadbalancers\Entities\Freetype;
-use UKFast\SDK\Loadbalancers\Entities\Header;
-use UKFast\SDK\Loadbalancers\Entities\Ip;
-use UKFast\SDK\Loadbalancers\Entities\Match;
-use UKFast\SDK\Loadbalancers\Entities\PathUrl;
 use UKFast\SDK\SelfResponse;
 
 class AclClient extends BaseClient
