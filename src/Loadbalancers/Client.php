@@ -18,16 +18,6 @@ class Client extends BaseClient
         return (new ClusterClient($this->httpClient))->auth($this->token);
     }
 
-    public function customOptions()
-    {
-        return (new CustomOptionsClient($this->httpClient))->auth($this->token);
-    }
-
-    public function errorPages()
-    {
-        return (new ErrorPagesClient($this->httpClient))->auth($this->token);
-    }
-
     public function listeners()
     {
         return (new ListenerClient($this->httpClient))->auth($this->token);
