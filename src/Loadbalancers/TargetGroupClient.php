@@ -32,6 +32,7 @@ class TargetGroupClient extends BaseClient implements ClientEntityInterface
             'check_port' => 'checkPort',
             'send_proxy' => 'sendProxy',
             'send_proxy_v2' => 'sendProxyV2',
+            'ssl_verify' => 'sslVerify',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
