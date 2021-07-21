@@ -8,6 +8,7 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property string $name
  * @property string $vpcId
+ * @property string $availabilityZoneId
  * @property integer $capacity
  * @property integer $iops
  * @property boolean $attached
