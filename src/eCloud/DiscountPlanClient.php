@@ -18,6 +18,7 @@ class DiscountPlanClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'commitment_amount' => 'commitment',
+            'commitment_before_discount' => 'threshold',
             'discount_rate' => 'rate',
             'term_length' => 'term',
             'term_start_date' => 'start',
