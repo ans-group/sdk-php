@@ -9,6 +9,7 @@ use UKFast\SDK\ThreatMonitoring\Reporting\BlockedAttacksClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\EventsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\LoginHistoryClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\MissedAttacksClient;
+use UKFast\SDK\ThreatMonitoring\Reporting\ScaClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopAlertsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopFilesChangedClient;
 
@@ -111,7 +112,7 @@ class Client extends BaseClient
     {
         return (new AttackGeolocationClient($this->httpClient))->auth($this->token);
     }
-    
+
     /**
      * @return MissedAttacksClient
      */
@@ -119,13 +120,21 @@ class Client extends BaseClient
     {
         return (new MissedAttacksClient($this->httpClient))->auth($this->token);
     }
-    
+
     /**
      * @return LoginHistoryClient
      */
     public function loginHistory()
     {
         return (new LoginHistoryClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ScaClient
+     */
+    public function sca()
+    {
+        return (new ScaClient($this->httpClient))->auth($this->token);
     }
 
     /**
