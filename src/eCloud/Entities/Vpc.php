@@ -9,6 +9,7 @@ use UKFast\SDK\Entity;
  * @property string $name
  * @property string $regionId
  * @property boolean $supportEnabled
+ * @property boolean $consoleEnabled
  * @property boolean $advancedNetworkingEnabled
  * @property string $createdAt
  * @property string $updatedAt
