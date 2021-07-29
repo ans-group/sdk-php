@@ -9,7 +9,6 @@ use UKFast\SDK\Entity;
  * @property string $name
  * @property string $availabilityZoneId
  * @property integer $committedBandwidth
- * @property integer $burstSize
  * @property string $createdAt
  * @property string $updatedAt
  */

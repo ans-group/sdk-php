@@ -18,6 +18,7 @@ class VolumeClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'vpc_id' => 'vpcId',
+            'availability_zone_id' => 'availabilityZoneId',
             'capacity' => 'capacity',
             'iops' => 'iops',
             'attached' => 'attached',
