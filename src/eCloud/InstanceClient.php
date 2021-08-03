@@ -19,6 +19,7 @@ class InstanceClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'vpc_id' => 'vpcId',
+            'availability_zone_id' => 'availabilityZoneId',
             'image_id' => 'imageId',
             'platform' => 'platform',
             'vcpu_cores' => 'vcpuCores',
@@ -29,6 +30,7 @@ class InstanceClient extends Client implements ClientEntityInterface
             'online' => 'online',
             'agent_running' => 'agentRunning',
             'backup_enabled' => 'backupEnabled',
+            'host_group_id' => 'hostGroupId',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];

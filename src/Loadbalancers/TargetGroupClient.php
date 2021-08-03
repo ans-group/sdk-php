@@ -22,6 +22,9 @@ class TargetGroupClient extends BaseClient implements ClientEntityInterface
             'cookie_opts' => 'cookieOpts',
             'timeouts_connect' => 'timeoutsConnect',
             'timeouts_server' => 'timeoutsServer',
+            'timeouts_http_request' => 'timeoutsHttpRequest',
+            'timeouts_check' => 'timeoutsCheck',
+            'timeouts_tunnel' => 'timeoutsTunnel',
             'monitor_url' => 'monitorUrl',
             'monitor_method' => 'monitorMethod',
             'monitor_host' => 'monitorHost',
@@ -32,6 +35,7 @@ class TargetGroupClient extends BaseClient implements ClientEntityInterface
             'check_port' => 'checkPort',
             'send_proxy' => 'sendProxy',
             'send_proxy_v2' => 'sendProxyV2',
+            'ssl_verify' => 'sslVerify',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
