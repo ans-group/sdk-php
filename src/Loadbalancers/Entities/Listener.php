@@ -21,6 +21,7 @@ use UKFast\SDK\Entity;
  * @property bool $disableHttp2
  * @property bool $http2Only
  * @property string $customCiphers
+ * @property int $timeoutsClient
  */
 class Listener extends Entity
 {

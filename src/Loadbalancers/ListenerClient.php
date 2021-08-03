@@ -27,6 +27,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         'disable_http2' => 'disableHttp2',
         'http2_only' => 'http2Only',
         'custom_ciphers' => 'customCiphers',
+        'timeouts_client' => 'timeoutsClient',
     ];
 
     const BIND_MAP = [
