@@ -14,6 +14,7 @@ use UKFast\SDK\ThreatMonitoring\Reporting\MissedAttacksClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopAlertsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopBruteforceUsernamesClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopFilesChangedClient;
+use UKFast\SDK\ThreatMonitoring\Reporting\ScaClient;
 
 class Client extends BaseClient
 {
@@ -114,7 +115,7 @@ class Client extends BaseClient
     {
         return (new AttackGeolocationClient($this->httpClient))->auth($this->token);
     }
-    
+
     /**
      * @return MissedAttacksClient
      */
@@ -146,7 +147,7 @@ class Client extends BaseClient
     {
         return (new AttackingCountriesClient($this->httpClient))->auth($this->token);
     }
-    
+
     /**
      * @return LoginHistoryClient
      */
@@ -161,5 +162,13 @@ class Client extends BaseClient
     public function config()
     {
         return (new ConfigClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ScaClient
+     */
+    public function sca()
+    {
+        return (new ScaClient($this->httpClient))->auth($this->token);
     }
 }
