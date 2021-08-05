@@ -18,6 +18,7 @@ class VpnServiceClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'router_id' => 'routerId',
+            'vpc_id' => 'vpcId',
             'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
