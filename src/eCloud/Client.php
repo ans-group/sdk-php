@@ -273,4 +273,20 @@ class Client extends BaseClient
     {
         return (new DedicatedHostClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpnSessions()
+    {
+        return (new VpnSessionClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpnServices()
+    {
+        return (new VpnServiceClient($this->httpClient))->auth($this->token);
+    }
 }
