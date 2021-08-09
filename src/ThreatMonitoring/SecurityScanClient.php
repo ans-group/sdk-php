@@ -44,6 +44,37 @@ class SecurityScanClient extends Client
     }
 
     /**
+     * Get group of scans by any one scan id.
+     *
+     * @param $id
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @return SecurityScan
+     */
+    public function getGroupById($id, $page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest('v1/scans/group/' . $id, $page, $perPage, $filters);
+
+        $page->serializeWith(function ($item) {
+            return $this->serializeResponse($item);
+        });
+
+        return $page;
+    }
+
+    /**
+     * Get a security scans total
+     * @return SecurityScan
+     */
+    public function getAll()
+    {
+        $response = $this->get('v1/scans');
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializeResponse($body->data);
+    }
+
+    /**q
      * Serialize the response to use friendly names
      * @param $data
      * @return SecurityScan
