@@ -55,6 +55,70 @@ class AttackingIpsClient extends Client
         }, $body->data);
     }
 
+
+    /**
+     * Get the total number of blocked ip addresses
+     * @param array $filters
+     * @return BlockedAttackingIpsTotal
+     */
+    public function getBlockedTotal($filters = [])
+    {
+        $queryParams = '';
+
+        if (count($filters) > 0) {
+            $queryParams = '?' . http_build_query($filters);
+        }
+
+        $response = $this->get('v1/reports/attacking-ips/blocked/total' . $queryParams);
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $this->serializeAttackingIpTotal($body->data);
+    }
+
+    /**
+     * Get a list of the blocked ips
+     * @param array $filters
+     * @return array
+     */
+    public function getBlockedList($filters = [])
+    {
+        $queryParams = '';
+
+        if (count($filters) > 0) {
+            $queryParams = '?' . http_build_query($filters);
+        }
+
+        $response = $this->get('v1/reports/attacking-ips/blocked/list' . $queryParams);
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return array_map(function ($item) {
+            return $this->serializeAttackingIpList($item);
+        }, $body->data);
+    }
+
+    /**
+     * Get a list of the top most blocked ips
+     * @param array $filters
+     * @return array
+     */
+    public function getTopBlockedList($filters = [])
+    {
+        $queryParams = '';
+
+        if (count($filters) > 0) {
+            $queryParams = '?' . http_build_query($filters);
+        }
+
+        $response = $this->get('v1/reports/attacking-ips/blocked/top' . $queryParams);
+
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return array_map(function ($item) {
+            return $this->serializeAttackingIpList($item);
+        }, $body->data);
+    }
+
     public function serializeAttackingIpTotal($data)
     {
         return new AttackingIpsTotal($this->apiToFriendly($data, static::ATTACKING_IPS_TOTAL_MAP));
