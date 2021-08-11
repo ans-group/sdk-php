@@ -12,7 +12,6 @@ use UKFast\SDK\ThreatMonitoring\Reporting\MissedAttacksClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\ScaClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopAlertsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopFilesChangedClient;
-use UKFast\SDK\ThreatMonitoring\Reporting\ScaClient;
 
 class Client extends BaseClient
 {
@@ -144,13 +143,5 @@ class Client extends BaseClient
     public function config()
     {
         return (new ConfigClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
-     * @return ScaClient
-     */
-    public function sca()
-    {
-        return (new ScaClient($this->httpClient))->auth($this->token);
     }
 }
