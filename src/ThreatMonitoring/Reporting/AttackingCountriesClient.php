@@ -33,6 +33,8 @@ class AttackingCountriesClient extends Client
 
     public function serializeTopAttackingCountriesList($data)
     {
-        return new AttackingCountriesList($this->apiToFriendly($data, static::ATTACKING_COUNTRIES_TOP_BLOCKED_LIST_MAP));
+        return new AttackingCountriesList(
+            $this->apiToFriendly($data, static::ATTACKING_COUNTRIES_TOP_BLOCKED_LIST_MAP)
+        );
     }
 }
