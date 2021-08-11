@@ -33,7 +33,9 @@ class ActiveResponseClient extends Client
 
     public function serializeBlockedAttackList($data)
     {
-        $blockedAttack = new ActiveResponseBlockedAttacks($this->apiToFriendly($data, self::ACTIVE_RESPONSE_BLOCKED_ATTACK_LIST_MAP));
+        $blockedAttack = new ActiveResponseBlockedAttacks(
+            $this->apiToFriendly($data, self::ACTIVE_RESPONSE_BLOCKED_ATTACK_LIST_MAP)
+        );
         $blockedAttack->syncOriginalAttributes();
 
         return $blockedAttack;

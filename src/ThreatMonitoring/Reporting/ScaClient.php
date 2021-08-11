@@ -2,7 +2,6 @@
 
 namespace UKFast\SDK\ThreatMonitoring\Reporting;
 
-
 use UKFast\SDK\ThreatMonitoring\Client;
 use UKFast\SDK\ThreatMonitoring\Entities\ScaResults;
 use UKFast\SDK\ThreatMonitoring\Entities\ScaScoreAverage;
@@ -54,7 +53,7 @@ class ScaClient extends Client
      * @return ScaScoreAverage
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getScaScoreAverage ($filters = []) : ScaScoreAverage
+    public function getScaScoreAverage($filters = []) : ScaScoreAverage
     {
         $queryParams = '';
 
@@ -69,7 +68,8 @@ class ScaClient extends Client
         return $this->serializeScaScoreAverage($body->data);
     }
 
-    public function serializeScaScoreAverage($data) {
+    public function serializeScaScoreAverage($data)
+    {
         return new ScaScoreAverage($this->apiToFriendly($data, static::SCA_SCORE_AVERAGE_MAP));
     }
 }
