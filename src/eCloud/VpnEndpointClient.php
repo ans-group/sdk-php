@@ -18,6 +18,7 @@ class VpnEndpointClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'floating_ip_id' => 'floatingIpId',
+            'vpn_service_id' => 'vpnServiceId',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
