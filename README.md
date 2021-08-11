@@ -1,6 +1,6 @@
 UKFast API PHP SDK
 =====================
-[![Build Status](https://travis-ci.org/ukfast/sdk-php.svg?branch=master)](https://travis-ci.org/ukfast/sdk-php)
+![Build Status](https://github.com/ukfast/sdk-php/actions/workflows/run-tests.yml/badge.svg)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 
