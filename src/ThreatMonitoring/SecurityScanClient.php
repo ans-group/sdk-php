@@ -64,17 +64,6 @@ class SecurityScanClient extends Client
     }
 
     /**
-     * Get a security scans total
-     * @return SecurityScan
-     */
-    public function getAll()
-    {
-        $response = $this->get('v1/scans');
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return $this->serializeResponse($body->data);
-    }
-
-    /**q
      * Serialize the response to use friendly names
      * @param $data
      * @return SecurityScan
