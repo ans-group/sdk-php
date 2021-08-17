@@ -14,7 +14,7 @@ class TopBruteForceUsernamesClient extends Client
     /**
      * Get the top 10 most commonly used brute force usernames
      * @param array $filters
-     * @return TopBruteforceUsernamesList
+     * @return array
      */
     public function getList($filters = [])
     {
@@ -34,6 +34,6 @@ class TopBruteForceUsernamesClient extends Client
 
     public function serializeTopBruteForceUsernamesList($data)
     {
-        return new TopBruteforceUsernamesList($this->apiToFriendly($data, static::TOP_BRUTE_FORCE_USERNAMES_LIST_MAP));
+        return new TopBruteForceUsernamesList($this->apiToFriendly($data, static::TOP_BRUTE_FORCE_USERNAMES_LIST_MAP));
     }
 }

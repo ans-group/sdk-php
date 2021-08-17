@@ -13,7 +13,7 @@ use UKFast\SDK\ThreatMonitoring\Reporting\LoginHistoryClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\MissedAttacksClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\ScaClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopAlertsClient;
-use UKFast\SDK\ThreatMonitoring\Reporting\TopBruteforceUsernamesClient;
+use UKFast\SDK\ThreatMonitoring\Reporting\TopBruteForceUsernamesClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopFilesChangedClient;
 
 class Client extends BaseClient
@@ -125,7 +125,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return TopBruteforceUsernamesClient
+     * @return TopBruteForceUsernamesClient
      */
     public function topBruteForceUsernamesReports()
     {
