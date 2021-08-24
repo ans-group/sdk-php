@@ -7,6 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
+ * @property string $availabilityZoneId
  * @property string description
  */
 class VpnProfileGroup extends Entity

@@ -17,6 +17,7 @@ class VpnProfileGroupClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'name' => 'name',
+            'availability_zone_id' => 'availabilityZoneId',
             'description' => 'description',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
