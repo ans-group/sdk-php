@@ -289,4 +289,20 @@ class Client extends BaseClient
     {
         return (new VpnServiceClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpnEndpoints()
+    {
+        return (new VpnEndpointClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpnProfileGroups()
+    {
+        return (new VpnProfileGroupClient($this->httpClient))->auth($this->token);
+    }
 }

@@ -33,4 +33,16 @@ class HostSpecClient extends Client implements ClientEntityInterface
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }
+
+    public function getByAvailabilityZoneId($availabilityZoneId, $filters = [])
+    {
+        $originalCollection = $this->collectionPath;
+
+        $this->collectionPath = 'v2/availability-zones/'.$availabilityZoneId.'/host-specs';
+        $items = $this->getAll($filters);
+
+        $this->collectionPath = $originalCollection;
+
+        return $items;
+    }
 }
