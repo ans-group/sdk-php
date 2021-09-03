@@ -17,7 +17,7 @@ class VolumeGroupClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'name' => 'name',
-            'vpc_id' => 'vpc_id',
+            'vpc_id' => 'vpcId',
             'availability_zone_id' => 'availabilityZoneId',
             'sync' => 'sync',
             'created_at' => 'createdAt',
