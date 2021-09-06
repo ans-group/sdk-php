@@ -309,7 +309,7 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
-    public function volumesGroups()
+    public function volumeGroups()
     {
         return (new VolumeGroupClient($this->httpClient))->auth($this->token);
     }
