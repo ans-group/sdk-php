@@ -13,6 +13,7 @@ class AgentClient extends Client
         'server_id' => 'serverId',
         'hosting_type' => 'hostingType',
         'os_version' => 'osVersion',
+        'has_nessus' => 'hasNessus',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt'
     ];

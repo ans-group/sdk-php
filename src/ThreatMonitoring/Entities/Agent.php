@@ -9,6 +9,10 @@ use UKFast\SDK\Entity;
  * @property string $status
  * @property string $threatResponseEnabled
  * @property string $name
+ * @property int $serverId
+ * @property string $hostingType
+ * @property string $osVersion
+ * @property boolean $hasNessus
  * @property string $createdAt
  * @property string $updatedAt
  */
