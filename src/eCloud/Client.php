@@ -305,4 +305,12 @@ class Client extends BaseClient
     {
         return (new VpnProfileGroupClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function volumeGroups()
+    {
+        return (new VolumeGroupClient($this->httpClient))->auth($this->token);
+    }
 }
