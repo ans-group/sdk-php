@@ -13,6 +13,9 @@ use UKFast\SDK\Entity;
  * @property integer $iops
  * @property boolean $attached
  * @property string $sync
+ * @property boolean $isShared
+ * @property string $volumeGroupId
+ * @property integer $port
  */
 class Volume extends Entity
 {
