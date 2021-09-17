@@ -3,13 +3,17 @@
 namespace UKFast\SDK\ThreatMonitoring;
 
 use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\ThreatMonitoring\Reporting\ActiveResponseClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\AttackGeolocationClient;
+use UKFast\SDK\ThreatMonitoring\Reporting\AttackingCountriesClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\AttackingIpsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\BlockedAttacksClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\EventsClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\LoginHistoryClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\MissedAttacksClient;
+use UKFast\SDK\ThreatMonitoring\Reporting\ScaClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopAlertsClient;
+use UKFast\SDK\ThreatMonitoring\Reporting\TopBruteForceUsernamesClient;
 use UKFast\SDK\ThreatMonitoring\Reporting\TopFilesChangedClient;
 
 class Client extends BaseClient
@@ -111,7 +115,7 @@ class Client extends BaseClient
     {
         return (new AttackGeolocationClient($this->httpClient))->auth($this->token);
     }
-    
+
     /**
      * @return MissedAttacksClient
      */
@@ -119,13 +123,45 @@ class Client extends BaseClient
     {
         return (new MissedAttacksClient($this->httpClient))->auth($this->token);
     }
-    
+
+    /**
+     * @return TopBruteForceUsernamesClient
+     */
+    public function topBruteForceUsernamesReports()
+    {
+        return (new TopBruteForceUsernamesClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ActiveResponseClient
+     */
+    public function activeResponseReports()
+    {
+        return (new ActiveResponseClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return AttackingCountriesClient
+     */
+    public function attackingCountriesReports()
+    {
+        return (new AttackingCountriesClient($this->httpClient))->auth($this->token);
+    }
+
     /**
      * @return LoginHistoryClient
      */
     public function loginHistory()
     {
         return (new LoginHistoryClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ScaClient
+     */
+    public function sca()
+    {
+        return (new ScaClient($this->httpClient))->auth($this->token);
     }
 
     /**

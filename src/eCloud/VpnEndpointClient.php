@@ -2,27 +2,23 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\VpnEndpoint;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\DiscountPlan;
 
-class DiscountPlanClient extends Client implements ClientEntityInterface
+class VpnEndpointClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/discount-plans';
+    protected $collectionPath = 'v2/vpn-endpoints';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
             'name' => 'name',
-            'commitment_amount' => 'commitment',
-            'commitment_before_discount' => 'threshold',
-            'discount_rate' => 'rate',
-            'term_length' => 'term',
-            'term_start_date' => 'start',
-            'term_end_date' => 'end',
+            'floating_ip_id' => 'floatingIpId',
+            'vpn_service_id' => 'vpnServiceId',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
@@ -30,7 +26,7 @@ class DiscountPlanClient extends Client implements ClientEntityInterface
 
     public function loadEntity($data)
     {
-        return new DiscountPlan(
+        return new VpnEndpoint(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }

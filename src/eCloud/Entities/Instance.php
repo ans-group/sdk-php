@@ -8,6 +8,7 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property string $name
  * @property string $vpcId
+ * @property string $availabilityZoneId
  * @property string $imageId
  * @property string $platform
  * @property integer $vcpuCores
@@ -18,6 +19,7 @@ use UKFast\SDK\Entity;
  * @property boolean $online
  * @property boolean $agentRunning
  * @property boolean $backupEnabled
+ * @property string $hostGroupId
  * @property string $createdAt
  * @property string $updatedAt
  */

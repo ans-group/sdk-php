@@ -6,6 +6,7 @@ use UKFast\SDK\Entity;
 
 /**
  * @property integer $id
+ * @property string $name
  * @property string $type
  * @property string $target
  * @property string $status

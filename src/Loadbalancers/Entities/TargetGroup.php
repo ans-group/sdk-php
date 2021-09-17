@@ -16,6 +16,9 @@ use UKFast\SDK\Entity;
  * @property string $source
  * @property int $timeoutsConnect
  * @property int $timeoutsServer
+ * @property int $timeoutsHttpRequest
+ * @property int $timeoutsCheck
+ * @property int $timeoutsTunnel
  * @property string $monitorUrl
  * @property string $monitorMethod
  * @property string $monitorHost
@@ -26,6 +29,9 @@ use UKFast\SDK\Entity;
  * @property int $checkPort
  * @property bool $sendProxy
  * @property bool $sendProxyV2
+ * @property bool $ssl
+ * @property bool $sslVerify
+ * @property bool $sni
  * @property \DateTime $createdAt
  * @property \DateTime $updatedAt
  */

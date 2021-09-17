@@ -6,14 +6,11 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $vpcId
+ * @property string $name
  * @property string $availabilityZoneId
- * @property string $ipAddress
- * @property string $resourceId
- * @property string $createdAt
- * @property string $updatedAt
+ * @property string description
  */
-class FloatingIp extends Entity
+class VpnProfileGroup extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }
