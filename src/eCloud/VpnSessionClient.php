@@ -17,6 +17,7 @@ class VpnSessionClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'name' => 'name',
+            'vpc_id' => 'vpcId',
             'vpn_profile_group_id' => 'vpnProfileGroupId',
             'vpn_service_id' => 'vpnServiceId',
             'vpn_endpoint_id' => 'vpnEndpointId',
