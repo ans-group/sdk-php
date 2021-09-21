@@ -10,6 +10,7 @@ use UKFast\SDK\Entity;
  * @property string $vpcId
  * @property string $availabilityZoneId
  * @property string sync
+ * @property object $usage
  */
 class VolumeGroup extends Entity
 {

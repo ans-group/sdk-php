@@ -7,6 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
+ * @property string vpcId
  * @property string vpnServiceId
  * @property string floatingIpId
  * @property string $sync

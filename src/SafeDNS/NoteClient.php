@@ -59,12 +59,21 @@ class NoteClient extends Client implements ClientEntityInterface
      */
     public function create(Note $note)
     {
+        $data = [
+            'notes' => $note->content,
+        ];
+
+        if (empty($note->contactId) === false) {
+            $data['user_id'] = $note->contactId;
+        }
+
+        if (empty($note->recordId) === false) {
+            $data['record_id'] = $note->recordId;
+        }
+
         $response = $this->post(
             'v1/zones/' . rawurlencode($note->zone) . "/notes",
-            json_encode([
-                'user_id' => $note->contactId,
-                'note'    => $note->content,
-            ]),
+            json_encode($data),
             ['Content-Type' => 'application/json']
         );
 
