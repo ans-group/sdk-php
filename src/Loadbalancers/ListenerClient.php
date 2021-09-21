@@ -209,7 +209,9 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     public function loadEntity($data)
     {
         $listener = new Listener($this->apiToFriendly($data, self::MAP));
-        $listener->geoip = new GeoIp($this->apiToFriendly($data->geoip, self::GEOIP_MAP));
+        if (isset($data->geoip)) {
+            $listener->geoip = new GeoIp($this->apiToFriendly($data->geoip, self::GEOIP_MAP));
+        }
 
         return $listener;
     }
