@@ -22,6 +22,7 @@ use UKFast\SDK\Entity;
  * @property bool $http2Only
  * @property string $customCiphers
  * @property int $timeoutsClient
+ * @property GeoIp $geoip
  */
 class Listener extends Entity
 {
