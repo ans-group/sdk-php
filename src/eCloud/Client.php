@@ -225,15 +225,6 @@ class Client extends BaseClient
         return (new NetworkRulePortClient($this->httpClient))->auth($this->token);
     }
 
-
-    /**
-     * @return BaseClient
-     */
-    public function loadBalancerClusters()
-    {
-        return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
-    }
-
     /**
      * @return BaseClient
      */
@@ -312,5 +303,21 @@ class Client extends BaseClient
     public function volumeGroups()
     {
         return (new VolumeGroupClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function loadBalancerSpecs()
+    {
+        return (new LoadBalancerSpecClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function loadBalancers()
+    {
+        return (new LoadBalancerClient($this->httpClient))->auth($this->token);
     }
 }
