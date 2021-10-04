@@ -16,6 +16,7 @@ class LoadBalancerClient extends Client implements ClientEntityInterface
     {
         return [
             'id' => 'id',
+            'name' => 'name',
             'vpc_id' => 'vpcId',
             'availability_zone_id' => 'availabilityZoneId',
             'load_balancer_spec_id' => 'specId',
