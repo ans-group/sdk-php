@@ -18,6 +18,8 @@ class LoadBalancerSpecClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'description' => 'description',
+            'created_at' => 'createdAt',
+            'updated_at' => 'updatedAt',
         ];
     }
 
