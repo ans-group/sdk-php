@@ -21,6 +21,8 @@ class LoadBalancerClient extends Client implements ClientEntityInterface
             'availability_zone_id' => 'availabilityZoneId',
             'load_balancer_spec_id' => 'specId',
             'sync' => 'sync',
+            'created_at' => 'createdAt',
+            'updated_at' => 'updatedAt',
         ];
     }
 
