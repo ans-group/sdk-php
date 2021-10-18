@@ -3,31 +3,32 @@
 namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
-use UKFast\SDK\SelfResponse;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\LoadBalancerCluster;
+use UKFast\SDK\eCloud\Entities\LoadBalancer;
 
-class LoadBalancerClusterClient extends Client implements ClientEntityInterface
+class LoadBalancerClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/lbcs';
+    protected $collectionPath = 'v2/load-balancers';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
+            'name' => 'name',
             'vpc_id' => 'vpcId',
             'availability_zone_id' => 'availabilityZoneId',
-            'name' => 'name',
-            'config_id' => 'configId',
-            'nodes' => 'nodes',
+            'load_balancer_spec_id' => 'specId',
+            'sync' => 'sync',
+            'created_at' => 'createdAt',
+            'updated_at' => 'updatedAt',
         ];
     }
 
     public function loadEntity($data)
     {
-        return new LoadBalancerCluster(
+        return new LoadBalancer(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }

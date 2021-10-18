@@ -225,15 +225,6 @@ class Client extends BaseClient
         return (new NetworkRulePortClient($this->httpClient))->auth($this->token);
     }
 
-
-    /**
-     * @return BaseClient
-     */
-    public function loadBalancerClusters()
-    {
-        return (new LoadBalancerClusterClient($this->httpClient))->auth($this->token);
-    }
-
     /**
      * @return BaseClient
      */
@@ -272,5 +263,61 @@ class Client extends BaseClient
     public function dedicatedHosts()
     {
         return (new DedicatedHostClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpnSessions()
+    {
+        return (new VpnSessionClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpnServices()
+    {
+        return (new VpnServiceClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpnEndpoints()
+    {
+        return (new VpnEndpointClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpnProfileGroups()
+    {
+        return (new VpnProfileGroupClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function volumeGroups()
+    {
+        return (new VolumeGroupClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function loadBalancerSpecs()
+    {
+        return (new LoadBalancerSpecClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function loadBalancers()
+    {
+        return (new LoadBalancerClient($this->httpClient))->auth($this->token);
     }
 }

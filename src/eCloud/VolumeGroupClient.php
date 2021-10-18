@@ -2,15 +2,15 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\VolumeGroup;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\Volume;
 
-class VolumeClient extends Client implements ClientEntityInterface
+class VolumeGroupClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/volumes';
+    protected $collectionPath = 'v2/volume-groups';
 
     public function getEntityMap()
     {
@@ -19,27 +19,17 @@ class VolumeClient extends Client implements ClientEntityInterface
             'name' => 'name',
             'vpc_id' => 'vpcId',
             'availability_zone_id' => 'availabilityZoneId',
-            'capacity' => 'capacity',
-            'iops' => 'iops',
-            'attached' => 'attached',
             'sync' => 'sync',
+            'usage' => 'usage',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
-            'is_shared' => 'isShared',
-            'volume_group_id' => 'volumeGroupId',
-            'port' => 'port'
         ];
     }
 
     public function loadEntity($data)
     {
-        return new Volume(
+        return new VolumeGroup(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
-    }
-
-    public function getInstances($id)
-    {
-        return $this->instances()->getByVolumeId($id);
     }
 }

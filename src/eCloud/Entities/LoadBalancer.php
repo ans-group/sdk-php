@@ -9,15 +9,13 @@ use UKFast\SDK\Entity;
  * @property string $name
  * @property string $vpcId
  * @property string $availabilityZoneId
- * @property integer $capacity
- * @property integer $iops
- * @property boolean $attached
+ * @property string $specId
  * @property string $sync
- * @property boolean $isShared
- * @property string $volumeGroupId
- * @property integer $port
+ * @property string $createdAt
+ * @property string $updatedAt
+ *
  */
-class Volume extends Entity
+class LoadBalancer extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }

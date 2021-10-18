@@ -6,14 +6,12 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $vpcId
- * @property string $availabilityZoneId
- * @property string $ipAddress
- * @property string $resourceId
+ * @property string $name
+ * @property string $description
  * @property string $createdAt
  * @property string $updatedAt
  */
-class FloatingIp extends Entity
+class LoadBalancerSpec extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }

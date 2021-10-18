@@ -20,6 +20,7 @@ use UKFast\SDK\Entity;
  * @property boolean $agentRunning
  * @property boolean $backupEnabled
  * @property string $hostGroupId
+ * @property string $volumeGroupId
  * @property string $createdAt
  * @property string $updatedAt
  */
