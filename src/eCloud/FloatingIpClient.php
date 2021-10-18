@@ -52,4 +52,16 @@ class FloatingIpClient extends Client implements ClientEntityInterface
 
         return $response->getStatusCode() == 202;
     }
+
+    public function getAllByInstanceId($id)
+    {
+        $originalCollection = $this->collectionPath;
+
+        $this->collectionPath = 'v2/instances/'.$id.'/floating-ips';
+        $items = $this->getAll();
+
+        $this->collectionPath = $originalCollection;
+
+        return $items;
+    }
 }

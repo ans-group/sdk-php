@@ -196,19 +196,7 @@ class InstanceClient extends Client implements ClientEntityInterface
 
     public function getFloatingIps($instanceId)
     {
-        $nics = $this->getNics($instanceId);
-        if (empty($nics)) {
-            return [];
-        }
-
-        $nicFilter = [];
-        foreach ($nics as $nic) {
-            $nicFilter[] = $nic->id;
-        }
-
-        return $this->floatingIps()->getAll([
-            'resourceId:in' => implode(',', $nicFilter),
-        ]);
+        return $this->floatingIps()->getAllByInstanceId($instanceId);
     }
 
     public function getByVolumeId($volumeId)
