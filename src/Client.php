@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK;
 
+use DateTime;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -283,5 +284,23 @@ class Client
     public function friendlyToApi($item, $map)
     {
         return $this->apiToFriendly($item, array_flip($map));
+    }
+
+    /**
+     * @param  array|Entity $item
+     * @param  string[]     $map
+     * @return array
+     */
+    public function friendlyToApiWithDates($item, $map)
+    {
+        $item = $this->friendlyToApi($item, $map);
+
+        array_walk_recursive($item, function (&$value) {
+            if (is_object($value) && get_class($value) === DateTime::class) {
+                $value = $value->format(DateTime::ATOM);
+            }
+        });
+
+        return $item;
     }
 }
