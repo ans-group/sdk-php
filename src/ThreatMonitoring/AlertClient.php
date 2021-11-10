@@ -83,8 +83,8 @@ class AlertClient extends Client
     public function toggleAlerts($data)
     {
         $response = $this->post('v1/alerts/rules/toggle', json_encode($data));
-        $body = $this->decodeJson($response->getBody()->getContents());
-        return $body;
+
+        return $response->getStatusCode() === 204 || $response->getStatusCode() === 200;
     }
 
     /**
