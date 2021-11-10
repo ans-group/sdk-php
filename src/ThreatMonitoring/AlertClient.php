@@ -57,6 +57,49 @@ class AlertClient extends Client
     }
 
     /**
+     * Get all alerts
+     *
+     * @param int $page
+     * @param int $perPage
+     * @param array $filters
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getAlerts($page = 1, $perPage = 15, $filters = [])
+    {
+        $page = $this->paginatedRequest('v1/alerts/rules', $page, $perPage, $filters);
+
+        $page->serializeWith(function ($item) {
+            return $this->serializeAlertResponse($item);
+        });
+
+        return $page;
+    }
+
+    /**
+     * Encode and send the data to the API.
+     *
+     * @param $data
+     */
+    public function toggleAlerts($data)
+    {
+        $response = $this->post('v1/alerts/rules/toggle', json_encode($data));
+
+        return $response->getStatusCode() === 204 || $response->getStatusCode() === 200;
+    }
+
+    /**
+     * Encode and send the data to the API.
+     *
+     * @param $data
+     */
+    public function bulkToggleAlerts($data)
+    {
+        $response = $this->post('v1/alerts/rules/bulk-toggle', json_encode($data));
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return $body;
+    }
+
+    /**
      * Serialize the response to use friendly names
      * @param $data
      * @return Alert
