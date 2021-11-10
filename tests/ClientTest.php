@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use DateTime;
 use GuzzleHttp\Client as Guzzle;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
@@ -443,6 +444,25 @@ class ClientTest extends TestCase
             'id' => 1,
             'created_at' => '2018-01-01 10:00:00',
             'name' => 'Test',
+        ], $api);
+    }
+
+    /**
+     * @test
+     */
+    public function maps_friendly_names_to_api_names_with_datetime_objects()
+    {
+        $map = ['created_at' => 'createdAt'];
+        $api = (new Client)->friendlyToApi([
+            'id'        => 1,
+            'createdAt' => new DateTime('2018-01-01T10:00:00+00:00'),
+            'name'      => 'Test',
+        ], $map);
+
+        $this->assertEquals([
+            'id'         => 1,
+            'created_at' => '2018-01-01T10:00:00+00:00',
+            'name'       => 'Test',
         ], $api);
     }
 
