@@ -266,6 +266,9 @@ class Client
             $item = $item->toArray();
         }
         foreach ($item as $key => $value) {
+            if ($value instanceof Entity) {
+                $value = $value->toArray();
+            }
             $keyParts = explode(':', $key);
             $key = array_shift($keyParts);
             $filter = array_shift($keyParts);
