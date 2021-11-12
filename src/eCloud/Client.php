@@ -320,4 +320,11 @@ class Client extends BaseClient
     {
         return (new LoadBalancerClient($this->httpClient))->auth($this->token);
     }
+    /**
+     * @return BaseClient
+     */
+    public function monitorings()
+    {
+        return (new MonitoringClient($this->httpClient))->auth($this->token);
+    }
 }
