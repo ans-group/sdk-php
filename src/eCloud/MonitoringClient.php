@@ -20,6 +20,10 @@ class MonitoringClient extends Client implements ClientEntityInterface
         ];
     }
 
+    /**
+     * @param $data
+     * @return Instance
+     */
     public function loadEntity($data)
     {
         return new Instance(
@@ -27,6 +31,11 @@ class MonitoringClient extends Client implements ClientEntityInterface
         );
     }
 
+    /**
+     * @param string $vmId
+     * @return array|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getAvailableMetrics(string $vmId)
     {
         try {
@@ -37,6 +46,12 @@ class MonitoringClient extends Client implements ClientEntityInterface
         return $data->getBody()->getContents();
     }
 
+    /**
+     * @param int $widgetId
+     * @param $additionalQueryParams
+     * @return array|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getMetrics(int $widgetId, $additionalQueryParams)
     {
         try {
