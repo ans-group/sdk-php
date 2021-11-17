@@ -55,6 +55,17 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         return []; // needs to be empty so we can do custom hydration logic
     }
 
+    public function friendlyToApi($item, $map)
+    {
+        $raw = parent::friendlyToApi($item, $map);
+        if (isset($item['geoip'])) {
+            $rawGeoIp = $this->friendlyToApi($item['geoip'], self::GEOIP_MAP);
+            $raw['geoip'] = $rawGeoIp;
+        }
+
+        return $raw;
+    }
+
     /**
      * Gets a page of Binds
      *
