@@ -6,6 +6,7 @@ use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Loadbalancers\Entities\Bind;
 use UKFast\SDK\Loadbalancers\Entities\Cert;
+use UKFast\SDK\Loadbalancers\Entities\GeoIp;
 use UKFast\SDK\Loadbalancers\Entities\Listener;
 use UKFast\SDK\SelfResponse;
 use UKFast\SDK\Traits\PageItems;
@@ -42,11 +43,27 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         'ca_bundle' => 'caBundle'
     ];
 
+
+    const GEOIP_MAP = [
+        'european_union' => 'europeanUnion'
+    ];
+
     protected $collectionPath = 'v2/listeners';
 
     public function getEntityMap()
     {
-        return static::MAP;
+        return []; // needs to be empty so we can do custom hydration logic
+    }
+
+    public function friendlyToApi($item, $map)
+    {
+        $raw = parent::friendlyToApi($item, $map);
+        if (isset($item['geoip'])) {
+            $rawGeoIp = $this->friendlyToApi($item['geoip'], self::GEOIP_MAP);
+            $raw['geoip'] = $rawGeoIp;
+        }
+
+        return $raw;
     }
 
     /**
@@ -202,6 +219,11 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
      */
     public function loadEntity($data)
     {
-        return new Listener($this->apiToFriendly($data, $this->getEntityMap()));
+        $listener = new Listener($this->apiToFriendly($data, self::MAP));
+        if (isset($data->geoip)) {
+            $listener->geoip = new GeoIp($this->apiToFriendly($data->geoip, self::GEOIP_MAP));
+        }
+
+        return $listener;
     }
 }
