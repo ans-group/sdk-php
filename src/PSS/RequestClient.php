@@ -18,6 +18,7 @@ class RequestClient extends BaseClient
         'system_reference' => 'systemReference',
         'unread_replies' => 'unreadReplies',
         'contact_method' => 'contactMethod',
+        'change_process_required' => 'changeProcessRequired',
     ];
 
     /**
