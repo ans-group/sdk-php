@@ -23,6 +23,7 @@ use UKFast\SDK\Entity;
  * @property array $cc
  * @property int $unreadReplies
  * @property string $contactMethod
+ * @property boolean $changeProcessRequired
  */
 class Request extends Entity
 {
