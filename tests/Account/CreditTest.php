@@ -2,7 +2,6 @@
 
 namespace Tests\Account;
 
-use Faker\Factory as Faker;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -17,14 +16,12 @@ class CreditTest extends TestCase
      */
     public function getPage()
     {
-        $faker = Faker::create();
-        
         $apiResponse = [
             'data' => [
                 [
-                    'type'      => $faker->word,
-                    'total'     => $faker->numberBetween(10),
-                    'remaining' => $faker->randomDigitNotNull,
+                    'type'      => 'Credit',
+                    'total'     => 9,
+                    'remaining' => 5,
                 ]
             ],
             'meta' => [

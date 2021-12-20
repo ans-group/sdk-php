@@ -56,8 +56,8 @@ class PaymentCardClientTest extends TestCase
         $this->assertEquals(12, $paymentCard->issueNumber);
         $this->assertTrue(true, $paymentCard->primaryCard);
 
-        $this->assertInternalType('int', $paymentCard->id);
-        $this->assertInternalType('int', $paymentCard->issueNumber);
+        $this->assertTrue(is_int($paymentCard->id));
+        $this->assertTrue(is_int($paymentCard->issueNumber));
     }
 
     /**

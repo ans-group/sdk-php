@@ -6,29 +6,18 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use Faker\Factory as Faker;
 use PHPUnit\Framework\TestCase;
 use UKFast\SDK\DDoSX\DomainVerificationClient;
 use UKFast\SDK\Exception\ValidationException;
 
 class DomainVerificationTest extends TestCase
 {
-    protected $faker;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->faker = Faker::create();
-    }
-
-
     /**
      * @test
      */
     public function verify_domain_via_dns()
     {
-        $domainName = $this->faker->domainName;
+        $domainName = 'example.com';
         $mock       = new MockHandler([
             new Response(200),
             new Response(422, [], json_encode([
@@ -47,7 +36,7 @@ class DomainVerificationTest extends TestCase
         $this->assertTrue($client->verifyByDns($domainName));
 
         $this->expectException(ValidationException::class);
-        $client->verifyByDns($this->faker->domainName);
+        $client->verifyByDns('example.com');
     }
 
     /**
@@ -55,7 +44,7 @@ class DomainVerificationTest extends TestCase
      */
     public function verify_domain_via_file_upload()
     {
-        $domainName = $this->faker->domainName;
+        $domainName = 'example.com';
         $mock       = new MockHandler([
             new Response(200),
             new Response(422, [], json_encode([
@@ -74,7 +63,7 @@ class DomainVerificationTest extends TestCase
         $this->assertTrue($client->verifyByDns($domainName));
 
         $this->expectException(ValidationException::class);
-        $client->verifyByDns($this->faker->domainName);
+        $client->verifyByDns('example.com');
     }
 
     /**
@@ -82,8 +71,8 @@ class DomainVerificationTest extends TestCase
      */
     public function download_verification_file()
     {
-        $filename           = $this->faker->word . '.txt';
-        $verificationString = $this->faker->word . PHP_EOL . $this->faker->word;
+        $filename           = 'test.txt';
+        $verificationString = 'test1' . PHP_EOL . 'test2';
         $contentType        = 'text/plain; charset=UTF-8';
 
         $mock = new MockHandler([
@@ -96,7 +85,7 @@ class DomainVerificationTest extends TestCase
         $guzzle = new Client(['handler' => HandlerStack::create($mock)]);
         $client = new DomainVerificationClient($guzzle);
 
-        $verificationFile = $client->getVerificationFile($this->faker->domainName);
+        $verificationFile = $client->getVerificationFile('example.com');
 
         $this->assertEquals($filename, $verificationFile->getName());
         $this->assertEquals($verificationString, $verificationFile->getStream()->getContents());

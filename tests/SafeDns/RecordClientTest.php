@@ -21,10 +21,8 @@ class RecordClientTest extends TestCase
      */
     protected $faker;
 
-    protected function setUp()
+    protected function setFaker()
     {
-        parent::setUp();
-
         $this->faker = Faker::create();
     }
 
@@ -42,6 +40,8 @@ class RecordClientTest extends TestCase
      */
     public function constructs_from_response()
     {
+        $this->setFaker();
+
         $response = [
             'id'         => $this->faker->uuid,
             'name'       => $this->faker->domainName,
@@ -74,6 +74,8 @@ class RecordClientTest extends TestCase
      */
     public function creates_and_gets_ssl_correctly()
     {
+        $this->setFaker();
+        
         $domainName = $this->faker->domainName;
         $apiData    = [
             'id'         => $this->faker->uuid,

@@ -21,10 +21,8 @@ class SslClientTest extends TestCase
      */
     protected $faker;
 
-    protected function setUp()
+    protected function setFaker()
     {
-        parent::setUp();
-
         $this->faker = Faker::create();
     }
 
@@ -42,6 +40,8 @@ class SslClientTest extends TestCase
      */
     public function constructs_from_response()
     {
+        $this->setFaker();
+
         $response = [
             'id'            => $this->faker->uuid,
             'ukfast_ssl_id' => $this->faker->randomDigit,
@@ -72,6 +72,8 @@ class SslClientTest extends TestCase
      */
     public function gets_ssl_page()
     {
+        $this->setFaker();
+
         $mockHandler = new MockHandler([
             new Response(200, [], json_encode([
                 'data' => [
@@ -129,6 +131,8 @@ class SslClientTest extends TestCase
      */
     public function gets_ssl_by_id()
     {
+        $this->setFaker();
+
         $uuid = $this->faker->uuid;
         $mockHandler = new MockHandler([
             new Response(200, [], json_encode([
@@ -157,6 +161,8 @@ class SslClientTest extends TestCase
      */
     public function creates_and_gets_ssl_correctly()
     {
+        $this->setFaker();
+        
         $apiData = [
             'id'            => $this->faker->uuid,
             'ukfast_ssl_id' => $this->faker->randomDigit,
