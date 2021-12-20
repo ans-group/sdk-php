@@ -13,30 +13,18 @@ use UKFast\SDK\Account\CreditClient;
 class CreditTest extends TestCase
 {
     /**
-     * Faker data provider
-     *
-     * @var \Faker\Generator
-     */
-    protected $faker;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->faker = Faker::create();
-    }
-
-    /**
      * @test
      */
     public function getPage()
     {
+        $faker = Faker::create();
+        
         $apiResponse = [
             'data' => [
                 [
-                    'type'      => $this->faker->word,
-                    'total'     => $this->faker->numberBetween(10),
-                    'remaining' => $this->faker->randomDigitNotNull,
+                    'type'      => $faker->word,
+                    'total'     => $faker->numberBetween(10),
+                    'remaining' => $faker->randomDigitNotNull,
                 ]
             ],
             'meta' => [
