@@ -19,10 +19,8 @@ class SslCertificateTest extends TestCase
      */
     protected $faker;
 
-    protected function setUp()
+    protected function setFaker()
     {
-        parent::setUp();
-
         $this->faker = Faker::create();
     }
 
@@ -32,6 +30,8 @@ class SslCertificateTest extends TestCase
      */
     public function constructs_from_response()
     {
+        $this->setFaker();
+
         $validDays = $this->faker->numberBetween(1, 825);
 
         $response = [
@@ -72,6 +72,8 @@ class SslCertificateTest extends TestCase
      */
     public function gets_certificates_page()
     {
+        $this->setFaker();
+
         $validDaysOne = $this->faker->numberBetween(1, 825);
         $validDaysTwo = $this->faker->numberBetween(1, 825);
 
@@ -140,6 +142,8 @@ class SslCertificateTest extends TestCase
      */
     public function gets_certificate_by_id()
     {
+        $this->setFaker();
+        
         $validDays = $this->faker->numberBetween(1, 825);
 
         $mockHandler = new MockHandler([

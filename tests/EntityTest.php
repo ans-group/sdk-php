@@ -2,24 +2,11 @@
 
 namespace Tests;
 
-use Faker\Factory as Faker;
 use PHPUnit\Framework\TestCase;
 use UKFast\SDK\Entity;
 
 class EntityTest extends TestCase
 {
-    /**
-     * @var \Faker\Generator
-     */
-    protected $faker;
-
-    protected function setUp()
-    {
-        $this->faker = Faker::create();
-        
-        parent::setUp();
-    }
-
     /**
      * @test
      */
@@ -104,10 +91,10 @@ class EntityTest extends TestCase
     public function can_find_if_array_access_property_exists()
     {
         $contact = new Contact([
-            'id' => $this->faker->randomDigitNotNull,
+            'id' => 123,
         ]);
 
-        $this->assertFalse($contact->offsetExists($this->faker->randomDigitNotNull));
+        $this->assertFalse($contact->offsetExists(123));
         $this->assertTrue($contact->offsetExists('id'));
     }
 
@@ -116,7 +103,7 @@ class EntityTest extends TestCase
      */
     public function can_get_array_access_property()
     {
-        $id = $this->faker->randomDigitNotNull;
+        $id = 321;
 
         $contact = new Contact([
             'id' => $id,
@@ -130,7 +117,7 @@ class EntityTest extends TestCase
      */
     public function can_set_array_access_property()
     {
-        $id = $this->faker->randomDigitNotNull;
+        $id = 123;
 
         $contact = new Contact();
         $contact['id'] = $id;
@@ -144,7 +131,7 @@ class EntityTest extends TestCase
     public function can_unset_array_access_property()
     {
         $contact = new Contact([
-            'id' => $this->faker->randomDigitNotNull,
+            'id' => 123,
         ]);
 
         unset($contact['id']);

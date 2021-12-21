@@ -66,11 +66,6 @@ aUIekYaJh+r5OIp6f8S/wXis0U4WHk3sDz8ZGjv/bj0SUV5PjxY=
 -----END RSA PRIVATE KEY-----
 SSLKEY;
 
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
     /**
      * Tests ValidationResult entity class from valid response
      */

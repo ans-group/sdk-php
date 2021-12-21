@@ -2,7 +2,6 @@
 
 namespace Tests\Account;
 
-use Faker\Factory as Faker;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -13,20 +12,6 @@ use UKFast\SDK\Account\CreditClient;
 class CreditTest extends TestCase
 {
     /**
-     * Faker data provider
-     *
-     * @var \Faker\Generator
-     */
-    protected $faker;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->faker = Faker::create();
-    }
-
-    /**
      * @test
      */
     public function getPage()
@@ -34,9 +19,9 @@ class CreditTest extends TestCase
         $apiResponse = [
             'data' => [
                 [
-                    'type'      => $this->faker->word,
-                    'total'     => $this->faker->numberBetween(10),
-                    'remaining' => $this->faker->randomDigitNotNull,
+                    'type'      => 'Credit',
+                    'total'     => 9,
+                    'remaining' => 5,
                 ]
             ],
             'meta' => [
