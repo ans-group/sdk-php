@@ -52,7 +52,7 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 
     public function getEntityMap()
     {
-        return []; // needs to be empty so we can do custom hydration logic
+        return static::MAP;
     }
 
     public function friendlyToApi($item, $map)
