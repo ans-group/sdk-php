@@ -8,6 +8,7 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property string $name
  * @property bool $deployed
+ * @property bool $distributeVips
  * @property \DateTime $deployedAt
  * @property \DateTime $createdAt
  * @property \DateTime $updatedAt
