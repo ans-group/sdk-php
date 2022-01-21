@@ -18,6 +18,7 @@ class ClusterClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'name' => 'name',
             'deployed_at' => 'deployedAt',
+            'distribute_vips' => 'distributeVips',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
