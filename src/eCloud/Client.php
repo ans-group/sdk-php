@@ -328,4 +328,12 @@ class Client extends BaseClient
     {
         return (new MonitoringClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function tasks()
+    {
+        return (new TaskClient($this->httpClient))->auth($this->token);
+    }
 }
