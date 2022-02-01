@@ -10,7 +10,6 @@ use UKFast\SDK\Entity;
  * @property string $resourceId
  * @property string $resourceType
  * @property string $name
- * @property string $job
  * @property string $data
  * @property boolean $completed
  * @property string $createdAt
