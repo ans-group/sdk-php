@@ -9,7 +9,7 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property string $resourceId
  * @property string $name
- * @property boolean $completed
+ * @property string $status
  * @property string $createdAt
  * @property string $updatedAt
  */
