@@ -30,4 +30,16 @@ class TaskClient extends Client implements ClientEntityInterface
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }
+
+    /**
+     * Get an individual task
+     * @param $id
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getById($id)
+    {
+        $response = $this->get($this->collectionPath . '/' . $id);
+        return $this->loadEntity($this->decodeJson($response->getBody()->getContents()));
+    }
 }
