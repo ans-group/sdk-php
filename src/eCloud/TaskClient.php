@@ -18,7 +18,6 @@ class TaskClient extends Client implements ClientEntityInterface
             'id' => 'id',
             'resource_id' => 'resourceId',
             'name' => 'name',
-            'data' => 'data',
             'completed' => 'completed',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
