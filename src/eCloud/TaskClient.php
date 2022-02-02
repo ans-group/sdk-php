@@ -10,7 +10,7 @@ class TaskClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/discount-plans';
+    protected $collectionPath = 'v2/tasks';
 
     public function getEntityMap()
     {
