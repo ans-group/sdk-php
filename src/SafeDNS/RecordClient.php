@@ -12,6 +12,8 @@ class RecordClient extends BaseClient implements ClientEntityInterface
 {
     protected $basePath = 'safedns/';
 
+    public $dnsSuffix = 'in-addr.arpa';
+
     const RECORD_MAP = [
         'updated_at' => 'updatedAt'
     ];
@@ -51,6 +53,24 @@ class RecordClient extends BaseClient implements ClientEntityInterface
 
         // Zone isn't currently returned by the API
         $body->data->zone = $zoneName;
+
+        return $this->loadEntity($body->data);
+    }
+
+    /**
+     * Gets a specific zone record by name
+     *
+     * @param $zoneName
+     * @param string $id
+     * @return Record
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getByName($name)
+    {
+        $response = $this->request("GET",
+            sprintf("v1/zones/records?name=%s.%s", $name, $this->dnsSuffix)
+        );
+        $body = $this->decodeJson($response->getBody()->getContents());
 
         return $this->loadEntity($body->data);
     }

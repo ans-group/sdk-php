@@ -114,4 +114,39 @@ class RecordClientTest extends TestCase
 
         $this->assertInstanceOf(Record::class, $createResponse->get());
     }
+
+    /**
+     * @test
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function gets_by_name()
+    {
+        $this->setFaker();
+
+        $domainName = $this->faker->domainName;
+        $apiData    = [
+            'id'         => $this->faker->uuid,
+            'name'       => $this->faker->domainWord . '.' . $domainName,
+            'zone'       => $this->faker->domainWord . '.' . $domainName,
+            'type'       => $this->faker->word,
+            'content'    => $this->faker->ipv4,
+            'ttl'        => $this->faker->numberBetween(300, 86400),
+            'priority'   => null,
+            'updated_at' => $this->faker->dateTime('now', 'GMT')->format(DateTime::ATOM),
+        ];
+
+        $mockHandler = new MockHandler([
+            new Response(200, [], json_encode([
+                'data' => $apiData,
+                'meta' => [],
+            ])),
+        ]);
+
+        $httpClient     = new GuzzleClient(['handler' => HandlerStack::create($mockHandler)]);
+        $client         = new RecordClient($httpClient);
+
+        $createResponse = $client->getByName($apiData['name']);
+
+        $this->assertInstanceOf(Record::class, $createResponse);
+    }
 }
