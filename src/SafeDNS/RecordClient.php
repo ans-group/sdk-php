@@ -12,8 +12,6 @@ class RecordClient extends BaseClient implements ClientEntityInterface
 {
     protected $basePath = 'safedns/';
 
-    public $dnsSuffix = 'in-addr.arpa';
-
     const RECORD_MAP = [
         'updated_at' => 'updatedAt'
     ];
@@ -67,7 +65,7 @@ class RecordClient extends BaseClient implements ClientEntityInterface
      */
     public function getByName($name)
     {
-        $response = $this->request("GET", sprintf("v1/zones/records?name=%s.%s", $name, $this->dnsSuffix));
+        $response = $this->request("GET", sprintf("v1/zones/records?name=%s", $name));
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return $this->loadEntity($body->data);
