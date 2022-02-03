@@ -65,7 +65,7 @@ class RecordClient extends BaseClient implements ClientEntityInterface
      */
     public function getByName($name)
     {
-        $response = $this->request("GET", sprintf("v1/zones/records?name=%s", $name));
+        $response = $this->request("GET", sprintf("v1/records?name=%s", $name));
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return $this->loadEntity($body->data);
