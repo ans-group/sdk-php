@@ -60,15 +60,17 @@ class RecordClient extends BaseClient implements ClientEntityInterface
      *
      * @param $zoneName
      * @param string $id
-     * @return Record
+     * @return Page
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getByName($name)
+    public function getByName($name, $page = 1, $perPage = 20, $filters = [])
     {
-        $response = $this->request("GET", sprintf("v1/records?name:eq=%s", $name));
-        $body = $this->decodeJson($response->getBody()->getContents());
+        $page = $this->paginatedRequest(sprintf('v1/records?name:eq=%s', $name), $page, $perPage, $filters);
+        $page->serializeWith(function ($item) {
+            return new Record($item);
+        });
 
-        return $this->loadEntity($body->data[0]);
+        return $page;
     }
 
     /**

@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\SafeDns\\RecordClientTest::gets_by_name":3},"times":{"Tests\\SafeDns\\RecordClientTest::gets_by_name":0.021}}

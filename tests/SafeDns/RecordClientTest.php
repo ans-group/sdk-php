@@ -9,6 +9,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use UKFast\SDK\Page;
 use UKFast\SDK\SafeDNS\Client as SafeDnsClient;
 use UKFast\SDK\SafeDNS\Entities\Record;
 use UKFast\SDK\SafeDNS\RecordClient;
@@ -137,7 +138,7 @@ class RecordClientTest extends TestCase
 
         $mockHandler = new MockHandler([
             new Response(200, [], json_encode([
-                'data' => $apiData,
+                'data' => [$apiData],
                 'meta' => [],
             ])),
         ]);
@@ -147,6 +148,6 @@ class RecordClientTest extends TestCase
 
         $createResponse = $client->getByName($apiData['name']);
 
-        $this->assertInstanceOf(Record::class, $createResponse);
+        $this->assertInstanceOf(Page::class, $createResponse);
     }
 }
