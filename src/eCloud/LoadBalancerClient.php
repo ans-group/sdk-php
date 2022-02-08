@@ -20,6 +20,7 @@ class LoadBalancerClient extends Client implements ClientEntityInterface
             'vpc_id' => 'vpcId',
             'availability_zone_id' => 'availabilityZoneId',
             'load_balancer_spec_id' => 'specId',
+            'config_id' => 'configId',
             'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',

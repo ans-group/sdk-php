@@ -10,6 +10,7 @@ use UKFast\SDK\Entity;
  * @property string $vpcId
  * @property string $availabilityZoneId
  * @property string $specId
+ * @property int $configId
  * @property string $sync
  * @property string $createdAt
  * @property string $updatedAt
