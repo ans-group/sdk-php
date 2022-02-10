@@ -316,6 +316,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function loadBalancerNetworks()
+    {
+        return (new LoadBalancerNetworkClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function loadBalancers()
     {
         return (new LoadBalancerClient($this->httpClient))->auth($this->token);
