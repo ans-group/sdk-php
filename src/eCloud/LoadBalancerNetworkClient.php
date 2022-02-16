@@ -4,23 +4,21 @@ namespace UKFast\SDK\eCloud;
 
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\LoadBalancer;
+use UKFast\SDK\eCloud\Entities\LoadBalancerNetwork;
 
-class LoadBalancerClient extends Client implements ClientEntityInterface
+class LoadBalancerNetworkClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/load-balancers';
+    protected $collectionPath = 'v2/load-balancer-networks';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
             'name' => 'name',
-            'vpc_id' => 'vpcId',
-            'availability_zone_id' => 'availabilityZoneId',
-            'load_balancer_spec_id' => 'specId',
-            'config_id' => 'configId',
+            'load_balancer_id' => 'loadBalancerId',
+            'network_id' => 'networkId',
             'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
@@ -29,13 +27,15 @@ class LoadBalancerClient extends Client implements ClientEntityInterface
 
     public function loadEntity($data)
     {
-        return new LoadBalancer(
+        return new LoadBalancerNetwork(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }
 
-    public function getNetworks($id)
+    public function getAllByLoadBalancerId($id)
     {
-        return $this->loadBalancerNetworks()->getAllByLoadBalancerId($id);
+        return $this->getAll([
+            'load_balancer_id' => $id
+        ]);
     }
 }
