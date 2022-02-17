@@ -344,4 +344,12 @@ class Client extends BaseClient
     {
         return (new TaskClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function vips()
+    {
+        return (new VipClient($this->httpClient))->auth($this->token);
+    }
 }
