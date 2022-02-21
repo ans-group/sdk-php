@@ -87,11 +87,18 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function ipAddresses()
+    {
+        return (new IpAddressesClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function appliances()
     {
         return (new ApplianceClient($this->httpClient))->auth($this->token);
     }
-
 
     /**
      * eCloud v2
