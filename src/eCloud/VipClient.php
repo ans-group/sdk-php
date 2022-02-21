@@ -17,7 +17,7 @@ class VipClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'name' => 'name',
-            'load_balancer_network_id' => 'loadBalancerNetworkId',
+            'load_balancer_id' => 'loadBalancerId',
             'ip_address_id' => 'ipAddressId',
             'config_id' => 'configId',
             'sync' => 'sync',
