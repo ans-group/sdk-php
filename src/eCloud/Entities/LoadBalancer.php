@@ -9,6 +9,7 @@ use UKFast\SDK\Entity;
  * @property string $name
  * @property string $vpcId
  * @property string $availabilityZoneId
+ * @property string $networkId
  * @property string $specId
  * @property int $configId
  * @property string $sync
