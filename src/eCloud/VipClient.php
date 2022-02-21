@@ -2,25 +2,23 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\Vip;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
-use UKFast\SDK\eCloud\Entities\LoadBalancer;
 
-class LoadBalancerClient extends Client implements ClientEntityInterface
+class VipClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/load-balancers';
+    protected $collectionPath = 'v2/vips';
 
     public function getEntityMap()
     {
         return [
             'id' => 'id',
             'name' => 'name',
-            'vpc_id' => 'vpcId',
-            'availability_zone_id' => 'availabilityZoneId',
-            'network_id' => 'networkId',
-            'load_balancer_spec_id' => 'specId',
+            'load_balancer_network_id' => 'loadBalancerNetworkId',
+            'ip_address_id' => 'ipAddressId',
             'config_id' => 'configId',
             'sync' => 'sync',
             'created_at' => 'createdAt',
@@ -30,7 +28,7 @@ class LoadBalancerClient extends Client implements ClientEntityInterface
 
     public function loadEntity($data)
     {
-        return new LoadBalancer(
+        return new Vip(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }

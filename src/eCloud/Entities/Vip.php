@@ -7,17 +7,14 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
- * @property string $vpcId
- * @property string $availabilityZoneId
- * @property string $networkId
- * @property string $specId
- * @property int $configId
+ * @property string $loadBalancerNetworkId
+ * @property string $ipAddressId
+ * @property integer $configId
  * @property string $sync
  * @property string $createdAt
  * @property string $updatedAt
- *
  */
-class LoadBalancer extends Entity
+class Vip extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 }
