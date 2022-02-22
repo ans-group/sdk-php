@@ -7,7 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
- * @property string $loadBalancerNetworkId
+ * @property string $loadBalancerId
  * @property string $ipAddressId
  * @property integer $configId
  * @property string $sync

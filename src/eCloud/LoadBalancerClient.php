@@ -19,6 +19,7 @@ class LoadBalancerClient extends Client implements ClientEntityInterface
             'name' => 'name',
             'vpc_id' => 'vpcId',
             'availability_zone_id' => 'availabilityZoneId',
+            'network_id' => 'networkId',
             'load_balancer_spec_id' => 'specId',
             'config_id' => 'configId',
             'sync' => 'sync',
@@ -32,10 +33,5 @@ class LoadBalancerClient extends Client implements ClientEntityInterface
         return new LoadBalancer(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
-    }
-
-    public function getNetworks($id)
-    {
-        return $this->loadBalancerNetworks()->getAllByLoadBalancerId($id);
     }
 }

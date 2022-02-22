@@ -87,11 +87,18 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function ipAddresses()
+    {
+        return (new IpAddressesClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function appliances()
     {
         return (new ApplianceClient($this->httpClient))->auth($this->token);
     }
-
 
     /**
      * eCloud v2
@@ -311,14 +318,6 @@ class Client extends BaseClient
     public function loadBalancerSpecs()
     {
         return (new LoadBalancerSpecClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
-     * @return BaseClient
-     */
-    public function loadBalancerNetworks()
-    {
-        return (new LoadBalancerNetworkClient($this->httpClient))->auth($this->token);
     }
 
     /**
