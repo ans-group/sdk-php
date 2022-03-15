@@ -13,7 +13,7 @@ class Contact
 
     /**
      * Contact constructor.
-     * @param null $item
+     * @param \stdClass|null $item
      */
     public function __construct($item = null)
     {
