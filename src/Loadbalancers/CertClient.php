@@ -3,7 +3,7 @@
 namespace UKFast\SDK\Loadbalancers;
 
 use UKFast\SDK\Client as BaseClient;
-use UKFast\SDK\Loadbalancers\Entities\Vip;
+use UKFast\SDK\Loadbalancers\Entities\Cert;
 
 class CertClient extends BaseClient
 {
@@ -18,7 +18,7 @@ class CertClient extends BaseClient
     ];
 
     /**
-     * Gets a paginated response of all Vips
+     * Gets a paginated response of all Certs
      *
      * @param int $page
      * @param int $perPage
@@ -37,10 +37,10 @@ class CertClient extends BaseClient
     }
 
     /**
-     * @return \UKFast\SDK\Loadbalancers\Entities\Vip
+     * @return \UKFast\SDK\Loadbalancers\Entities\Cert
      */
     public function serializeCert($raw)
     {
-        return new Vip($this->apiToFriendly($raw, self::MAP));
+        return new Cert($this->apiToFriendly($raw, self::MAP));
     }
 }
