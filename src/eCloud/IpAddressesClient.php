@@ -15,14 +15,7 @@ class IpAddressesClient extends Client implements ClientEntityInterface
 
     public function getEntityMap()
     {
-        return [
-            'id' => 'id',
-            'name' => 'name',
-            'ip_address' => 'ipAddress',
-            'network_id' => 'networkId',
-            'created_at' => 'createdAt',
-            'updated_at' => 'updatedAt',
-        ];
+        return IpAddress::$entityMap;
     }
 
     public function loadEntity($data)
