@@ -6,25 +6,23 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $vpcId
- * @property string $availabilityZoneId
+ * @property string $name
  * @property string $ipAddress
- * @property string $rdnsHostname
- * @property string $resourceId
+ * @property string $networkId
+ * @property string $type
  * @property string $createdAt
  * @property string $updatedAt
  */
-class FloatingIp extends Entity
+class IpAddress extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 
     public static $entityMap = [
         'id' => 'id',
-        'vpc_id' => 'vpcId',
-        'availability_zone_id' => 'availabilityZoneId',
+        'name' => 'name',
         'ip_address' => 'ipAddress',
-        'rdns_hostname' => 'rdnsHostname',
-        'resource_id' => 'resourceId',
+        'network_id' => 'networkId',
+        'type' => 'type',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];

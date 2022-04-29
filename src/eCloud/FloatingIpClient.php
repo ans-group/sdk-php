@@ -14,15 +14,7 @@ class FloatingIpClient extends Client implements ClientEntityInterface
 
     public function getEntityMap()
     {
-        return [
-            'id' => 'id',
-            'vpc_id' => 'vpcId',
-            'availability_zone_id' => 'availabilityZoneId',
-            'ip_address' => 'ipAddress',
-            'resource_id' => 'resourceId',
-            'created_at' => 'createdAt',
-            'updated_at' => 'updatedAt',
-        ];
+        return FloatingIp::$entityMap;
     }
 
     public function loadEntity($data)

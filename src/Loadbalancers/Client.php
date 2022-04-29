@@ -37,6 +37,11 @@ class Client extends BaseClient
     {
         return (new VipClient($this->httpClient))->auth($this->token);
     }
+    
+    public function certs()
+    {
+        return (new CertClient($this->httpClient))->auth($this->token);
+    }
 
     public function accessIps()
     {
