@@ -51,6 +51,12 @@ class NicClient extends Client implements ClientEntityInterface
             return [];
         }
 
+        $ipAddressClient = new IpAddressesClient();
+        $page->serializeWith(function ($item) use ($ipAddressClient) {
+            return $ipAddressClient->loadEntity($item);
+        });
+
+
         $items = $page->getItems();
         if ($page->totalPages() == 1) {
             return $items;
@@ -58,6 +64,9 @@ class NicClient extends Client implements ClientEntityInterface
 
         while ($page->pageNumber() < $page->totalPages()) {
             $page = $this->getPage($page->pageNumber() + 1, $perPage);
+            $page->serializeWith(function ($item) use ($ipAddressClient) {
+                return $ipAddressClient->loadEntity($item);
+            });
             $items = array_merge(
                 $items,
                 $page->getItems()
