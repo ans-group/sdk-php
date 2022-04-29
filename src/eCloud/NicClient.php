@@ -16,10 +16,12 @@ class NicClient extends Client implements ClientEntityInterface
     {
         return [
             'id' => 'id',
-            'ip_address' => 'ipAddress',
+            'name' => 'name',
             'mac_address' => 'macAddress',
             'instance_id' => 'instanceId',
             'network_id' => 'networkId',
+            'ip_address' => 'ipAddress',
+            'sync' => 'sync',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
@@ -31,7 +33,12 @@ class NicClient extends Client implements ClientEntityInterface
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }
-
+  
+    /**
+     * Assigns an IP address with a NIC
+     * @param $id
+     * @return array
+     */
     public function assignIpAddress($id, $ipAddressId)
     {
         $response = $this->post(
@@ -39,5 +46,36 @@ class NicClient extends Client implements ClientEntityInterface
             json_encode(['ip_address_id' => $ipAddressId])
         );
         return $response->getStatusCode() == 202;
+  
+    /**
+     * Get the IP address records associated with a NIC
+     * @param $id
+     * @return array
+     */
+    public function getIpAddresses($id)
+    {
+        $page = $this->paginatedRequest(
+            $this->collectionPath . '/' . $id . '/ip-addresses',
+            $currentPage = 1,
+            $perPage = 15
+        );
+
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $items = $page->getItems();
+        if ($page->totalPages() == 1) {
+            return $items;
+        }
+
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->getPage($page->pageNumber() + 1, $perPage);
+            $items = array_merge(
+                $items,
+                $page->getItems()
+            );
+        }
+        return $items;
     }
 }
