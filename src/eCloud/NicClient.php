@@ -37,15 +37,17 @@ class NicClient extends Client implements ClientEntityInterface
     /**
      * Assigns an IP address with a NIC
      * @param $id
-     * @return array
+     * @param $ipAddressId
+     * @return bool
      */
     public function assignIpAddress($id, $ipAddressId)
     {
         $response = $this->post(
             $this->collectionPath . '/' . $id . '/ip-addresses',
-            json_encode(['ip_address_id' => $ipAddressId])
+            json_encode([ 'ip_address_id' => $ipAddressId ])
         );
         return $response->getStatusCode() == 202;
+    }
   
     /**
      * Get the IP address records associated with a NIC
