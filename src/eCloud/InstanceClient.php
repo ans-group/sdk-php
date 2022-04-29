@@ -176,7 +176,7 @@ class InstanceClient extends Client implements ClientEntityInterface
         // get any remaining pages
         while ($page->pageNumber() < $page->totalPages()) {
             $page = $this->paginatedRequest(
-                $this->collectionPath . '/' . $id . '/volumes',
+                $this->collectionPath . '/' . $id . '/nics',
                 $currentPage++,
                 $perPage
             );

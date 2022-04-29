@@ -26,6 +26,28 @@ class VipClient extends Client implements ClientEntityInterface
         ];
     }
 
+    public function getInternalIp(Vip $vip)
+    {
+        if (empty($vip->ipAddressId)) {
+            return null;
+        }
+
+        return $this->ipAddresses()->getById($vip->ipAddressId)->ipAddress;
+    }
+
+    public function getFloatingIp(Vip $vip)
+    {
+        if (!empty($vip->ipAddressId)) {
+            $floatingIp = $this->floatingIps()->getAll(['resource_id' => $vip->ipAddressId]);
+
+            if (count($floatingIp) > 0) {
+                return $floatingIp[0];
+            }
+        }
+
+        return null;
+    }
+
     public function loadEntity($data)
     {
         return new Vip(

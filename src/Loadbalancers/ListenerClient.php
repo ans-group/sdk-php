@@ -40,7 +40,8 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
 
     const CERT_MAP = [
         'frontend_id' => 'frontendId',
-        'ca_bundle' => 'caBundle'
+        'ca_bundle' => 'caBundle',
+        'expires_at' => 'expiresAt',
     ];
 
 
