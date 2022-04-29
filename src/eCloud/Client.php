@@ -343,4 +343,12 @@ class Client extends BaseClient
     {
         return (new VipClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function nics()
+    {
+        return (new NicClient($this->httpClient))->auth($this->token);
+    }
 }
