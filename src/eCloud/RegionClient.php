@@ -43,7 +43,7 @@ class RegionClient extends Client implements ClientEntityInterface
             return [];
         }
 
-        $loadEntity = function($data) {
+        $loadEntity = function ($data) {
             return new Price($this->apiToFriendly($data, Price::$entityMap));
         };
 
