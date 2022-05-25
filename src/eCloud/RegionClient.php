@@ -35,7 +35,7 @@ class RegionClient extends Client implements ClientEntityInterface
      * @param array $filters
      * @return array
      */
-    public function getPrices($id, $filters = [])
+    public function getProducts($id, $filters = [])
     {
         $page = $this->paginatedRequest($this->collectionPath . '/' . $id . '/prices', 1, 15, $filters);
 
