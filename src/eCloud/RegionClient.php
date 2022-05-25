@@ -31,6 +31,7 @@ class RegionClient extends Client implements ClientEntityInterface
     /**
      * Get an array of all prices for the region
      *
+     * @param int $id Region ID
      * @param array $filters
      * @return array
      */
