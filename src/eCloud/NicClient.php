@@ -35,6 +35,33 @@ class NicClient extends Client implements ClientEntityInterface
     }
 
     /**
+     * Assigns an IP address with a NIC
+     * @param $id
+     * @param $ipAddressId
+     * @return bool
+     */
+    public function assignIpAddress($id, $ipAddressId)
+    {
+        $response = $this->post(
+            $this->collectionPath . '/' . $id . '/ip-addresses',
+            json_encode([ 'ip_address_id' => $ipAddressId ])
+        );
+        return $response->getStatusCode() == 202;
+    }
+
+    /**
+     * Detaches an IP address from a NIC
+     * @param $id
+     * @param $ipAddressId
+     * @return bool
+     */
+    public function detachIpAddress($id, $ipAddressId)
+    {
+        $response = $this->delete($this->collectionPath . '/' . $id . '/ip-addresses/' . $ipAddressId);
+        return $response->getStatusCode() == 202;
+    }
+
+    /**
      * Get the IP address records associated with a NIC
      * @param $id
      * @return array
@@ -51,6 +78,12 @@ class NicClient extends Client implements ClientEntityInterface
             return [];
         }
 
+        $ipAddressClient = new IpAddressesClient();
+        $page->serializeWith(function ($item) use ($ipAddressClient) {
+            return $ipAddressClient->loadEntity($item);
+        });
+
+
         $items = $page->getItems();
         if ($page->totalPages() == 1) {
             return $items;
@@ -58,6 +91,9 @@ class NicClient extends Client implements ClientEntityInterface
 
         while ($page->pageNumber() < $page->totalPages()) {
             $page = $this->getPage($page->pageNumber() + 1, $perPage);
+            $page->serializeWith(function ($item) use ($ipAddressClient) {
+                return $ipAddressClient->loadEntity($item);
+            });
             $items = array_merge(
                 $items,
                 $page->getItems()
