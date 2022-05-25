@@ -2,7 +2,7 @@
 
 namespace UKFast\SDK\eCloud;
 
-use UKFast\SDK\eCloud\Entities\Price;
+use UKFast\SDK\eCloud\Entities\Product;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
 use UKFast\SDK\eCloud\Entities\Region;
@@ -44,7 +44,7 @@ class RegionClient extends Client implements ClientEntityInterface
         }
 
         $loadEntity = function ($data) {
-            return new Price($this->apiToFriendly($data, Price::$entityMap));
+            return new Product($this->apiToFriendly($data, Product::$entityMap));
         };
 
         $page->serializeWith($loadEntity);

@@ -11,7 +11,7 @@ use UKFast\SDK\Entity;
  * @property string $price
  * @property string $rate
  */
-class Price extends Entity
+class Product extends Entity
 {
     public static $entityMap = [
         'availability_zone_id' => 'availabilityZoneId',
