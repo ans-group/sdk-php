@@ -7,8 +7,8 @@ use UKFast\SDK\Entity;
 /**
  * @property int $id
  * @property string $name
- * @property string $vpc_id
- * @property string $availability_zone_id
+ * @property string $vpcId
+ * @property string $availabilityZoneId
  * @property string $type
  * @property string $createdAt
  */
