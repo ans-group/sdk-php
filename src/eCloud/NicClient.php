@@ -33,7 +33,7 @@ class NicClient extends Client implements ClientEntityInterface
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }
-  
+
     /**
      * Assigns an IP address with a NIC
      * @param $id
@@ -48,7 +48,19 @@ class NicClient extends Client implements ClientEntityInterface
         );
         return $response->getStatusCode() == 202;
     }
-  
+
+    /**
+     * Detaches an IP address from a NIC
+     * @param $id
+     * @param $ipAddressId
+     * @return bool
+     */
+    public function detachIpAddress($id, $ipAddressId)
+    {
+        $response = $this->delete($this->collectionPath . '/' . $id . '/ip-addresses/' . $ipAddressId);
+        return $response->getStatusCode() == 202;
+    }
+
     /**
      * Get the IP address records associated with a NIC
      * @param $id
