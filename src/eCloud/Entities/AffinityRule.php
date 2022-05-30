@@ -14,4 +14,15 @@ use UKFast\SDK\Entity;
  */
 class AffinityRule extends Entity
 {
+    protected $dates = ['createdAt', 'updatedAt'];
+
+    public static $entityMap = [
+        'id' => 'id',
+        'name' => 'name',
+        'vpc_id' => 'vpcId',
+        'availability_zone_id' => 'availabilityZoneId',
+        'type' => 'type',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
+    ];
 }
