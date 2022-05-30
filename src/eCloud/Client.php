@@ -351,4 +351,12 @@ class Client extends BaseClient
     {
         return (new NicClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function affinityRules()
+    {
+        return (new AffinityRuleClient($this->httpClient))->auth($this->token);
+    }
 }
