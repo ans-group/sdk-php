@@ -16,6 +16,7 @@ class Product extends Entity
     public static $entityMap = [
         'availability_zone_id' => 'availabilityZoneId',
         'name' => 'name',
+        'description' => 'description',
         'category' => 'category',
         'price' => 'price',
         'rate' => 'rate',
