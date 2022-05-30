@@ -7,7 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $psk
  */
-class VpnSessionPsk extends Entity
+class PreSharedKey extends Entity
 {
     protected $dates = [];
 }
