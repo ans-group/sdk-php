@@ -2,10 +2,9 @@
 
 namespace UKFast\SDK\eCloud;
 
-use UKFast\SDK\eCloud\Entities\VpnSession;
 use UKFast\SDK\eCloud\Entities\PreSharedKey;
+use UKFast\SDK\eCloud\Entities\VpnSession;
 use UKFast\SDK\Entities\ClientEntityInterface;
-use UKFast\SDK\SelfResponse;
 use UKFast\SDK\Traits\PageItems;
 
 class VpnSessionClient extends Client implements ClientEntityInterface
