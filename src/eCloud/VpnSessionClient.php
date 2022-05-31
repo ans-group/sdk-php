@@ -5,6 +5,7 @@ namespace UKFast\SDK\eCloud;
 use UKFast\SDK\eCloud\Entities\VpnSession;
 use UKFast\SDK\eCloud\Entities\PreSharedKey;
 use UKFast\SDK\Entities\ClientEntityInterface;
+use UKFast\SDK\SelfResponse;
 use UKFast\SDK\Traits\PageItems;
 
 class VpnSessionClient extends Client implements ClientEntityInterface
@@ -38,6 +39,12 @@ class VpnSessionClient extends Client implements ClientEntityInterface
         );
     }
 
+    /**
+     * Gets the PSK for a VPN Session
+     *
+     * @param int $id
+     * @return PreSharedKey
+     */
     public function getPsk($id)
     {
         $response = $this->get($this->collectionPath . '/' . $id . '/pre-shared-key');
@@ -45,5 +52,24 @@ class VpnSessionClient extends Client implements ClientEntityInterface
         return new PreSharedKey($this->apiToFriendly($body->data, [
             'psk' => 'psk'
         ]));
+    }
+
+    /**
+     * Sets the PSK for a VPN Session
+     *
+     * @param int $id
+     * @param string $psk
+     * @return bool
+     */
+    public function setPsk($id, $psk)
+    {
+        $response = $this->put(
+            $this->collectionPath . '/' . $id . '/pre-shared-key',
+            json_encode(['psk' => $psk]),
+            [
+                'Content-Type' => 'application/json'
+            ]
+        );
+        return $response->getStatusCode() == 202;
     }
 }
