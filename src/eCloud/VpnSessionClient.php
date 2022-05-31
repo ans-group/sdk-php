@@ -57,14 +57,14 @@ class VpnSessionClient extends Client implements ClientEntityInterface
      * Sets the PSK for a VPN Session
      *
      * @param int $id
-     * @param string $psk
+     * @param PreSharedKey $entity
      * @return bool
      */
-    public function setPsk($id, $psk)
+    public function setPsk($id, PreSharedKey $entity)
     {
         $response = $this->put(
             $this->collectionPath . '/' . $id . '/pre-shared-key',
-            json_encode(['psk' => $psk]),
+            $entity,
             [
                 'Content-Type' => 'application/json'
             ]
