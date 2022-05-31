@@ -66,6 +66,6 @@ class VpnSessionClient extends Client implements ClientEntityInterface
             $this->collectionPath . '/' . $id . '/pre-shared-key',
             json_encode($this->friendlyToApi($entity, ['psk' => 'psk']))
         );
-        return $response->getStatusCode() == 204;
+        return $response->getStatusCode() == 202;
     }
 }
