@@ -70,6 +70,6 @@ class VpnSessionClient extends Client implements ClientEntityInterface
                 'Content-Type' => 'application/json'
             ]
         );
-        return $response->getStatusCode() == 202;
+        return $response->getStatusCode() == 204;
     }
 }
