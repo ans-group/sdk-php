@@ -22,6 +22,7 @@ class VpnSessionClient extends Client implements ClientEntityInterface
             'vpn_service_id' => 'vpnServiceId',
             'vpn_endpoint_id' => 'vpnEndpointId',
             'remote_ip' => 'remoteIp',
+            'psk' => 'psk',
             'remote_networks' => 'remoteNetworks',
             'local_networks' => 'localNetworks',
             'sync' => 'sync',
