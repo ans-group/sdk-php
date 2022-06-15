@@ -55,7 +55,7 @@ class RegionClient extends Client implements ClientEntityInterface
         }
 
         while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->getPage($page->pageNumber() + 1, 15, $filters);
+            $page = $this->paginatedRequest($this->collectionPath . '/' . $id . '/prices', $page->pageNumber() + 1, 15, $filters);
 
             $page->serializeWith($loadEntity);
             $items = array_merge(

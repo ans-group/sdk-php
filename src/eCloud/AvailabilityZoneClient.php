@@ -52,13 +52,12 @@ class AvailabilityZoneClient extends Client implements ClientEntityInterface
         $page->serializeWith($loadEntity);
 
         $items = $page->getItems();
+
         if ($page->totalPages() == 1) {
             return $items;
         }
-
         while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->getPage($page->pageNumber() + 1, 15, $filters);
-
+            $page = $this->paginatedRequest($this->collectionPath . '/' . $id . '/prices', $page->pageNumber() + 1, 15, $filters);
             $page->serializeWith($loadEntity);
             $items = array_merge(
                 $items,
