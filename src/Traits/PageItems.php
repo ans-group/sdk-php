@@ -139,4 +139,39 @@ trait PageItems
                 return $this->loadEntity($responseBody->data);
             });
     }
+
+    /**
+     * Get child resources for a resource e.g GET resource/:id/$resourceName
+     * @param $id string ID of the resource to get child resources for
+     * @param $resourceName string name of the associated resource as specified in the route path
+     * @param $serializer \callback serializer to use for the child resource
+     * @param $filters
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getChildResources($id, $resourceName, $serializer, $filters = [])
+    {
+        $page = $this->paginatedRequest($this->collectionPath . '/' . $id . '/' . $resourceName, 1, 15, $filters);
+
+        if ($page->totalItems() == 0) {
+            return [];
+        }
+
+        $page->serializeWith($serializer);
+
+        $items = $page->getItems();
+
+        if ($page->totalPages() == 1) {
+            return $items;
+        }
+        while ($page->pageNumber() < $page->totalPages()) {
+            $page = $this->paginatedRequest($this->collectionPath . '/' . $id . '/' . $resourceName, $page->pageNumber() + 1, 15, $filters);
+            $page->serializeWith($serializer);
+            $items = array_merge(
+                $items,
+                $page->getItems()
+            );
+        }
+        return $items;
+    }
 }
