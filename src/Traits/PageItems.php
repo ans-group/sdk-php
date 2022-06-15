@@ -151,27 +151,24 @@ trait PageItems
      */
     public function getChildResources($id, $resourceName, $serializer, $filters = [])
     {
-        $page = $this->paginatedRequest($this->collectionPath . '/' . $id . '/' . $resourceName, 1, 15, $filters);
+        $pageNumber = 0;
+        $items = [];
+        do {
+            $pageNumber++;
+            $page = $this->paginatedRequest(
+                $this->collectionPath . '/' . $id . '/' . $resourceName,
+                $pageNumber,
+                15,
+                $filters
+            );
 
-        if ($page->totalItems() == 0) {
-            return [];
-        }
-
-        $page->serializeWith($serializer);
-
-        $items = $page->getItems();
-
-        if ($page->totalPages() == 1) {
-            return $items;
-        }
-        while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->paginatedRequest($this->collectionPath . '/' . $id . '/' . $resourceName, $page->pageNumber() + 1, 15, $filters);
             $page->serializeWith($serializer);
             $items = array_merge(
                 $items,
                 $page->getItems()
             );
-        }
+        } while ($pageNumber < $page->totalPages());
+
         return $items;
     }
 }
