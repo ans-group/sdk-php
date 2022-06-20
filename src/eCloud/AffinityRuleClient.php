@@ -36,30 +36,4 @@ class AffinityRuleClient extends Client implements ClientEntityInterface
             return new AffinityRuleMember($this->apiToFriendly($data, AffinityRuleMember::$entityMap));
         }, $filters);
     }
-
-    /**
-     * Assigns an instance to a rule
-     * @param $id
-     * @param $instanceId
-     * @return bool
-     */
-    public function assignMember($id, $instanceId)
-    {
-        $response = $this->post(
-            $this->collectionPath . '/' . $id . '/members',
-            json_encode([ 'instance_id' => $instanceId ])
-        );
-        return $response->getStatusCode() == 202;
-    }
-    /**
-     * Detaches an instance from a rule
-     * @param $id
-     * @param $memberId
-     * @return bool
-     */
-    public function detachMember($id, $memberId)
-    {
-        $response = $this->delete($this->collectionPath . '/' . $id . '/members/' . $memberId);
-        return $response->getStatusCode() == 202;
-    }
 }
