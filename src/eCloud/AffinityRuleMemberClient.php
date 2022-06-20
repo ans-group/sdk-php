@@ -2,7 +2,6 @@
 
 namespace UKFast\SDK\eCloud;
 
-use UKFast\SDK\eCloud\Entities\AffinityRule;
 use UKFast\SDK\eCloud\Entities\AffinityRuleMember;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
