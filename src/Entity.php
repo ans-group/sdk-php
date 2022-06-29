@@ -176,7 +176,7 @@ abstract class Entity implements ArrayAccess
     }
 
     /**
-     * Returns an array representation of the the entity.
+     * Returns an array representation of the entity.
      * Can pass a map of property names to array names
      * e.g. ['createdAt' => 'created_at']
      *
