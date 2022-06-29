@@ -24,6 +24,7 @@ class TargetClient extends BaseClient implements ClientEntityInterface
             'check_fall' => 'checkFall',
             'disable_http2' => 'disableHttp2',
             'http2_only' => 'http2Only',
+            'session_cookie_value' => 'sessionCookieValue',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];

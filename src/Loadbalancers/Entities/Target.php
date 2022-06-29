@@ -19,6 +19,7 @@ use UKFast\SDK\Entity;
  * @property boolean $disableHttp2
  * @property boolean $http2Only
  * @property boolean $active
+ * @property string $sessionCookieValue
  * @property \DateTime $createdAt
  * @property \DateTime $updatedAt
  */
