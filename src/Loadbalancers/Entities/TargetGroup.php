@@ -24,6 +24,8 @@ use UKFast\SDK\Entity;
  * @property string $monitorHost
  * @property string $monitorHttpVersion
  * @property string $monitorExpect
+ * @property string $monitorExpectString
+ * @property bool $monitorExpectStringRegex
  * @property bool $monitorTcpMonitoring
  * @property string $customOptions
  * @property int $checkPort
