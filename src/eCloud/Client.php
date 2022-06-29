@@ -367,4 +367,12 @@ class Client extends BaseClient
     {
         return (new AffinityRuleMemberClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function resourceTiers()
+    {
+        return (new ResourceTierClient($this->httpClient))->auth($this->token);
+    }
 }

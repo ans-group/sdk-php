@@ -12,24 +12,10 @@ class HostGroupClient extends Client implements ClientEntityInterface
 
     protected $collectionPath = 'v2/host-groups';
 
-    public function getEntityMap()
-    {
-        return [
-            'id' => 'id',
-            'name' => 'name',
-            'vpc_id' => 'vpcId',
-            'availability_zone_id' => 'availabilityZoneId',
-            'host_spec_id' => 'specId',
-            'sync' => 'sync',
-            'created_at' => 'createdAt',
-            'updated_at' => 'updatedAt',
-        ];
-    }
-
     public function loadEntity($data)
     {
         return new HostGroup(
-            $this->apiToFriendly($data, $this->getEntityMap())
+            $this->apiToFriendly($data, HostGroup::$entityMap)
         );
     }
 }

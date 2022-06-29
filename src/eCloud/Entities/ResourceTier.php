@@ -5,26 +5,20 @@ namespace UKFast\SDK\eCloud\Entities;
 use UKFast\SDK\Entity;
 
 /**
- * @property string $id
+ * @property int $id
  * @property string $name
- * @property string $vpcId
  * @property string $availabilityZoneId
- * @property string $specId
- * @property string $sync
  * @property string $createdAt
  * @property string $updatedAt
  */
-class HostGroup extends Entity
+class ResourceTier extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 
     public static $entityMap = [
-        'id' => 'id',
-        'name' => 'name',
-        'vpc_id' => 'vpcId',
-        'availability_zone_id' => 'availabilityZoneId',
-        'host_spec_id' => 'specId',
-        'sync' => 'sync',
+        'id' => '$id',
+        'name' => '$name',
+        'availability_zone_id' => '$availabilityZoneId',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
