@@ -1,6 +1,6 @@
 {
-    "name": "ukfast/sdk",
-    "description": "UKFast SDK for PHP",
+    "name": "ans-group/sdk",
+    "description": "ANS SDK for PHP",
     "type": "library",
     "license": "MIT",
     "support": {
