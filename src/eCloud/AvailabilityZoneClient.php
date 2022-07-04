@@ -23,12 +23,7 @@ class AvailabilityZoneClient extends Client implements ClientEntityInterface
 
     public function getEntityMap()
     {
-        return [
-            'id' => 'id',
-            'name' => 'name',
-            'code' => 'code',
-            'datacentre_site_id' => 'datacentreSiteId'
-        ];
+        return AvailabilityZone::$entityMap;
     }
 
     public function getProducts($id, $filters = [])
