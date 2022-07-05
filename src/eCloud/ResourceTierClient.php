@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\AffinityRule;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
 use UKFast\SDK\eCloud\Entities\ResourceTier;
@@ -11,6 +12,11 @@ class ResourceTierClient extends Client implements ClientEntityInterface
     use PageItems;
 
     protected $collectionPath = 'v2/resource-tiers';
+
+    public function getEntityMap()
+    {
+        return ResourceTier::$entityMap;
+    }
 
     public function loadEntity($data)
     {
