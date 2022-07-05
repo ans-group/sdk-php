@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\eCloud;
 
+use UKFast\SDK\eCloud\Entities\AvailabilityZone;
 use UKFast\SDK\eCloud\Entities\Product;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
@@ -32,6 +33,13 @@ class RegionClient extends Client implements ClientEntityInterface
     {
         return $this->getChildResources($id, 'prices', function ($data) {
             return new Product($this->apiToFriendly($data, Product::$entityMap));
+        }, $filters);
+    }
+
+    public function getAvailabilityZones($id, $filters = [])
+    {
+        return $this->getChildResources($id, 'availability-zones', function ($data) {
+            return new AvailabilityZone($this->apiToFriendly($data, AvailabilityZone::$entityMap));
         }, $filters);
     }
 }
