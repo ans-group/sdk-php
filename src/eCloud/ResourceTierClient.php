@@ -12,6 +12,11 @@ class ResourceTierClient extends Client implements ClientEntityInterface
 
     protected $collectionPath = 'v2/resource-tiers';
 
+    public function getEntityMap()
+    {
+        return ResourceTier::$entityMap;
+    }
+
     public function loadEntity($data)
     {
         return new ResourceTier(
