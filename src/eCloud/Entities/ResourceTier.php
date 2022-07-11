@@ -7,21 +7,19 @@ use UKFast\SDK\Entity;
 /**
  * @property int $id
  * @property string $name
- * @property string $code
- * @property string $datacentreSiteId
- * @property string $resourceTierId
+ * @property string $availabilityZoneId
  * @property string $createdAt
  * @property string $updatedAt
  */
-class AvailabilityZone extends Entity
+class ResourceTier extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
 
     public static $entityMap = [
         'id' => 'id',
         'name' => 'name',
-        'code' => 'code',
-        'datacentre_site_id' => 'datacentreSiteId',
-        'resource_tier_id' => 'resourceTierId',
+        'availability_zone_id' => 'availabilityZoneId',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
     ];
 }

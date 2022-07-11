@@ -17,4 +17,15 @@ use UKFast\SDK\Entity;
 class HostGroup extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
+
+    public static $entityMap = [
+        'id' => 'id',
+        'name' => 'name',
+        'vpc_id' => 'vpcId',
+        'availability_zone_id' => 'availabilityZoneId',
+        'host_spec_id' => 'specId',
+        'sync' => 'sync',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
+    ];
 }

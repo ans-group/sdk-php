@@ -2,24 +2,24 @@
 
 namespace UKFast\SDK\eCloud;
 
-use UKFast\SDK\eCloud\Entities\HostGroup;
+use UKFast\SDK\eCloud\Entities\AffinityRuleMember;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
 
-class HostGroupClient extends Client implements ClientEntityInterface
+class AffinityRuleMemberClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/host-groups';
+    protected $collectionPath = 'v2/affinity-rule-members';
 
     public function getEntityMap()
     {
-        return HostGroup::$entityMap;
+        return AffinityRuleMember::$entityMap;
     }
 
     public function loadEntity($data)
     {
-        return new HostGroup(
+        return new AffinityRuleMember(
             $this->apiToFriendly($data, $this->getEntityMap())
         );
     }

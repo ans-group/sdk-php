@@ -30,6 +30,8 @@ class TargetGroupClient extends BaseClient implements ClientEntityInterface
             'monitor_host' => 'monitorHost',
             'monitor_http_version' => 'monitorHttpVersion',
             'monitor_expect' => 'monitorExpect',
+            'monitor_expect_string' => 'monitorExpectString',
+            'monitor_expect_string_regex' => 'monitorExpectStringRegex',
             'monitor_tcp_monitoring' => 'monitorTcpMonitoring',
             'custom_options' => 'customOptions',
             'check_port' => 'checkPort',

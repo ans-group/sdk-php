@@ -12,6 +12,7 @@ use UKFast\SDK\Entity;
  * @property string $vpnServiceId
  * @property string $vpnEndpointId
  * @property string $remoteIp
+ * @property string $psk
  * @property string $remoteNetworks
  * @property string $localNetworks
  * @property string $sync
