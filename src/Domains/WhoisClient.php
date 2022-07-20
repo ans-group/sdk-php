@@ -36,4 +36,16 @@ class WhoisClient extends Client
         $body = $this->decodeJson($response->getBody()->getContents());
         return $body->data;
     }
+
+    /**
+     * @param string $domain
+     * @return string
+     */
+    public function sanitiseDomain($domain)
+    {
+        $domain = trim($domain, '/ ');
+        $domain = preg_replace('/^https?:\/\/?/', '', $domain);
+
+        return rawurlencode($domain);
+    }
 }
