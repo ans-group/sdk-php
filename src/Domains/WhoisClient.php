@@ -18,7 +18,7 @@ class WhoisClient extends Client
      */
     public function getRecord($target)
     {
-        $response = $this->request("GET", "v1/whois/$target");
+        $response = $this->request("GET", 'v1/whois/' . $this->sanitiseDomain($target));
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Whois($body->data);
     }
@@ -32,7 +32,7 @@ class WhoisClient extends Client
      */
     public function getRawRecord($fqdn)
     {
-        $response = $this->request("GET", "v1/whois/$fqdn/raw");
+        $response = $this->request("GET", 'v1/whois/' . $this->sanitiseDomain($fqdn) . '/raw');
         $body = $this->decodeJson($response->getBody()->getContents());
         return $body->data;
     }
