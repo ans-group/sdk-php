@@ -43,6 +43,18 @@ class WhoisTest extends TestCase
                 'unsanitised' => 'foo.bar .baz',
                 'sanitised' => 'foo.bar%20.baz',
             ],
+            [
+                'unsanitised' => 'http://foo.bar/',
+                'sanitised' => 'foo.bar',
+            ],
+            [
+                'unsanitised' => 'http://foo.bar ',
+                'sanitised' => 'foo.bar',
+            ],
+            [
+                'unsanitised' => 'http://foo.bar/',
+                'sanitised' => 'foo.bar',
+            ],
         ];
     }
 }
