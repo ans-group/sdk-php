@@ -10,6 +10,12 @@ class Contact
     public $firstName;
     public $lastName;
     public $emailAddress;
+    public $mobile;
+
+    public $monitoringAlertsEmail;
+    public $thresholdMonitoringAlertsEmail;
+    public $monitoringAlertsSms;
+    public $thresholdMonitoringAlertsSms;
 
     /**
      * Contact constructor.
@@ -27,6 +33,12 @@ class Contact
         $this->firstName = $item->first_name;
         $this->lastName = $item->last_name;
         $this->emailAddress = $item->email_address;
+        $this->mobile = $item->mobile;
+
+        $this->monitoringAlertsEmail = $item->monitoring_alerts_email;
+        $this->thresholdMonitoringAlertsEmail = $item->threshold_monitoring_alerts_email;
+        $this->monitoringAlertsSms = $item->monitoring_alerts_sms;
+        $this->thresholdMonitoringAlertsSms = $item->threshold_monitoring_alerts_sms;
     }
 
     /**
