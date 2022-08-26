@@ -124,12 +124,13 @@ class RecordClient extends BaseClient implements ClientEntityInterface
     public function loadEntity($data)
     {
         return new Record([
-            'id'      => $data->id,
-            'zone'    => $data->zone,
-            'name'    => $data->name,
-            'type'    => $data->type,
-            'content' => $data->content,
-            'ttl'     => $data->ttl,
+            'id'       => $data->id,
+            'zone'     => $data->zone,
+            'name'     => $data->name,
+            'type'     => $data->type,
+            'content'  => $data->content,
+            'ttl'      => $data->ttl,
+            'priority' => $data->priority,
         ]);
     }
 }
