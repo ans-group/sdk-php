@@ -10,6 +10,7 @@ use UKFast\SDK\Entity;
  * @property string $vpcId
  * @property string $availabilityZoneId
  * @property string $specId
+ * @property string $windowsEnabled
  * @property string $sync
  * @property string $createdAt
  * @property string $updatedAt
@@ -24,6 +25,7 @@ class HostGroup extends Entity
         'vpc_id' => 'vpcId',
         'availability_zone_id' => 'availabilityZoneId',
         'host_spec_id' => 'specId',
+        'windows_enabled' => 'windowsEnabled',
         'sync' => 'sync',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
