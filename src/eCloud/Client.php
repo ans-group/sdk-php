@@ -375,4 +375,12 @@ class Client extends BaseClient
     {
         return (new ResourceTierClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function software()
+    {
+        return (new SoftwareClient($this->httpClient))->auth($this->token);
+    }
 }
