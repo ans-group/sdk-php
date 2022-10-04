@@ -23,10 +23,8 @@ class ResourceTier extends Entity
         'id' => 'id',
         'name' => 'name',
         'availability_zone_id' => 'availabilityZoneId',
-        'min_ram' => 'minRam',
-        'max_ram' => 'maxRam',
-        'min_vcpu' => 'minVcpu',
-        'max_vcpu' => 'maxVcpu',
+        'cpu' => 'cpu',
+        'ram' => 'ram',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
