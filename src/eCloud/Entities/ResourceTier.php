@@ -5,9 +5,11 @@ namespace UKFast\SDK\eCloud\Entities;
 use UKFast\SDK\Entity;
 
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string $availabilityZoneId
+ * @property object $cpu
+ * @property object $ram
  * @property string $createdAt
  * @property string $updatedAt
  */
@@ -19,6 +21,8 @@ class ResourceTier extends Entity
         'id' => 'id',
         'name' => 'name',
         'availability_zone_id' => 'availabilityZoneId',
+        'cpu' => 'cpu',
+        'ram' => 'ram',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
