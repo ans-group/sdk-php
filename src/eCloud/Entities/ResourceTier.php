@@ -8,8 +8,8 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property string $name
  * @property string $availabilityZoneId
- * @property string $cpu
- * @property string $ram
+ * @property object $cpu
+ * @property object $ram
  * @property string $createdAt
  * @property string $updatedAt
  */
