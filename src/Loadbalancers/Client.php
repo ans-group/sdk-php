@@ -52,4 +52,9 @@ class Client extends BaseClient
     {
         return (new DeploymentClient($this->httpClient))->auth($this->token);
     }
+
+    public function errorPages()
+    {
+        return (new ErrorPageClient($this->httpClient))->auth($this->token);
+    }
 }
