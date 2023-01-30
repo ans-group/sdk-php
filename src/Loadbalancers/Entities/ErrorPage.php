@@ -6,7 +6,8 @@ use UKFast\SDK\Entity;
 
 /**
  * @property int $id
- * @property int $targetGroupId
+ * @property int|null $targetGroupId
+ * @property int|null $listenerId
  * @property string $statusCodes
  * @property string $content
  * @property \DateTime $createdAt

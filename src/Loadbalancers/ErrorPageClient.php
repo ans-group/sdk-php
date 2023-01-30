@@ -17,6 +17,7 @@ class ErrorPageClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'target_group_id' => 'targetGroupId',
+            'listener_id' => 'listenerId',
             'status_codes' => 'statusCodes',
             'content' => 'content',
             'created_at' => 'createdAt',
