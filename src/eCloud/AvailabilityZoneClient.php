@@ -41,7 +41,8 @@ class AvailabilityZoneClient extends Client implements ClientEntityInterface
         }, $filters);
     }
 
-    public function getIops($id, $filters = []) {
+    public function getIops($id, $filters = [])
+    {
         return $this->getChildResources($id, 'iops', function ($data) {
             return new Iops($this->apiToFriendly($data, Iops::$entityMap));
         }, $filters);
