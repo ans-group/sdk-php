@@ -7,6 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
+ * @property string $description
  * @property string $availabilityZoneId
  * @property object $cpu
  * @property object $ram
@@ -20,6 +21,7 @@ class ResourceTier extends Entity
     public static $entityMap = [
         'id' => 'id',
         'name' => 'name',
+        'description' => 'description',
         'availability_zone_id' => 'availabilityZoneId',
         'cpu' => 'cpu',
         'ram' => 'ram',
