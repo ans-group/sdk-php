@@ -8,6 +8,7 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property string $vpcId
  * @property string $resourceId
+ * @property string $resourceName
  * @property string $key
  * @property string $value
  * @property string $start
