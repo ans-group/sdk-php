@@ -17,6 +17,7 @@ class BillingMetricClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'vpc_id' => 'vpcId',
+            'vpc_name' => 'vpcName',
             'resource_id' => 'resourceId',
             'resource_name' => 'resourceName',
             'key' => 'key',
