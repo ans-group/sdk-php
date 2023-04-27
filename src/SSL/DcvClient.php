@@ -3,37 +3,25 @@
 namespace UKFast\SDK\SSL;
 
 use UKFast\SDK\Client as BaseClient;
-use UKFast\SDK\SSL\Entities\DcvValidation;
-use UKFast\SDK\SSL\Entities\ValidationResult;
+use UKFast\SDK\Exception\ApiException;
+use UKFast\SDK\SSL\Entities\Certificate;
 
 class DcvClient extends BaseClient
 {
     protected $basePath = 'ssl/';
 
     /**
-     * Validation Result API fields which need to be mapped
+     * Validates a certificate against dcv type
      *
-     * @var array
+     * @param Certificate $certificate
+     * @return true
+     * @throws ApiException
      */
-    public $validationMap = [];
-
-    /**
-     * Validate a certificate against its key and CA DCV type
-     *
-     * @param string $key
-     * @param string $certificate
-     * @param string|null $caBundle
-     * @return DcvValidation
-     */
-    public function validate($certificateId, $dcvType)
+    public function validate(Certificate $certificate)
     {
-        $requestBody = [
-            'dcv_type' => $dcvType,
-        ];
+        $url = 'v1/dcv/' . urlencode($certificate->id) . '/validate';
+        $this->post($url);
 
-        $url = 'v1/dcv/' . urlencode($certificateId) . '/validate';
-        $this->post($url, json_encode($requestBody));
-
-        return new DcvValidation($this->apiToFriendly([], $this->validationMap));
+        return true;
     }
 }
