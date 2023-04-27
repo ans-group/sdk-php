@@ -39,4 +39,9 @@ class Client extends BaseClient
     {
         return (new ValidationClient($this->httpClient))->auth($this->token);
     }
+
+    public function dcv()
+    {
+        return (new DcvClient($this->httpClient))->auth($this->token);
+    }
 }
