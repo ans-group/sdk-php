@@ -19,8 +19,24 @@ class DcvClient extends BaseClient
      */
     public function validate(Certificate $certificate)
     {
-        $url = 'v1/dcv/' . urlencode($certificate->id) . '/validate';
-        $this->post($url);
+        $body = null;
+        $hostnames = [];
+
+        if (empty($certificate->commonName) === false) {
+            $hostnames[] = $certificate->commonName;
+        }
+
+        if (is_array($certificate->alternativeNames) && empty($certificate->alternativeNames) === false) {
+            $hostnames[] = array_merge($hostnames, $certificate->alternativeNames);
+        }
+
+        if (empty($hostnames) === false) {
+            $body = json_encode([
+                'hostnames' => $hostnames,
+            ]);
+        }
+
+        $this->post('v1/dcv/' . urlencode($certificate->id) . '/validate', $body);
 
         return true;
     }
