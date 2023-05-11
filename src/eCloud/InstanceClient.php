@@ -30,6 +30,7 @@ class InstanceClient extends Client implements ClientEntityInterface
             'online' => 'online',
             'agent_running' => 'agentRunning',
             'backup_enabled' => 'backupEnabled',
+            'is_encrypted' => 'isEncrypted',
             'host_group_id' => 'hostGroupId',
             'volume_group_id' => 'volumeGroupId',
             'created_at' => 'createdAt',

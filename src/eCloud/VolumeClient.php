@@ -26,6 +26,7 @@ class VolumeClient extends Client implements ClientEntityInterface
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
             'is_shared' => 'isShared',
+            'is_encrypted' => 'isEncrypted',
             'volume_group_id' => 'volumeGroupId',
             'port' => 'port'
         ];

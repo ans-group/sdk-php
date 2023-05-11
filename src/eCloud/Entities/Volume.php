@@ -14,6 +14,7 @@ use UKFast\SDK\Entity;
  * @property boolean $attached
  * @property string $sync
  * @property boolean $isShared
+ * @property boolean $isEncrypted
  * @property string $volumeGroupId
  * @property integer $port
  */
