@@ -18,4 +18,11 @@ class Bind extends Entity
         'createdAt',
         'updatedAt'
     ];
+
+    public static $entityMap = [
+        'frontend_id' => 'frontendId',
+        'vip_id' => 'vipId',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
+    ];
 }
