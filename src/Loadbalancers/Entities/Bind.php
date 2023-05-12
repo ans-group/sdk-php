@@ -6,7 +6,7 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property string $frontendId
+ * @property string $listenerId
  * @property string $vipId
  * @property int $port
  * @property \DateTime $createdAt
@@ -20,7 +20,7 @@ class Bind extends Entity
     ];
 
     public static $entityMap = [
-        'frontend_id' => 'frontendId',
+        'listener_id' => 'listenerId',
         'vip_id' => 'vipId',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
