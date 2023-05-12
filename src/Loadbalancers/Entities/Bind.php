@@ -11,9 +11,17 @@ use UKFast\SDK\Entity;
  * @property int $port
  * @property \DateTime $createdAt
  * @property \DateTime $updatedAt
+ * @property string $listener_id @deprecated the property listener_id is deprecated, please use listenerId instead
  */
 class Bind extends Entity
 {
+    public function __construct($attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->listener_id = $this->listenerId;
+    }
+
     protected $dates = [
         'createdAt',
         'updatedAt'
