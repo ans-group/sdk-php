@@ -22,7 +22,7 @@ class BindTest extends TestCase
         ]);
 
         $this->assertEquals(123, $bind->listenerId);
-        $this->assertObjectHasAttribute('listener_id', $bind);
+        $this->assertArrayHasKey('listener_id', $bind);
         $this->assertEquals(123, $bind->listener_id);
     }
 }
