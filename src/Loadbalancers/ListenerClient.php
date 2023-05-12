@@ -32,13 +32,6 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
         'timeouts_client' => 'timeoutsClient',
     ];
 
-    const BIND_MAP = [
-        'frontend_id' => 'frontendId',
-        'vip_id' => 'vipId',
-        'created_at' => 'createdAt',
-        'updated_at' => 'updatedAt',
-    ];
-
     const CERT_MAP = [
         'frontend_id' => 'frontendId',
         'ca_bundle' => 'caBundle',
@@ -79,10 +72,10 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
      */
     public function getBinds($id, $page = 1, $perPage = 15, $filters = [])
     {
-        $filters = $this->friendlyToApi($filters, self::BIND_MAP);
+        $filters = $this->friendlyToApi($filters, Bind::$entityMap);
         $page = $this->paginatedRequest("v2/listeners/$id/binds", $page, $perPage, $filters);
         $page->serializeWith(function ($item) {
-            return new Bind($this->apiToFriendly($item, self::BIND_MAP));
+            return new Bind($this->apiToFriendly($item, Bind::$entityMap));
         });
 
         return $page;
@@ -129,14 +122,14 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
      */
     public function addBind($id, $bind)
     {
-        $json = json_encode($this->friendlyToApi($bind, self::BIND_MAP));
+        $json = json_encode($this->friendlyToApi($bind, Bind::$entityMap));
         $response = $this->post("v2/listeners/$id/binds", $json);
         $response = $this->decodeJson($response->getBody()->getContents());
         
         return (new SelfResponse($response))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new Bind($this->apiToFriendly($response->data, self::BIND_MAP));
+                return new Bind($this->apiToFriendly($response->data, Bind::$entityMap));
             });
     }
 
@@ -178,14 +171,14 @@ class ListenerClient extends BaseClient implements ClientEntityInterface
     {
         $response = $this->patch(
             "v2/listeners/$id/binds/{$bind->id}",
-            json_encode($this->friendlyToApi($bind, self::BIND_MAP))
+            json_encode($this->friendlyToApi($bind, Bind::$entityMap))
         );
         $response = $this->decodeJson($response->getBody()->getContents());
 
         return (new SelfResponse($response))
             ->setClient($this)
             ->serializeWith(function ($response) {
-                return new Bind($this->apiToFriendly($response->data, self::BIND_MAP));
+                return new Bind($this->apiToFriendly($response->data, Bind::$entityMap));
             });
     }
 
