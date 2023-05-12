@@ -19,7 +19,7 @@ class Bind extends Entity
     {
         parent::__construct($attributes);
 
-        $this->listener_id = $this->listenerId;
+        $this->set('listener_id', $this->get('listenerId'));
     }
 
     protected $dates = [
