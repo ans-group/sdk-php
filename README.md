@@ -16,7 +16,7 @@ Installation
 The recommended way to install this package is through [composer](https://getcomposer.org).
 
 ```
-composer require ukfast/sdk
+composer require ans-group/sdk
 ```
 
 Alternativly you can download one of our [tagged releases](https://github.com/ukfast/sdk-php/releases) for manual installation, we dont recommend cloning the master branch for use in production environments as we cannot guarentee its stability.
