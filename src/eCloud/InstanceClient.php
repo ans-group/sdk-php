@@ -237,4 +237,26 @@ class InstanceClient extends Client implements ClientEntityInterface
 
         return $this->decodeJson($response->getBody()->getContents())->data;
     }
+
+    public function putEncrypt($id)
+    {
+        $response = $this->put($this->collectionPath . '/' . $id . '/encrypt');
+
+        if ($response->getStatusCode() != 202) {
+            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
+        }
+
+        return $this->decodeJson($response->getBody()->getContents())->data;
+    }
+
+    public function putDecrypt($id)
+    {
+        $response = $this->put($this->collectionPath . '/' . $id . '/decrypt');
+
+        if ($response->getStatusCode() != 202) {
+            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
+        }
+
+        return $this->decodeJson($response->getBody()->getContents())->data;
+    }
 }
