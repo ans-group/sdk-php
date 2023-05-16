@@ -238,7 +238,7 @@ class InstanceClient extends Client implements ClientEntityInterface
         return $this->decodeJson($response->getBody()->getContents())->data;
     }
 
-    public function putEncrypt($id)
+    public function encrypt($id)
     {
         $response = $this->put($this->collectionPath . '/' . $id . '/encrypt');
 
@@ -249,7 +249,7 @@ class InstanceClient extends Client implements ClientEntityInterface
         return $this->decodeJson($response->getBody()->getContents())->data;
     }
 
-    public function putDecrypt($id)
+    public function decrypt($id)
     {
         $response = $this->put($this->collectionPath . '/' . $id . '/decrypt');
 
