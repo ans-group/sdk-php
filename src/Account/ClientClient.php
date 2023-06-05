@@ -3,10 +3,26 @@
 namespace UKFast\SDK\Account;
 
 use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\Traits\PageItems;
+use UKFast\SDK\Account\Entities\Client;
 
 class ClientClient extends BaseClient
 {
-    protected $basePath = 'clients/';
+    use PageItems;
+
+    protected $basePath = 'v1/clients/';
+
+    public function getEntityMap()
+    {
+        return Client::$entityMap;
+    }
+
+    public function loadEntity($data)
+    {
+        return new Client(
+            $this->apiToFriendly($data, $this->getEntityMap())
+        );
+    }
 
     /**
      * @param $id
@@ -15,7 +31,6 @@ class ClientClient extends BaseClient
      */
     public function destroy($id)
     {
-        $response = $this->delete('v1/clients/' . $id);
-        return $response->getStatusCode() == 204;
+        return $this->deleteById($id);
     }
 }

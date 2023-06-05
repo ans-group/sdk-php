@@ -19,6 +19,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function clients()
+    {
+        return (new ClientClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function contacts()
     {
         return (new ContactClient($this->httpClient))->auth($this->token);
