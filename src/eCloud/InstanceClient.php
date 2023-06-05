@@ -30,6 +30,7 @@ class InstanceClient extends Client implements ClientEntityInterface
             'online' => 'online',
             'agent_running' => 'agentRunning',
             'backup_enabled' => 'backupEnabled',
+            'is_encrypted' => 'isEncrypted',
             'host_group_id' => 'hostGroupId',
             'volume_group_id' => 'volumeGroupId',
             'created_at' => 'createdAt',
@@ -232,6 +233,28 @@ class InstanceClient extends Client implements ClientEntityInterface
         $response = $this->post($this->collectionPath . '/' . $id . '/console-session');
 
         if ($response->getStatusCode() != 200) {
+            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
+        }
+
+        return $this->decodeJson($response->getBody()->getContents())->data;
+    }
+
+    public function encrypt($id)
+    {
+        $response = $this->put($this->collectionPath . '/' . $id . '/encrypt');
+
+        if ($response->getStatusCode() != 202) {
+            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
+        }
+
+        return $this->decodeJson($response->getBody()->getContents())->data;
+    }
+
+    public function decrypt($id)
+    {
+        $response = $this->put($this->collectionPath . '/' . $id . '/decrypt');
+
+        if ($response->getStatusCode() != 202) {
             throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
         }
 

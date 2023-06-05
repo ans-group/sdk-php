@@ -19,6 +19,7 @@ use UKFast\SDK\Entity;
  * @property boolean $online
  * @property boolean $agentRunning
  * @property boolean $backupEnabled
+ * @property boolean $isEncrypted
  * @property string $hostGroupId
  * @property string $volumeGroupId
  * @property string $createdAt
