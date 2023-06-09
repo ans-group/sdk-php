@@ -239,6 +239,31 @@ class InstanceClient extends Client implements ClientEntityInterface
         return $this->decodeJson($response->getBody()->getContents())->data;
     }
 
+    public function getConsoleScreenshot($id)
+    {
+        $response = $this->get($this->collectionPath . '/' . $id . '/console-screenshot');
+
+        if ($response->getStatusCode() != 200) {
+            throw new UKFastException('unexpected response code: ' . $response->getStatusCode());
+        }
+
+        $screenshot = (object) [
+            'name' => null,
+            'type' => null,
+            'data' => $response->getBody()->getContents(),
+        ];
+
+        if (is_array($response->getHeader('Content-Disposition'))) {
+            $screenshot->name = explode('filename=', $response->getHeader('Content-Disposition')[0])[1];
+        }
+
+        if (is_array($response->getHeader('Content-Type'))) {
+            $screenshot->type = explode('/', $response->getHeader('Content-Type')[0])[1];
+        }
+
+        return $screenshot;
+    }
+
     public function encrypt($id)
     {
         $response = $this->put($this->collectionPath . '/' . $id . '/encrypt');
