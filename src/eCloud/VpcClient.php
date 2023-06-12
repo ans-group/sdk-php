@@ -24,6 +24,7 @@ class VpcClient extends Client implements ClientEntityInterface
         return [
             'id' => 'id',
             'name' => 'name',
+            'client_id' => 'clientId',
             'region_id' => 'regionId',
             'support_enabled' => 'supportEnabled',
             'console_enabled' => 'consoleEnabled',
