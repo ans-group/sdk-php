@@ -7,6 +7,7 @@ use UKFast\SDK\Entity;
 /**
  * @property string $id
  * @property string $name
+ * @property integer $clientId
  * @property string $regionId
  * @property boolean $supportEnabled
  * @property boolean $consoleEnabled
