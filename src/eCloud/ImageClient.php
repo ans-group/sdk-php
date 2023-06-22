@@ -23,6 +23,7 @@ class ImageClient extends Client implements ClientEntityInterface
             'description' => 'description',
             'documentation_uri' => 'documentationUri',
             'publisher' => 'publisher',
+            'image_size' => 'imageSize',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
