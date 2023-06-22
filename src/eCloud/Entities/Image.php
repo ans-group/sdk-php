@@ -10,7 +10,7 @@ use UKFast\SDK\Entity;
  * @property string $description
  * @property string $logoUri
  * @property string $documentationUri
- * @property string $imageSize
+ * @property integer $imageSize
  * @property string $createdAt
  * @property string $updatedAt
  */
