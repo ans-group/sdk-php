@@ -40,7 +40,7 @@ class ClientClient extends Client
      */
     public function getAvailableRegistrantTypes()
     {
-        $response = $this->get($this->basePath . 'available-registrant-types');
+        $response = $this->get($this->collectionPath . '/available-registrant-types');
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return $this->loadAvailableRegistrantTypeEntity($body->data);
