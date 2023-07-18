@@ -10,7 +10,7 @@ class ClientClient extends Client
 {
     use PageItems;
 
-    protected $basePath = 'v1/clients';
+    protected $collectionPath = 'v1/clients';
 
     /**
      * @param $data
