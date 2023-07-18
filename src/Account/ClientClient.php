@@ -4,10 +4,9 @@ namespace UKFast\SDK\Account;
 
 use UKFast\SDK\Account\Entities\AvailableRegistrantType;
 use UKFast\SDK\Account\Entities\Client as ClientEntity;
-use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Traits\PageItems;
 
-class ClientClient extends BaseClient
+class ClientClient extends Client
 {
     use PageItems;
 
