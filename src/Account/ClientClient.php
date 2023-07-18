@@ -57,6 +57,4 @@ class ClientClient extends Client
     {
         return $this->deleteById($id);
     }
-
-
 }
