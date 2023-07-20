@@ -35,7 +35,7 @@ class ClientClient extends Client
     }
 
     /**
-     * @return AvailableRegistrantType
+     * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAvailableRegistrantTypes()
@@ -43,7 +43,9 @@ class ClientClient extends Client
         $response = $this->get($this->collectionPath . '/available-registrant-types');
         $body = $this->decodeJson($response->getBody()->getContents());
 
-        return $this->loadAvailableRegistrantTypeEntity($body->data);
+        return array_map(function ($item) {
+            return $this->loadAvailableRegistrantTypeEntity($item);
+        }, $body->data);
     }
 
     /**
