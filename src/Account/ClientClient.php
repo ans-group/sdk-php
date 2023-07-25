@@ -19,8 +19,13 @@ class ClientClient extends Client
     public function loadEntity($data)
     {
         return new ClientEntity(
-            $this->apiToFriendly($data, ClientEntity::$entityMap)
+            $this->apiToFriendly($data, $this->getEntityMap())
         );
+    }
+
+    public function getEntityMap()
+    {
+        return ClientEntity::$entityMap;
     }
 
     /**
