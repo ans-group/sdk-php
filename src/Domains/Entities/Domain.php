@@ -7,6 +7,7 @@ class Domain
     public $name;
     public $status;
 
+    public $clientId;
     public $registrar;
 
     public $registeredAt;
@@ -29,6 +30,8 @@ class Domain
 
         $this->name = $item->name;
         $this->status = $item->status;
+
+        $this->clientId = $item->client_id;
 
         $this->registrar = $item->registrar;
 
