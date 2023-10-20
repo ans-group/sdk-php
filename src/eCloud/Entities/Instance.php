@@ -12,6 +12,8 @@ use UKFast\SDK\Entity;
  * @property string $imageId
  * @property string $platform
  * @property integer $vcpuCores
+ * @property integer $vcpuSockets
+ * @property integer $vcpuCoresPerSocket
  * @property integer $ramCapacity
  * @property integer $volumeCapacity
  * @property boolean $locked

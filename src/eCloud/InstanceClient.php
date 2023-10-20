@@ -23,6 +23,8 @@ class InstanceClient extends Client implements ClientEntityInterface
             'image_id' => 'imageId',
             'platform' => 'platform',
             'vcpu_cores' => 'vcpuCores',
+            'vcpu_sockets' => 'vcpuSockets',
+            'vcpu_cores_per_socket' => 'vcpuCoresPerSocket',
             'ram_capacity' => 'ramCapacity',
             'volume_capacity' => 'volumeCapacity',
             'locked' => 'locked',
