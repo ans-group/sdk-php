@@ -1,12 +1,12 @@
-UKFast API PHP SDK
+ANS API PHP SDK
 =====================
-![Build Status](https://github.com/ukfast/sdk-php/actions/workflows/run-tests.yml/badge.svg)
+![Build Status](https://github.com/ans-group/sdk-php/actions/workflows/run-tests.yml/badge.svg)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 
-A PHP library for connecting your application(s) to the UKFast APIs. 
+A PHP library for connecting your application(s) to the ANS APIs. 
 
-To use this package, you will need a UKFast account. Sign up for free at [ukfast.co.uk][1], 
+To use this package, you will need an ANS account. Sign up for free at [ans.co.uk][1], 
 and refer to the [Getting Started][2] section of our developer documentation for more information on consuming our APIs.
 
 
@@ -19,7 +19,7 @@ The recommended way to install this package is through [composer](https://getcom
 composer require ans-group/sdk
 ```
 
-Alternativly you can download one of our [tagged releases](https://github.com/ukfast/sdk-php/releases) for manual installation, we dont recommend cloning the master branch for use in production environments as we cannot guarentee its stability.
+Alternatively, you can download one of our [tagged releases](https://github.com/ans-group/sdk-php/releases) for manual installation, we don't recommend cloning the master branch for use in production environments as we cannot guarantee its stability.
 
 This package does currently support PHP 5.6+, but we recommend moving to 7.1+ as soon as possible. 
 
@@ -59,5 +59,5 @@ License
 This SDK is released under the [MIT License](LICENSE)
 
 
-[1]: https://www.ukfast.co.uk/myukfast-signup.html??utm_source=github&utm_medium=link&utm_campaign=apio
+[1]: https://www.ans.co.uk/book-in-a-call/?utm_source=github&utm_medium=link&utm_campaign=apio
 [2]: https://developers.ukfast.io/getting-started?utm_source=github&utm_medium=link&utm_campaign=apio
