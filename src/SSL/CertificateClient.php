@@ -3,6 +3,7 @@
 namespace UKFast\SDK\SSL;
 
 use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\Exception\ApiException;
 use UKFast\SDK\Page;
 use UKFast\SDK\SSL\Entities\Certificate;
 use UKFast\SDK\SSL\Entities\CertificatePEM;
@@ -89,5 +90,22 @@ class CertificateClient extends BaseClient
         $body = $this->decodeJson($response->getBody()->getContents());
 
         return new CertificatePEM($body->data);
+    }
+
+    /**
+     * Validates a csr against a certificate
+     *
+     * @param Certificate $certificate
+     * @return true
+     * @throws ApiException
+     */
+    public function validateCsr(Certificate $certificate, string $csr): bool
+    {
+        $this->post(
+            "v1/certificates/" . urlencode($certificate->id) . "/csr/validate",
+            json_encode(['csr' => $csr])
+        );
+
+        return true;
     }
 }
