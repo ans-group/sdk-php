@@ -11,7 +11,10 @@ use UKFast\SDK\Entity;
  * @property string $availabilityZoneId
  * @property string $specId
  * @property string $windowsEnabled
- * @property string $sync
+ * @property object $usage
+ * @property object $hostLimits
+ * @property object $sync
+ * @property object $task
  * @property string $createdAt
  * @property string $updatedAt
  */
@@ -26,7 +29,10 @@ class HostGroup extends Entity
         'availability_zone_id' => 'availabilityZoneId',
         'host_spec_id' => 'specId',
         'windows_enabled' => 'windowsEnabled',
+        'usage' => 'usage',
+        'host_limits' => 'hostLimits',
         'sync' => 'sync',
+        'task' => 'task',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
