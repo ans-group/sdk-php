@@ -383,4 +383,12 @@ class Client extends BaseClient
     {
         return (new SoftwareClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function vpnGatewaySpecifications()
+    {
+        return (new VpnGatewaySpecificationClient($this->httpClient))->auth($this->token);
+    }
 }
