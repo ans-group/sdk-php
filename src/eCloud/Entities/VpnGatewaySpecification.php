@@ -2,6 +2,7 @@
 
 namespace UKFast\SDK\eCloud\Entities;
 
+use DateTime;
 use UKFast\SDK\Entity;
 
 /**
@@ -9,8 +10,8 @@ use UKFast\SDK\Entity;
  * @property string $name
  * @property string $description
  * @property integer $maxUsers
- * @property string $createdAt
- * @property string $updatedAt
+ * @property DateTime $createdAt
+ * @property DateTime $updatedAt
  */
 class VpnGatewaySpecification extends Entity
 {
