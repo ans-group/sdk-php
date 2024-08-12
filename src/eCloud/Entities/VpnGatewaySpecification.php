@@ -18,10 +18,10 @@ class VpnGatewaySpecification extends Entity
 
     public static $entityMap = [
         'id' => 'id',
-        'created_at' => 'createdAt',
         'name' => 'name',
         'description' => 'description',
         'max_users' => 'maxUsers',
+        'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
 }
