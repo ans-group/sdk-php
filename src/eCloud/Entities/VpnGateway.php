@@ -10,9 +10,7 @@ use UKFast\SDK\Entity;
  * @property string $name
  * @property string $availabilityZoneId
  * @property string $routerId
- * @property string $networkId
  * @property string $specificationId
- * @property string $instanceId
  * @property DateTime $createdAt
  * @property DateTime $updatedAt
  */
