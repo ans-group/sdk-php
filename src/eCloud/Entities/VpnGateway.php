@@ -25,9 +25,7 @@ class VpnGateway extends Entity
         'name' => 'name',
         'availability_zone_id' => 'availabilityZoneId',
         'router_id' => 'routerId',
-        'network_id' => 'networkId',
         'specification_id' => 'specificationId',
-        'instance_id' => 'instanceId',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
