@@ -405,6 +405,6 @@ class Client extends BaseClient
      */
     public function vpnGatewayUsers()
     {
-        return (new VpnGatewayClient($this->httpClient))->auth($this->token);
+        return (new VpnGatewayUserClient($this->httpClient))->auth($this->token);
     }
 }
