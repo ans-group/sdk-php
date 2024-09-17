@@ -96,10 +96,10 @@ class CertificateClient extends BaseClient
      * Validates a csr against a certificate
      *
      * @param Certificate $certificate
-     * @return true
+     * @return bool
      * @throws ApiException
      */
-    public function validateCsr(Certificate $certificate, string $csr): bool
+    public function validateCsr(Certificate $certificate, string $csr)
     {
         $this->post(
             "v1/certificates/" . urlencode($certificate->id) . "/csr/validate",
