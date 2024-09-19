@@ -411,7 +411,7 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
-    public function billingHistories()
+    public function billingHistory()
     {
         return (new BillingHistoryClient($this->httpClient))->auth($this->token);
     }

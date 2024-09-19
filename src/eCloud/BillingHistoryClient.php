@@ -10,7 +10,7 @@ class BillingHistoryClient extends Client implements ClientEntityInterface
 {
     use PageItems;
 
-    protected $collectionPath = 'v2/billing-histories';
+    protected $collectionPath = 'v2/billing-history';
 
     public function getEntityMap()
     {
