@@ -28,7 +28,7 @@ class VerificationFile extends Entity
      */
     public function getName()
     {
-        $contentDisposition = array_change_key_case($this->response->getHeaders())['content-disposition'][0];
+        $contentDisposition = array_change_key_case($this->response->getHeaders())['Content-Disposition'][0];
         $filenameMatch      = preg_match('/filename="([[:alnum:]]+\.[[:alnum:]]+)"/', $contentDisposition, $filename);
 
         if ($filenameMatch === false || empty($filename[1])) {
@@ -42,7 +42,7 @@ class VerificationFile extends Entity
      */
     public function getContentType()
     {
-        $contentType = array_change_key_case($this->response->getHeaders())['content-type'][0];
+        $contentType = array_change_key_case($this->response->getHeaders())['Content-Type'][0];
         if (empty($contentType) === false) {
             return $contentType;
         }
