@@ -26,7 +26,7 @@ class Download
      */
     public function getContentType()
     {
-        $contentType = strtolower($this->response->getHeaders()['Content-Type']);
+        $contentType = array_change_key_case($this->response->getHeaders())['Content-Type'];
         if ($contentType) {
             return $contentType;
         }
