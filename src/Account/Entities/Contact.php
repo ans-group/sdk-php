@@ -16,6 +16,7 @@ class Contact
     public $thresholdMonitoringAlertsEmail;
     public $monitoringAlertsSms;
     public $thresholdMonitoringAlertsSms;
+    public $hasRestrictedServerView;
 
     /**
      * Contact constructor.
@@ -39,6 +40,8 @@ class Contact
         $this->thresholdMonitoringAlertsEmail = $item->threshold_monitoring_alerts_email;
         $this->monitoringAlertsSms = $item->monitoring_alerts_sms;
         $this->thresholdMonitoringAlertsSms = $item->threshold_monitoring_alerts_sms;
+
+        $this->hasRestrictedServerView = $item->has_restricted_server_view;
     }
 
     /**
