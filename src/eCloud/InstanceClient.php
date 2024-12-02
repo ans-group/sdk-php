@@ -15,30 +15,7 @@ class InstanceClient extends Client implements ClientEntityInterface
 
     public function getEntityMap()
     {
-        return [
-            'id' => 'id',
-            'name' => 'name',
-            'vpc_id' => 'vpcId',
-            'availability_zone_id' => 'availabilityZoneId',
-            'image_id' => 'imageId',
-            'platform' => 'platform',
-            'vcpu_cores' => 'vcpuCores',
-            'vcpu_sockets' => 'vcpuSockets',
-            'vcpu_cores_per_socket' => 'vcpuCoresPerSocket',
-            'ram_capacity' => 'ramCapacity',
-            'volume_capacity' => 'volumeCapacity',
-            'locked' => 'locked',
-            'status' => 'status',
-            'online' => 'online',
-            'agent_running' => 'agentRunning',
-            'backup_enabled' => 'backupEnabled',
-            'backup_gateway_id' => 'backupGatewayId',
-            'is_encrypted' => 'isEncrypted',
-            'host_group_id' => 'hostGroupId',
-            'volume_group_id' => 'volumeGroupId',
-            'created_at' => 'createdAt',
-            'updated_at' => 'updatedAt',
-        ];
+        return Instance::$entityMap;
     }
 
     public function loadEntity($data)
