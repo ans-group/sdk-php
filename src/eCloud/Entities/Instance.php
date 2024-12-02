@@ -21,6 +21,8 @@ use UKFast\SDK\Entity;
  * @property boolean $online
  * @property boolean $agentRunning
  * @property boolean $backupEnabled
+ * @property boolean $backupVmEnabled
+ * @property boolean $backupAgentEnabled
  * @property boolean $isEncrypted
  * @property string $hostGroupId
  * @property string $volumeGroupId
@@ -48,6 +50,8 @@ class Instance extends Entity
         'online' => 'online',
         'agent_running' => 'agentRunning',
         'backup_enabled' => 'backupEnabled',
+        'backup_vm_enabled' => 'backupVmEnabled',
+        'backup_agent_enabled' => 'backupAgentEnabled',
         'backup_gateway_id' => 'backupGatewayId',
         'is_encrypted' => 'isEncrypted',
         'host_group_id' => 'hostGroupId',
