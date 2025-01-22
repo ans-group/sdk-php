@@ -415,4 +415,12 @@ class Client extends BaseClient
     {
         return (new BillingHistoryClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function instanceSoftware()
+    {
+        return (new InstanceSoftwareClient($this->httpClient))->auth($this->token);
+    }
 }
