@@ -211,6 +211,14 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
+    public function monitoringGateways()
+    {
+        return (new MonitoringGatewayClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return BaseClient
+     */
     public function networks()
     {
         return (new NetworkClient($this->httpClient))->auth($this->token);
