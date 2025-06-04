@@ -23,9 +23,12 @@ use UKFast\SDK\Entity;
  * @property boolean $backupEnabled
  * @property boolean $backupVmEnabled
  * @property boolean $backupAgentEnabled
+ * @property string $backupGatewayId
  * @property boolean $isEncrypted
  * @property string $hostGroupId
  * @property string $volumeGroupId
+ * @property string $monitoringEnabled
+ * @property string $monitoringGatewayId
  * @property string $createdAt
  * @property string $updatedAt
  */
