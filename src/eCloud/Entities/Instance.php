@@ -56,6 +56,8 @@ class Instance extends Entity
         'is_encrypted' => 'isEncrypted',
         'host_group_id' => 'hostGroupId',
         'volume_group_id' => 'volumeGroupId',
+        'monitoring_enabled' => 'monitoringEnabled',
+        'monitoring_gateway_id' => 'monitoringGatewayId',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
