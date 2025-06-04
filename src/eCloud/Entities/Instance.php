@@ -27,7 +27,7 @@ use UKFast\SDK\Entity;
  * @property boolean $isEncrypted
  * @property string $hostGroupId
  * @property string $volumeGroupId
- * @property string $monitoringEnabled
+ * @property boolean $monitoringEnabled
  * @property string $monitoringGatewayId
  * @property string $createdAt
  * @property string $updatedAt
