@@ -23,9 +23,12 @@ use UKFast\SDK\Entity;
  * @property boolean $backupEnabled
  * @property boolean $backupVmEnabled
  * @property boolean $backupAgentEnabled
+ * @property string $backupGatewayId
  * @property boolean $isEncrypted
  * @property string $hostGroupId
  * @property string $volumeGroupId
+ * @property boolean $monitoringEnabled
+ * @property string $monitoringGatewayId
  * @property string $createdAt
  * @property string $updatedAt
  */
@@ -56,6 +59,8 @@ class Instance extends Entity
         'is_encrypted' => 'isEncrypted',
         'host_group_id' => 'hostGroupId',
         'volume_group_id' => 'volumeGroupId',
+        'monitoring_enabled' => 'monitoringEnabled',
+        'monitoring_gateway_id' => 'monitoringGatewayId',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
