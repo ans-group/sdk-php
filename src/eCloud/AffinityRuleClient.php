@@ -9,6 +9,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class AffinityRuleClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<AffinityRule> */
     use PageItems;
 
     protected $collectionPath = 'v2/affinity-rules';

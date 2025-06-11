@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\InstanceSoftware;
 
 class InstanceSoftwareClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<InstanceSoftware> */
     use PageItems;
 
     protected $collectionPath = 'v2/instance-software';

@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\NetworkRulePort;
 
 class NetworkRulePortClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<NetworkRulePort> */
     use PageItems;
 
     protected $collectionPath = 'v2/network-rule-ports';

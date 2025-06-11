@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class BillingHistoryClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<BillingHistory> */
     use PageItems;
 
     protected $collectionPath = 'v2/billing-history';
