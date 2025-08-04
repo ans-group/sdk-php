@@ -29,6 +29,7 @@ use UKFast\SDK\Entity;
  * @property string $volumeGroupId
  * @property boolean $monitoringEnabled
  * @property string $monitoringGatewayId
+ * @property array $tags
  * @property string $createdAt
  * @property string $updatedAt
  */
@@ -61,6 +62,7 @@ class Instance extends Entity
         'volume_group_id' => 'volumeGroupId',
         'monitoring_enabled' => 'monitoringEnabled',
         'monitoring_gateway_id' => 'monitoringGatewayId',
+        'tags' => 'tags',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
