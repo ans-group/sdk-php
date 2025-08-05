@@ -439,4 +439,12 @@ class Client extends BaseClient
     {
         return (new InstanceSoftwareClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return TagClient
+     */
+    public function tags()
+    {
+        return (new TagClient($this->httpClient))->auth($this->token);
+    }
 }
