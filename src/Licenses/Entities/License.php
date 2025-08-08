@@ -10,6 +10,7 @@ use UKFast\SDK\Entity;
  * @property string $ownerType
  * @property string $keyId
  * @property string $licenseType
+ * @property string $sku
  * @property int $resellerId
  */
 class License extends Entity
