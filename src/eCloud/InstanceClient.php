@@ -7,6 +7,9 @@ use UKFast\SDK\Exception\UKFastException;
 use UKFast\SDK\Traits\PageItems;
 use UKFast\SDK\eCloud\Entities\Instance;
 
+/**
+ * @method Instance getById($id)
+ */
 class InstanceClient extends Client implements ClientEntityInterface
 {
     use PageItems;

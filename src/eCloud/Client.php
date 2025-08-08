@@ -105,7 +105,7 @@ class Client extends BaseClient
      */
 
     /**
-     * @return BaseClient
+     * @return RegionClient
      */
     public function regions()
     {
@@ -113,7 +113,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return AvailabilityZoneClient
      */
     public function availabilityZones()
     {
@@ -121,7 +121,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VpcClient
      */
     public function vpcs()
     {
@@ -129,7 +129,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return ImageClient
      */
     public function images()
     {
@@ -137,7 +137,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return InstanceClient
      */
     public function instances()
     {
@@ -145,7 +145,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VolumeClient
      */
     public function volumes()
     {
@@ -153,7 +153,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return FloatingIpClient
      */
     public function floatingIps()
     {
@@ -161,7 +161,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return RouterClient
      */
     public function routers()
     {
@@ -169,7 +169,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return RouterThroughputClient
      */
     public function routerThroughputs()
     {
@@ -177,7 +177,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return FirewallPolicyClient
      */
     public function firewallPolicies()
     {
@@ -185,7 +185,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return FirewallRuleClient
      */
     public function firewallRules()
     {
@@ -193,7 +193,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return FirewallRulePortClient
      */
     public function firewallRulePorts()
     {
@@ -201,7 +201,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return MonitoringGatewaySpecificationClient
      */
     public function monitoringGatewaySpecifications()
     {
@@ -209,7 +209,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return MonitoringGatewayClient
      */
     public function monitoringGateways()
     {
@@ -217,7 +217,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return NetworkClient
      */
     public function networks()
     {
@@ -225,7 +225,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return NetworkPolicyClient
      */
     public function networkPolicies()
     {
@@ -233,7 +233,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return NetworkRuleClient
      */
     public function networkRules()
     {
@@ -241,7 +241,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return NetworkRulePortClient
      */
     public function networkRulePorts()
     {
@@ -249,7 +249,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return BillingMetricClient
      */
     public function billingMetrics()
     {
@@ -257,7 +257,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return DiscountPlanClient
      */
     public function discountPlans()
     {
@@ -265,7 +265,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return HostGroupClient
      */
     public function hostGroups()
     {
@@ -273,7 +273,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return HostSpecClient
      */
     public function hostSpecs()
     {
@@ -281,7 +281,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return DedicatedHostClient
      */
     public function dedicatedHosts()
     {
@@ -289,7 +289,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VpnSessionClient
      */
     public function vpnSessions()
     {
@@ -297,7 +297,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VpnServiceClient
      */
     public function vpnServices()
     {
@@ -305,7 +305,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VpnEndpointClient
      */
     public function vpnEndpoints()
     {
@@ -313,7 +313,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VpnProfileGroupClient
      */
     public function vpnProfileGroups()
     {
@@ -321,7 +321,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VolumeGroupClient
      */
     public function volumeGroups()
     {
@@ -329,7 +329,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return LoadBalancerSpecClient
      */
     public function loadBalancerSpecs()
     {
@@ -337,7 +337,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return LoadBalancerClient
      */
     public function loadBalancers()
     {
@@ -345,7 +345,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return TaskClient
      */
     public function tasks()
     {
@@ -353,7 +353,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VipClient
      */
     public function vips()
     {
@@ -361,7 +361,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return NicClient
      */
     public function nics()
     {
@@ -369,7 +369,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return AffinityRuleClient
      */
     public function affinityRules()
     {
@@ -377,7 +377,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return AffinityRuleMemberClient
      */
     public function affinityRuleMembers()
     {
@@ -385,7 +385,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return ResourceTierClient
      */
     public function resourceTiers()
     {
@@ -393,7 +393,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return SoftwareClient
      */
     public function software()
     {
@@ -401,7 +401,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VpnGatewaySpecificationClient
      */
     public function vpnGatewaySpecifications()
     {
@@ -409,7 +409,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VpnGatewayClient
      */
     public function vpnGateways()
     {
@@ -417,7 +417,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VpnGatewayUserClient
      */
     public function vpnGatewayUsers()
     {
@@ -425,7 +425,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return BillingHistoryClient
      */
     public function billingHistory()
     {
@@ -433,7 +433,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return InstanceSoftwareClient
      */
     public function instanceSoftware()
     {
