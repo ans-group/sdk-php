@@ -22,6 +22,7 @@ class HostSpecClient extends Client implements ClientEntityInterface
             'cpu_cores' => 'cpuCores',
             'cpu_clock_speed' => 'cpuSpeed',
             'ram_capacity' => 'ramCapacity',
+            'available_host_quantity' => 'availableHostQuantity',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
