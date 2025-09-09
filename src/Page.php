@@ -2,14 +2,18 @@
 
 namespace UKFast\SDK;
 
+use Closure;
 use GuzzleHttp\Psr7\Request;
 use UKFast\SDK\Client;
 use UKFast\SDK\Exception\InvalidJsonException;
 
+/**
+ * @template T of Entity
+ */
 class Page
 {
     /**
-     * @var array
+     * @var array<int, T>
      */
     protected $items;
 
@@ -24,7 +28,7 @@ class Page
     protected $request;
 
     /**
-     * @var \Closure|null
+     * @var Closure|null
      */
     protected $serializer;
     
@@ -41,7 +45,7 @@ class Page
     }
 
     /**
-     * @return array
+     * @return array<int, T>
      */
     public function getItems()
     {
@@ -51,8 +55,8 @@ class Page
     /**
      * Setter for page items
      *
-     * @param array $items
-     * @return \UKFast\SDK\Page
+     * @param array<int, T> $items
+     * @return array<int, T>
      */
     public function setItems($items)
     {
@@ -64,8 +68,8 @@ class Page
      * Sets a mapping function to serialize each
      * item in a new page with
      *
-     * @param \Closure $callback
-     * @return \UKFast\SDK\Page
+     * @param Closure $callback
+     * @return Page<T>
      */
     public function serializeWith($callback)
     {
@@ -78,7 +82,7 @@ class Page
      * Applies a callback to each item in the page
      * and returns the resulting array
      *
-     * @param \Closure $callback
+     * @param Closure $callback
      * @return array
      */
     public function map($callback)
@@ -95,8 +99,8 @@ class Page
      * Sets client to use when making requests
      * to other pages
      *
-     * @param \UKFast\SDK\Client $client
-     * @return \UKFast\SDK\Page
+     * @param Client $client
+     * @return Page<T>
      */
     public function setClient(Client $client)
     {
@@ -176,7 +180,7 @@ class Page
      * Gets a page by number
      *
      * @param int $number
-     * @return \UKFast\SDK\Page
+     * @return Page<T>
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \UKFast\SDK\Exception\InvalidJsonException
      */
@@ -192,7 +196,7 @@ class Page
     }
 
     /**
-     * @return \UKFast\SDK\Page|false
+     * @return Page<T>|false
      */
     public function getNextPage()
     {
@@ -205,7 +209,7 @@ class Page
     }
 
     /**
-     * @return \UKFast\SDK\Page|false
+     * @return Page<T>|false
      */
     public function getPreviousPage()
     {
@@ -218,7 +222,7 @@ class Page
     }
 
     /**
-     * @return \UKFast\SDK\Page
+     * @return Page<T>
      */
     public function getFirstPage()
     {
@@ -227,7 +231,7 @@ class Page
     }
 
     /**
-     * @return \UKFast\SDK\Page
+     * @return Page<T>
      */
     public function getLastPage()
     {
@@ -241,7 +245,7 @@ class Page
      *
      * @param Response $response
      * @param string|\Psr\Http\Message\UriInterface $uri
-     * @return \UKFast\SDK\Page
+     * @return Page<T>
      * @throws \UKFast\SDK\Exception\InvalidJsonException
      */
     private function constructNewPage($response, $uri)

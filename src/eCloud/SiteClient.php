@@ -14,7 +14,7 @@ class SiteClient extends Client
      * @param int $page
      * @param int $perPage
      * @param array $filters
-     * @return Page
+     * @return Page<Site>
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
