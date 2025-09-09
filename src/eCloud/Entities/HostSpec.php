@@ -14,7 +14,6 @@ use UKFast\SDK\Entity;
  * @property integer $ramCapacity
  * @property string $createdAt
  * @property string $updatedAt
- * @property int $availableHostQuantity
  */
 class HostSpec extends Entity
 {
