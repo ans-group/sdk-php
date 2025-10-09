@@ -90,12 +90,13 @@ trait PageItems
 
     /**
      * Delete a single item from the collection
-     * @param $id
+     * @param string $id
+     * @param null|array<string, string> $body
      * @return bool
      */
-    public function deleteById($id)
+    public function deleteById($id, $body = null)
     {
-        $response = $this->delete($this->collectionPath . '/' . $id);
+        $response = $this->delete($this->collectionPath . '/' . $id, $body);
         return $response->getStatusCode() == 204;
     }
 
