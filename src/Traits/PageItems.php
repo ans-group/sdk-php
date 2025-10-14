@@ -91,7 +91,7 @@ trait PageItems
     /**
      * Delete a single item from the collection
      * @param string $id
-     * @param null|array<string, string> $body
+     * @param null|array<string, mixed> $body
      * @return bool
      */
     public function deleteById($id, $body = null)
