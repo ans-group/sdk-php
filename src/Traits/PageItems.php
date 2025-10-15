@@ -96,9 +96,6 @@ trait PageItems
      */
     public function deleteById($id, $body = null)
     {
-        if (is_array($body)) {
-            $body = json_encode($body);
-        }
         $response = $this->delete($this->collectionPath . '/' . $id, $body);
         return $response->getStatusCode() == 204;
     }
