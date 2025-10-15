@@ -77,7 +77,7 @@ class Client
         if ($this->token) {
             $defaultHeaders['Authorization'] = $this->token;
         }
-        
+
         $params = [
             'body' => $body,
             'headers' => array_merge($headers, $defaultHeaders),
@@ -191,6 +191,10 @@ class Client
      */
     public function delete($endpoint, $body = null, $headers = [])
     {
+        if (is_array($body)) {
+            $body = json_encode($body);
+            $headers['Content-Type'] = isset($headers['Content-Type']) ? $headers['Content-Type'] : 'application/json';
+        }
         return $this->request('DELETE', $endpoint, $body, $headers);
     }
 
