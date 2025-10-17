@@ -2,6 +2,8 @@
 
 namespace UKFast\SDK\eCloud;
 
+use GuzzleHttp\Exception\GuzzleException;
+use UKFast\SDK\eCloud\Entities\Volume;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Exception\UKFastException;
 use UKFast\SDK\Traits\PageItems;
@@ -82,51 +84,16 @@ class InstanceClient extends Client implements ClientEntityInterface
 
     /**
      * Get array of instance volumes
-     * @param $id
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @param string $id
+     * @param array<string, mixed> $filters
+     * @return array<int, Volume>
+     * @throws GuzzleException
      */
-    public function getVolumes($id)
+    public function getVolumes($id, $filters = [])
     {
-        $page = $this->paginatedRequest(
-            $this->collectionPath . '/' . $id . '/volumes',
-            $currentPage = 1,
-            $perPage = 15
-        );
-
-        if ($page->totalItems() == 0) {
-            return [];
-        }
-
-        $volumeClient = new VolumeClient;
-        $page->serializeWith(function ($item) use ($volumeClient) {
-            return $volumeClient->loadEntity($item);
-        });
-
-        $items = $page->getItems();
-        if ($page->totalPages() == 1) {
-            return $items;
-        }
-
-        // get any remaining pages
-        while ($page->pageNumber() < $page->totalPages()) {
-            $page = $this->paginatedRequest(
-                $this->collectionPath . '/' . $id . '/volumes',
-                $currentPage++,
-                $perPage
-            );
-
-            $page->serializeWith(function ($item) use ($volumeClient) {
-                return $volumeClient->loadEntity($item);
-            });
-
-            $items = array_merge(
-                $items,
-                $page->getItems()
-            );
-        }
-
-        return $items;
+        return $this->getChildResources($id, 'volumes', function (array $data) {
+            return (new VolumeClient())->loadEntity($data);
+        }, $filters);
     }
 
     /**
