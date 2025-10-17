@@ -91,7 +91,7 @@ class InstanceClient extends Client implements ClientEntityInterface
      */
     public function getVolumes($id, $filters = [])
     {
-        return $this->getChildResources($id, 'volumes', function (array $data) {
+        return $this->getChildResources($id, 'volumes', function ($data) {
             return (new VolumeClient())->loadEntity($data);
         }, $filters);
     }
