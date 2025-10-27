@@ -11,6 +11,7 @@ use UKFast\SDK\Entity;
  * @property string $datacentreSiteId
  * @property string $resourceTierId
  * @property string $state
+ * @property array<int, string> $features
  * @property string $createdAt
  * @property string $updatedAt
  */
@@ -25,5 +26,6 @@ class AvailabilityZone extends Entity
         'datacentre_site_id' => 'datacentreSiteId',
         'resource_tier_id' => 'resourceTierId',
         'state' => 'state',
+        'features' => 'features',
     ];
 }
