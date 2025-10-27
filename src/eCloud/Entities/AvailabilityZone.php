@@ -12,8 +12,6 @@ use UKFast\SDK\Entity;
  * @property string $resourceTierId
  * @property string $state
  * @property array<int, string> $features
- * @property string $createdAt
- * @property string $updatedAt
  */
 class AvailabilityZone extends Entity
 {
