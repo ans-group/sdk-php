@@ -11,19 +11,11 @@ class Client extends BaseClient
     /**
      * @return BaseClient
      */
-    public function paymentCards()
-    {
-        return (new PaymentCardClient($this->httpClient))->auth($this->token);
-    }
-
-    /**
-     * @return BaseClient
-     */
     public function recurringCosts()
     {
         return (new RecurringCostClient($this->httpClient))->auth($this->token);
     }
-  
+
     /**
      * @return CloudCostClient
      */
@@ -31,7 +23,7 @@ class Client extends BaseClient
     {
         return (new CloudCostClient($this->httpClient))->auth($this->token);
     }
-  
+
     /**
      * @return BaseClient
      */
@@ -39,7 +31,7 @@ class Client extends BaseClient
     {
         return (new InvoiceClient($this->httpClient))->auth($this->token);
     }
-  
+
     /**
      * @return BaseClient
      */
