@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\Network;
 
 class NetworkClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<Network> */
     use PageItems;
 
     protected $collectionPath = 'v2/networks';
