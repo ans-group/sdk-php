@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Pss;
+namespace Tests\Account;
 
 use PHPUnit\Framework\TestCase;
 use UKFast\SDK\Account\Entities\Contact;
