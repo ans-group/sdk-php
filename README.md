@@ -36,12 +36,12 @@ Each client class has its own subclients, which can be accessed via methods on t
 ```php
 <?php
 
-$client = (new \UKFast\SDK\PSS\Client)->auth('API KEY');
+$client = (new \UKFast\SDK\eCloud\Client)->auth('API KEY');
 
-$page = $client->requests()->getPage();
+$page = $client->vpcs()->getPage();
 
 foreach ($page->getItems() as $request) {
-    echo "#{$request->id} - {$request->subject}\n";
+    echo "#{$request->id} - {$request->name}\n";
 }
 ```
 
