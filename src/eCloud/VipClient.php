@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class VipClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<Vip> */
     use PageItems;
 
     protected $collectionPath = 'v2/vips';
