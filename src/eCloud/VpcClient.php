@@ -19,18 +19,11 @@ class VpcClient extends Client implements ClientEntityInterface
         );
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getEntityMap()
     {
-        return [
-            'id' => 'id',
-            'name' => 'name',
-            'client_id' => 'clientId',
-            'region_id' => 'regionId',
-            'support_enabled' => 'supportEnabled',
-            'console_enabled' => 'consoleEnabled',
-            'advanced_networking' => 'advancedNetworkingEnabled',
-            'created_at' => 'createdAt',
-            'updated_at' => 'updatedAt',
-        ];
+        return Vpc::$entityMap;
     }
 }
