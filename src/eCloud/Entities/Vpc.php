@@ -12,10 +12,24 @@ use UKFast\SDK\Entity;
  * @property boolean $supportEnabled
  * @property boolean $consoleEnabled
  * @property boolean $advancedNetworkingEnabled
+ * @property boolean $disasterRecoveryEnabled
  * @property string $createdAt
  * @property string $updatedAt
  */
 class Vpc extends Entity
 {
     protected $dates = ['createdAt', 'updatedAt'];
+
+    public static $entityMap = [
+        'id' => 'id',
+        'name' => 'name',
+        'client_id' => 'clientId',
+        'region_id' => 'regionId',
+        'support_enabled' => 'supportEnabled',
+        'console_enabled' => 'consoleEnabled',
+        'advanced_networking' => 'advancedNetworkingEnabled',
+        'disaster_recovery_enabled' => 'disasterRecoveryEnabled',
+        'created_at' => 'createdAt',
+        'updated_at' => 'updatedAt',
+    ];
 }
