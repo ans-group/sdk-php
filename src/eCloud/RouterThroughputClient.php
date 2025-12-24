@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\RouterThroughput;
 
 class RouterThroughputClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<RouterThroughput> */
     use PageItems;
 
     protected $collectionPath = 'v2/router-throughputs';
