@@ -12,6 +12,7 @@ use UKFast\SDK\eCloud\Entities\AvailabilityZone;
 
 class AvailabilityZoneClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<AvailabilityZone> */
     use PageItems;
 
     protected $collectionPath = 'v2/availability-zones';

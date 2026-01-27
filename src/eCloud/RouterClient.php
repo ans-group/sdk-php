@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\Router;
 
 class RouterClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<Router> */
     use PageItems;
 
     protected $collectionPath = 'v2/routers';

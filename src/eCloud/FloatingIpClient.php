@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\FloatingIp;
 
 class FloatingIpClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<FloatingIp> */
     use PageItems;
 
     protected $collectionPath = 'v2/floating-ips';
