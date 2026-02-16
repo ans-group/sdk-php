@@ -30,4 +30,19 @@ class TenantClient extends Client implements ClientEntityInterface
     {
         return Tenant::$entityMap;
     }
+
+    /**
+     * @return array
+     */
+    public function recoveryPlans($tenantId)
+    {
+        $originalCollection = $this->collectionPath;
+
+        $this->collectionPath = 'v2/tenants/' . $tenantId . '/recovery-plans';
+        $items = $this->getAll();
+
+        $this->collectionPath = $originalCollection;
+
+        return $items;
+    }
 }
