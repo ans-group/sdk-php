@@ -63,7 +63,7 @@ class Client extends BaseClient
     {
         return (new ReplicaClient($this->httpClient))->auth($this->token);
     }
-  
+
     /**
      * @return BillingTypeClient
      */
@@ -94,5 +94,13 @@ class Client extends BaseClient
     public function telemetry()
     {
         return (new TelemetryClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return TenantClient
+     */
+    public function tenants()
+    {
+        return (new TenantClient($this->httpClient))->auth($this->token);
     }
 }
