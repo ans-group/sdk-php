@@ -33,7 +33,7 @@ class TenantClient extends Client implements ClientEntityInterface
     }
 
     /**
-     * @return array
+     * @return array<int, RecoveryPlan>
      */
     public function recoveryPlans($tenantId)
     {
