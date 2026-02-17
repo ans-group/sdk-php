@@ -5,6 +5,7 @@ namespace UKFast\SDK\DRaaS;
 use UKFast\SDK\DRaaS\Entities\Tenant;
 use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
+use UKFast\SDK\DRaaS\Entities\RecoveryPlan;
 
 class TenantClient extends Client implements ClientEntityInterface
 {
@@ -36,13 +37,8 @@ class TenantClient extends Client implements ClientEntityInterface
      */
     public function recoveryPlans($tenantId)
     {
-        $originalCollection = $this->collectionPath;
-
-        $this->collectionPath = 'v2/tenants/' . $tenantId . '/recovery-plans';
-        $items = $this->getAll();
-
-        $this->collectionPath = $originalCollection;
-
-        return $items;
+        return $this->getChildResources($tenantId, 'recovery-plans', function ($data) {
+            return new RecoveryPlan($this->apiToFriendly($data, RecoveryPlan::$entityMap));
+        });
     }
 }
