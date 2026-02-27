@@ -8,8 +8,14 @@ use UKFast\SDK\Entities\ClientEntityInterface;
 use UKFast\SDK\Traits\PageItems;
 use UKFast\SDK\eCloud\Entities\Region;
 
+/**
+ *
+ * @extends PageItems<Region>
+ * @method $this auth(string $token)
+ */
 class RegionClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<Region> */
     use PageItems;
 
     protected $collectionPath = 'v2/regions';

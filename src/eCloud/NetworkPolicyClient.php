@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\NetworkPolicy;
 
 class NetworkPolicyClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<NetworkPolicy> */
     use PageItems;
 
     protected $collectionPath = 'v2/network-policies';

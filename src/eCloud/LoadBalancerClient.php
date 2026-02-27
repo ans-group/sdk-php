@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\LoadBalancer;
 
 class LoadBalancerClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<LoadBalancer> */
     use PageItems;
 
     protected $collectionPath = 'v2/load-balancers';

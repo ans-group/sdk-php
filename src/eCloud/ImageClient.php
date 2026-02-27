@@ -10,6 +10,7 @@ use UKFast\SDK\eCloud\Entities\ImageParameter;
 
 class ImageClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<Image> */
     use PageItems;
 
     protected $collectionPath = 'v2/images';

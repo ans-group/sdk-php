@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class HostGroupClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<HostGroup> */
     use PageItems;
 
     protected $collectionPath = 'v2/host-groups';

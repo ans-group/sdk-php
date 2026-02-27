@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\DiscountPlan;
 
 class DiscountPlanClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<DiscountPlan> */
     use PageItems;
 
     protected $collectionPath = 'v2/discount-plans';

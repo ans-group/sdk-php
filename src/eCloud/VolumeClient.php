@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\Volume;
 
 class VolumeClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<Volume> */
     use PageItems;
 
     protected $collectionPath = 'v2/volumes';

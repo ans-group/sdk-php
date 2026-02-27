@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class VpnProfileGroupClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<VpnProfileGroup> */
     use PageItems;
 
     protected $collectionPath = 'v2/vpn-profile-groups';
