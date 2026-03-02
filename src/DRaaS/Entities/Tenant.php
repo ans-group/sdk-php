@@ -9,7 +9,7 @@ use UKFast\SDK\Entity;
  * @property string $id
  * @property string $name
  * @property object{id: string, name: string} $pod
- * @property object{type: string, id: string} $source
+ * @property object{type: string|null, id: string|null} $source
  * @property object{status: string} $sync
  * @property DateTime $createdAt
  * @property DateTime $updatedAt
