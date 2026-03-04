@@ -39,4 +39,20 @@ class Client extends BaseClient
     {
         return (new InvoiceQueryClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return SubscriptionClient
+     */
+    public function subscriptions()
+    {
+        return (new SubscriptionClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return ProductClient
+     */
+    public function products()
+    {
+        return (new ProductClient($this->httpClient))->auth($this->token);
+    }
 }
