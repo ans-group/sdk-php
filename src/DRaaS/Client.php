@@ -3,6 +3,7 @@
 namespace UKFast\SDK\DRaaS;
 
 use UKFast\SDK\Client as BaseClient;
+use UKFast\SDK\DRaaS\Entities\RecoveryPlan;
 
 class Client extends BaseClient
 {
@@ -102,5 +103,13 @@ class Client extends BaseClient
     public function tenants()
     {
         return (new TenantClient($this->httpClient))->auth($this->token);
+    }
+
+    /**
+     * @return RecoveryPlanClient
+     */
+    public function recoveryPlans()
+    {
+        return (new RecoveryPlanClient($this->httpClient))->auth($this->token);
     }
 }
