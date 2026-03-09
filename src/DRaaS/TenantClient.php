@@ -35,7 +35,7 @@ class TenantClient extends Client implements ClientEntityInterface
     /**
      * @return array<int, RecoveryPlan>
      */
-    public function recoveryPlans($tenantId)
+    public function tenantRecoveryPlans($tenantId)
     {
         return $this->getChildResources($tenantId, 'recovery-plans', function ($data) {
             return new RecoveryPlan($this->apiToFriendly($data, RecoveryPlan::$entityMap));
