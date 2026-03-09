@@ -8,8 +8,8 @@ class RecoveryPlanClient extends Client
 {
     /**
      * Start a recovery plan
-     * @param $recoveryPlanId
-     * @param $startDate
+     * @param string $recoveryPlanId
+     * @param string $startDate
      * @return bool
      * @throws GuzzleException
      */
@@ -23,12 +23,12 @@ class RecoveryPlanClient extends Client
                 'v2/recovery-plans/' . $recoveryPlanId . '/start',
                 json_encode($data),
                 ['Content-Type' => 'application/json']
-            )->getStatusCode() == 202;
+            )->getStatusCode() === 202;
     }
 
     /**
      * Stop a recovery plan
-     * @param $recoveryPlanId
+     * @param string $recoveryPlanId
      * @return bool
      * @throws GuzzleException
      */
@@ -38,6 +38,6 @@ class RecoveryPlanClient extends Client
                 'v2/recovery-plans/' . $recoveryPlanId . '/stop',
                 json_encode([]),
                 ['Content-Type' => 'application/json']
-            )->getStatusCode() == 202;
+            )->getStatusCode() === 202;
     }
 }
