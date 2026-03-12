@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class NicClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<Nic> */
     use PageItems;
 
     protected $collectionPath = 'v2/nics';
