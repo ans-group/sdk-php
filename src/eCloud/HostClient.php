@@ -15,7 +15,7 @@ class HostClient extends Client implements ClientEntityInterface
      * @param int $page
      * @param int $perPage
      * @param array $filters
-     * @return Page
+     * @return Page<Host>
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
