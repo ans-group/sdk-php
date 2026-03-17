@@ -6,13 +6,9 @@ use UKFast\SDK\Entity;
 
 /**
  * @property string $id
- * @property object{
- *     id: string,
- *     name: string
- * } $product
- * @property object{
- *     id: string
- * } $contract
+ * @property string $productId
+ * @property string $productName
+ * @property string $contractId
  * @property string $status
  * @property float $listPrice
  * @property float $salePrice
@@ -28,8 +24,9 @@ class Subscription extends Entity
 
     public static $entityMap = [
         'id' => 'id',
-        'product' => 'product',
-        'contract' => 'contract',
+        'product_id' => 'productId',
+        'product_name' => 'productName',
+        'contract_id' => 'contractId',
         'status' => 'status',
         'list_price' => 'listPrice',
         'sale_price' => 'salePrice',
