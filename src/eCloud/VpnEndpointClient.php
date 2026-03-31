@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class VpnEndpointClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<VpnEndpoint> */
     use PageItems;
 
     protected $collectionPath = 'v2/vpn-endpoints';
