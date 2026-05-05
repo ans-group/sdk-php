@@ -14,22 +14,7 @@ class VolumeClient extends Client implements ClientEntityInterface
 
     public function getEntityMap()
     {
-        return [
-            'id' => 'id',
-            'name' => 'name',
-            'vpc_id' => 'vpcId',
-            'availability_zone_id' => 'availabilityZoneId',
-            'capacity' => 'capacity',
-            'iops' => 'iops',
-            'attached' => 'attached',
-            'sync' => 'sync',
-            'created_at' => 'createdAt',
-            'updated_at' => 'updatedAt',
-            'is_shared' => 'isShared',
-            'is_encrypted' => 'isEncrypted',
-            'volume_group_id' => 'volumeGroupId',
-            'port' => 'port'
-        ];
+        return Volume::$entityMap;
     }
 
     public function loadEntity($data)
