@@ -38,7 +38,7 @@ class DomainRegistrationClient extends BaseClient
         $response = $this->post('v2/domains', json_encode($registration->toApiArray()));
         $responseBody = $this->decodeJson($response->getBody()->getContents());
 
-        return (new SelfResponse($responseBody, 'name'))
+        return (new SelfResponse($responseBody))
             ->setClient($this)
             ->serializeWith(function ($responseBody) {
                 return new Domain($responseBody->data);
