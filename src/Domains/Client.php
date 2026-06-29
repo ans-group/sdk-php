@@ -24,4 +24,12 @@ class Client extends BaseClient
     {
         return (new WhoisClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return BaseClient
+     */
+    public function registrar()
+    {
+        return (new DomainRegistrationClient($this->httpClient))->auth($this->token);
+    }
 }
