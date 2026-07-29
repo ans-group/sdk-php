@@ -16,7 +16,7 @@ class ApiException extends UKFastException
      */
     protected $response;
 
-    public function __construct($response)
+    public function __construct($response, $code = 0, \Exception $previous = null)
     {
         $response->getBody()->rewind();
         $this->response = $response;
@@ -34,14 +34,15 @@ class ApiException extends UKFastException
             $this->errors = $this->getApiGatewayErrorFromBody($body);
         }
 
+        $message = '';
         if (!empty($this->errors)) {
             $message = $this->errors[0]->detail;
             if (empty($message)) {
                 $message = $this->errors[0]->title;
             }
-
-            $this->message = $message;
         }
+
+        parent::__construct($message, $code, $previous);
     }
 
     /**

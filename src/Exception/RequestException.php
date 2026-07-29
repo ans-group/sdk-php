@@ -2,9 +2,7 @@
 
 namespace UKFast\SDK\Exception;
 
-use RuntimeException;
-
-class UKFastException extends RuntimeException
+class RequestException extends UKFastException
 {
     public function __construct($message, $code = 0, \Exception $previous = null)
     {
