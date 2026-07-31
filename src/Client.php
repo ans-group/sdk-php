@@ -67,9 +67,9 @@ class Client
      *
      * @param string $method
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function request($method, $endpoint, $body = null, $headers = [])
@@ -143,9 +143,9 @@ class Client
      * Convenience method for GET requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function get($endpoint, $body = null, $headers = [])
@@ -157,9 +157,9 @@ class Client
      * Convenience method for POST requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function post($endpoint, $body = null, $headers = [])
@@ -175,9 +175,9 @@ class Client
      * Convenience method for PUT requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function put($endpoint, $body = null, $headers = [])
@@ -193,9 +193,9 @@ class Client
      * Convenience method for PATCH requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function patch($endpoint, $body = null, $headers = [])
@@ -211,9 +211,9 @@ class Client
      * Convenience method for DELETE requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function delete($endpoint, $body = null, $headers = [])
@@ -233,7 +233,8 @@ class Client
      * @param int $perPage
      * @param array $filters
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
+     * @throws Exception\InvalidJsonException
      * @return Page
      */
     public function paginatedRequest($endpoint, $page, $perPage, $filters = [], $headers = [])
