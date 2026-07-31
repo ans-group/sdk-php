@@ -16,7 +16,7 @@ class ApiException extends UKFastException
      */
     protected $response;
 
-    public function __construct($response, $code = 0, \Exception $previous = null)
+    public function __construct($response, $code = 0, $previous = null)
     {
         $response->getBody()->rewind();
         $this->response = $response;
