@@ -6,6 +6,7 @@ use DateTime;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
@@ -66,9 +67,9 @@ class Client
      *
      * @param string $method
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function request($method, $endpoint, $body = null, $headers = [])
@@ -93,20 +94,46 @@ class Client
             $status = $e->getResponse()->getStatusCode();
 
             if ($status == 404) {
-                throw new Exception\NotFoundException($e->getResponse());
+                throw new Exception\NotFoundException($e->getResponse(), $e->getCode(), $e);
             }
 
             if ($status == 400 || $status == 422) {
-                throw new Exception\ValidationException($e->getResponse());
+                throw new Exception\ValidationException($e->getResponse(), $e->getCode(), $e);
             }
 
             if ($status == 412) {
-                throw new Exception\PreconditionFailedException($e->getResponse());
+                throw new Exception\PreconditionFailedException($e->getResponse(), $e->getCode(), $e);
             }
 
-            throw new Exception\ClientException($e->getResponse());
+            throw new Exception\ClientException($e->getResponse(), $e->getCode(), $e);
         } catch (ServerException $e) {
-            throw new Exception\ServerException($e->getResponse());
+            throw new Exception\ServerException($e->getResponse(), $e->getCode(), $e);
+        } catch (GuzzleRequestException $e) {
+            if ($e->hasResponse()) {
+                $status = $e->getResponse()->getStatusCode();
+
+                if ($status == 404) {
+                    throw new Exception\NotFoundException($e->getResponse(), $e->getCode(), $e);
+                }
+
+                if ($status == 400 || $status == 422) {
+                    throw new Exception\ValidationException($e->getResponse(), $e->getCode(), $e);
+                }
+
+                if ($status == 412) {
+                    throw new Exception\PreconditionFailedException($e->getResponse(), $e->getCode(), $e);
+                }
+
+                if ($status >= 500) {
+                    throw new Exception\ServerException($e->getResponse(), $e->getCode(), $e);
+                }
+
+                throw new Exception\ClientException($e->getResponse(), $e->getCode(), $e);
+            }
+
+            throw new Exception\RequestException($e->getMessage(), $e->getCode(), $e);
+        } catch (GuzzleException $e) {
+            throw new Exception\RequestException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $response;
@@ -116,9 +143,9 @@ class Client
      * Convenience method for GET requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function get($endpoint, $body = null, $headers = [])
@@ -130,9 +157,9 @@ class Client
      * Convenience method for POST requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function post($endpoint, $body = null, $headers = [])
@@ -148,9 +175,9 @@ class Client
      * Convenience method for PUT requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function put($endpoint, $body = null, $headers = [])
@@ -166,9 +193,9 @@ class Client
      * Convenience method for PATCH requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function patch($endpoint, $body = null, $headers = [])
@@ -184,9 +211,9 @@ class Client
      * Convenience method for DELETE requests
      *
      * @param string $endpoint
-     * @param string $body
+     * @param string|null $body
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
      * @return ResponseInterface
      */
     public function delete($endpoint, $body = null, $headers = [])
@@ -206,7 +233,8 @@ class Client
      * @param int $perPage
      * @param array $filters
      * @param array $headers
-     * @throws GuzzleException
+     * @throws Exception\UKFastException
+     * @throws Exception\InvalidJsonException
      * @return Page
      */
     public function paginatedRequest($endpoint, $page, $perPage, $filters = [], $headers = [])

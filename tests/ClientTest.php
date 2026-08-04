@@ -4,6 +4,7 @@ namespace Tests;
 
 use DateTime;
 use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
@@ -13,8 +14,9 @@ use UKFast\SDK\Client;
 use UKFast\SDK\Exception\ApiException;
 use UKFast\SDK\Exception\InvalidJsonException;
 use UKFast\SDK\Exception\NotFoundException;
-use UKFast\SDK\Exception\ValidationException;
 use UKFast\SDK\Exception\PreconditionFailedException;
+use UKFast\SDK\Exception\RequestException as UKFastRequestException;
+use UKFast\SDK\Exception\ValidationException;
 use UKFast\SDK\Page;
 
 class ClientTest extends TestCase
@@ -234,6 +236,31 @@ class ClientTest extends TestCase
 
         $this->expectException(ValidationException::class);
         $client->paginatedRequest("/", 1, 10);
+    }
+
+    /**
+     * @test
+     */
+    public function preserves_the_original_exception_when_request_fails()
+    {
+        $request = new \GuzzleHttp\Psr7\Request('GET', '/');
+        $originalException = new GuzzleRequestException('Connection failed', $request);
+        $mock = new MockHandler([$originalException]);
+        $handler = HandlerStack::create($mock);
+        $guzzle = new Guzzle(['handler' => $handler]);
+        $client = new Client($guzzle);
+
+        $this->expectException(UKFastRequestException::class);
+        $this->expectExceptionMessage('Connection failed');
+
+        try {
+            $client->request('GET', '/');
+        } catch (UKFastRequestException $e) {
+            $this->assertInstanceOf(GuzzleRequestException::class, $e->getPrevious());
+            $this->assertSame($originalException, $e->getPrevious());
+            $this->assertSame('Connection failed', $e->getPrevious()->getMessage());
+            throw $e;
+        }
     }
 
     /**
