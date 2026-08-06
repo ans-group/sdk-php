@@ -85,6 +85,20 @@ class DomainRegistrationClientTest extends TestCase
         $this->assertArrayNotHasKey('nameservers', $api);
         $this->assertArrayNotHasKey('renewal', $api);
         $this->assertArrayNotHasKey('registrant', $api);
+        $this->assertArrayNotHasKey('client', $api);
+    }
+
+    public function testToApiArraySerializesClientId()
+    {
+        $registration = new DomainRegistration([
+            'name' => 'example.co.uk',
+            'period' => 1,
+            'clientId' => 18638,
+        ]);
+
+        $api = $registration->toApiArray();
+
+        $this->assertEquals(['id' => 18638], $api['client']);
     }
 
     public function testToApiArraySerializesNominetRegistrant()
