@@ -99,7 +99,7 @@ class LookupClientTest extends TestCase
 
         $client = new LookupClient(new Guzzle(['handler' => $handler]));
 
-        $result = $client->lookup('http://ans.co.uk/');
+        $result = $client->getRecord('http://ans.co.uk/');
 
         $this->assertEquals('v2/lookup/ans.co.uk', (string) $container[0]['request']->getUri());
 
