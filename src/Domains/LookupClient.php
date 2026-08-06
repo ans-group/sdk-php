@@ -2,12 +2,12 @@
 
 namespace UKFast\SDK\Domains;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Domains\Entities\Lookup;
 
-class LookupClient extends Client
+class LookupClient extends BaseClient
 {
-    protected $basePath = 'registrar/v2/';
+    protected $basePath = 'registrar/';
 
     /**
      * Lookup API fields which need mapping
@@ -34,7 +34,7 @@ class LookupClient extends Client
      */
     public function getRecord($domainName)
     {
-        $response = $this->request("GET", 'lookup/' . $this->sanitiseDomain($domainName));
+        $response = $this->request("GET", 'v2/lookup/' . $this->sanitiseDomain($domainName));
         $body = $this->decodeJson($response->getBody()->getContents());
         return new Lookup($this->apiToFriendly($body->data, $this->lookupMap));
     }
