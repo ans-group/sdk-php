@@ -32,4 +32,12 @@ class Client extends BaseClient
     {
         return (new DomainRegistrationClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return LookupClient
+     */
+    public function lookup()
+    {
+        return (new LookupClient($this->httpClient))->auth($this->token);
+    }
 }
