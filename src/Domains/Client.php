@@ -10,7 +10,7 @@ class Client extends BaseClient
 
 
     /**
-     * @return BaseClient
+     * @return DomainClient
      */
     public function domains()
     {
@@ -18,7 +18,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return WhoisClient
      */
     public function whois()
     {
@@ -26,7 +26,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return DomainRegistrationClient
      */
     public function registrar()
     {
