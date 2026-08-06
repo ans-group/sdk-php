@@ -32,7 +32,7 @@ class LookupClient extends Client
      * @return Lookup
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function lookup($domainName)
+    public function getRecord($domainName)
     {
         $response = $this->request("GET", 'lookup/' . $this->sanitiseDomain($domainName));
         $body = $this->decodeJson($response->getBody()->getContents());
