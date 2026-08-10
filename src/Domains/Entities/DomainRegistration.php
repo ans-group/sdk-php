@@ -10,6 +10,7 @@ use UKFast\SDK\Entity;
  * @property array|null $nameservers
  * @property bool|null $autoRenew
  * @property DomainRegistrant|null $registrant
+ * @property int|null $clientId
  */
 class DomainRegistration extends Entity
 {
@@ -33,6 +34,10 @@ class DomainRegistration extends Entity
 
         if (!is_null($this->registrant)) {
             $data['registrant'] = $this->serialiseRegistrant($this->registrant);
+        }
+
+        if (!is_null($this->clientId)) {
+            $data['client'] = ['id' => $this->clientId];
         }
 
         return $data;

@@ -2,12 +2,12 @@
 
 namespace UKFast\SDK\Domains;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Page;
 use UKFast\SDK\Domains\Entities\Domain;
 use UKFast\SDK\Domains\Entities\Nameserver;
 
-class DomainClient extends Client
+class DomainClient extends BaseClient
 {
     protected $basePath = 'registrar/';
 
