@@ -2,10 +2,10 @@
 
 namespace UKFast\SDK\Domains;
 
-use UKFast\SDK\Client;
+use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Domains\Entities\Whois;
 
-class WhoisClient extends Client
+class WhoisClient extends BaseClient
 {
     protected $basePath = 'registrar/';
 
