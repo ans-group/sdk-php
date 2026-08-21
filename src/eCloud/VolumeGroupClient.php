@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class VolumeGroupClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<VolumeGroup> */
     use PageItems;
 
     protected $collectionPath = 'v2/volume-groups';

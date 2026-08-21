@@ -29,7 +29,7 @@ class VirtualMachineClient extends Client
      * @param int $page
      * @param int $perPage
      * @param array $filters
-     * @return Page
+     * @return Page<VirtualMachine>
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
@@ -46,7 +46,7 @@ class VirtualMachineClient extends Client
      * Gets array of all Virtual Machines
      *
      * @param array $filters
-     * @return array
+     * @return array<int, VirtualMachine>
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAll($filters = [])

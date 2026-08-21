@@ -9,6 +9,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class IpAddressesClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<IpAddresses> */
     use PageItems;
 
     private $collectionPath = "v2/ip-addresses";

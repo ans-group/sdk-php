@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class TaskClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<Task> */
     use PageItems;
 
     protected $collectionPath = 'v2/tasks';

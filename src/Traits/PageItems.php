@@ -2,9 +2,13 @@
 
 namespace UKFast\SDK\Traits;
 
+use UKFast\SDK\Entity;
 use UKFast\SDK\Page;
 use UKFast\SDK\SelfResponse;
 
+/**
+ * @template T of Entity
+ */
 trait PageItems
 {
     /**
@@ -19,6 +23,7 @@ trait PageItems
     /**
      * Return an entity model
      * @param $data
+     * @return T
      */
     abstract public function loadEntity($data);
 
@@ -28,7 +33,7 @@ trait PageItems
      * @param int $page
      * @param int $perPage
      * @param array $filters
-     * @return Page
+     * @return Page<T>
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {
@@ -49,7 +54,7 @@ trait PageItems
      * Get an array of all items from all pages
      *
      * @param array $filters
-     * @return array
+     * @return array<int, T>
      */
     public function getAll($filters = [])
     {
@@ -79,7 +84,7 @@ trait PageItems
     /**
      * Get a single item from the collection
      * @param $id
-     * @return mixed
+     * @return T
      */
     public function getById($id)
     {
@@ -102,7 +107,7 @@ trait PageItems
 
     /**
      * Create a new item for the collection
-     * @param $entity
+     * @param T $entity
      * @return SelfResponse
      */
     public function createEntity($entity)
@@ -122,7 +127,7 @@ trait PageItems
 
     /**
      * Update an existing item in the collection
-     * @param $entity
+     * @param T $entity
      * @return SelfResponse
      */
     public function updateEntity($entity)

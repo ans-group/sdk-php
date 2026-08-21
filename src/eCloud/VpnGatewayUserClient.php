@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class VpnGatewayUserClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<VpnGatewayUser> */
     use PageItems;
 
     protected $collectionPath = 'v2/vpn-gateway-users';

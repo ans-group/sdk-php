@@ -9,6 +9,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class VpnGatewaySpecificationClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<VpnGatewaySpecification> */
     use PageItems;
 
     protected $collectionPath = 'v2/vpn-gateway-specifications';

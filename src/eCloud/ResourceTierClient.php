@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\ResourceTier;
 
 class ResourceTierClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<ResourceTier> */
     use PageItems;
 
     protected $collectionPath = 'v2/resource-tiers';

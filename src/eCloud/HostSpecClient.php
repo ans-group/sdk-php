@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class HostSpecClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<HostSpec> */
     use PageItems;
 
     protected $collectionPath = 'v2/host-specs';

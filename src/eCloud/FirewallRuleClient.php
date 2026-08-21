@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\FirewallRule;
 
 class FirewallRuleClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<FirewallRule> */
     use PageItems;
 
     protected $collectionPath = 'v2/firewall-rules';

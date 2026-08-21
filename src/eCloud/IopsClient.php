@@ -14,7 +14,7 @@ class IopsClient extends Client implements ClientEntityInterface
      * @param int $page Page number
      * @param int $perPage Number of items to return per page
      * @param array $filters Filter to apply
-     * @return int|Page
+     * @return Page<Iops>
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
     {

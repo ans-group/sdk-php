@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\Vpc;
 
 class VpcClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<Vpc> */
     use PageItems;
 
     protected $collectionPath = 'v2/vpcs';

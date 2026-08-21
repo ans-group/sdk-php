@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class DedicatedHostClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<DedicatedHost> */
     use PageItems;
 
     protected $collectionPath = 'v2/hosts';

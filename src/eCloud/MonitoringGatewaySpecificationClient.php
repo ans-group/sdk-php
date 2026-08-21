@@ -8,6 +8,7 @@ use UKFast\SDK\Traits\PageItems;
 
 class MonitoringGatewaySpecificationClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<MonitoringGatewaySpecification> */
     use PageItems;
 
     protected $collectionPath = 'v2/monitoring-gateway-specifications';

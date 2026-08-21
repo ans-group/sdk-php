@@ -13,7 +13,7 @@ class Client extends BaseClient
      */
 
     /**
-     * @return BaseClient
+     * @return DatastoreClient
      */
     public function datastores()
     {
@@ -21,7 +21,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return FirewallClient
      */
     public function firewalls()
     {
@@ -29,7 +29,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return HostClient
      */
     public function hosts()
     {
@@ -37,7 +37,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return PodClient
      */
     public function pods()
     {
@@ -45,7 +45,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return SiteClient
      */
     public function sites()
     {
@@ -53,7 +53,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return SolutionClient
      */
     public function solutions()
     {
@@ -69,7 +69,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return VirtualMachineClient
      */
     public function virtualMachines()
     {
@@ -77,7 +77,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return IopsClient
      */
     public function iops()
     {
@@ -85,7 +85,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return IpAddressesClient
      */
     public function ipAddresses()
     {
@@ -93,7 +93,7 @@ class Client extends BaseClient
     }
 
     /**
-     * @return BaseClient
+     * @return ApplianceClient
      */
     public function appliances()
     {
@@ -133,6 +133,8 @@ class Client extends BaseClient
      */
     public function images()
     {
+        (new ImageClient($this->httpClient))->auth($this->token)->getPage()->getItems()[0]->documentationUri;
+        (new ImageClient($this->httpClient))->auth($this->token)->getAll()[0]->documentationUri;
         return (new ImageClient($this->httpClient))->auth($this->token);
     }
 

@@ -23,7 +23,7 @@ class PodClient extends Client implements ClientEntityInterface
      * @param int $page
      * @param int $perPage
      * @param array $filters
-     * @return Page
+     * @return Page<Pod>
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPage($page = 1, $perPage = 15, $filters = [])
@@ -56,7 +56,7 @@ class PodClient extends Client implements ClientEntityInterface
      * @param int $page
      * @param int $perPage
      * @param array $filters
-     * @return Page
+     * @return Page<Template>
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getTemplates($id, $page = 1, $perPage = 15, $filters = [])
@@ -91,7 +91,7 @@ class PodClient extends Client implements ClientEntityInterface
      * @param int $page
      * @param int $perPage
      * @param array $filters
-     * @return Page
+     * @return Page<Appliance>
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getAppliances($id, $page = 1, $perPage = 15, $filters = [])

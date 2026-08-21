@@ -8,6 +8,7 @@ use UKFast\SDK\eCloud\Entities\BillingMetric;
 
 class BillingMetricClient extends Client implements ClientEntityInterface
 {
+    /** @use PageItems<BillingMetric> */
     use PageItems;
 
     protected $collectionPath = 'v2/billing-metrics';
