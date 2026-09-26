@@ -40,4 +40,12 @@ class Client extends BaseClient
     {
         return (new LookupClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return SettingsClient
+     */
+    public function settings()
+    {
+        return (new SettingsClient($this->httpClient))->auth($this->token);
+    }
 }
