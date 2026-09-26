@@ -49,7 +49,8 @@ class DomainClient extends BaseClient
     }
 
     /**
-     * Updates a Domain. Only auto-renew is sent, and only when set.
+     * Updates a Domain. Only auto-renew is sent, and only when set; with
+     * nothing to send, no request is made.
      *
      * @param Domain $domain
      * @return bool
@@ -61,6 +62,10 @@ class DomainClient extends BaseClient
 
         if (!is_null($domain->autoRenew)) {
             $data['renewal'] = ['auto' => $domain->autoRenew];
+        }
+
+        if (empty($data)) {
+            return true;
         }
 
         $this->patch("v2/domains/{$domain->name}", json_encode($data));
@@ -162,7 +167,9 @@ class DomainClient extends BaseClient
     /**
      * Updates a Domains Registrant at the registry. The registrant's name
      * can't be changed this way, so it isn't sent. A null field is sent as
-     * null, which clears it (e.g. a trading name or phone number).
+     * null, which clears it (e.g. a trading name or phone number). The API
+     * requires the contact and address, so a registrant without either
+     * leaves it out and gets the API's validation error.
      *
      * @param string $name
      * @param DomainRegistrant $registrant
@@ -181,20 +188,26 @@ class DomainClient extends BaseClient
                 'number' => $company ? $company->number : null,
                 'trading_as' => $company ? $company->tradingAs : null,
             ],
-            'contact' => [
+        ];
+
+        if ($contact) {
+            $data['contact'] = [
                 'name' => $contact->name,
                 'email' => $contact->email,
                 'phone' => $contact->phone,
-            ],
-            'address' => [
+            ];
+        }
+
+        if ($address) {
+            $data['address'] = [
                 'line1' => $address->line1,
                 'line2' => $address->line2,
                 'city' => $address->city,
                 'county' => $address->county,
                 'postcode' => $address->postcode,
                 'country' => $address->country,
-            ],
-        ];
+            ];
+        }
 
         $this->put("v2/domains/$name/registrant", json_encode($data));
 

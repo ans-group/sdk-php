@@ -255,4 +255,29 @@ class DomainClientTest extends TestCase
             ],
         ], json_decode((string) $this->lastRequest()->getBody(), true));
     }
+
+    public function testUpdateRegistrantLeavesOutAMissingContactOrAddress()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode(['data' => ['id' => 'example.co.uk'], 'meta' => []])),
+        ]);
+
+        $client->updateRegistrant('example.co.uk', new DomainRegistrant(['type' => 'IND']));
+
+        $this->assertSame([
+            'type' => 'IND',
+            'company' => ['number' => null, 'trading_as' => null],
+        ], json_decode((string) $this->lastRequest()->getBody(), true));
+    }
+
+    public function testUpdateWithNothingSetSendsNoRequest()
+    {
+        $client = $this->client([]);
+
+        $domain = new Domain();
+        $domain->name = 'edgeley.community';
+
+        $this->assertTrue($client->update($domain));
+        $this->assertCount(0, $this->history);
+    }
 }

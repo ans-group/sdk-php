@@ -50,7 +50,8 @@ class SettingsClient extends BaseClient
     /**
      * Updates the account's domain settings. Only the attributes set on
      * $settings are sent, so a setting can be changed without touching the
-     * rest; a nameserver set to null is cleared.
+     * rest; a nameserver set to null is cleared. With nothing set, no
+     * request is made.
      *
      * @param Settings $settings
      * @return bool
@@ -71,6 +72,10 @@ class SettingsClient extends BaseClient
             if (array_key_exists($attribute, $attributes)) {
                 $data['renewal'][array_search($attribute, $this->settingsMap)] = $attributes[$attribute];
             }
+        }
+
+        if (empty($data)) {
+            return true;
         }
 
         $this->patch('v2/settings', json_encode($data));

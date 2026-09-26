@@ -102,4 +102,12 @@ class SettingsClientTest extends TestCase
             json_decode((string) $this->lastRequest()->getBody(), true)
         );
     }
+
+    public function testUpdateWithNothingSetSendsNoRequest()
+    {
+        $client = $this->client([]);
+
+        $this->assertTrue($client->update(new Settings()));
+        $this->assertCount(0, $this->history);
+    }
 }
