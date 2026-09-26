@@ -84,6 +84,9 @@ class RecordClient extends BaseClient implements ClientEntityInterface
     /**
      * Update an existing record
      *
+     * Sends the record's name and content, plus its ttl and priority
+     * when they are set on the entity.
+     *
      * @param Record $record
      * @return bool
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -94,6 +97,14 @@ class RecordClient extends BaseClient implements ClientEntityInterface
             'name' => $record->name,
             'content' => $record->content,
         ];
+
+        if (isset($record->ttl)) {
+            $data['ttl'] = (int) $record->ttl;
+        }
+
+        if (isset($record->priority)) {
+            $data['priority'] = (int) $record->priority;
+        }
 
         $response = $this->patch("v1/zones/".$record->zone."/records/".$record->id."", json_encode($data), [
             'Content-Type' => 'application/json'

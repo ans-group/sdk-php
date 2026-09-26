@@ -7,6 +7,7 @@ use Faker\Factory as Faker;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use UKFast\SDK\SafeDNS\Client as SafeDnsClient;
@@ -113,5 +114,85 @@ class RecordClientTest extends TestCase
         $this->assertInstanceOf(SelfResponse::class, $createResponse);
 
         $this->assertInstanceOf(Record::class, $createResponse->get());
+    }
+
+    /**
+     * @test
+     */
+    public function updates_only_name_and_content_when_ttl_and_priority_are_not_set()
+    {
+        $this->setFaker();
+
+        $requests = [];
+        $client   = $this->updateClient($requests);
+
+        $record = new Record([
+            'id'      => $this->faker->randomNumber(),
+            'zone'    => $this->faker->domainName,
+            'name'    => $this->faker->domainName,
+            'content' => $this->faker->ipv4,
+        ]);
+
+        $this->assertTrue($client->update($record));
+
+        $this->assertCount(1, $requests);
+        $this->assertEquals('PATCH', $requests[0]['request']->getMethod());
+        $this->assertStringEndsWith(
+            'v1/zones/' . $record->zone . '/records/' . $record->id,
+            $requests[0]['request']->getUri()->getPath()
+        );
+        $this->assertEquals(
+            ['name' => $record->name, 'content' => $record->content],
+            json_decode((string) $requests[0]['request']->getBody(), true)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function updates_ttl_and_priority_when_set()
+    {
+        $this->setFaker();
+
+        $requests = [];
+        $client   = $this->updateClient($requests);
+
+        $record = new Record([
+            'id'       => $this->faker->randomNumber(),
+            'zone'     => $this->faker->domainName,
+            'name'     => $this->faker->domainName,
+            'content'  => 'mail.' . $this->faker->domainName,
+            'ttl'      => '300',
+            'priority' => 20,
+        ]);
+
+        $this->assertTrue($client->update($record));
+
+        $this->assertSame(
+            ['name' => $record->name, 'content' => $record->content, 'ttl' => 300, 'priority' => 20],
+            json_decode((string) $requests[0]['request']->getBody(), true)
+        );
+    }
+
+    /**
+     * A RecordClient whose requests are recorded into $requests and
+     * answered with a successful update response.
+     *
+     * @param array $requests
+     * @return RecordClient
+     */
+    protected function updateClient(array &$requests)
+    {
+        $mockHandler = new MockHandler([
+            new Response(200, [], json_encode([
+                'data' => ['id' => 1],
+                'meta' => ['location' => 'http://localhost/safedns/v1/zones/example.com/records/1'],
+            ])),
+        ]);
+
+        $stack = HandlerStack::create($mockHandler);
+        $stack->push(Middleware::history($requests));
+
+        return new RecordClient(new GuzzleClient(['handler' => $stack]));
     }
 }
