@@ -5,6 +5,7 @@ namespace Tests\Domains;
 use GuzzleHttp\Client as Guzzle;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use UKFast\SDK\Domains\DomainRegistrationClient;
@@ -14,6 +15,7 @@ use UKFast\SDK\Domains\Entities\DomainRegistrant;
 use UKFast\SDK\Domains\Entities\DomainRegistrantAddress;
 use UKFast\SDK\Domains\Entities\DomainRegistrantContact;
 use UKFast\SDK\Domains\Entities\DomainRegistration;
+use UKFast\SDK\Domains\Entities\DomainRenewal;
 use UKFast\SDK\SelfResponse;
 
 class DomainRegistrationClientTest extends TestCase
@@ -155,5 +157,53 @@ class DomainRegistrationClientTest extends TestCase
         $this->assertEquals('123 Test Street', $api['registrant']['address']['line1']);
         $this->assertEquals('GB', $api['registrant']['address']['country']);
         $this->assertArrayNotHasKey('line2', $api['registrant']['address']);
+    }
+
+    public function testGetRenewalReturnsTheRenewalTerms()
+    {
+        $history = [];
+        $handler = HandlerStack::create(new MockHandler([
+            new Response(200, [], json_encode([
+                'data' => [
+                    'available' => true,
+                    'terms' => [
+                        ['period' => 1, 'price' => '36.75'],
+                        ['period' => 2, 'price' => '72.57'],
+                    ],
+                ],
+                'meta' => [],
+            ])),
+        ]));
+        $handler->push(Middleware::history($history));
+        $client = new DomainRegistrationClient(new Guzzle(['handler' => $handler]));
+
+        $renewal = $client->getRenewal('edgeley.community');
+
+        $this->assertEquals('GET', $history[0]['request']->getMethod());
+        $this->assertEquals('v2/domains/edgeley.community/renewal', (string) $history[0]['request']->getUri());
+        $this->assertInstanceOf(DomainRenewal::class, $renewal);
+        $this->assertTrue($renewal->available);
+        $this->assertCount(2, $renewal->terms);
+        $this->assertInstanceOf(DomainAvailabilityTerm::class, $renewal->terms[0]);
+        $this->assertEquals(1, $renewal->terms[0]->period);
+        $this->assertSame('36.75', $renewal->terms[0]->price);
+    }
+
+    public function testRenewSendsThePeriodAndTheQuotedPrice()
+    {
+        $history = [];
+        $handler = HandlerStack::create(new MockHandler([
+            new Response(200, [], json_encode(['data' => ['id' => 'edgeley.community'], 'meta' => []])),
+        ]));
+        $handler->push(Middleware::history($history));
+        $client = new DomainRegistrationClient(new Guzzle(['handler' => $handler]));
+
+        $this->assertTrue($client->renew('edgeley.community', 1, '36.75'));
+        $this->assertEquals('POST', $history[0]['request']->getMethod());
+        $this->assertEquals('v2/domains/edgeley.community/renewal', (string) $history[0]['request']->getUri());
+        $this->assertSame(
+            ['period' => 1, 'price' => '36.75'],
+            json_decode((string) $history[0]['request']->getBody(), true)
+        );
     }
 }
