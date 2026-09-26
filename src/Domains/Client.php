@@ -48,4 +48,12 @@ class Client extends BaseClient
     {
         return (new SettingsClient($this->httpClient))->auth($this->token);
     }
+
+    /**
+     * @return TldClient
+     */
+    public function tlds()
+    {
+        return (new TldClient($this->httpClient))->auth($this->token);
+    }
 }
