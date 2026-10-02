@@ -19,6 +19,6 @@ class Nameserver
         }
 
         $this->host = $item->host;
-        $this->ip = $item->ip;
+        $this->ip = isset($item->ip) ? $item->ip : null;
     }
 }
