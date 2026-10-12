@@ -30,6 +30,7 @@ use UKFast\SDK\Entity;
  * @property boolean $monitoringEnabled
  * @property string $monitoringGatewayId
  * @property array $tags
+ * @property string|null $ipAddress Write-only: internal IP for the primary NIC on create; not returned on read
  * @property string $createdAt
  * @property string $updatedAt
  */
@@ -63,6 +64,7 @@ class Instance extends Entity
         'monitoring_enabled' => 'monitoringEnabled',
         'monitoring_gateway_id' => 'monitoringGatewayId',
         'tags' => 'tags',
+        'ip_address' => 'ipAddress',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
     ];
