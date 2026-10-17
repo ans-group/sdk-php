@@ -16,6 +16,7 @@ use UKFast\SDK\Domains\Entities\DomainRegistrantAddress;
 use UKFast\SDK\Domains\Entities\DomainRegistrantContact;
 use UKFast\SDK\Domains\Entities\DomainRegistration;
 use UKFast\SDK\Domains\Entities\DomainRenewal;
+use UKFast\SDK\Domains\Entities\DomainRenewalTerm;
 use UKFast\SDK\SelfResponse;
 
 class DomainRegistrationClientTest extends TestCase
@@ -184,7 +185,7 @@ class DomainRegistrationClientTest extends TestCase
         $this->assertInstanceOf(DomainRenewal::class, $renewal);
         $this->assertTrue($renewal->available);
         $this->assertCount(2, $renewal->terms);
-        $this->assertInstanceOf(DomainAvailabilityTerm::class, $renewal->terms[0]);
+        $this->assertInstanceOf(DomainRenewalTerm::class, $renewal->terms[0]);
         $this->assertEquals(1, $renewal->terms[0]->period);
         $this->assertSame('36.75', $renewal->terms[0]->price);
     }
