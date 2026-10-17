@@ -11,6 +11,10 @@ use UKFast\SDK\Entity;
  * @property bool|null $autoRenew
  * @property DomainRegistrant|null $registrant
  * @property int|null $clientId
+ * @property string|null $price The price being confirmed, exactly as quoted by availability: the term's
+ *                              registration_price, plus its privacy_price when registrant privacy is requested
+ *                              (see DomainAvailabilityTerm::priceToConfirm()). Required by the API for customer
+ *                              registrations.
  */
 class DomainRegistration extends Entity
 {
@@ -38,6 +42,10 @@ class DomainRegistration extends Entity
 
         if (!is_null($this->clientId)) {
             $data['client'] = ['id' => $this->clientId];
+        }
+
+        if (!is_null($this->price)) {
+            $data['price'] = (string) $this->price;
         }
 
         return $data;
