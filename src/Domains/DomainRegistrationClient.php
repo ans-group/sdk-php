@@ -64,9 +64,10 @@ class DomainRegistrationClient extends BaseClient
     /**
      * Renews a domain for $period years. This is a paid, non-refundable
      * purchase. $price must be the price getRenewal() gave for that period,
-     * exactly as given (e.g. "36.75"): sending it back is how the renewal
-     * accepts it, so a premium or changed price is never charged without
-     * having been quoted.
+     * exactly as given (e.g. "36.75"), which is the term's price property:
+     * its renewal_price plus its privacy_price when the domain has privacy.
+     * Sending it back is how the renewal accepts it, so a premium or changed
+     * price is never charged without having been quoted.
      *
      * @param string $domainName
      * @param int $period

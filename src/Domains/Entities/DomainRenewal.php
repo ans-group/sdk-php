@@ -8,7 +8,7 @@ use UKFast\SDK\Entity;
  * Whether a domain can be renewed now, and what each renewal period costs.
  *
  * @property bool $available
- * @property DomainAvailabilityTerm[] $terms
+ * @property DomainRenewalTerm[] $terms
  */
 class DomainRenewal extends Entity
 {
@@ -20,7 +20,7 @@ class DomainRenewal extends Entity
 
         if (isset($attributes['terms']) && is_array($attributes['terms'])) {
             $attributes['terms'] = array_map(function ($term) {
-                return new DomainAvailabilityTerm((array) $term);
+                return new DomainRenewalTerm((array) $term);
             }, $attributes['terms']);
         }
 

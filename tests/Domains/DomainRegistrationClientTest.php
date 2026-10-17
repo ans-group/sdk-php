@@ -16,6 +16,7 @@ use UKFast\SDK\Domains\Entities\DomainRegistrantAddress;
 use UKFast\SDK\Domains\Entities\DomainRegistrantContact;
 use UKFast\SDK\Domains\Entities\DomainRegistration;
 use UKFast\SDK\Domains\Entities\DomainRenewal;
+use UKFast\SDK\Domains\Entities\DomainRenewalTerm;
 use UKFast\SDK\SelfResponse;
 
 class DomainRegistrationClientTest extends TestCase
@@ -88,6 +89,23 @@ class DomainRegistrationClientTest extends TestCase
         $this->assertArrayNotHasKey('renewal', $api);
         $this->assertArrayNotHasKey('registrant', $api);
         $this->assertArrayNotHasKey('client', $api);
+        $this->assertArrayNotHasKey('price', $api);
+    }
+
+    public function testToApiArraySerializesTheConfirmedPriceAsAString()
+    {
+        $term = (new DomainAvailability([
+            'tier' => 'standard',
+            'terms' => [['period' => 2, 'registration_price' => '29.20', 'privacy_price' => '6.50']],
+        ]))->terms[0];
+
+        $registration = new DomainRegistration([
+            'name' => 'example.co.uk',
+            'period' => 2,
+            'price' => $term->priceToConfirm(true),
+        ]);
+
+        $this->assertSame('35.70', $registration->toApiArray()['price']);
     }
 
     public function testToApiArraySerializesClientId()
@@ -184,7 +202,7 @@ class DomainRegistrationClientTest extends TestCase
         $this->assertInstanceOf(DomainRenewal::class, $renewal);
         $this->assertTrue($renewal->available);
         $this->assertCount(2, $renewal->terms);
-        $this->assertInstanceOf(DomainAvailabilityTerm::class, $renewal->terms[0]);
+        $this->assertInstanceOf(DomainRenewalTerm::class, $renewal->terms[0]);
         $this->assertEquals(1, $renewal->terms[0]->period);
         $this->assertSame('36.75', $renewal->terms[0]->price);
     }
