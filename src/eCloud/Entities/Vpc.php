@@ -12,6 +12,7 @@ use UKFast\SDK\Entity;
  * @property boolean $supportEnabled
  * @property boolean $consoleEnabled
  * @property boolean $advancedNetworkingEnabled
+ * @property boolean $locked
  * @property object{
  *     enabled: boolean
  * } $draas
@@ -30,6 +31,7 @@ class Vpc extends Entity
         'support_enabled' => 'supportEnabled',
         'console_enabled' => 'consoleEnabled',
         'advanced_networking' => 'advancedNetworkingEnabled',
+        'locked' => 'locked',
         'draas' => 'draas',
         'created_at' => 'createdAt',
         'updated_at' => 'updatedAt',
