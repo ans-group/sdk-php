@@ -53,6 +53,11 @@ promise resolving to a `DomainAvailability` entity. HTTP failures reject
 with Guzzle exceptions and invalid JSON with the SDK's
 `InvalidJsonException`.
 
+`DomainClient::updateRegistrant()` includes the Nominet type and company
+fields by default. Pass `false` as the third argument for registrars such as
+Enom that prohibit those fields. This method does not change the registrant
+name.
+
 
 Contributing
 ------------

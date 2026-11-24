@@ -130,6 +130,24 @@ class DomainClientTest extends TestCase
         );
     }
 
+    public function testUpdateSendsTheClientWhenSet()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode(['data' => ['id' => 'edgeley.community'], 'meta' => []])),
+        ]);
+
+        $domain = new Domain();
+        $domain->name = 'edgeley.community';
+        $domain->clientId = 8566;
+
+        $this->assertTrue($client->update($domain));
+        $this->assertEquals('PATCH', $this->lastRequest()->getMethod());
+        $this->assertEquals(
+            ['client' => ['id' => 8566]],
+            json_decode((string) $this->lastRequest()->getBody(), true)
+        );
+    }
+
     public function testDeleteByNameDeletesTheV2Domain()
     {
         $client = $this->client([new Response(204)]);
@@ -268,6 +286,24 @@ class DomainClientTest extends TestCase
             'type' => 'IND',
             'company' => ['number' => null, 'trading_as' => null],
         ], json_decode((string) $this->lastRequest()->getBody(), true));
+    }
+
+    public function testUpdateRegistrantCanOmitNominetCompanyFieldsForEnom()
+    {
+        $client = $this->client([new Response(200, [], '{"data":{"id":"example.com"},"meta":{}}')]);
+        $registrant = new DomainRegistrant([
+            'type' => 'IND',
+            'contact' => new DomainRegistrantContact(['name' => 'Jane Smith', 'email' => 'jane@example.com']),
+            'address' => new DomainRegistrantAddress(['line1' => 'Example Road', 'city' => 'Manchester']),
+        ]);
+
+        $client->updateRegistrant('example.com', $registrant, false);
+
+        $body = json_decode((string) $this->lastRequest()->getBody(), true);
+        $this->assertArrayNotHasKey('name', $body);
+        $this->assertArrayNotHasKey('type', $body);
+        $this->assertArrayNotHasKey('company', $body);
+        $this->assertSame('Jane Smith', $body['contact']['name']);
     }
 
     public function testUpdateWithNothingSetSendsNoRequest()
