@@ -47,6 +47,12 @@ foreach ($page->getItems() as $request) {
 
 Domains v2 TLD categories are available through `TldCategoryClient`.
 
+For concurrent availability checks,
+`DomainRegistrationClient::checkAvailabilityAsync()` returns a Guzzle
+promise resolving to a `DomainAvailability` entity. HTTP failures reject
+with Guzzle exceptions and invalid JSON with the SDK's
+`InvalidJsonException`.
+
 
 Contributing
 ------------

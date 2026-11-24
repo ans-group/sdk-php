@@ -21,6 +21,52 @@ use UKFast\SDK\SelfResponse;
 
 class DomainRegistrationClientTest extends TestCase
 {
+    public function testCheckAvailabilityAsyncUsesScopedHeadersAndReturnsAnEntity()
+    {
+        $history = [];
+        $handler = HandlerStack::create(new MockHandler([
+            new Response(200, [], json_encode([
+                'data' => ['domain' => 'example.com', 'available' => true, 'terms' => []],
+            ])),
+        ]));
+        $handler->push(Middleware::history($history));
+        $client = new DomainRegistrationClient(new Guzzle([
+            'handler' => $handler, 'headers' => ['X-Reseller-ID' => '42', 'X-Contact-ID' => '123'],
+        ]));
+        $client->auth('example-key');
+
+        $result = $client->checkAvailabilityAsync('example.com')->wait();
+
+        $this->assertInstanceOf(DomainAvailability::class, $result);
+        $this->assertSame('example.com', $result->domain);
+        $this->assertSame('POST', $history[0]['request']->getMethod());
+        $this->assertSame('v2/domains/availability', (string) $history[0]['request']->getUri());
+        $this->assertSame('example-key', $history[0]['request']->getHeaderLine('Authorization'));
+        $this->assertSame('42', $history[0]['request']->getHeaderLine('X-Reseller-ID'));
+        $this->assertSame('123', $history[0]['request']->getHeaderLine('X-Contact-ID'));
+        $this->assertSame(['domain' => 'example.com'], json_decode((string) $history[0]['request']->getBody(), true));
+    }
+
+    public function testCheckAvailabilityAsyncRejectsAnUpstreamFailure()
+    {
+        $client = new DomainRegistrationClient(new Guzzle([
+            'handler' => HandlerStack::create(new MockHandler([new Response(503)])),
+        ]));
+
+        $this->expectException(\GuzzleHttp\Exception\ServerException::class);
+        $client->checkAvailabilityAsync('example.com')->wait();
+    }
+
+    public function testCheckAvailabilityAsyncRejectsInvalidJson()
+    {
+        $client = new DomainRegistrationClient(new Guzzle([
+            'handler' => HandlerStack::create(new MockHandler([new Response(200, [], 'invalid json')])),
+        ]));
+
+        $this->expectException(\UKFast\SDK\Exception\InvalidJsonException::class);
+        $client->checkAvailabilityAsync('example.com')->wait();
+    }
+
     public function testCheckAvailabilityReturnsDomainAvailabilityEntity()
     {
         $data = [
