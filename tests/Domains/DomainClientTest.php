@@ -288,24 +288,6 @@ class DomainClientTest extends TestCase
         ], json_decode((string) $this->lastRequest()->getBody(), true));
     }
 
-    public function testUpdateRegistrantCanOmitNominetCompanyFieldsForEnom()
-    {
-        $client = $this->client([new Response(200, [], '{"data":{"id":"example.com"},"meta":{}}')]);
-        $registrant = new DomainRegistrant([
-            'type' => 'IND',
-            'contact' => new DomainRegistrantContact(['name' => 'Jane Smith', 'email' => 'jane@example.com']),
-            'address' => new DomainRegistrantAddress(['line1' => 'Example Road', 'city' => 'Manchester']),
-        ]);
-
-        $client->updateRegistrant('example.com', $registrant, false);
-
-        $body = json_decode((string) $this->lastRequest()->getBody(), true);
-        $this->assertArrayNotHasKey('name', $body);
-        $this->assertArrayNotHasKey('type', $body);
-        $this->assertArrayNotHasKey('company', $body);
-        $this->assertSame('Jane Smith', $body['contact']['name']);
-    }
-
     public function testUpdateWhoisPrivacySendsOnlyThePrivacySetting()
     {
         $client = $this->client([

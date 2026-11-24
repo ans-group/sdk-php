@@ -190,34 +190,28 @@ class DomainClient extends BaseClient
     /**
      * Updates a Domains Registrant at the registry. The registrant's name
      * can't be changed this way, so it isn't sent. A null field is sent as
-     * null, which clears it (e.g. a trading name or phone number). Set
-     * $includeCompanyFields to false for registrars such as Enom that
-     * prohibit the type and company fields. The API
+     * null, which clears it (e.g. a trading name or phone number). The API
      * requires the contact and address, so a registrant without either
      * leaves it out and gets the API's validation error.
      *
      * @param string $name
      * @param DomainRegistrant $registrant
-     * @param bool $includeCompanyFields
      * @return bool
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function updateRegistrant($name, DomainRegistrant $registrant, $includeCompanyFields = true)
+    public function updateRegistrant($name, DomainRegistrant $registrant)
     {
         $company = $registrant->company;
         $contact = $registrant->contact;
         $address = $registrant->address;
 
-        $data = [];
-        if ($includeCompanyFields === true) {
-            $data = [
-                'type' => $registrant->type,
-                'company' => [
-                    'number' => $company ? $company->number : null,
-                    'trading_as' => $company ? $company->tradingAs : null,
-                ],
-            ];
-        }
+        $data = [
+            'type' => $registrant->type,
+            'company' => [
+                'number' => $company ? $company->number : null,
+                'trading_as' => $company ? $company->tradingAs : null,
+            ],
+        ];
 
         if ($contact) {
             $data['contact'] = [
