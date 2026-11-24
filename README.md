@@ -45,18 +45,6 @@ foreach ($page->getItems() as $request) {
 }
 ```
 
-Domains v2 TLD categories are available through `TldCategoryClient`.
-
-For concurrent availability checks,
-`DomainRegistrationClient::checkAvailabilityAsync()` returns a Guzzle
-promise resolving to a `DomainAvailability` entity. HTTP failures reject
-with Guzzle exceptions and invalid JSON with the SDK's
-`InvalidJsonException`.
-
-`DomainClient::updateWhoisPrivacy()` sends only the WHOIS privacy setting.
-Turning it on is chargeable, so take payment first. `DomainRegistrationClient::getRenewal()`
-quotes each renewal term, including the privacy renewal for domains that have it.
-
 
 Contributing
 ------------
