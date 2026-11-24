@@ -45,6 +45,8 @@ foreach ($page->getItems() as $request) {
 }
 ```
 
+Domains v2 TLD categories are available through `TldCategoryClient`.
+
 
 Contributing
 ------------
