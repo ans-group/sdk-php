@@ -78,6 +78,25 @@ class DomainClient extends BaseClient
     }
 
     /**
+     * Turns WHOIS privacy on or off for a Domain. Only the privacy setting is
+     * sent, so no other part of the Domain can change with it. The API flags
+     * the change for the registrar sync rather than calling the registrar
+     * itself. Turning privacy on is a chargeable product, so take payment
+     * before calling this.
+     *
+     * @param string $name
+     * @param bool $enabled
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function updateWhoisPrivacy($name, $enabled)
+    {
+        $this->patch("v2/domains/$name", json_encode(['registrant' => ['privacy' => (bool) $enabled]]));
+
+        return true;
+    }
+
+    /**
      * Removes a Domain from the account. This only stops ANS tracking it:
      * the registration itself stays exactly as it is at the registry.
      *

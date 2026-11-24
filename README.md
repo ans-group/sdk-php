@@ -58,6 +58,10 @@ fields by default. Pass `false` as the third argument for registrars such as
 Enom that prohibit those fields. This method does not change the registrant
 name.
 
+`DomainClient::updateWhoisPrivacy()` sends only the WHOIS privacy setting.
+Turning it on is chargeable, so take payment first. `DomainRegistrationClient::getRenewal()`
+quotes each renewal term, including the privacy renewal for domains that have it.
+
 
 Contributing
 ------------

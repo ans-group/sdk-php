@@ -306,6 +306,28 @@ class DomainClientTest extends TestCase
         $this->assertSame('Jane Smith', $body['contact']['name']);
     }
 
+    public function testUpdateWhoisPrivacySendsOnlyThePrivacySetting()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode(['data' => ['id' => 'edgeley.community'], 'meta' => []])),
+            new Response(200, [], json_encode(['data' => ['id' => 'edgeley.community'], 'meta' => []])),
+        ]);
+
+        $this->assertTrue($client->updateWhoisPrivacy('edgeley.community', true));
+        $this->assertEquals('PATCH', $this->lastRequest()->getMethod());
+        $this->assertEquals('v2/domains/edgeley.community', (string) $this->lastRequest()->getUri());
+        $this->assertSame(
+            '{"registrant":{"privacy":true}}',
+            (string) $this->lastRequest()->getBody()
+        );
+
+        $this->assertTrue($client->updateWhoisPrivacy('edgeley.community', false));
+        $this->assertSame(
+            '{"registrant":{"privacy":false}}',
+            (string) $this->lastRequest()->getBody()
+        );
+    }
+
     public function testUpdateWithNothingSetSendsNoRequest()
     {
         $client = $this->client([]);
