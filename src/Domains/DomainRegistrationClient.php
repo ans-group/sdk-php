@@ -44,7 +44,7 @@ class DomainRegistrationClient extends BaseClient
 
         return $this->httpClient->requestAsync('POST', 'v2/domains/availability', [
             'headers' => $headers,
-            'body' => json_encode(['domain' => $domainName]),
+            'json' => ['domain' => $domainName],
         ])->then(function ($response) {
             $body = $this->decodeJson($response->getBody()->getContents());
             return new DomainAvailability((array) $body->data);

@@ -44,6 +44,7 @@ class DomainRegistrationClientTest extends TestCase
         $this->assertSame('example-key', $history[0]['request']->getHeaderLine('Authorization'));
         $this->assertSame('42', $history[0]['request']->getHeaderLine('X-Reseller-ID'));
         $this->assertSame('123', $history[0]['request']->getHeaderLine('X-Contact-ID'));
+        $this->assertSame('application/json', $history[0]['request']->getHeaderLine('Content-Type'));
         $this->assertSame(['domain' => 'example.com'], json_decode((string) $history[0]['request']->getBody(), true));
     }
 
