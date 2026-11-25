@@ -5,6 +5,7 @@ namespace UKFast\SDK\Domains;
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Page;
 use UKFast\SDK\Domains\Entities\Domain;
+use UKFast\SDK\Domains\Entities\DomainPrivacyQuote;
 use UKFast\SDK\Domains\Entities\DomainRegistrant;
 use UKFast\SDK\Domains\Entities\DomainRegistrantAddress;
 use UKFast\SDK\Domains\Entities\DomainRegistrantCompany;
@@ -14,6 +15,15 @@ use UKFast\SDK\Domains\Entities\Nameserver;
 class DomainClient extends BaseClient
 {
     protected $basePath = 'registrar/';
+
+    /**
+     * Privacy quote API fields which need mapping
+     *
+     * @var array
+     */
+    public $privacyQuoteMap = [
+        'paid_until' => 'paidUntil',
+    ];
 
     /**
      * Gets a paginated response of all Domains
@@ -78,20 +88,41 @@ class DomainClient extends BaseClient
     }
 
     /**
-     * Turns WHOIS privacy on or off for a Domain. Only the privacy setting is
-     * sent, so no other part of the Domain can change with it. The API flags
-     * the change for the registrar sync rather than calling the registrar
-     * itself. Turning privacy on is a chargeable product, so take payment
-     * before calling this.
+     * Gets whether WHOIS privacy can be enabled on a Domain now, and what it
+     * costs for the rest of the registration term
+     *
+     * @param string $name
+     * @return DomainPrivacyQuote
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getPrivacyQuote($name)
+    {
+        $response = $this->request("GET", "v2/domains/$name/privacy");
+        $body = $this->decodeJson($response->getBody()->getContents());
+        return new DomainPrivacyQuote($this->apiToFriendly($body->data, $this->privacyQuoteMap));
+    }
+
+    /**
+     * Turns WHOIS privacy on or off for a Domain. Only the privacy setting,
+     * and $price when given, are sent, so no other part of the Domain can
+     * change with it. Enabling privacy may require $price: the price
+     * getPrivacyQuote() gave, exactly as given (e.g. "6.50").
      *
      * @param string $name
      * @param bool $enabled
+     * @param string|null $price
      * @return bool
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function updateWhoisPrivacy($name, $enabled)
+    public function updateWhoisPrivacy($name, $enabled, $price = null)
     {
-        $this->patch("v2/domains/$name", json_encode(['registrant' => ['privacy' => (bool) $enabled]]));
+        $registrant = ['privacy' => (bool) $enabled];
+
+        if (!is_null($price)) {
+            $registrant['privacy_price'] = (string) $price;
+        }
+
+        $this->patch("v2/domains/$name", json_encode(['registrant' => $registrant]));
 
         return true;
     }
