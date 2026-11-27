@@ -13,23 +13,33 @@ use UKFast\SDK\Domains\TldCategoryClient;
 
 class TldCategoryClientTest extends TestCase
 {
-    public function testListsCategoriesUsingTheV2Endpoint()
+    public function testGetsAllCategoriesFromTheUnpaginatedV2Endpoint()
     {
         $history = [];
         $handler = HandlerStack::create(new MockHandler([
             new Response(200, [], json_encode([
-                'data' => [['name' => 'Technology', 'order' => 3]],
-                'meta' => ['pagination' => ['total' => 1, 'count' => 1, 'per_page' => 50, 'total_pages' => 1]],
+                'data' => [['name' => 'Technology'], ['name' => 'Geographic']],
+                'meta' => [],
             ])),
         ]));
         $handler->push(Middleware::history($history));
         $client = new TldCategoryClient(new Guzzle(['handler' => $handler]));
 
-        $page = $client->getPage(1, 50);
+        $categories = $client->getAll();
 
-        $this->assertStringStartsWith('v2/tld-categories?', (string) $history[0]['request']->getUri());
-        $this->assertInstanceOf(TldCategory::class, $page->getItems()[0]);
-        $this->assertEquals('Technology', $page->getItems()[0]->name);
-        $this->assertEquals(3, $page->getItems()[0]->order);
+        $this->assertEquals('v2/tld-categories', (string) $history[0]['request']->getUri());
+        $this->assertInstanceOf(TldCategory::class, $categories[0]);
+        $this->assertEquals('Technology', $categories[0]->name);
+        $this->assertEquals('Geographic', $categories[1]->name);
+    }
+
+    public function testGetsAnEmptyListWhenTheCatalogueHasNoCategories()
+    {
+        $handler = HandlerStack::create(new MockHandler([
+            new Response(200, [], json_encode(['data' => [], 'meta' => []])),
+        ]));
+        $client = new TldCategoryClient(new Guzzle(['handler' => $handler]));
+
+        $this->assertSame([], $client->getAll());
     }
 }

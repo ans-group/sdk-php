@@ -4,21 +4,25 @@ namespace UKFast\SDK\Domains;
 
 use UKFast\SDK\Client as BaseClient;
 use UKFast\SDK\Domains\Entities\TldCategory;
-use UKFast\SDK\Traits\PageItems;
 
 class TldCategoryClient extends BaseClient
 {
-    use PageItems;
-
     protected $basePath = 'registrar/';
-    protected $collectionPath = 'v2/tld-categories';
 
     /**
-     * @param object $data
-     * @return TldCategory
+     * Gets every TLD category in the catalogue. The endpoint is not paginated or filterable, and each category
+     * exposes only its name.
+     *
+     * @return TldCategory[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function loadEntity($data)
+    public function getAll()
     {
-        return new TldCategory((array) $data);
+        $response = $this->get('v2/tld-categories');
+        $body = $this->decodeJson($response->getBody()->getContents());
+
+        return array_map(function ($item) {
+            return new TldCategory((array) $item);
+        }, $body->data);
     }
 }
