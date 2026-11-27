@@ -28,6 +28,30 @@ class DomainRegistrationClient extends BaseClient
     }
 
     /**
+     * Check availability asynchronously. HTTP errors reject with the
+     * corresponding Guzzle exception; invalid JSON rejects with the SDK
+     * InvalidJsonException.
+     *
+     * @param string $domainName
+     * @return \GuzzleHttp\Promise\PromiseInterface Resolves to DomainAvailability
+     */
+    public function checkAvailabilityAsync($domainName)
+    {
+        $headers = $this->httpClient->getConfig('headers');
+        if ($this->token) {
+            $headers['Authorization'] = $this->token;
+        }
+
+        return $this->httpClient->requestAsync('POST', 'v2/domains/availability', [
+            'headers' => $headers,
+            'json' => ['domain' => $domainName],
+        ])->then(function ($response) {
+            $body = $this->decodeJson($response->getBody()->getContents());
+            return new DomainAvailability((array) $body->data);
+        });
+    }
+
+    /**
      * Register a domain
      *
      * @param DomainRegistration $registration

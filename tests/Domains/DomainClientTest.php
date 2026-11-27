@@ -10,6 +10,7 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use UKFast\SDK\Domains\DomainClient;
 use UKFast\SDK\Domains\Entities\Domain;
+use UKFast\SDK\Domains\Entities\DomainPrivacyQuote;
 use UKFast\SDK\Domains\Entities\DomainRegistrant;
 use UKFast\SDK\Domains\Entities\DomainRegistrantAddress;
 use UKFast\SDK\Domains\Entities\DomainRegistrantCompany;
@@ -126,6 +127,24 @@ class DomainClientTest extends TestCase
         $this->assertEquals('v2/domains/edgeley.community', (string) $this->lastRequest()->getUri());
         $this->assertEquals(
             ['renewal' => ['auto' => false]],
+            json_decode((string) $this->lastRequest()->getBody(), true)
+        );
+    }
+
+    public function testUpdateSendsTheClientWhenSet()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode(['data' => ['id' => 'edgeley.community'], 'meta' => []])),
+        ]);
+
+        $domain = new Domain();
+        $domain->name = 'edgeley.community';
+        $domain->clientId = 8566;
+
+        $this->assertTrue($client->update($domain));
+        $this->assertEquals('PATCH', $this->lastRequest()->getMethod());
+        $this->assertEquals(
+            ['client' => ['id' => 8566]],
             json_decode((string) $this->lastRequest()->getBody(), true)
         );
     }
@@ -268,6 +287,111 @@ class DomainClientTest extends TestCase
             'type' => 'IND',
             'company' => ['number' => null, 'trading_as' => null],
         ], json_decode((string) $this->lastRequest()->getBody(), true));
+    }
+
+    public function testUpdateWhoisPrivacySendsOnlyThePrivacySetting()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode(['data' => ['id' => 'edgeley.community'], 'meta' => []])),
+            new Response(200, [], json_encode(['data' => ['id' => 'edgeley.community'], 'meta' => []])),
+        ]);
+
+        $this->assertTrue($client->updateWhoisPrivacy('edgeley.community', true));
+        $this->assertEquals('PATCH', $this->lastRequest()->getMethod());
+        $this->assertEquals('v2/domains/edgeley.community', (string) $this->lastRequest()->getUri());
+        $this->assertSame(
+            '{"registrant":{"privacy":true}}',
+            (string) $this->lastRequest()->getBody()
+        );
+
+        $this->assertTrue($client->updateWhoisPrivacy('edgeley.community', false));
+        $this->assertSame(
+            '{"registrant":{"privacy":false}}',
+            (string) $this->lastRequest()->getBody()
+        );
+    }
+
+    public function testUpdateWhoisPrivacySendsTheQuotedPriceWhenGiven()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode(['data' => ['id' => 'edgeley.community'], 'meta' => []])),
+        ]);
+
+        $this->assertTrue($client->updateWhoisPrivacy('edgeley.community', true, '6.50'));
+        $this->assertEquals('PATCH', $this->lastRequest()->getMethod());
+        $this->assertEquals('v2/domains/edgeley.community', (string) $this->lastRequest()->getUri());
+        $this->assertSame(
+            '{"registrant":{"privacy":true,"privacy_price":"6.50"}}',
+            (string) $this->lastRequest()->getBody()
+        );
+    }
+
+    public function testGetPrivacyQuoteReturnsTheChargeablePrice()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode([
+                'data' => ['available' => true, 'price' => '6.50', 'period' => 2, 'paid_until' => null],
+                'meta' => [],
+            ])),
+        ]);
+
+        $quote = $client->getPrivacyQuote('edgeley.community');
+
+        $this->assertEquals('GET', $this->lastRequest()->getMethod());
+        $this->assertEquals('v2/domains/edgeley.community/privacy', (string) $this->lastRequest()->getUri());
+        $this->assertInstanceOf(DomainPrivacyQuote::class, $quote);
+        $this->assertTrue($quote->available);
+        $this->assertSame('6.50', $quote->price);
+        $this->assertSame(2, $quote->period);
+        $this->assertNull($quote->paidUntil);
+    }
+
+    public function testGetPrivacyQuoteReturnsAFreePrice()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode([
+                'data' => ['available' => true, 'price' => '0.00', 'period' => 1, 'paid_until' => null],
+                'meta' => [],
+            ])),
+        ]);
+
+        $quote = $client->getPrivacyQuote('edgeley.community');
+
+        $this->assertTrue($quote->available);
+        $this->assertSame('0.00', $quote->price);
+        $this->assertNull($quote->paidUntil);
+    }
+
+    public function testGetPrivacyQuoteReturnsWhenPrivacyIsAlreadyPaidUntil()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode([
+                'data' => ['available' => true, 'price' => '0.00', 'period' => 1, 'paid_until' => '2027-03-01'],
+                'meta' => [],
+            ])),
+        ]);
+
+        $quote = $client->getPrivacyQuote('edgeley.community');
+
+        $this->assertSame('0.00', $quote->price);
+        $this->assertInstanceOf(\DateTime::class, $quote->paidUntil);
+        $this->assertSame('2027-03-01', $quote->paidUntil->format('Y-m-d'));
+    }
+
+    public function testGetPrivacyQuoteReturnsANullPriceWhenPrivacyIsUnavailable()
+    {
+        $client = $this->client([
+            new Response(200, [], json_encode([
+                'data' => ['available' => false, 'price' => null, 'period' => 1, 'paid_until' => null],
+                'meta' => [],
+            ])),
+        ]);
+
+        $quote = $client->getPrivacyQuote('edgeley.community');
+
+        $this->assertFalse($quote->available);
+        $this->assertNull($quote->price);
+        $this->assertNull($quote->paidUntil);
     }
 
     public function testUpdateWithNothingSetSendsNoRequest()
